@@ -4,10 +4,21 @@ description: 每日巡检前卫/实验/学院派爵士/电子/世界音乐评论
 category: music
 tags: [experimental, jazz, electronic, world-music, avant-garde, music-reviews, synthwave, darksynth, dungeon-synth, dark-ambient]
 author: hermes-agent
-version: 0.8
+version: 1.0
 created: 2026-04-20
 updated: 2026-04-29
 trigger_condition: 每天北京时间凌晨 03:00 自动触发，或手动调用
+
+> ## ⚠️ 执行策略（2026-04-29 实测重要发现）
+
+**已验证的执行策略（必须遵守）：**
+
+1. **browser_navigate 超时 → 立即改用 web_search**：`browser_navigate` 超时（60s）后，不要重试，直接用 `web_search("site:目标域名 album review 2026")` 替代。实测这是唯一可靠的大批量巡检方案。
+2. **每批 5~8 站后必须清理 chromium**：Playwright headless 连续运行约 10 分钟后 browser daemon 会变得无响应，导致后续所有 `browser_navigate` 超时。**每批结束后必须 `pkill -f chromium` 清理**，再开始下一批。
+3. **并发 subagent 分组执行**：46 站分 3 组并发（每组 ~15 站），每组完成后清理浏览器再汇总。
+4. **web_search 是 JS 渲染站的唯一可靠途径**：大多数音乐评论站（The Quietus、Bandcamp Daily、A Closer Listen 等）用 curl/HTML 解析只能抓到空壳，web_search 能跨站获取实质内容。
+5. **RSS 摘要质量差/被截断时**：直接 web_search 补充，不降级 Playwright（绕不过订阅墙）。
+6. **避免纯 browser_navigate 大批量巡检**：browser 工具在这个环境里单次可用，连读使用后会耗尽。用 web_search 补充是更稳定的方式。
 output_target: Telegram（top 20 主推荐）/ GitHub（全量 markdown）
 ---
 
@@ -672,18 +683,20 @@ if os.path.exists(os.path.join(REPO_PATH, ".git")):
     subprocess.run(["git", "-C", REPO_PATH, "config", "user.name", "hermes-agent"], check=False)
     subprocess.run(["git", "-C", REPO_PATH, "config", "user.email", "hermes@local"], check=False)
 
-# 建立 skill 目录的 symlink（指向本地 skill，始终保持同步）
+# 建立 skill 目录的 hard link（指向本地 skill，inode 相同，编辑自动同步）
 os.makedirs(os.path.join(REPO_PATH, "skill", "references"), exist_ok=True)
-subprocess.run(["ln", "-sf",
+subprocess.run(["ln", "-f",
     os.path.join(SKILL_PATH, "SKILL.md"),
     os.path.join(REPO_PATH, "skill", "avant-garde-daily-recs.md")], check=False)
-subprocess.run(["ln", "-sf",
+subprocess.run(["ln", "-f",
     os.path.join(SKILL_PATH, "references", "sites.json"),
     os.path.join(REPO_PATH, "skill", "references", "sites.json")], check=False)
-subprocess.run(["ln", "-sf",
+subprocess.run(["ln", "-f",
     os.path.join(SKILL_PATH, "references", "quick-ref.md"),
     os.path.join(REPO_PATH, "skill", "references", "quick-ref.md")], check=False)
 ```
+
+> **注意**：使用 hard link（inode 相同）而非 symlink。同一文件系统内，编辑 skill 文件后 repo 内对应文件自动同步，无需重新 ln。GitHub push 时会推送实际内容而非路径。同一文件系统的判定：`df` 两个路径返回相同挂载点即可用 hard link。
 
 ### ⚠️ 重要：两套输出规范
 
