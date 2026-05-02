@@ -4,21 +4,22 @@ description: 每日巡检前卫/实验/学院派爵士/电子/世界音乐评论
 category: music
 tags: [experimental, jazz, electronic, world-music, avant-garde, music-reviews, synthwave, darksynth, dungeon-synth, dark-ambient]
 author: hermes-agent
-version: 1.0
+version: 1.1
 created: 2026-04-20
-updated: 2026-04-29
+updated: 2026-05-03
 trigger_condition: 每天北京时间凌晨 03:00 自动触发，或手动调用
 
-> ## ⚠️ 执行策略（2026-04-29 实测重要发现）
-
-**已验证的执行策略（必须遵守）：**
-
-1. **browser_navigate 超时 → 立即改用 web_search**：`browser_navigate` 超时（60s）后，不要重试，直接用 `web_search("site:目标域名 album review 2026")` 替代。实测这是唯一可靠的大批量巡检方案。
-2. **每批 5~8 站后必须清理 chromium**：Playwright headless 连续运行约 10 分钟后 browser daemon 会变得无响应，导致后续所有 `browser_navigate` 超时。**每批结束后必须 `pkill -f chromium` 清理**，再开始下一批。
-3. **并发 subagent 分组执行**：46 站分 3 组并发（每组 ~15 站），每组完成后清理浏览器再汇总。
-4. **web_search 是 JS 渲染站的唯一可靠途径**：大多数音乐评论站（The Quietus、Bandcamp Daily、A Closer Listen 等）用 curl/HTML 解析只能抓到空壳，web_search 能跨站获取实质内容。
-5. **RSS 摘要质量差/被截断时**：直接 web_search 补充，不降级 Playwright（绕不过订阅墙）。
-6. **避免纯 browser_navigate 大批量巡检**：browser 工具在这个环境里单次可用，连读使用后会耗尽。用 web_search 补充是更稳定的方式。
+> ## ⚠️ 执行策略（2026-05-03 重大更新：并发 subagent 方案已验证）
+>
+> **2026-05-03 实测有效：5 个 subagent 并发巡检，30 张候选，推荐质量显著提升。**
+>
+> **推荐的新执行流程（必须优先使用）：**
+>
+> 1. **并发 subagent 巡检**：`delegate_task(tasks=[...])` 一次最多 3 个并发，多批执行。每 agent 独立巡检 3-4 个站点，互不干扰。
+> 2. **主 session 只负责汇总**：收集各 subagent 的 JSON 结果，合并去重，生成 markdown，推送 GitHub + Telegram。
+> 3. **nohup 仍用于 cron 场景**：cron 触发 → skill 立即返回 → nohup 进程后台跑 → 下次 cron 检测结果文件。
+> 4. **Playwright 降级规则不变**：browser_navigate 超时 → 立即改用 web_search。
+> 5. **web_search 是 paywall 站唯一途径**：The Quietus / A Closer Listen / Bandcamp Daily 等直接抓取无效，必须 web_search 跨站。
 output_target: Telegram（top 20 主推荐）/ GitHub（全量 markdown）
 ---
 
@@ -515,31 +516,39 @@ total_score = critic_quality(0-5) + taste_match(0-5) + novelty(0-3) + cross_doma
 - 记录**所有评分 >= 6 的条目**（不限于 16 条）
 - JSON 不再推送给用户，用户只看 Markdown
 
-## ⚠️ 重要架构说明：为什么不能用 delegate_task 绕过 cron 超时
+## ⚠️ 重要架构说明：并发 subagent 执行方案（2026-05-03 验证）
 
-**已知限制（GitHub Issue #5204, #4271 确认）：**
+**结论：必须用 `delegate_task(tasks=[...])` 的 batch 模式并发执行，不要用 nohup 方案替代并发采集。**
 
-1. `delegate_task` 是**同步阻塞**的——主 session 等待 subagent 返回结果后才会继续
-2. `delegate_task` 是**顺序执行**，不是并行——多个 tasks 也是串一个跑完再跑下一个
-3. **cron 3 分钟打断是作用在主 session 上的**，不管有没有 subagent，主 session 无产出 3 分钟就会被 kill
-4. **没有内置的 async/background subagent 机制**
+### 关键限制（需注意）
 
-这意味着：无论是否用 `delegate_task`，cron 3 分钟打断都会生效。不能用 delegate 作为解法。
+1. **`delegate_task(tasks=[...])` 一次最多 3 个并发**（`max_concurrent_children=3`），超过会报错。超过 3 个任务时分多批调用。
+2. **subagent 是完全隔离的**：没有共享内存，每个 agent 独立工作，主 session 只负责汇总结果。
+3. **cron 场景仍需 nohup**：cron 触发后 skill 必须立即返回才能不被 kill，并发 subagent 在 cron 模式下不适用。cron 场景用 nohup 把完整采集丢后台，主 session 快速返回。
 
-**正确的长任务方案：terminal(background=true) + nohup**
+### 手动执行（推荐）：并发 subagent 巡检流程
 
 ```
-cron触发 → skill立即返回SUCCESS → nohup进程后台跑 → 下次cron检测结果文件
+Step 1: 加载 skill，理解站点配置（sites.json）
+Step 2: 把站点按类型分成 3-5 组，每组 3-4 个站点（RSS可靠的、paywall需web_search的、爵士专项等）
+Step 3: 调用 delegate_task(tasks=[...]) 并发执行，主 session 等待所有 subagent 返回
+Step 4: 收集各 subagent 的 JSON 结果，合并去重
+Step 5: 生成 markdown，写入 GitHub repo
+Step 6: 推送 Telegram（top 20 主推荐）
 ```
 
-具体实现：
-1. cron job 触发 skill
-2. skill 里用 `terminal(command="nohup python3 /path/to/crawler.py > /tmp/crawler.log 2>&1 &", background=false)` 立即返回
-3. nohup 进程独立运行，不占用主 session
-4. 下一次 cron（比如 03:30）检测 `~/.hermes/cron/output/daily_album_recs_YYYY_MM_DD.json` 是否存在
-5. 存在则推送 Telegram
+### cron 执行（nohup 方案）
 
-**如果任务量可控（RSS 站 ≤ 8 个）：** 可以直接在 skill 里用 `execute_code` 或标准 Python 并发跑完，不需要 nohup。nohup 只在任务量超过 3 分钟时才需要。
+```
+Step 1: cron 触发 skill
+Step 2: skill 立即 fork: terminal(command="nohup python3 /path/to/crawler.py > /tmp/crawler.log 2>&1 &", background=false)
+Step 3: skill 立即返回 SUCCESS
+Step 4: nohup 进程独立运行
+Step 5: 下一次 cron（比如 03:30）检测 ~/.hermes/cron/output/daily_album_recs_{date}.json 是否存在
+Step 6: 存在则推送 Telegram
+```
+
+**注意**：cron 场景下，如果任务量可控（≤8 个 RSS 站），可以直接在 skill 里用 Python 并发跑完，不需要 nohup。
 
 ## 每日 cron job 配置
 
@@ -810,19 +819,45 @@ md += f"推荐原因：{reason}"
 
 **建议**：The Wire RSS 需二次过滤（`is_album_review()` + URL pattern `/reviews/` 或标题含 `reviewed`）。
 
-### Source Diversity 重要性
-第一天执行时主推荐被 The Wire 主导（6/8），因为其 RSS 量大且 playlist/interview 条目得分偏高。
+### The Wire 过滤规则（强制执行）
 
-**解决方案**：
-1. `is_album_review()` 函数识别专辑乐评 URL pattern（`quietus-reviews`, `-review`, `/album-`）
-2. 每源最多 3 条主推荐上限（`MAX_PER_SOURCE = 3`）
-3. 低于阈值时从候选补充补充
+The Wire RSS **几乎不产出专辑乐评**，全是 playlists / interviews / columns / 年终总结。必须二次过滤后才能参与评分。
+
+**判断逻辑**（`is_album_review_wire()` 必须同时满足）：
+
+1. 摘要里没有 `playlist` / `to accompany his article` / `to accompany his report` / `compiles an annotated playlist` / `explores a playlist` 等引导语
+2. 标题格式含"艺人名: 专辑名"或"艺人名 — 专辑名"（不是纯主题词）
+
+**硬过滤**（以下情况直接 skip，不参与评分，不记入 source_limits）：
+- 摘要含 "playlist" → 不是专辑乐评
+- 摘要含 "to accompany his article/report" → 不是专辑乐评
+- 标题无冒号/破折号分隔艺人名和专辑名 → 不是专辑乐评格式
 
 ```python
-MAX_PER_SOURCE = 3
-source_limits = defaultdict(int)
-# 填充 main_recs 时检查 source_limits
+THE_WIRE_PLAYLIST_PATTERNS = [
+    "to accompany his article",
+    "to accompany his report",
+    "to accompany her article",
+    "compiles an annotated playlist",
+    "explores a playlist",
+    "playlist of tracks",
+]
+
+def is_album_review_wire(title, summary):
+    """The Wire 专用：判断是否是专辑乐评而非 playlist/feature"""
+    s = (title + " " + summary).lower()
+    for pat in THE_WIRE_PLAYLIST_PATTERNS:
+        if pat in s:
+            return False
+    # 标题必须有艺人:专辑格式（含冒号/破折号）
+    if not (":" in title or "–" in title or " - " in title):
+        return False
+    return True
 ```
+
+**Source Diversity 规则**：
+1. `MAX_PER_SOURCE = 3` — 每源最多 3 条主推荐
+2. The Wire 经 `is_album_review_wire()` 过滤后仍满足条件的条目，才能参与评分和 source_limits 计数
 
 ### sites.json has_rss 字段校验（部分不准确）
 以下站点标了 has_rss=true 但实际需用 Playwright：
@@ -866,7 +901,40 @@ source_limits = defaultdict(int)
 
 The Wire RSS 匹配到 "Unlimited Editions: Hive Mind" 时，得分高（因为 gamelan/world 相关关键词命中），但 RSS 摘要本身只是 "To accompany his article..." 这类引导文字，没有乐评正文。
 
-**正确做法**：推荐原因必须基于实际获取到的评论正文生成。The Wire 这类站点无法通过 Playwright 绕过 paywall，应直接用 `web_search` 找其他站点的评论。
+### 付费墙 / 搜索补充流程（强制执行，不得跳过）
+
+当遇到以下情况时，**必须**按顺序执行：
+
+1. **检测到 paywall / 摘要 < 150 字符 / 提示 "to accompany his article" 等引导语**
+2. **先用 `is_album_review_wire()` 做 The Wire 专用判断**（见上节）
+3. **通过 The Wire 判断后**，对于任何站点的 paywall 条目：
+   - 用 `web_search("\"{album_name}\" \"{artist_name}\" review site:bandcampdaily.com OR site:thequietus.com OR site:acloserlisten.com OR site:saitenkult.de OR site:boomkat.com OR site:textura.org")` 搜索其他站的评论
+   - 优先找 Bandcamp Daily、The Quietus、A Closer Listen、SaitenKult、Boomkat、Textura 等正文可达的站
+4. **搜索到实质内容** → 用实际评论内容生成推荐语，进入候选
+5. **搜索后仍无实质内容** → 标注 `"全文未获取，仅搜索补充"` 后可进入候选（评分 >= 9 才进主推荐，否则进候选补充），**不得自行脑补推荐语**
+
+**禁止的行为**：
+- 不得用评分维度描述（"张力非常足""值得反复聆听"）充当推荐语
+- 不得在搜索失败后直接跳过
+- 不得用 "全文未获取" 作为不进候选的借口——只要搜索了、评分够了，就必须进候选表
+
+```python
+def supplement_review_via_search(title, summary, artist=None, album=None):
+    """跨站搜索补充推荐语"""
+    # 先解析出 album 和 artist（从 title 格式 "Album — Artist" 或 "Artist: Album"）
+    query = f'"{album}" "{artist}" review' if album and artist else f'"{title}" review'
+    search_results = web_search(query, limit=5)
+    # 找正文可达的站的评论
+    for result in search_results.get('data', {}).get('web', []):
+        url = result['url']
+        if any(site in url for site in ['bandcampdaily.com', 'thequietus.com', 'acloserlisten.com',
+                                          'saitenkult.de', 'boomkat.com', 'textura.org',
+                                          'quietus.com', 'acl.to']):
+            content = web_extract([url])
+            if content and len(content) > 200:
+                return content  # 返回实际评论正文用于生成推荐语
+    return None
+```
 
 ## 执行环境注意事项（2026-04-22 实测）
 
