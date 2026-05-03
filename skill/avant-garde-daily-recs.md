@@ -1,6 +1,6 @@
 ---
 name: avant-garde-daily-recs
-description: 每日巡检前卫/实验/学院派爵士/电子/世界音乐评论站，输出结构化专辑推荐清单。RSS 优先，Playwright 保底，web_search 跨站补充。全量写入 GitHub 仓库，Telegram 只推送 top 20。
+description: 每日巡检前卫/实验/学院派爵士/电子/世界音乐评论站，输出结构化专辑推荐清单。并发 subagent 巡检，web_search 跨站为主，RSS 辅助补全。全量写入 GitHub 仓库，Telegram 只推送 top 20。
 category: music
 tags: [experimental, jazz, electronic, world-music, avant-garde, music-reviews, synthwave, darksynth, dungeon-synth, dark-ambient]
 author: hermes-agent
@@ -29,27 +29,31 @@ output_target: Telegram（top 20 主推荐）/ GitHub（全量 markdown）
 
 每天自动浏览音乐评论网站，筛选符合口味的专辑，输出"今日专辑推荐清单"到 Telegram。
 
-## 核心执行逻辑（必须按顺序执行）
+## 核心执行逻辑
+
+### 手动执行（推荐）
 
 ```
-Step 1: 读取本 skill 的站点配置表（sites.json）
-Step 2: 构建今日待巡检队列（根据各站 crawl_frequency）
-Step 3: 对每个站点：
-    ├─ 优先检查是否有 RSS URL
-    │   ├─ 有 RSS → 用 feedparser / curl 抓 RSS，解析条目
-    │   └─ 无 RSS → 用 Playwright headless + stealth 模式抓页面
-    │       └─ 导航到 Reviews/Albums/分类栏目
-    │       └─ 提取文章标题/URL/日期/标签
-    │       └─ 若检测到 Cloudflare JS 挑战（"Just a moment..."）→ 降级 headed 模式
-Step 4: 对每个候选页面：
-    ├─ 读取正文（RSS 条目摘要 或 Playwright 抓正文）
-    ├─ 判断是否符合口味
-    └─ 打分（见评分公式）
-Step 5: 过滤 + 去重
-Step 6: 生成主推荐 + 候选补充
-Step 7: 输出 Markdown + JSON
-Step 8: 推送到 Telegram Home Channel（**top 20 主推荐**，精简格式）
-Step 9: **关闭所有 Playwright 浏览器进程**（browser_navigate("about:blank") + kill 残留 chromium）
+Step 1: 加载 skill，读取 sites.json，理解站点 tier（S/A/B 级分类）
+Step 2: 把站点按类型分成 3-5 组，每组 3-4 站：
+         - RSS 可靠组：Igloo Magazine、I CARE IF YOU LISTEN、Free Jazz Blog 等
+         - web_search 跨站组：The Wire、The Quietus、A Closer Listen、Bandcamp Daily 等（paywall/Cloudflare 站）
+         - 爵士专项组：JazzTimes、Avant Music News（roundup 提取）、JazzTrail 等
+Step 3: 调用 delegate_task(tasks=[...]) 并发执行（每次最多 3 个，多批执行）
+         每 agent 独立工作：RSS 解析 / web_search 跨站 → web_extract 正文 → 评分 → 输出 JSON
+Step 4: 收集各 subagent 的 JSON 结果，合并去重
+Step 5: 生成 Markdown（全量）+ JSON（全量），写入 GitHub repo
+Step 6: 推送 Telegram Home Channel（top 20 主推荐，精简格式）
+```
+
+### cron 执行
+
+```
+Step 1: cron 触发 skill
+Step 2: skill 立即 fork: terminal(command="nohup python3 /path/to/crawler.py > /tmp/crawler.log 2>&1 &", background=false)
+Step 3: skill 立即返回 SUCCESS
+Step 4: nohup 进程独立运行抓取
+Step 5: 下一次 cron（03:30）检测结果文件，存在则推送 Telegram
 ```
 
 ## 站点配置表
@@ -103,31 +107,25 @@ Step 9: **关闭所有 Playwright 浏览器进程**（browser_navigate("about:bl
 | Sea of Tranquility | https://www.seaoftranquility.org/ | ❌ 无RSS | https://www.seaoftranquility.org/category/reviews | prog, fusion |
 | The Rest Is Noise PH | https://therestisnoiseph.com/ | ❌ 无RSS | https://therestisnoiseph.com/ | asian, experimental |
 | Mixmag Asia | https://mixmag.asia/ | ❌ 无RSS | https://mixmag.asia/category/reviews | asian electronic, ambient |
-| Syrphe | https://syrphe.com/ | ❌ 无RSS | https://syrphe.com/ | african, asian, experimental |
-
-### B 级站点（每周 1-2 次）
-
-| 站点名 | 主页 | RSS URL | 备注 |
-|---|---|---|---|
-| ATTN:Magazine | https://www.attnmagazine.co.uk/ | https://www.attnmagazine.co.uk/feed/ | experimental, longform |
-| The Chain D.L.K. | https://www.chaindlk.com/ | https://www.chaindlk.com/feed/ | dark ambient, industrial |
-| Musique Machine | https://www.musiquemachine.com/ | ❌ 无RSS | 用 Playwright |
-| HHV Mag | https://www.hhv-mag.com/ | https://www.hhv-mag.com/feed/ | electronic, vinyl culture |
-| A Strangely Isolated Place | https://www.astrangelyisolatedplace.com/ | https://www.astrangelyisolatedplace.com/feed/ | ambient, modern classical |
-| New Music Buff | https://newmusicbuff.com/ | https://newmusicbuff.com/feed/ | electroacoustic, new music |
-| JazzTrail | https://jazztrail.net/ | https://jazztrail.net/feed/ | avant jazz |
-| Truth & Lies Music | https://www.truthandliesmusic.com/ | ❌ 无RSS | free jazz |
-| Jazz Journal | https://jazzjournal.co.uk/ | ❌ 无RSS | 老牌 jazz |
-| 5:4 | https://5against4.com/ | https://5against4.com/feed/ | modern classical |
-| Modern Classical Music | https://www.modernclassicalmusic.com/ | https://www.modernclassicalmusic.com/feed/ | modern classical |
-| The Classic Review | https://theclassicreview.com/ | ❌ 无RSS | classical, contemporary |
-| fRoots | https://frootsmag.com/ | https://frootsmag.com/feed/ | folk, roots |
-| RootsWorld | https://www.rootsworld.com/ | https://www.rootsworld.com/feed/ | world music |
-| ProgressoR | https://www.progressor.net/ | ❌ 无RSS | art-rock, prog |
-| Prog Mistress | https://progmistress.com/ | ❌ 无RSS | prog |
-| Wild City | https://www.thewildcity.com/ | ❌ 无RSS | south asian, electronic | |
-| Bandwagon Asia | https://www.bandwagon.asia/ | https://www.bandwagon.asia/feed/ | asian music | |
-| Hear65 | https://hear65.bandwagon.asia/ | ❌ 无RSS | singapore music | |
+| ATTN:Magazine | https://www.attnmagazine.co.uk/ | https://www.attnmagazine.co.uk/feed/ | — | experimental, longform |
+| The Chain D.L.K. | https://www.chaindlk.com/ | https://www.chaindlk.com/feed/ | — | dark ambient, industrial |
+| Musique Machine | https://www.musiquemachine.com/ | ❌ 无RSS | — | 用 Playwright |
+| HHV Mag | https://www.hhv-mag.com/ | https://www.hhv-mag.com/feed/ | — | electronic, vinyl culture |
+| A Strangely Isolated Place | https://www.astrangelyisolatedplace.com/ | https://www.astrangelyisolatedplace.com/feed/ | — | ambient, modern classical |
+| New Music Buff | https://newmusicbuff.com/ | https://www.newmusicbuff.com/feed/ | — | electroacoustic, new music |
+| JazzTrail | https://jazztrail.net/ | https://jazztrail.net/feed/ | — | avant jazz |
+| Truth & Lies Music | https://www.truthandliesmusic.com/ | ❌ 无RSS | — | free jazz |
+| Jazz Journal | https://jazzjournal.co.uk/ | ❌ 无RSS | — | 老牌 jazz |
+| 5:4 | https://5against4.com/ | https://5against4.com/feed/ | — | modern classical |
+| Modern Classical Music | https://www.modernclassicalmusic.com/ | https://www.modernclassicalmusic.com/feed/ | — | modern classical |
+| The Classic Review | https://theclassicreview.com/ | ❌ 无RSS | — | classical, contemporary |
+| fRoots | https://frootsmag.com/ | https://frootsmag.com/feed/ | — | folk, roots |
+| RootsWorld | https://www.rootsworld.com/ | https://www.rootsworld.com/feed/ | — | world music |
+| ProgressoR | https://www.progressor.net/ | ❌ 无RSS | — | art-rock, prog |
+| Prog Mistress | https://progmistress.com/ | ❌ 无RSS | — | prog |
+| Wild City | https://www.thewildcity.com/ | ❌ 无RSS | — | south asian, electronic |
+| Bandwagon Asia | https://www.bandwagon.asia/ | https://www.bandwagon.asia/feed/ | — | asian music |
+| Hear65 | https://hear65.bandwagon.asia/ | ❌ 无RSS | — | singapore music |
 
 ### 补充源（fallback_only / discovery_only，不主导日常结果）
 
@@ -149,7 +147,7 @@ Step 9: **关闭所有 Playwright 浏览器进程**（browser_navigate("about:bl
 ### RSS 抓取步骤
 
 1. **获取 RSS**：用 `curl -L -H "User-Agent: Mozilla/5.0" {rss_url}` 抓原始 XML
-2. **解析**：用 Python 标准库 `xml.etree.ElementTree`（不要用 feedparser，hermes-agent venv 里没有）
+2. **解析**：用 `feedparser`（推荐，已通过 `uv pip install feedparser --python ~/.hermes/hermes-agent/venv/bin/python3` 安装）。也可用 Python 标准库 `xml.etree.ElementTree`。
 3. **过滤日期**：只保留最近 7 天内更新的条目（避免重复推荐老内容）
 4. **提取字段**：
    - `entry.title` → 标题（需解析出"专辑名 — 艺人名"格式）
@@ -398,7 +396,7 @@ total_score = critic_quality(0-5) + taste_match(0-5) + novelty(0-3) + cross_doma
 - 连续三天内不要被同一批网站主导（手动调整权重）
 - 如果当天高质量内容不足（< 8 张主推荐），回看最近 7 天内容，但标注"非当天首发"
 
-### Markdown（完整版，写入 GitHub 仓库）
+### Markdown 结构
 
 **GitHub 仓库全量版**：包含所有候选条目（评分 >= 6），格式如下：
 
@@ -431,14 +429,14 @@ total_score = critic_quality(0-5) + taste_match(0-5) + novelty(0-3) + cross_doma
 ...
 
 ---
-数据采集：RSS（X站） + Playwright（Y站） | 评分公式见 Skill
+数据采集：RSS（X站） + web_search（Y站） | 评分公式见 Skill
 ```
 
-> **Telegram 推送版**：只取前 20 条主推荐（评分最高的 20 条），精简格式（无全部候选表），推送到 Home Channel。
->
-> **GitHub 仓库版**：全量 markdown，包含所有评分 >= 6 的条目 + 全部候选表。
->
-> **JSON 版**保存在本地 `~/.hermes/cron/output/daily_album_recs_{YYYY_MM_DD}.json`，不推送。
+**Telegram 推送版**：只取前 20 条主推荐（评分最高的 20 条），精简格式（无全部候选表），推送到 Home Channel。
+
+**GitHub 仓库版**：全量 markdown，包含所有评分 >= 6 的条目 + 全部候选表。
+
+**JSON 版**保存在本地 `~/.hermes/cron/output/daily_album_recs_{YYYY_MM_DD}.json`，不推送。
 
 ## 推荐原因写法规范（强制执行）
 
@@ -469,46 +467,14 @@ total_score = critic_quality(0-5) + taste_match(0-5) + novelty(0-3) + cross_doma
 - "很前卫"
 ## ⚠️ 输出规范：完整候选记录（强制执行）
 
-**Markdown 是主要输出载体**，不再只输出最终筛选的 16 条。Markdown 必须包含**所有经过评分的候选专辑**，即使不入选最终主推荐/候选补充也要落盘。
-
-**Markdown 结构：**
-```markdown
-今日专辑推荐清单（YYYY-MM-DD）
-更新时间：HH:MM 北京时间
-数据来源：X 个站 | Y 篇候选
-
-## 主推荐
-
-1. **专辑名** — [艺人名](https://example.com)
-   类型：`类型标签`
-   推荐原因：一句话（基于实际评论内容）
-   来源：[站点名](https://site.com) | [文章标题](https://article.com)
-   评分：N
-
-## 候选补充
-
-1. **专辑名** — [艺人名](https://example.com)
-   类型：`类型标签`
-   推荐原因：一句话
-   来源：[站点名](https://site.com) | [文章标题](https://article.com)
-   评分：N
-
-## 今日全部候选（按评分排序）
-
-| # | 专辑 | 艺人 | 来源 | 类型 | 评分 | 备注 |
-|---|------|------|------|------|------|------|
-| 1 | Album | Artist | Site | Type | 18 | 主推荐 |
-| 2 | Album | Artist | Site | Type | 15 | 候选补充 |
-| 3 | Album | Artist | Site | Type | 14 | 全文未获取，paywall站 |
-...
-```
+**Markdown 必须包含所有经过评分的候选专辑**，不再只输出最终筛选的 16 条。
 
 **"全部候选"节要求：**
 - 包含今日所有经过评分（>= 6 分）的候选专辑
 - 按评分从高到低排序
 - 每行：`# | 专辑 | 艺人 | 来源 | 类型 | 评分 | 备注`
 - 备注列：注明是否主推荐/候选补充，或"全文未获取"（paywall 站且 cross-site 搜索无结果）
-- paywall 站（The Wire 等）且 cross-site 搜索后仍无实质内容的，**全文未获取的标注"全文未获取"**，不入主推荐/候选补充，但仍在全部候选表里
+- paywall 站（The Wire 等）且 cross-site 搜索后仍无实质内容的，**全文未获取标注"全文未获取"**，不入主推荐/候选补充，但仍在全部候选表里
 - 这个表是给人类审核用的，不需要写推荐原因，只要客观信息
 
 **JSON 版用途：**
@@ -544,7 +510,7 @@ Step 1: cron 触发 skill
 Step 2: skill 立即 fork: terminal(command="nohup python3 /path/to/crawler.py > /tmp/crawler.log 2>&1 &", background=false)
 Step 3: skill 立即返回 SUCCESS
 Step 4: nohup 进程独立运行
-Step 5: 下一次 cron（比如 03:30）检测 ~/.hermes/cron/output/daily_album_recs_{date}.json 是否存在
+Step 5: 下一次 cron（比如 03:30）检测 `~/.hermes/cron/output/daily_album_recs_{YYYY_MM_DD}.json` 是否存在
 Step 6: 存在则推送 Telegram
 ```
 
@@ -564,14 +530,6 @@ model:
 skills:
   - avant-garde-daily-recs
 ```
-
-## 执行前检查清单
-
-每次 cron 触发前，agent 应确认：
-- [ ] 各站点 URL 可达（RSS 能抓 + 页面能开）
-- [ ] 当前日期用于文件名和标题
-- [ ] 输出路径：`~/.hermes/cron/output/daily_album_recs_{date}.md`
-- [ ] Telegram deliver target 已配置
 
 ## 常见陷阱与处理
 
@@ -770,7 +728,7 @@ subprocess.run(["ln", "-f",
 - [ ] sites.json 路径正确（技能加载后用 `os.path.expanduser('~/.hermes/skills/avant-garde-daily-recs/references/sites.json')` 展开 home 目录，而非 hardcode `/root/...`）
 - [ ] 各站点 URL 可达（RSS 能抓 + 页面能开）
 - [ ] 当前日期用于文件名和标题
-- [ ] 输出路径：`~/.hermes/cron/output/daily_album_recs_{date}.md`
+- [ ] 输出路径：`~/.hermes/cron/output/daily_album_recs_{YYYY_MM_DD}.md`（cron 场景）或 `~/.hermes/music-recs-repo/{YYYY}/{MM}/{YYYY-MM-DD}.md`（GitHub 场景）
 - [ ] Telegram deliver target 已配置
 
 ### 实测：The Wire 的 RSS 根本无法用于乐评内容提取
