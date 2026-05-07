@@ -11,7 +11,7 @@
       "name": "The Wire",
       "homepage": "https://www.thewire.co.uk/",
       "rss_url": "https://www.thewire.co.uk/rss",
-      "reviews_url": "https://www.thewire.co.uk/category/reviews",
+      "reviews_url": "https://www.thewire.co.uk/audio",
       "has_rss": true,
       "tier": "S",
       "crawl_frequency": "daily",
@@ -31,11 +31,12 @@
       ],
       "notes": "英国严肃前卫/实验/声艺核心媒体",
       "startUrls": [
-        "https://www.thewire.co.uk/category/reviews"
+        "https://www.thewire.co.uk/audio"
       ],
       "allowUrlPatterns": [
-        "/reviews/",
-        "/category/reviews"
+        "/audio/",
+        "/tracks/",
+        "/on-air/"
       ],
       "denyUrlPatterns": [
         "/about",
@@ -529,7 +530,7 @@
         "electroacoustic",
         "modern composition"
       ],
-      "notes": "声景/慢速/细密实验",
+      "notes": "声景/慢速/细密实验。RSS 灌入的是 2013-2022 年历史存档，无 2025-2026 新内容。已一次性抓取 671 条存档，每次选专辑时从 fluid_radio_reviews.json 随机挑几条即可。",
       "startUrls": [
         "https://www.fluid-radio.co.uk/"
       ],
@@ -564,7 +565,7 @@
         "experimental"
       ],
       "automationStatus": "default_on",
-      "crawl_strategy": "playwright_headless"
+      "crawl_strategy": "skip"
     },
     {
       "id": "downbeat",
