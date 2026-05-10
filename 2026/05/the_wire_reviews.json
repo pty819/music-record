@@ -1,0 +1,9 @@
+{
+  "site_id": "the_wire",
+  "crawl_status": "paywall",
+  "reviews": [],
+  "crawled_at": "2026-05-10T20:05:32.499771Z",
+  "days_scanned": 7,
+  "count": 0,
+  "notes": "No publicly accessible album reviews found. /category/reviews returns 404. All review RSS feeds (/reviews/rss, /music/reviews/rss) return 0 entries. Magazine read-online requires subscription. This confirms the same paywall finding as prior attempt t_b73fcc77."
+}
