@@ -1,34 +1,37 @@
 ---
 name: music-daily-recs
 description: 每日巡检 43 个音乐评论站，fan-out scraper 并行抓取，汇总评分后推送 GitHub + Telegram。前卫/实验/学院派爵士/电子/世界音乐定向采集。
+cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git push）
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, kanban, fan-out]
 author: hermes-agent
-version: 1.2
+version: 1.3
 created: 2026-05-07
-updated: 2026-05-08
+updated: 2026-05-11
 trigger_condition: 每天北京时间凌晨 03:00 cron 触发，或手动调用
 ---
 
 # Music Daily Recs — Kanban Fan-Out Pipeline
 
-## 架构
+## 架构（实际实现）
 
 ```
-T0  orchestrator   cron/手动触发
+T0  orchestrator   cron agent = music-daily-recs skill 执行者
      ↓
-批量脚本  python3 kanban-batch-scrape.py --confirm
+Step 1  清理旧积压（归档 stale ◻ todo scraper）
+     ↓
+Step 2  同步 sites.json（git pull）
+     ↓
+Step 3  python3 kanban-batch-scrape.py --confirm
      ↓（脚本内部：2并行 x 22批，parent-gated）
 [T1a ... T1z]  43 个 scraper 任务
      ↓ (全部 done)
-T44  aggregator    收集所有 scraper 的输出 JSON，合并去重
-     ↓
-T45  filter        按评分公式打分，>= 6 全部保留
-     ↓
-T46  writer        生成 markdown → git push → GitHub PR / 直接 push
-     ↓
-T47  notifier      推送 top 20 到 Telegram
+T44  aggregator    收集所有 scraper 的输出 JSON，合并去重，评分，写 markdown
+     ↓ (aggregator 自身完成 git push)
+Step 4  cron agent 推送 top 20 到 Telegram
 ```
+
+**当前实现的限制**：filter/writer/notifier 不是独立 task，而是合并在 aggregator 的 body 指令里，由同一个 scraper profile worker 执行。T45/T46/T47 作为独立 task 尚未实现。
 
 **⚠️ 不要照着 Step 2 的代码示例手动创建任务** — 那段代码绕过了 batching，会导致 43 个 scraper 同时启动，OOM。正确做法是用 `kanban-batch-scrape.py`，它内部实现 2-at-a-time 的 parent-gated batching。
 
@@ -37,13 +40,14 @@ T47  notifier      推送 top 20 到 Telegram
 | 任务 | assignee | 说明 |
 |------|----------|------|
 | 所有 scraper | `scraper` | 已配置的独立 profile，有独立 auth.json |
-| aggregator | `scraper` | 同上，读取 scraper 的共享 output 目录 |
+| aggregator | `scraper` | 同上，读取 scraper 的共享 workspace（即 music-record/2026/MM/） |
 | filter | `scraper` | 同上 |
 | writer | `writer` | 独立 profile，负责 git push，需要有 music-record 仓库写权限 |
 
 ## 站点配置
 
 sites.json 在 `/home/liyifan/.minimax/music-sites/sites.json`（从 music-record repo 同步）
+Output 写入 `~/music-record/2026/MM/{DATE}.md`，即直接是 git 仓库路径
 
 共 46 个站点，其中 43 个活跃 + 3 个 skip：
 - **skip**（Boomkat / Syrphe / Textura）：已知无法访问，跳过。sites.json 中 `crawl_strategy: "skip"`
@@ -188,25 +192,33 @@ total_score = critic_quality(0-5) + taste_match(0-5) + novelty(0-3)
 - **GitHub 仓库**：全量 markdown（>= 6 分全部）+ JSON，路径 `2026/{MM}/{YYYY-MM-DD}.md`
 - **Telegram**：top 20 主推荐，精简格式，无全部候选表
 
-## 执行步骤
+## 执行步骤（cron job prompt 完整内容）
 
-### Step 0 — 检查 scraper profile 和 auth.json（每次批次前必做！）
+> **⚠️ 重要：这些步骤是 cron job `f6e2282e40f7` 的 `--prompt` 完整内容。每次触发都会原样执行。Step 0（积压清理）是**每次触发前必须执行的第一步**，不可跳过。**
 
+以下步骤按顺序执行：
+
+### ⚠️ Step 0 — 积压清理 + auth 检查（**每次 cron 触发必须首先执行**）
+
+**自动化检查**（推荐）：
+```bash
+bash ~/.hermes/skills/music/music-daily-recs/scripts/check-scraper-auth.sh
+```
+
+**手动检查**：
 ```bash
 # 1. 检查积压（旧 todo scraper 数量）
 hermes kanban list | grep "◻" | grep "scrape:" | wc -l
 
 # 2. 清理旧 todo scraper（只保留 done/running/blocked）
-#    每次 batch 脚本运行会新建 43 个 task，旧任务不清理会累积
 hermes kanban list | grep "◻" | grep "scrape:" | awk '{print $2}' | while read id; do
   hermes kanban archive "$id"
 done
 
-# 3. 确认 auth.json 只有 minimax-cn（不能有 minimax！）
+# 3. 确认 auth.json 只有 minimax-cn
 cat ~/.hermes/profiles/scraper/auth.json
-# 期望：只有 "minimax-cn" 这一个 provider，base_url 应为 https://api.minimaxi.com
+# 期望：credential_pool 里只有 "minimax-cn" 这一个 key，base_url 应为 https://api.minimaxi.com
 # 如果同时有 "minimax"（api.minimax.io）→ 删除 minimax 条目，只留 minimax-cn
-# 发现方式：检查 session 文件 base_url，错误的 session 用 api.minimax.io
 
 # 4. 确认 scraper profile config
 cat ~/.hermes/profiles/scraper/config.yaml | grep -E "provider|model"
@@ -222,6 +234,7 @@ cd /home/liyifan/.minimax/music-sites && git pull origin main
 ```
 
 sites.json 路径：`/home/liyifan/.minimax/music-sites/sites.json`
+Output 路径：`~/music-record/2026/MM/{YYYY-MM-DD}.md`（git 仓库内）
 
 ### Step 2 — 运行 batch 脚本（正确方式）
 
@@ -296,6 +309,8 @@ hermes kanban list | grep "◻" | grep "aggregat"
 
 ### 每次 cron 触发前必须清理
 
+> **此步骤已内置于 cron job prompt 的 Step 0 中，每次触发时自动执行。** 以下为说明性内容，供手动排障参考。
+
 `kanban-batch-scrape.py` 每次运行会**新建 43 个 task ID**，旧任务的 `◻ todo` 状态不会自动清理。3 轮后 board 上会有 120+ 个 stale task。
 
 **每次 cron 触发前，orchestrator 必须先归档上一轮的 stale scraper：**
@@ -325,9 +340,49 @@ hermes kanban show <aggregator_id> | grep parents
 2. 重建：`hermes kanban create "aggregate: all music reviews" --assignee scraper --parent <actual_done_scraper_ids...>`
 3. 确认新的 aggregator 是 `▶ ready` 后才算完成
 
+## GitHub 同步（每日必须）
+
+Pipeline 完成后的 git push 和 skill 文件管理通过 `~/music-record/` 仓库进行。
+
+### 仓库结构
+
+```
+~/music-record/
+├── skill/avant-garde-daily-recs.md   ← hard link to ~/.hermes/skills/music/music-daily-recs/SKILL.md
+└── 2026/{MM}/{YYYY-MM-DD}.md         ← 每日乐评 markdown
+```
+
+**Hard link 说明**：skill 文件在两个路径共享同一份物理内容（同一 inode），修改任意一个自动同步：
+
+```bash
+# 验证 hard link（Links: 2 = 正常）
+stat ~/.hermes/skills/music/music-daily-recs/SKILL.md | grep Links
+stat ~/music-record/skill/avant-garde-daily-recs.md | grep Links
+```
+
+如果 `git pull` 覆盖了 `avant-garde-daily-recs.md`，hard link 会断开。重新建立：
+
+```bash
+rm ~/music-record/skill/avant-garde-daily-recs.md
+link ~/.hermes/skills/music/music-daily-recs/SKILL.md ~/music-record/skill/avant-garde-daily-recs.md
+```
+
+### Post-pipeline git push
+
+Pipeline 完成后进入 repo push 即可（scraper 已直接写入 music-record，无需复制）：
+
+```bash
+cd ~/music-record
+git add 2026/"$(date +%m)"/"$(date +%Y-%m-%d)".md skill/avant-garde-daily-recs.md
+git commit -m "auto: $(date +%Y-%m-%d) daily recs" || exit 0
+git push
+```
+
+这条命令已内置在 cron job `music-daily-recs`（ID: `f6e2282e40f7`）里，凌晨 03:00 自动执行。
+
 ## 注意事项
 
-- **workspace 必须统一**：`dir:/home/liyifan/.minimax/music-sites/output`（不是 scratch！）。scraper 各写各的 `{site_id}_reviews.json`，aggregator 读目录里所有 `*_reviews.json`，scratch 目录互相不可见。
+- **workspace 必须统一**：`dir:~/music-record/2026/MM`（不是 scratch！）。scraper 各写各的 `{site_id}_reviews.json`，aggregator 读目录里所有 `*_reviews.json`，scratch 目录互相不可见。
 - **并发控制**：不是 43 并行，是 **2 并行 × 22 批**。每批 2 个 task，全部 done 之后下一批才解锁（parent-gating）。这是 kanban dispatcher 对 scraper profile 的并发限制 + 进程内存限制共同决定的。
 - **关于空 `score` 字段**：The Quietus、A Closer Listen 等站不给数字评分，这是正常的，不影响推荐质量。评分公式完全基于 `excerpt` 内容判断，只要 scraper 把 `excerpt` 抓完整即可。
 - **GitHub 推送**：使用系统 git config 的认证（已通过 `gh auth login` 配置）。
