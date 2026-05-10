@@ -5,7 +5,7 @@ cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git pu
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, kanban, fan-out]
 author: hermes-agent
-version: 1.5
+version: 1.6
 created: 2026-05-07
 updated: 2026-05-11
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
@@ -51,9 +51,9 @@ Output 写入 `~/music-record/2026/MM/{DATE}.md`，即直接是 git 仓库路径
 
 共 46 个站点，其中 43 个活跃 + 3 个 skip：
 - **skip**（Boomkat / Syrphe / Textura）：已知无法访问，跳过。sites.json 中 `crawl_strategy: "skip"`
-- **RSS 优先组**（~21 站）：feedparser 直接解析
-- **Playwright 组**（~22 站）：browser_navigate headless + stealth
-- **搜索降级组**：paywall/cloudflare 站降级到 web_search
+- **RSS 优先组**（~21 站）：feedparser 直接解析，**只取 7 天内条目**，超期停止翻页
+- **Playwright 组**（~22 站）：browser_navigate headless + stealth，**只浏览列表页前 2 页**，筛选 7 天内文章，超期停止
+- **搜索降级组**：paywall/cloudflare 站降级到 web_search，同样限制 7 天
 
 ### ⚠️ Fluid Radio — 静态存档库
 
@@ -292,7 +292,13 @@ hermes kanban list | grep "write:"
 hermes kanban list | grep "◻" | grep "aggregat"
 ```
 
-## ⚠️ 重要：auth.json 双 provider 导致 401
+### ⚠️ 聚合逻辑不是独立脚本
+
+**常见误区**：不要找 `aggregate-recommendations.py`，它不存在。
+
+aggregator 的行为由 `~/.local/bin/kanban-batch-scrape.py` 第 134 行起的 `agg_body` 模板定义。每次运行 `kanban-batch-scrape.py --confirm` 都会用这个模板创建新的 aggregator task。
+
+要修改聚合输出行为（输出路径、文件数量、git push 范围），编辑的是 `agg_body` 字符串，不是某个独立脚本。
 
 **2026-05-08 实测：scraper 任务崩溃 5 次后放弃，根因是 auth.json 有两个 provider。**
 
