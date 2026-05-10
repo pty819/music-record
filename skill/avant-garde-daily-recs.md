@@ -5,7 +5,7 @@ cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git pu
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, kanban, fan-out]
 author: hermes-agent
-version: 1.4
+version: 1.5
 created: 2026-05-07
 updated: 2026-05-11
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
@@ -402,16 +402,8 @@ git push
 
 这条命令已内置在 cron job `music-daily-recs`（ID: `6fd93b4a4c4c`）里，凌晨 04:00 自动执行。
 
-## ⚠️ 已知 gap：recommend/ 目录尚未实现
 
-**问题**：skill 文档定义了 `recommend/YYYY-MM-DD.md`（top 20 精简版），但当前 aggregator 的 task body 指令只生成 `2026/YYYY-MM-DD.md`（raw data + 推荐混在一起）。`recommend/` 文件尚未独立输出。
-
-**影响**：GitHub 推送的三部分中，`recommend/` 实际上是空的或不存在，与 skill 文档不符。
-
-**需要做的**：aggregator task body 需要增加逻辑：
-1. 读取 `2026/YYYY-MM-DD.md` 中的 top 20 条目
-2. 写一个精简版到 `~/music-record/recommend/YYYY-MM-DD.md`
-3. 两个文件一起 push
+**三部分一起 push**：`skill/`、`2026/`、`recommend/` 三个目录每次必须同时 commit，不可只更新其中某一部分。
 
 ## 注意事项
 
