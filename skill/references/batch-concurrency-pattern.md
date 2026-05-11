@@ -20,5 +20,5 @@ python3 /home/liyifan/.local/bin/kanban-batch-scrape.py --confirm # 创建任务
 ## 关键坑
 
 1. **scraper profile 必须有独立 .env + config.yaml**，否则 401 崩溃
-2. **所有 scraper workspace 统一为 `dir:~/music-record/2026/MM`**，不用 `scratch`！scraper 各写各的 `{site_id}_reviews.json`，aggregator 读目录里所有 `*_reviews.json`，scratch 目录互相不可见
-3. **batch script 已硬编码 output 路径**：所有 scraper JSON + 最终 markdown 直接写入 `~/music-record/2026/MM/`，无需额外 copy 步骤
+2. **所有 scraper workspace 统一为 `dir:~/music-record/2026/{MM}/{YYYY-MM-DD}/`**，不用 `scratch`！scraper 各写各的 `{site_id}_reviews.json`，aggregator 读目录里所有 `*_reviews.json`，scratch 目录互相不可见
+3. **batch script 已硬编码 output 路径**：所有 scraper JSON + 最终 markdown 直接写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/`，无需额外 copy 步骤
