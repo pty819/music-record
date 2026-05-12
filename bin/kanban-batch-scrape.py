@@ -161,7 +161,7 @@ URL：{url}
    ```
    # Daily Music Recommendations — {DATE}
 
-   *Generated {timestamp} · N reviews from X sites · M passed filter (≥6/10)*
+   *Generated {TODAY.isoformat()} · N reviews from X sites · M passed filter (≥6/10)*
 
    ## ★10 — Top Picks
 
