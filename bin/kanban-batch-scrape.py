@@ -146,8 +146,7 @@ URL：{url}
 输出文件（均使用绝对路径）：
   - {date_dir}/aggregated.json   （当天所有去重后的评论）
   - {date_dir}/filtered.json     （当天评分 >= 6 的评论）
-  - {date_dir}/{DATE}.md         （当天全量 markdown）
-  - /home/liyifan/music-record/recommend/{DATE}.md  （top 20 精简版）
+  - /home/liyifan/music-record/recommend/{DATE}.md  （当天全量 markdown，直接作为唯一输出）
 
 步骤：
 1. cd {date_dir} && ls *_reviews.json 确认文件存在
@@ -156,45 +155,46 @@ URL：{url}
 4. 按 (album+artist) 去重，保留评分最高的来源
 5. 按评分公司打分：total_score = critic_quality + taste_match + novelty + cross_domain_bonus + regional_bonus - mainstream_penalty
 6. 输出 aggregated.json（全量） 和 filtered.json（>=6分）到 {date_dir}/
-7. 生成全量 markdown → 写入 {date_dir}/{DATE}.md
-8. 生成 top 20 精简版 → 写入 /home/liyifan/music-record/recommend/{DATE}.md
+7. 生成全量 markdown（含 ★10/8/6 分级）→ 直接写入 /home/liyifan/music-record/recommend/{DATE}.md
 
-   **推荐理由格式规范（必须遵守，否则格式不一致）：**
+   **Markdown 格式规范（必须遵守）：**
    ```
+   # Daily Music Recommendations — {DATE}
+
+   *Generated {timestamp} · N reviews from X sites · M passed filter (≥6/10)*
+
    ## ★10 — Top Picks
 
    **[Album] — [Artist]** [[score], source]
    [Listen/read →](url)
-   > 一句话推荐理由（从评论摘录，20-50字，突出声音特征/创新点/场景感）
+   > 一句话推荐理由（20-50字，突出声音特征/创新点/场景感）
 
    ## ★8 — Notable
-
    ...
 
    ## ★6 — Notable
-
    ...
    ```
    - 按评分分三栏：★10（>=9分）、★8（7-8分）、★6（6分）
-   - 每条只保留：专辑名、艺人、评分、来源URL、一句话推荐理由
-   - 推荐理由要突出声音特征/创新点/场景感，不要"很好听"这种废话
-   - 总数不足20条则全部显示；超过20条只取前20条
-9. **同步 skill + 脚本最新副本到 music-record**：
+   - 每条保留：专辑名、艺人、评分、来源URL、推荐理由
+   - 推荐理由要突出声音特征/创新点/场景感，避免"很好听"类废话
+
+8. **同步 skill + 脚本最新副本到 music-record**：
    ```bash
    mkdir -p /home/liyifan/music-record/skills/music/music-daily-recs
    mkdir -p /home/liyifan/music-record/bin
    cp /home/liyifan/.hermes/skills/music/music-daily-recs/SKILL.md /home/liyifan/music-record/skills/music/music-daily-recs/
    cp /home/liyifan/.local/bin/kanban-batch-scrape.py /home/liyifan/music-record/bin/
    ```
-10. GitHub 推送（结果 + skill + 脚本一起）：
-    ```bash
-    cd /home/liyifan/music-record
-    git add 2026/{MONTH}/{DATE}/ recommend/{DATE}.md
-    git add skills/music/music-daily-recs/SKILL.md bin/kanban-batch-scrape.py data/sites.json
-    git commit -m "Daily: {DATE} — N reviews, M passed filter"
-    git push
-    ```
-11. kanban_complete(summary="aggregated N unique reviews, M passed filter, skill+script synced", metadata={{"total": N, "passed": M}})"""
+9. GitHub 推送（结果 + skill + 脚本一起）：
+   ```bash
+   cd /home/liyifan/music-record
+   git add 2026/{MONTH}/{DATE}/ recommend/{DATE}.md
+   git add skills/music/music-daily-recs/SKILL.md bin/kanban-batch-scrape.py data/sites.json
+   git commit -m "Daily: {DATE} — N reviews, M passed filter"
+   git push
+   ```
+10. kanban_complete(summary="aggregated N unique reviews, M passed filter, recommend written to recommend/", metadata={{"total": N, "passed": M}})"""
 
     agg_id = hermes_create(
         title="aggregate: all music reviews",
