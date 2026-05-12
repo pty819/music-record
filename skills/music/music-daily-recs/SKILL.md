@@ -5,9 +5,9 @@ cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git pu
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, kanban, fan-out]
 author: hermes-agent
-version: 1.9
+version: 2.2
 created: 2026-05-07
-updated: 2026-05-12
+updated: 2026-05-13
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
 ---
 
@@ -182,10 +182,18 @@ total_score = critic_quality(0-5) + taste_match(0-5) + novelty(0-3)
 ✅ 不是单纯的 lo-fi fantasy 氛围堆叠，而是有明确场景感、叙事感和声音层次的 dark ambient / dungeon synth 作品。
 ❌ 很好听。很值得一听。很前卫。口碑不错。
 
-## 两套输出
+## 输出结构（唯一输出）
 
-- **GitHub 仓库**：全量 markdown（>= 6 分全部）+ JSON，路径 `2026/{MM}/{YYYY-MM-DD}/{YYYY-MM-DD}.md`
-- **Telegram**：top 20 主推荐，精简格式，无全部候选表
+**aggregator 直接写 recommend/{DATE}.md 作为唯一 markdown 输出**，不在日期子目录下重复写一份。
+
+| 文件 | 路径 | 说明 |
+|------|------|------|
+| recommend markdown | `recommend/{YYYY-MM-DD}.md` | 唯一 markdown 输出，含 ★10/8/6 分级 |
+| aggregator JSON | `2026/{MM}/{DD}/{YYYY-MM-DD}/aggregated.json` | 全量去重评论 |
+| filtered JSON | `2026/{MM}/{DD}/{YYYY-MM-DD}/filtered.json` | >=6 分评论 |
+| scraper JSON | `2026/{MM}/{DD}/{YYYY-MM-DD}/{site_id}_reviews.json` | 各站原始输出 |
+
+**Telegram 推送**：`recommend/{DATE}.md` 内容作为消息体发送。
 
 ## 执行步骤（cron job prompt 完整内容）
 
@@ -220,15 +228,33 @@ cat ~/.hermes/profiles/scraper/config.yaml | grep -E "provider|model"
 # 期望：provider: minimax-cn
 ```
 
-### Step 1 — 同步站点配置
+### Step 1 — 同步配置 + skill + 脚本
 
-从 GitHub 拉取最新的 sites.json：
+**每次 cron 触发必须首先从 music-record 拉取最新版本**，skill 和 py 跟着每日结果一起版本控制：
 
 ```bash
-cd /home/liyifan/.minimax/music-sites && git pull origin main
+# 拉取 music-record 完整更新（sites.json + skill + 脚本）
+cd /home/liyifan/music-record && git pull origin main
+
+# 同步 skill 到本地 hermes skills 目录
+mkdir -p ~/.hermes/skills/music/music-daily-recs
+cp /home/liyifan/music-record/skills/music/music-daily-recs/SKILL.md \
+   ~/.hermes/skills/music/music-daily-recs/
+
+# 同步脚本到本地 bin 目录
+cp /home/liyifan/music-record/bin/kanban-batch-scrape.py \
+   ~/.local/bin/kanban-batch-scrape.py
+
+# 同步 sites.json（如有更新）
+mkdir -p ~/.minimax/music-sites
+cp /home/liyifan/music-record/sites.json ~/.minimax/music-sites/ 2>/dev/null || true
 ```
 
+> **为什么要一起拉？** skill 和 py 在 music-record 仓库里版本控制，每次 bug 修复或 workflow 改进都 commit 在同一个 repo。cron 触发时必须拉到最新版本再执行，否则脚本和 skill 脱节。
+
 sites.json 路径：`/home/liyifan/.minimax/music-sites/sites.json`
+skill 路径：`~/.hermes/skills/music/music-daily-recs/SKILL.md`
+脚本路径：`~/.local/bin/kanban-batch-scrape.py`
 Output 路径：
 - `~/music-record/2026/{MM}/{YYYY-MM-DD}/{YYYY-MM-DD}/` — 当天 scraper JSON + aggregated.json + filtered.json + markdown
 - `~/music-record/recommend/{YYYY-MM-DD}.md` — top 20 推荐总结（精简版）
@@ -467,8 +493,8 @@ hermes kanban list | grep aggregat
 步骤：
 1. cd {date_dir} && ls *_reviews.json  确认文件存在
 2. 遍历 {date_dir}/*_reviews.json（绝对路径）
-3. 输出到 {date_dir}/aggregated.json、{date_dir}/filtered.json、{date_dir}/{DATE}.md
-4. recommend 文件写入绝对路径：/home/liyifan/music-record/recommend/{DATE}.md
+3. 输出到 {date_dir}/aggregated.json、{date_dir}/filtered.json
+4. recommend 文件写入绝对路径：/home/liyifan/music-record/recommend/{DATE}.md（唯一 markdown 输出）
 ```
 
 **2026-05-12 实测结果**：195 total，24 filtered (≥6)，GitHub push 成功。
@@ -630,15 +656,52 @@ hermes kanban show <aggregator_id> | grep parents
 
 | 目录 | 内容 | 说明 |
 |------|------|------|
-| `skill/` | skill 最新副本 | `avant-garde-daily-recs.md` + `references/` |
-| `2026/{MM}/{DD}/{YYYY-MM-DD}/` | 当天乐评原始数据 | 全部 >= 6 分乐评，cron job 自动 push |
-| `recommend/YYYY-MM-DD.md` | 每日推荐总结 | top 20 精简版，随 `2026/` 一起 commit |
+| `bin/kanban-batch-scrape.py` | batch 脚本最新版本 | 跟着每日结果一起 commit，cron 触发时拉到本地执行 |
+| `skills/music/music-daily-recs/SKILL.md` | skill 最新副本 | 同上 |
+| `data/sites.json` | 站点配置 | 从 music-record 同步到 ~/.minimax/music-sites/ |
+| `2026/{MM}/{DD}/{YYYY-MM-DD}/` | 当天乐评原始数据 | scraper JSON + aggregated + filtered + markdown |
+| `recommend/YYYY-MM-DD.md` | 每日推荐总结 | top 20 精简版，放在仓库根目录 `recommend/` 下 |
 
-> ⚠️ **三部分必须一起更新**：skill 文档变更时、每天 Pipeline 完成后，三部分必须一起 push 到 GitHub。不可只更新其中某一部分。
+> ⚠️ **五部分必须一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit。
+
+**⚠️ 目录结构规范（已清理多余副本）**：
+- `recommend/{YYYY-MM-DD}.md` — 唯一 markdown 输出（aggregator 直接写到这里，不在日期子目录下重复写）
+- scraper 输出：`2026/{MM}/{DD}/{YYYY-MM-DD}/`（只放 scraper JSON + aggregated + filtered，不放 markdown）
+- skill 文档：`skills/music/music-daily-recs/SKILL.md`（**不是** `skill/`、`scripts/`、`references/` 下分散的副本）
+- batch 脚本：`bin/kanban-batch-scrape.py`（**不是** `scripts/` 下重复副本）
+
+**GitHub 仓库结构（music-record repo）**：
+
+```
+music-record/
+├── bin/kanban-batch-scrape.py          ← batch 脚本（唯一真源）
+├── skills/music/music-daily-recs/       ← skill 文档（唯一真源）
+│   └── SKILL.md
+├── data/sites.json                      ← 站点配置（从 music-record 同步）
+├── 2026/{MM}/{DD}/{YYYY-MM-DD}/        ← 当天 scraper JSON + aggregated + filtered
+└── recommend/{YYYY-MM-DD}.md            ← 唯一 markdown 输出（aggregator 直接写）
+```
+
+**五部分必须一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit。
 
 **repo URL**：`https://github.com/pty819/music-record`
 
 **用户查收习惯**：上午 10 点左右看 GitHub 查收完整报告，Telegram 只收精简推送。Pipeline 凌晨 04:00 跑完，十点前结果已就绪。
+
+### 每次 skill/py 修复后
+
+**立即 commit 到 music-record**，下次 cron 才能拉到正确版本。不要等下次 cron 才顺手上报。
+
+```bash
+cd ~/music-record
+cp ~/.local/bin/kanban-batch-scrape.py bin/
+cp ~/.hermes/skills/music/music-daily-recs/SKILL.md skills/music/music-daily-recs/
+git add bin/ SKILL.md
+git commit -m "Fix: <what you fixed>"
+git push
+```
+
+**五部分一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit。
 
 ## GitHub 同步（每日必须）
 
@@ -648,27 +711,16 @@ Pipeline 完成后的 git push 和 skill 文件管理通过 `~/music-record/` �
 
 ```
 ~/music-record/
-├── skill/avant-garde-daily-recs.md   ← hard link to ~/.hermes/skills/music/music-daily-recs/SKILL.md
-├── 2026/{MM}/{DD}/{YYYY-MM-DD}/     ← 当天 scraper JSON + aggregated + filtered + markdown
-└── recommend/{YYYY-MM-DD}.md          ← top 20 推荐总结（精简版）
+├── bin/kanban-batch-scrape.py     ← batch 脚本
+├── skills/music/music-daily-recs/  ← skill 文档（含 references/）
+├── sites.json                      ← 站点配置
+├── 2026/{MM}/{DD}/{YYYY-MM-DD}/   ← 当天 scraper JSON + aggregated + filtered + markdown
+└── recommend/{YYYY-MM-DD}.md       ← top 20 推荐总结（精简版）
 ```
 
-> ⚠️ **三部分必须一起 push**：`skill/`、`2026/`、`recommend/` 三个目录每次必须同时 commit，不可只更新其中某一部分。
+> ⚠️ **四部分必须一起 push**：`bin/`、`skills/`、`2026/`、`recommend/` 四个目录每次必须同时 commit，不可只更新其中某一部分。
 
-**Hard link 说明**：skill 文件在两个路径共享同一份物理内容（同一 inode），修改任意一个自动同步：
-
-```bash
-# 验证 hard link（Links: 2 = 正常）
-stat ~/.hermes/skills/music/music-daily-recs/SKILL.md | grep Links
-stat ~/music-record/skill/avant-garde-daily-recs.md | grep Links
-```
-
-如果 `git pull` 覆盖了 `avant-garde-daily-recs.md`，hard link 会断开。重新建立：
-
-```bash
-rm ~/music-record/skill/avant-garde-daily-recs.md
-link ~/.hermes/skills/music/music-daily-recs/SKILL.md ~/music-record/skill/avant-garde-daily-recs.md
-```
+脚本同步通过 Step 1 的 `cp` 命令完成（不是 hard link）。skill 和脚本修复后必须立即 commit 到 music-record，下次 cron 才能拉到正确版本。
 
 ### Post-pipeline git push
 
@@ -676,14 +728,18 @@ Pipeline 完成后进入 repo push 即可（scraper 已直接写入 music-record
 
 ```bash
 cd ~/music-record
-git add "2026/$(date +%m)/$(date +%Y-%m-%d)/aggregated.json" "2026/$(date +%m)/$(date +%Y-%m-%d)/filtered.json" "2026/$(date +%m)/$(date +%Y-%m-%d)/$(date +%Y-%m-%d).md" recommend/$(date +%Y-%m-%d).md skill/avant-garde-daily-recs.md
+git add \
+  bin/kanban-batch-scrape.py \
+  skills/music/music-daily-recs/SKILL.md \
+  "2026/$(date +%m)/$(date +%Y-%m-%d)/" \
+  recommend/$(date +%Y-%m-%d).md
 git commit -m "auto: $(date +%Y-%m-%d) daily recs" || exit 0
 git push
 ```
 
 这条命令已内置在 cron job `music-daily-recs`（ID: `6fd93b4a4c4c`）里，凌晨 04:00 自动执行。
 
-**三部分一起 push**：`skill/`、`2026/`、`recommend/` 三个目录每次必须同时 commit，不可只更新其中某一部分。
+**四部分一起 push**：`bin/`、`skills/`、`2026/`、`recommend/` 四个目录每次必须同时 commit，不可只更新其中某一部分。
 
 ## 参考文件
 
