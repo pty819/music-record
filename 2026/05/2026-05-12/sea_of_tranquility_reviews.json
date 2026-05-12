@@ -1,0 +1,53 @@
+[
+  {
+    "album": "Venus 5",
+    "artist": "March Of The Venus 5",
+    "score": 3,
+    "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25532",
+    "source": "sea_of_tranquility",
+    "pub_date": "2026-05-06",
+    "tags": [
+      "prog",
+      "fusion",
+      "metal",
+      "jazz-rock"
+    ],
+    "excerpt": "The easiest comparison point here, at least to my ears, is The Warning, but with a stronger push into metal territory and a much heavier reliance on layered vocal harmonies. It becomes clear very quickly what Venus 5 is aiming for. This is epic, melody driven metal built for big stages, with massive choruses and a polished sound that leans into accessibility without fully abandoning its edge. The real strength of the album is in those harmonies. This is not just multiple singers sharing space, this is a collective sound, and when everything locks in, especially in the first half, the results are genuinely powerful.",
+    "site_id": "sot_25532",
+    "crawl_status": "success"
+  },
+  {
+    "album": "SHOB",
+    "artist": "Tintamarre",
+    "score": 4,
+    "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25531",
+    "source": "sea_of_tranquility",
+    "pub_date": "2026-05-06",
+    "tags": [
+      "prog",
+      "fusion",
+      "metal",
+      "jazz-rock"
+    ],
+    "excerpt": "As soon as I heard the opening strains of 'Alain Prost' I knew I would love this band. Get prepared for a funk fest when you dive into 'Tintamarre'. Every instrument stands out and has its place in the mix, from the amazing Hammond Organ of Robin Magord to the tasty licks of guitarist Jean Loup Siaut. Drummer Olivier Leani and Bassist SHOB keep things grooving through all nine tracks. The horns prove themselves essential on the title track and 'Champagne', providing the final piece to this puzzle. You get plenty of solo excursions, but this is all about solid songwriting and great grooves.",
+    "site_id": "sot_25531",
+    "crawl_status": "success"
+  },
+  {
+    "album": "35 Tapes",
+    "artist": "Veil on Life",
+    "score": 4,
+    "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25530",
+    "source": "sea_of_tranquility",
+    "pub_date": "2026-05-05",
+    "tags": [
+      "prog",
+      "fusion",
+      "metal",
+      "jazz-rock"
+    ],
+    "excerpt": "I had never heard of the Norwegian 'prog collective' 35 Tapes before receiving this album to review, but their name made me positively disposed to them. It refers to the number of 'keys' on a classic M400 Mellotron. Surely, the album had to be at least a little promising! And delivered, it did. The five-piece says that 'Veil on Life balances the band's tasteful restraint with boosted emotional confidence, delivered with discipline rather than excess,' and that it remains 'cinematic prog' but introduces 'new forceful soundscapes.' I would argue that is an accurate description. I could not listen to the album without thinking repeatedly about Pink Floyd's The Division Bell.",
+    "site_id": "sot_25530",
+    "crawl_status": "success"
+  }
+]

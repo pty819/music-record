@@ -1,0 +1,50 @@
+[
+  {
+    "album": "Echoes",
+    "artist": "Harry Skoler",
+    "score": null,
+    "url": "https://jazztrail.net/blog/harry-skoler-echoes-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-11",
+    "tags": ["jazz", "post bop", "avant garde jazz"],
+    "excerpt": "With a voice unmistakably his own, clarinetist and composer Harry Skoler traverses a variety of open-ended atmospheres, displaying an instinctive ability to merge traditional jazz language with contemporary sensibilities in ways that continue to shape his artistic identity.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Alive With Ghosts Today",
+    "artist": "Chris Potter",
+    "score": null,
+    "url": "https://jazztrail.net/blog/chris-potter-alive-with-ghosts-today-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-07",
+    "tags": ["jazz", "contemporary jazz", "post bop"],
+    "excerpt": "Chris Potter, a top-tier saxophonist and composer with a brilliant 35-year career in contemporary jazz, unveils a compelling new suite inspired by abolitionist John Brown's Raid of 1859.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Looking For Consonance",
+    "artist": "John Hollenbeck's George",
+    "score": null,
+    "url": "https://jazztrail.net/blog/george-looking-for-consonance-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-05",
+    "tags": ["jazz", "avant garde jazz", "modern creative", "nu jazz", "experimental jazz"],
+    "excerpt": "Claudia Quintet's founder, John Hollenbeck, a fierce, focused, and highly innovative drummer and composer who often seems a step ahead of jazz's vanguard, returns with his second album from the ensemble George.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Wailers",
+    "artist": "Rodrigo Amado's This Is Our Language Quartet",
+    "score": null,
+    "url": "https://jazztrail.net/blog/rodrigo-amado-wailers-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-04",
+    "tags": ["jazz", "free jazz", "avant garde jazz", "free improvisation"],
+    "excerpt": "The fourth installment by Portuguese saxophonist Rodrigo Amado's This Is Our Language Quartet, whose long-developed musical empathy is evident throughout.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success"
+  }
+]

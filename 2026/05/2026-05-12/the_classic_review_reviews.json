@@ -1,0 +1,26 @@
+[
+  {
+    "album": "Schubert & Schumann",
+    "artist": "Arcadi Volodos",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/arcadi-volodos-schubert-schumann/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-11",
+    "tags": "classical, contemporary",
+    "excerpt": "Arcadi Volodos pairs Schubert's Piano Sonata in D major, D. 850 (\"Gasteiner\") with Schumann's Kinderszenen, Op. 15 in a live recital recorded at the Fondation Louis Vuitton. The two works present contrasting Romantic ideals: a large-scale four-movement sonata of public ambition and an intimate cycle of character pieces. These readings do not, however, displace any primary recommendations in either work.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Beethoven Symphonies (Karajan / Philharmonia)",
+    "artist": "Herbert von Karajan, Philharmonia Orchestra",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/classics-revisited-karajans-first-beethoven-cycle-with-the-philharmonia/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-06",
+    "tags": "classical, contemporary",
+    "excerpt": "Karajan's first complete Beethoven cycle, recorded with Walter Legge's Philharmonia Orchestra between 1951 and 1955 and now reissued in a seven-disc box on Warner Classics, captures the conductor before the polished Berlin manner he became known for had taken hold. The Philharmonia readings catch a sharper-edged Karajan, quicker to inflect a phrase and slower to smooth out an accent.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success"
+  }
+]

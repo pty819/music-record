@@ -1,0 +1,9 @@
+{
+  "site_id": "progressor",
+  "crawl_status": "tls_error",
+  "notes": "SSL handshake failed: server only supports deprecated TLS versions incompatible with current tooling. Site unreachable.",
+  "reviews": [],
+  "count": 0,
+  "days_scanned": 7,
+  "scanned_at": "2026-05-12T05:39:28.811236"
+}

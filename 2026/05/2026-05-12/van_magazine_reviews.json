@@ -1,0 +1,10 @@
+{
+  "site": "van_magazine",
+  "crawl_status": "no_recent_articles",
+  "days_scanned": 7,
+  "rss_used": true,
+  "count": 0,
+  "notes": "RSS had 1 recent article (May 7) but it's an essay, not a scored review, and paywalled. No scored album reviews in last 7 days.",
+  "output_file": "/home/liyifan/music-record/2026/05/2026-05-12/van_magazine_reviews.json",
+  "reviews": []
+}
