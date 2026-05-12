@@ -158,14 +158,22 @@ URL：{url}
 6. 输出 aggregated.json（全量） 和 filtered.json（>=6分）到 {date_dir}/
 7. 生成全量 markdown → 写入 {date_dir}/{DATE}.md
 8. 生成 top 20 精简版 → 写入 /home/liyifan/music-record/recommend/{DATE}.md
-9. GitHub 推送：
+9. **同步 skill + 脚本最新副本到 music-record**：
    ```bash
-   cd /home/liyifan/music-record
-   git add 2026/{MONTH}/{DATE}/aggregated.json 2026/{MONTH}/{DATE}/filtered.json 2026/{MONTH}/{DATE}/{DATE}.md recommend/{DATE}.md
-   git commit -m "Daily: {DATE} — N reviews, M passed filter"
-   git push
+   mkdir -p /home/liyifan/music-record/skills/music/music-daily-recs
+   mkdir -p /home/liyifan/music-record/bin
+   cp /home/liyifan/.hermes/skills/music/music-daily-recs/SKILL.md /home/liyifan/music-record/skills/music/music-daily-recs/
+   cp /home/liyifan/.local/bin/kanban-batch-scrape.py /home/liyifan/music-record/bin/
    ```
-10. kanban_complete(summary="aggregated N unique reviews, M passed filter, top 20 written to recommend/", metadata={{"total": N, "passed": M}})"""
+10. GitHub 推送（结果 + skill + 脚本一起）：
+    ```bash
+    cd /home/liyifan/music-record
+    git add 2026/{MONTH}/{DATE}/ recommend/{DATE}.md
+    git add skills/music/music-daily-recs/SKILL.md bin/kanban-batch-scrape.py data/sites.json
+    git commit -m "Daily: {DATE} — N reviews, M passed filter"
+    git push
+    ```
+11. kanban_complete(summary="aggregated N unique reviews, M passed filter, skill+script synced", metadata={{"total": N, "passed": M}})"""
 
     agg_id = hermes_create(
         title="aggregate: all music reviews",
