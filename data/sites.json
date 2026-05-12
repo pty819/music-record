@@ -1,0 +1,2089 @@
+{
+  "meta": {
+    "version": "0.1",
+    "updated": "2026-04-20",
+    "maintainer": "hermes-agent",
+    "description": "前卫/实验/学院派爵士/电子/世界音乐评论站站点配置表。has_rss=true 则优先用 RSS；has_rss=false 则用 Playwright headless+stealth（默认），CF JS 挑战时降级 headed。"
+  },
+  "sites": [
+    {
+      "id": "the_wire",
+      "name": "The Wire",
+      "homepage": "https://www.thewire.co.uk/",
+      "rss_url": "https://www.thewire.co.uk/rss",
+      "reviews_url": "https://www.thewire.co.uk/audio",
+      "has_rss": true,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "thewire.co.uk/tag/|thewire.co.uk/category/reviews",
+        "list_selector": "article .article-title a, .review-title a",
+        "album_selector": "article h1, .article-header h1",
+        "author_selector": ".author-name a, .byline a",
+        "body_selector": "article .article-body p, .article-content p",
+        "genre_selector": ".tags a, .article-category a"
+      },
+      "tags": [
+        "experimental",
+        "avant-garde",
+        "sound art",
+        "improvisation"
+      ],
+      "notes": "英国严肃前卫/实验/声艺核心媒体",
+      "startUrls": [
+        "https://www.thewire.co.uk/audio"
+      ],
+      "allowUrlPatterns": [
+        "/audio/",
+        "/tracks/",
+        "/on-air/"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/subscribe",
+        "/shop"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".article-content",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".article-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".listing a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "avant-garde",
+        "improvisation",
+        "sound art"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "the_quietus",
+      "name": "The Quietus",
+      "homepage": "https://thequietus.com/",
+      "rss_url": "https://thequietus.com/feed",
+      "reviews_url": "https://thequietus.com/columns/quietus-reviews/",
+      "has_rss": true,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "thequietus.com/quietus-reviews/",
+        "list_selector": "article h3 a[href*='/quietus-reviews/']",
+        "album_selector": "article h1",
+        "author_selector": "article a[href*='/writer/']",
+        "body_selector": "article .article-body p",
+        "genre_selector": "article a[href*='/columns/quietus-reviews/']",
+        "skip_patterns": [
+          "Don't miss The Quietus Digest"
+        ]
+      },
+      "follow_categories": [
+        "Electronic",
+        "International",
+        "Albums",
+        "Rum Music",
+        "New Weird Britain"
+      ],
+      "tags": [
+        "experimental",
+        "electronic",
+        "jazz",
+        "world",
+        "psych",
+        "prog",
+        "free-improv"
+      ],
+      "notes": "英国实验/电子/跨界评论核心",
+      "startUrls": [
+        "https://thequietus.com/reviews/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/articles/"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact",
+        "/events"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".article-content",
+          ".entry-content",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "summarySelectors": [
+          ".excerpt",
+          ".standfirst",
+          ".dek"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date",
+          ".entry-date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          ".post a",
+          ".listing a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "electronic",
+        "jazz",
+        "ambient",
+        "fusion"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "a_closer_listen",
+      "name": "A Closer Listen",
+      "homepage": "https://acloserlisten.com/",
+      "rss_url": "https://acloserlisten.com/feed/",
+      "reviews_url": "https://acloserlisten.com/",
+      "has_rss": true,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "acloserlisten.com/2026/",
+        "list_selector": "main h2 a, .post h2 a",
+        "album_selector": "article h1",
+        "author_selector": ".author a, .byline a",
+        "body_selector": ".entry-content p, article .post-content p",
+        "genre_selector": ".categories a, .tags a"
+      },
+      "follow_categories": [
+        "Experimental",
+        "Ambient",
+        "Drone",
+        "Modern Composition",
+        "Electronic",
+        "Field Recording & Soundscape"
+      ],
+      "tags": [
+        "instrumental",
+        "experimental",
+        "ambient",
+        "drone",
+        "field recording",
+        "modern composition"
+      ],
+      "notes": "器乐/氛围/声景/当代实验，WordPress CMS，URL含日期",
+      "startUrls": [
+        "https://acloserlisten.com/category/ambient/",
+        "https://acloserlisten.com/category/drone/",
+        "https://acloserlisten.com/category/electronic/",
+        "https://acloserlisten.com/category/experimental/",
+        "https://acloserlisten.com/category/field-recording-soundscape/",
+        "https://acloserlisten.com/category/modern-composition/"
+      ],
+      "allowUrlPatterns": [
+        "/category/",
+        "/20",
+        "/review",
+        "/album"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".post",
+          ".entry-content",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".entry-date"
+        ],
+        "linkRowSelectors": [
+          "h2 a",
+          ".post-title a",
+          "article a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "ambient",
+        "electronic",
+        "experimental",
+        "modern composition"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "avant_music_news",
+      "name": "Avant Music News",
+      "homepage": "https://avantmusicnews.com/",
+      "rss_url": "https://avantmusicnews.com/feed/",
+      "reviews_url": "https://avantmusicnews.com/",
+      "has_rss": true,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "avantmusicnews.com/",
+        "list_selector": "h2 a, .entry-title a",
+        "album_selector": "article h1, .post-title",
+        "body_selector": ".entry-content p, .post-content p"
+      },
+      "tags": [
+        "experimental",
+        "weird",
+        "progressive",
+        "avant-garde"
+      ],
+      "notes": "高频发现新专辑新艺人",
+      "startUrls": [
+        "https://avantmusicnews.com/"
+      ],
+      "allowUrlPatterns": [
+        "/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "avant-garde",
+        "free jazz",
+        "electroacoustic"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "bandcamp_daily",
+      "name": "Bandcamp Daily",
+      "homepage": "https://daily.bandcamp.com/",
+      "rss_url": "https://daily.bandcamp.com/feed",
+      "reviews_url": "https://daily.bandcamp.com/",
+      "has_rss": true,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "daily.bandcamp.com/",
+        "list_selector": "h2 a, .article-card a",
+        "album_selector": "article h1",
+        "body_selector": ".article-body p",
+        "special_handling": "scene_report",
+        "notes": "场景报道（scene report）类文章同一篇内嵌多张专辑，需解析内部专辑描述块；essential releases 栏目适合批量发现"
+      },
+      "follow_sections": [
+        "Essential Releases",
+        "Album of the Day",
+        "Scene Report",
+        "Features"
+      ],
+      "tags": [
+        "experimental",
+        "electronic",
+        "world",
+        "ambient",
+        "scene-specific"
+      ],
+      "notes": "编辑选品质量高，适合顺藤摸瓜找厂牌和地区场景",
+      "startUrls": [
+        "https://daily.bandcamp.com/",
+        "https://daily.bandcamp.com/album-of-the-day"
+      ],
+      "allowUrlPatterns": [
+        "/album-of-the-day/",
+        "/features/",
+        "/lists/",
+        "/scene-report/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".article",
+          ".post-content",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "summarySelectors": [
+          ".dek",
+          ".standfirst",
+          "header p"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".card a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "world",
+        "ambient",
+        "jazz",
+        "fusion"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "boomkat",
+      "name": "Boomkat",
+      "homepage": "https://boomkat.com/",
+      "rss_url": null,
+      "reviews_url": "https://boomkat.com/",
+      "has_rss": false,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "notes": "需登录才能看完整评论。无 RSS。优先跳过，如果 Playwright 能绕过登录则用 headed 模式访问"
+      },
+      "tags": [
+        "experimental",
+        "electronic",
+        "noise",
+        "ambient",
+        "modern composition"
+      ],
+      "notes": "ASN黑名单，整个IP段被Cloudflare封锁，已标记为skip",
+      "crawl_strategy": "skip",
+      "skip_reason": "ASN黑名单，整个IP段被Cloudflare封锁",
+      "startUrls": [
+        "https://boomkat.com/"
+      ],
+      "allowUrlPatterns": [
+        "/products/",
+        "/t/genre/"
+      ],
+      "denyUrlPatterns": [
+        "/account",
+        "/cart"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".product-page",
+          ".product-detail",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".product-title"
+        ],
+        "summarySelectors": [
+          ".review",
+          ".description"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "a.product_item",
+          ".product-grid a",
+          "h3 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "jazz",
+        "modern composition",
+        "ambient"
+      ],
+      "automationStatus": "default_on"
+    },
+    {
+      "id": "igloo_magazine",
+      "name": "Igloo Magazine",
+      "homepage": "https://igloomag.com/",
+      "rss_url": null,
+      "reviews_url": "https://igloomag.com/",
+      "has_rss": false,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "igloomag.com/",
+        "list_selector": "article h2 a, .post h2 a",
+        "body_selector": "article .entry-content p",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "experimental electronic",
+        "IDM",
+        "ambient",
+        "glitch",
+        "electroacoustic"
+      ],
+      "notes": "电子实验核心入口",
+      "startUrls": [
+        "https://igloomag.com/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/features/",
+        "/news/"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".entry-content",
+          ".post-content",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".entry-date",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".post-title a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "ambient",
+        "idm",
+        "electroacoustic",
+        "experimental"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "fluid_radio",
+      "name": "Fluid Radio",
+      "homepage": "https://www.fluid-radio.co.uk/",
+      "rss_url": "https://www.fluid-radio.co.uk/feed/",
+      "reviews_url": "https://www.fluid-radio.co.uk/",
+      "has_rss": true,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "fluid-radio.co.uk/",
+        "list_selector": "article h2 a",
+        "body_selector": "article .entry-content p"
+      },
+      "tags": [
+        "drone",
+        "ambient",
+        "electroacoustic",
+        "modern composition"
+      ],
+      "notes": "声景/慢速/细密实验。RSS 灌入的是 2013-2022 年历史存档，无 2025-2026 新内容。已一次性抓取 671 条存档，每次选专辑时从 fluid_radio_reviews.json 随机挑几条即可。",
+      "startUrls": [
+        "https://www.fluid-radio.co.uk/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/features/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "drone",
+        "ambient",
+        "electroacoustic",
+        "experimental"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "skip"
+    },
+    {
+      "id": "downbeat",
+      "name": "DownBeat",
+      "homepage": "https://downbeat.com/",
+      "rss_url": null,
+      "reviews_url": "https://downbeat.com/",
+      "has_rss": false,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "downbeat.com/",
+        "list_selector": ".review-title a, article h3 a",
+        "album_selector": "article h1, .review-header h1",
+        "body_selector": ".article-body p, .review-content p",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "jazz",
+        "modern jazz",
+        "fusion"
+      ],
+      "notes": "传统专业爵士核心站，RSS 可能含完整正文",
+      "startUrls": [
+        "https://downbeat.com/reviews"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/news/"
+      ],
+      "denyUrlPatterns": [
+        "/subscribe",
+        "/shop",
+        "/events"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "jazz",
+        "fusion",
+        "avant-garde",
+        "free jazz"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "all_about_jazz",
+      "name": "All About Jazz",
+      "homepage": "https://www.allaboutjazz.com/",
+      "rss_url": null,
+      "reviews_url": "https://www.allaboutjazz.com/",
+      "has_rss": false,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "allaboutjazz.com/",
+        "list_selector": ".article-title a, h2 a",
+        "body_selector": ".article-body p, .content p",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "jazz",
+        "fusion",
+        "avant-jazz",
+        "world-jazz"
+      ],
+      "notes": "很适合查 fusion/creative music",
+      "startUrls": [
+        "https://www.allaboutjazz.com/reviews"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/album-reviews/",
+        "/articles/"
+      ],
+      "denyUrlPatterns": [
+        "/events",
+        "/venues",
+        "/musicians"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".article-body",
+          ".entry-content",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          ".content a",
+          ".listing a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "fusion",
+        "avant-jazz",
+        "free jazz",
+        "creative music"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "free_jazz_blog",
+      "name": "Free Jazz Blog",
+      "homepage": "https://www.freejazzblog.org/",
+      "rss_url": null,
+      "reviews_url": "https://www.freejazzblog.org/",
+      "has_rss": false,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "freejazzblog.org/",
+        "list_selector": "h2 a, .entry-title a",
+        "body_selector": ".entry-content p",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "free jazz",
+        "avant-jazz",
+        "improvised music"
+      ],
+      "notes": "自由爵士与先锋即兴核心站",
+      "startUrls": [
+        "https://www.freejazzblog.org/"
+      ],
+      "allowUrlPatterns": [
+        "/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "free jazz",
+        "avant-jazz",
+        "improvisation"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "icareifyoulisten",
+      "name": "I CARE IF YOU LISTEN",
+      "homepage": "https://icareifyoulisten.com/",
+      "rss_url": "https://icareifyoulisten.com/feed/",
+      "reviews_url": "https://icareifyoulisten.com/",
+      "has_rss": true,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "icareifyoulisten.com/",
+        "list_selector": "article h2 a",
+        "body_selector": "article .entry-content p"
+      },
+      "tags": [
+        "contemporary classical",
+        "new music",
+        "living music"
+      ],
+      "notes": "美国当代作曲入口",
+      "startUrls": [
+        "https://icareifyoulisten.com/reviews"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/album-reviews/"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "contemporary classical",
+        "modern composition",
+        "electroacoustic"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "songlines",
+      "name": "Songlines",
+      "homepage": "https://www.songlines.co.uk/",
+      "rss_url": null,
+      "reviews_url": "https://www.songlines.co.uk/category/reviews",
+      "has_rss": false,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式访问 reviews 栏目"
+      },
+      "tags": [
+        "world music",
+        "folk",
+        "global music"
+      ],
+      "notes": "世界音乐核心媒体之一",
+      "startUrls": [
+        "https://www.songlines.co.uk/reviews-hub"
+      ],
+      "allowUrlPatterns": [
+        "/review",
+        "/reviews",
+        "/features"
+      ],
+      "denyUrlPatterns": [
+        "/subscribe",
+        "/shop"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".article-body",
+          ".entry-content",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          ".card a",
+          ".listing a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "world",
+        "fusion",
+        "roots",
+        "traditional",
+        "global"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "resident_advisor",
+      "name": "Resident Advisor",
+      "homepage": "https://ra.co/",
+      "rss_url": "https://ra.co/feed/news",
+      "reviews_url": "https://ra.co/reviews",
+      "has_rss": true,
+      "tier": "S",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "ra.co/",
+        "list_selector": "article a, .review-title a",
+        "body_selector": "article p, .review-content p"
+      },
+      "tags": [
+        "electronic",
+        "club",
+        "experimental",
+        "scene reports"
+      ],
+      "notes": "experimental club / 亚洲电子场景，适合 Regional Electronic",
+      "startUrls": [
+        "https://ra.co/reviews"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/"
+      ],
+      "denyUrlPatterns": [
+        "/events",
+        "/club",
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental electronic",
+        "ambient",
+        "electroacoustic",
+        "club"
+      ],
+      "automationStatus": "fallback_only",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "textura",
+      "name": "Textura",
+      "homepage": "https://www.textura.org/",
+      "rss_url": null,
+      "reviews_url": "https://www.textura.org/",
+      "has_rss": false,
+      "tier": "A",
+      "crawl_frequency": "every_2_days",
+      "parser_hint": {
+        "article_url_pattern": "textura.org/",
+        "list_selector": "article h2 a",
+        "body_selector": "article .entry-content p",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "jazz",
+        "classical",
+        "ambient",
+        "experimental"
+      ],
+      "notes": "学院派电子与现代古典/爵士边界",
+      "crawl_strategy": "skip",
+      "skip_reason": "JS渲染空白，headless/headed均无法加载正文",
+      "startUrls": [
+        "https://www.textura.org/"
+      ],
+      "allowUrlPatterns": [
+        "/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "ambient",
+        "electronic",
+        "experimental",
+        "jazz"
+      ],
+      "automationStatus": "fallback_only"
+    },
+    {
+      "id": "point_of_departure",
+      "name": "Point of Departure",
+      "homepage": "https://www.pointofdeparture.org/",
+      "rss_url": "https://pointofdeparture.org/?feed=rss2",
+      "reviews_url": "https://www.pointofdeparture.org/journal/",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "every_2_days",
+      "parser_hint": {
+        "article_url_pattern": "pointofdeparture.org/",
+        "list_selector": "article h2 a, .post h2 a",
+        "body_selector": "article .entry-content p"
+      },
+      "tags": [
+        "improvised music",
+        "creative music",
+        "jazz",
+        "essays"
+      ],
+      "notes": "高质量长文和严肃讨论",
+      "startUrls": [
+        "https://pointofdeparture.org/journal/"
+      ],
+      "allowUrlPatterns": [
+        "/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "free jazz",
+        "improvisation",
+        "avant-garde",
+        "creative music"
+      ],
+      "automationStatus": "discovery_only",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "squids_ear",
+      "name": "The Squid's Ear",
+      "homepage": "https://www.squidco.com/ear/",
+      "rss_url": "https://www.squidco.com/ear/feed/",
+      "reviews_url": "https://www.squidco.com/ear/",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "every_2_days",
+      "parser_hint": {
+        "article_url_pattern": "squidco.com/",
+        "list_selector": "article h2 a",
+        "body_selector": "article .entry-content p"
+      },
+      "tags": [
+        "improvisation",
+        "jazz",
+        "experimental",
+        "electroacoustic"
+      ],
+      "notes": "正好覆盖你关心的交叉带",
+      "startUrls": [
+        "https://www.squidco.com/ear/"
+      ],
+      "allowUrlPatterns": [
+        "/ear/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "jazz",
+        "free jazz",
+        "electroacoustic",
+        "improvisation"
+      ],
+      "automationStatus": "fallback_only",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "jazztimes",
+      "name": "JazzTimes",
+      "homepage": "https://www.jazztimes.com/",
+      "rss_url": "https://www.jazztimes.com/feed/",
+      "reviews_url": "https://www.jazztimes.com/",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "every_2_days",
+      "parser_hint": {
+        "article_url_pattern": "jazztimes.com/",
+        "list_selector": "article h3 a, .review-title a"
+      },
+      "tags": [
+        "jazz",
+        "reviews",
+        "modern jazz"
+      ],
+      "notes": "现代爵士、学院派与主流并重",
+      "startUrls": [
+        "https://www.jazztimes.com/reviews/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/articles/"
+      ],
+      "denyUrlPatterns": [
+        "/subscribe",
+        "/events"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "jazz",
+        "fusion",
+        "free jazz",
+        "avant-jazz"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "sequenza21",
+      "name": "Sequenza21",
+      "homepage": "https://www.sequenza21.com/",
+      "rss_url": "https://www.sequenza21.com/feed/",
+      "reviews_url": "https://www.sequenza21.com/",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "every_2_days",
+      "parser_hint": {
+        "article_url_pattern": "sequenza21.com/",
+        "list_selector": "article h2 a",
+        "body_selector": "article .entry-content p"
+      },
+      "tags": [
+        "contemporary classical",
+        "new music"
+      ],
+      "notes": "新音乐社区与评论",
+      "startUrls": [
+        "https://www.sequenza21.com/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/articles/"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "contemporary classical",
+        "modern composition",
+        "new music"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "van_magazine",
+      "name": "VAN Magazine",
+      "homepage": "https://van-magazine.com/",
+      "rss_url": null,
+      "reviews_url": "https://van-magazine.com/",
+      "has_rss": false,
+      "tier": "A",
+      "crawl_frequency": "weekly_2x",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "classical",
+        "contemporary classical",
+        "criticism"
+      ],
+      "notes": "严肃古典/当代乐评",
+      "startUrls": [
+        "https://van-magazine.com/"
+      ],
+      "allowUrlPatterns": [
+        "/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "contemporary classical",
+        "modern composition",
+        "new music"
+      ],
+      "automationStatus": "fallback_only",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "world_music_central",
+      "name": "World Music Central",
+      "homepage": "https://worldmusiccentral.org/",
+      "rss_url": "https://worldmusiccentral.org/feed/",
+      "reviews_url": "https://worldmusiccentral.org/",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "every_2_days",
+      "parser_hint": {
+        "article_url_pattern": "worldmusiccentral.org/"
+      },
+      "tags": [
+        "world music",
+        "traditional music",
+        "world fusion"
+      ],
+      "notes": "全球 roots/融合",
+      "startUrls": [
+        "https://worldmusiccentral.org/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/articles/"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/subscribe"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "world music",
+        "fusion",
+        "traditional",
+        "roots"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "rhythm_passport",
+      "name": "Rhythm Passport",
+      "homepage": "https://rhythmpassport.com/",
+      "rss_url": "https://rhythmpassport.com/feed/",
+      "reviews_url": "https://rhythmpassport.com/",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "every_2_days",
+      "parser_hint": {
+        "article_url_pattern": "rhythmpassport.com/"
+      },
+      "tags": [
+        "world music",
+        "folk",
+        "roots",
+        "crossover"
+      ],
+      "notes": "世界音乐融合与现场信息",
+      "startUrls": [
+        "https://rhythmpassport.com/reviews/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/features/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "world",
+        "fusion",
+        "roots",
+        "folk",
+        "global"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "progarchives",
+      "name": "ProgArchives",
+      "homepage": "https://www.progarchives.com/",
+      "rss_url": null,
+      "reviews_url": "https://www.progarchives.com/",
+      "has_rss": false,
+      "tier": "A",
+      "crawl_frequency": "every_2_days",
+      "parser_hint": {
+        "article_url_pattern": "progarchives.com/",
+        "list_selector": ".album-title a, .review-title a",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "progressive rock",
+        "art rock",
+        "fusion"
+      ],
+      "notes": "查盘/查子流派/查社区口碑",
+      "crawl_strategy": "playwright_headed",
+      "skip_reason": "Cloudflare JS挑战，headless无法通过，需xvfb-run headed模式",
+      "startUrls": [
+        "https://www.progarchives.com/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/"
+      ],
+      "denyUrlPatterns": [
+        "/forum",
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "prog",
+        "fusion",
+        "jazz-rock",
+        "avant-prog"
+      ],
+      "automationStatus": "discovery_only"
+    },
+    {
+      "id": "sea_of_tranquility",
+      "name": "Sea of Tranquility",
+      "homepage": "https://www.seaoftranquility.org/",
+      "rss_url": null,
+      "reviews_url": "https://www.seaoftranquility.org/category/reviews",
+      "has_rss": false,
+      "tier": "A",
+      "crawl_frequency": "weekly_2x",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "prog",
+        "fusion",
+        "metal",
+        "jazz-rock"
+      ],
+      "notes": "老团/新盘/再版都好用",
+      "startUrls": [
+        "https://www.seaoftranquility.org/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/articles/"
+      ],
+      "denyUrlPatterns": [
+        "/forum",
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "prog",
+        "fusion",
+        "jazz-rock"
+      ],
+      "automationStatus": "fallback_only",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "rest_is_noise_ph",
+      "name": "The Rest Is Noise PH",
+      "homepage": "https://therestisnoiseph.com/",
+      "rss_url": null,
+      "reviews_url": "https://therestisnoiseph.com/",
+      "has_rss": false,
+      "tier": "A",
+      "crawl_frequency": "weekly_2x",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "asian",
+        "experimental",
+        "alternative"
+      ],
+      "notes": "菲律宾/亚洲独立与实验音乐",
+      "startUrls": [
+        "https://therestisnoiseph.com/"
+      ],
+      "allowUrlPatterns": [
+        "/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "avant-garde",
+        "asian",
+        "electronic"
+      ],
+      "automationStatus": "fallback_only",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "mixmag_asia",
+      "name": "Mixmag Asia",
+      "homepage": "https://mixmag.asia/",
+      "rss_url": null,
+      "reviews_url": "https://mixmag.asia/category/reviews",
+      "has_rss": false,
+      "tier": "A",
+      "crawl_frequency": "weekly_2x",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "asian electronic",
+        "ambient",
+        "experimental"
+      ],
+      "notes": "亚洲电子",
+      "startUrls": [
+        "https://mixmag.asia/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/features/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "electronic",
+        "ambient",
+        "experimental",
+        "asian"
+      ],
+      "automationStatus": "fallback_only",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "syrphe",
+      "name": "Syrphe",
+      "homepage": "https://syrphe.com/",
+      "rss_url": null,
+      "reviews_url": "https://syrphe.com/",
+      "has_rss": false,
+      "tier": "A",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "african",
+        "asian",
+        "experimental",
+        "sound art"
+      ],
+      "notes": "African & Asian alternative / experimental 数据库",
+      "crawl_strategy": "skip",
+      "skip_reason": "ERR_CONNECTION_CLOSED，网站不稳定/SSL问题",
+      "startUrls": [
+        "https://syrphe.com/"
+      ],
+      "allowUrlPatterns": [
+        "/"
+      ],
+      "denyUrlPatterns": [
+        "/about"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "african",
+        "asian",
+        "sound art"
+      ],
+      "automationStatus": "discovery_only"
+    },
+    {
+      "id": "attn_magazine",
+      "name": "ATTN:Magazine",
+      "homepage": "https://www.attnmagazine.co.uk/",
+      "rss_url": "https://www.attnmagazine.co.uk/feed/",
+      "reviews_url": "https://www.attnmagazine.co.uk/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "attnmagazine.co.uk/"
+      },
+      "tags": [
+        "experimental music",
+        "sound art",
+        "longform criticism"
+      ],
+      "notes": "长文/严肃写作",
+      "startUrls": [
+        "https://www.attnmagazine.co.uk/"
+      ],
+      "allowUrlPatterns": [
+        "/reviews/",
+        "/articles/"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "sound art",
+        "avant-garde"
+      ],
+      "automationStatus": "fallback_only",
+      "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "chain_dlk",
+      "name": "The Chain D.L.K.",
+      "homepage": "https://www.chaindlk.com/",
+      "rss_url": "https://www.chaindlk.com/feed/",
+      "reviews_url": "https://www.chaindlk.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "chaindlk.com/"
+      },
+      "tags": [
+        "industrial",
+        "dark ambient",
+        "glitch",
+        "avant-garde"
+      ],
+      "notes": "更偏地下边缘电子"
+    },
+    {
+      "id": "musique_machine",
+      "name": "Musique Machine",
+      "homepage": "https://www.musiquemachine.com/",
+      "rss_url": null,
+      "reviews_url": "https://www.musiquemachine.com/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "dark ambient",
+        "industrial",
+        "electroacoustic"
+      ],
+      "notes": "阴暗和边缘的电子方向"
+    },
+    {
+      "id": "hhv_mag",
+      "name": "HHV Mag",
+      "homepage": "https://www.hhv-mag.com/",
+      "rss_url": "https://www.hhv-mag.com/feed/",
+      "reviews_url": "https://www.hhv-mag.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "hhv-mag.com/"
+      },
+      "tags": [
+        "electronic",
+        "vinyl culture",
+        "electroacoustic"
+      ],
+      "notes": "补充电子媒体视角"
+    },
+    {
+      "id": "strangely_isolated_place",
+      "name": "A Strangely Isolated Place",
+      "homepage": "https://www.astrangelyisolatedplace.com/",
+      "rss_url": null,
+      "reviews_url": "https://www.astrangelyisolatedplace.com/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "astrangelyisolatedplace.com/",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "ambient",
+        "electronica",
+        "modern classical"
+      ],
+      "notes": "柔和/空间感/后氛围"
+    },
+    {
+      "id": "new_music_buff",
+      "name": "New Music Buff",
+      "homepage": "https://newmusicbuff.com/",
+      "rss_url": "https://newmusicbuff.com/feed/",
+      "reviews_url": "https://newmusicbuff.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "newmusicbuff.com/"
+      },
+      "tags": [
+        "contemporary",
+        "electroacoustic",
+        "new music"
+      ],
+      "notes": "当代作曲语境的电子/电声"
+    },
+    {
+      "id": "jazz_trail",
+      "name": "JazzTrail",
+      "homepage": "https://jazztrail.net/",
+      "rss_url": null,
+      "reviews_url": "https://jazztrail.net/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "jazztrail.net/",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "avant jazz",
+        "modern jazz"
+      ],
+      "notes": "补充型独立爵士评论站"
+    },
+    {
+      "id": "truth_and_lies_music",
+      "name": "Truth & Lies Music",
+      "homepage": "https://www.truthandliesmusic.com/",
+      "rss_url": null,
+      "reviews_url": "https://www.truthandliesmusic.com/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "free jazz",
+        "improvised music",
+        "adventurous jazz"
+      ],
+      "notes": "小而精的补充雷达"
+    },
+    {
+      "id": "jazz_journal",
+      "name": "Jazz Journal",
+      "homepage": "https://jazzjournal.co.uk/",
+      "rss_url": null,
+      "reviews_url": "https://jazzjournal.co.uk/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "notes": "老牌专业站，适合历史与新盘并读"
+    },
+    {
+      "id": "five_against_four",
+      "name": "5:4",
+      "homepage": "https://5against4.com/",
+      "rss_url": "https://5against4.com/feed/",
+      "reviews_url": "https://5against4.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "5against4.com/"
+      },
+      "tags": [
+        "modern classical",
+        "electronic",
+        "experimental",
+        "innovative music"
+      ],
+      "notes": "个体审美强/写得深"
+    },
+    {
+      "id": "modern_classical_music",
+      "name": "Modern Classical Music",
+      "homepage": "https://www.modernclassicalmusic.com/",
+      "rss_url": "https://www.modernclassicalmusic.com/feed/",
+      "reviews_url": "https://www.modernclassicalmusic.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "modernclassicalmusic.com/"
+      },
+      "tags": [
+        "modern classical",
+        "contemporary composition"
+      ],
+      "notes": "直给型现代古典入口"
+    },
+    {
+      "id": "the_classic_review",
+      "name": "The Classic Review",
+      "homepage": "https://theclassicreview.com/",
+      "rss_url": null,
+      "reviews_url": "https://theclassicreview.com/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "classical",
+        "contemporary"
+      ],
+      "notes": "偏传统古典，可补 contemporary"
+    },
+    {
+      "id": "froots",
+      "name": "fRoots",
+      "homepage": "https://frootsmag.com/",
+      "rss_url": "https://frootsmag.com/feed/",
+      "reviews_url": "https://frootsmag.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "frootsmag.com/"
+      },
+      "tags": [
+        "folk",
+        "roots",
+        "world music"
+      ],
+      "notes": "历史评论与旧场景记忆"
+    },
+    {
+      "id": "roots_world",
+      "name": "RootsWorld",
+      "homepage": "https://www.rootsworld.com/",
+      "rss_url": null,
+      "reviews_url": "https://www.rootsworld.com/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "rootsworld.com/",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "world music",
+        "roots",
+        "folk"
+      ],
+      "notes": "查 roots/folk/world 脉络"
+    },
+    {
+      "id": "progressor",
+      "name": "ProgressoR",
+      "homepage": "https://www.progressor.net/",
+      "rss_url": null,
+      "reviews_url": "https://www.progressor.net/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "art-rock",
+        "prog",
+        "jazz-fusion"
+      ],
+      "notes": "冷门 prog/fusion 很有用"
+    },
+    {
+      "id": "prog_mistress",
+      "name": "Prog Mistress",
+      "homepage": "https://progmistress.com/",
+      "rss_url": null,
+      "reviews_url": "https://progmistress.com/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "prog",
+        "jazz-rock",
+        "fusion"
+      ],
+      "notes": "可补 fusion/jazz-rock 方向"
+    },
+    {
+      "id": "wild_city",
+      "name": "Wild City",
+      "homepage": "https://www.thewildcity.com/",
+      "rss_url": null,
+      "reviews_url": "https://www.thewildcity.com/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "south asian",
+        "alternative",
+        "electronic"
+      ],
+      "notes": "偏南亚，可扩展视野"
+    },
+    {
+      "id": "bandwagon_asia",
+      "name": "Bandwagon Asia",
+      "homepage": "https://www.bandwagon.asia/",
+      "rss_url": null,
+      "reviews_url": "https://www.bandwagon.asia/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "article_url_pattern": "bandwagon.asia/",
+        "notes": " [RSS 已失效，需 Playwright]"
+      },
+      "tags": [
+        "asia music",
+        "reviews",
+        "interviews"
+      ],
+      "notes": "scene context 补充"
+    },
+    {
+      "id": "hear65",
+      "name": "Hear65",
+      "homepage": "https://hear65.bandwagon.asia/",
+      "rss_url": null,
+      "reviews_url": "https://hear65.bandwagon.asia/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "parser_hint": {
+        "notes": "无 RSS，Playwright headed 模式"
+      },
+      "tags": [
+        "singapore music",
+        "reviews"
+      ],
+      "notes": "新加坡本地场景补充"
+    }
+  ],
+  "crawl_priority": {
+    "S": [
+      "the_quietus",
+      "a_closer_listen",
+      "avant_music_news",
+      "bandcamp_daily",
+      "igloo_magazine",
+      "fluid_radio",
+      "downbeat",
+      "all_about_jazz",
+      "free_jazz_blog",
+      "icareifyoulisten",
+      "resident_advisor"
+    ],
+    "A": [
+      "textura",
+      "point_of_departure",
+      "squids_ear",
+      "jazztimes",
+      "sequenza21",
+      "world_music_central",
+      "rhythm_passport",
+      "progarchives",
+      "sea_of_tranquility",
+      "rest_is_noise_ph",
+      "mixmag_asia",
+      "syrphe"
+    ],
+    "B": [
+      "attn_magazine",
+      "chain_dlk",
+      "musique_machine",
+      "hhv_mag",
+      "strangely_isolated_place",
+      "new_music_buff",
+      "jazz_trail",
+      "truth_and_lies_music",
+      "jazz_journal",
+      "five_against_four",
+      "modern_classical_music",
+      "the_classic_review",
+      "froots",
+      "roots_world",
+      "progressor",
+      "prog_mistress",
+      "wild_city",
+      "bandwagon_asia",
+      "hear65"
+    ]
+  }
+}
