@@ -158,6 +158,27 @@ URL：{url}
 6. 输出 aggregated.json（全量） 和 filtered.json（>=6分）到 {date_dir}/
 7. 生成全量 markdown → 写入 {date_dir}/{DATE}.md
 8. 生成 top 20 精简版 → 写入 /home/liyifan/music-record/recommend/{DATE}.md
+
+   **推荐理由格式规范（必须遵守，否则格式不一致）：**
+   ```
+   ## ★10 — Top Picks
+
+   **[Album] — [Artist]** [[score], source]
+   [Listen/read →](url)
+   > 一句话推荐理由（从评论摘录，20-50字，突出声音特征/创新点/场景感）
+
+   ## ★8 — Notable
+
+   ...
+
+   ## ★6 — Notable
+
+   ...
+   ```
+   - 按评分分三栏：★10（>=9分）、★8（7-8分）、★6（6分）
+   - 每条只保留：专辑名、艺人、评分、来源URL、一句话推荐理由
+   - 推荐理由要突出声音特征/创新点/场景感，不要"很好听"这种废话
+   - 总数不足20条则全部显示；超过20条只取前20条
 9. **同步 skill + 脚本最新副本到 music-record**：
    ```bash
    mkdir -p /home/liyifan/music-record/skills/music/music-daily-recs
