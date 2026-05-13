@@ -5,12 +5,1174 @@
     "score": null,
     "url": "https://acloserlisten.com/2026/05/12/lawrence-english-werner-dafeldecker-fathom-tides/",
     "source": "A Closer Listen",
-    "pub_date": "2026-05-12",
-    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
-    "excerpt": "Fathom Tides is an LP of incremental change.  Best heard as a single, slowly-developing piece, the album reflects the pace of nature over that of humanity.  The earth is in no hurry; the trees are not multi-tasking; the streams do have somewhere to go, but save for times of torrent, they are in no rush. The… Fathom Tidesis an LP of incremental change.  Best heard as a single, slowly-developing piece, the album reflects the pace of nature over that of humanity.  The earth is in no hurry; the trees are not multi-tasking; the streams do have somewhere to go, but save for times of torrent, they are in no rush. The album begins with a trickle of water, a rustle of wood, a suggestion of wind.  One must acclimate in order to hear more.  As the first movement starts to wind down, one begins to hea",
+    "pub_date": "May 12, 2026",
+    "tags": [
+      "Fathom Tides",
+      "Hallow Ground",
+      "Lawrence English",
+      "Richard Allen",
+      "Werner Dafeldecker"
+    ],
+    "excerpt": "Fathom Tides is an LP of incremental change.  Best heard as a single, slowly-developing piece, the album reflects the pace of nature over that of humanity.  The earth is in no hurry; the trees are not multi-tasking; the streams do have somewhere to go, but save for times of torrent, they are in no rush. The album begins with a trickle of water, a rustle of wood, a suggestion of wind.  One must acclimate in order to hear more.  As the first movement starts to wind down, one begins to hear a low, background hum, like a drone, an amalgamation of sounds that will continue to grow.  By the second m",
     "site_id": "a_closer_listen",
     "crawl_status": "success",
-    "scraper_file": "a_closer_listen"
+    "source_file": "a_closer_listen_reviews.json"
+  },
+  {
+    "album": "THALASSA",
+    "artist": "SHHE",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/11/shhe-thalassa/",
+    "source": "A Closer Listen",
+    "pub_date": "May 11, 2026",
+    "tags": [
+      "One Little Independent",
+      "Richard Allen",
+      "SHHE",
+      "THALASSA"
+    ],
+    "excerpt": "THALASSA begins and ends with the sound of breath. The Greek goddess for whom the album is named is the literal personification of the sea, and SHHE (Su Shaw) traces her footsteps across the Mediterranean Sea, channeling her spirit and voice.  Inhalations and exhalations become the rhythm of the waves; subtle shifts become currents; recurring patterns become tides; and when the electronics foam and surge, they become the storm, both literal and ecological. Frustration was involved in the genesis of the project, as Shaw was commissioned to perform an impossible task, a hydrophonic study of the ",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "source_file": "a_closer_listen_reviews.json"
+  },
+  {
+    "album": "Radeche Fonne",
+    "artist": "Matteo Stella",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/10/matteo-stella-radeche-fonne/",
+    "source": "A Closer Listen",
+    "pub_date": "May 10, 2026",
+    "tags": [
+      "Matteo Stella"
+    ],
+    "excerpt": "Matteo Stella’s Radeche Fonne resists the pastoral temptation that often shadows music rooted in place. While deeply embedded in the geography and traditions of the Marche region, the album refuses nostalgia, instead exposing the tensions that underlie rural life—its frictions, silences and coded forms of conflict. The opening &#8220;Cagnara Muta&#8221; sets the tone: a reference to silent quarrels conducted through gestures and objects rather than words, here translated into sound as an uneasy interplay between cello and electric guitar with the pipe organ mediating. Nothing resolves; everyth",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "source_file": "a_closer_listen_reviews.json"
+  },
+  {
+    "album": "The Grit",
+    "artist": "Ptastvo",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/09/ptastvo-the-grit/",
+    "source": "A Closer Listen",
+    "pub_date": "May 9, 2026",
+    "tags": [
+      "I Shall Sing Until My Land Is Free",
+      "Ptastvo",
+      "Richard Allen",
+      "The Grit"
+    ],
+    "excerpt": "The Grit is one of the most striking documents to emerge from Ukraine this year.  Written from the perspective of a veteran who is now part of a large volunteer force providing support and supplies to active members of the Ukrainian armed forces, the album attempts to process the unprocessable, using music as a backdrop to trauma while emphasizing ~ and in some cases even generating ~ &#8220;the energy to go on.&#8221;  Recording as Ptastvo (Ukrainian for &#8220;birdlife&#8221; or &#8220;all the birds&#8221;), Volodymyr Ponikarovskyi bares his soul to the audience, riding a wave of emotion tha",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "source_file": "a_closer_listen_reviews.json"
+  },
+  {
+    "album": "Bestarium Sombre",
+    "artist": "Anastasia Kristensen",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/08/anastasia-kristensen-bestarium-sombre/",
+    "source": "A Closer Listen",
+    "pub_date": "May 8, 2026",
+    "tags": [
+      "Anastasia Kristensen",
+      "Bestarium Sombre",
+      "Intercept",
+      "Richard Allen"
+    ],
+    "excerpt": "Bestarium Sombre is a spiritual successor to Dominic Eulberg&#8217;s Mannigfaltig, a clubworthy album on which nearly every track is dedicated to a single species.  The big difference is that some of Anastasia Kristensen&#8216;s &#8220;dark beasts&#8221; are real, while others are imaginary. The magpie, of course, is one of the real ones, and gets to lead off the set with its song (before the track titled &#8220;Intro&#8221;!).  In addition to its song, the bird is known for being playful and intelligent.  The music is similarly intricate, yet fun, shifting between different types of percussio",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "source_file": "a_closer_listen_reviews.json"
+  },
+  {
+    "album": "K-Core",
+    "artist": "HWXXNG",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/07/hwxxng-k-core/",
+    "source": "A Closer Listen",
+    "pub_date": "May 7, 2026",
+    "tags": [
+      "Chinabot",
+      "HWXXNG",
+      "K-Core",
+      "Richard Allen"
+    ],
+    "excerpt": "What is K-Core?  In the hands of DJ HWXXNG (Jaeho Hwang), K-Core deconstructs traditional Korean music and refits it for the modern era.   The visual element is important as well, a way to demonstrate that the past has a way of haunting the present, while the present continues to reevaluate the past. Consider for example the bonkers teaser videos for Shift Key and &#8220;2045 Apocalypse.&#8221;  &#8220;Shift Key&#8221; is an anime nightmare of malevolent demons who look to have descended from dragons.  The music creeps at first, seeping into the frame, in the full track adding cautious percuss",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "source_file": "a_closer_listen_reviews.json"
+  },
+  {
+    "album": "Wormhole",
+    "artist": "Kreng",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/06/kreng-wormhole/",
+    "source": "A Closer Listen",
+    "pub_date": "May 6, 2026",
+    "tags": [
+      "kreng",
+      "Miasmah",
+      "Richard Allen",
+      "Wormhole"
+    ],
+    "excerpt": "Eleven years have passed since The Summoner was released, long enough for us to wonder if we&#8217;d ever hear from Kreng again.  Over the past decade, the artist has been composing for theatre and cinema, which is a perfect pivot given his penchant for dark and moody atmospheres.  Works for Abattoir Férme 2007 &#8211; 2011 appeared on our very first collection of Music for Haunted Houses, and everything Kreng composes sounds like October. Wormhole represents a slight shift towards sci-fi, with the tagline, &#8220;What does a trip toward another world sound like?&#8221;  We prefer this to &#8",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "source_file": "a_closer_listen_reviews.json"
+  },
+  {
+    "album": "Julius Eastman Vol. 5: Gay Guerrilla",
+    "artist": "Wild Up",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/amn-reviews-amn-reviews-wild-up-julius-eastman-vol-5-gay-guerrilla-2026-new-amsterdam-records/",
+    "source": "Avant Music News",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "Gay Guerrilla is the fifth release in Wild Up's Eastman series. Each of these offerings is excellent, and this year's take is one of the most assured installments. Wild Up extends the original four-piano score into chamber orchestra form, with strings, horns, reeds, and (of course) pianos. Played expertly, Gay Guerrilla is exhilarating and hypnotic. The album takes the classical tradition's decorum and mutilates it into something furious and alive. Bravo.",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Alive Alone, Alive Together",
+    "artist": "Ava Mendoza",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/amn-reviews-ava-mendoza-alive-alone-alive-together-2026-burning-ambulance-music/",
+    "source": "Avant Music News",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "Alive Alone, Alive Together collects Mendoza's recent live recordings from four different events. Half are duets with drummer Hamid Drake from the Summer Bummer Festival in Antwerp, while the rest are solo performances from the US and Italy. Despite what might be thought of as a limited sound palette, there is little repetition throughout the album. These are matter-of-fact guitar heroics without any sense of ego. Or restraint.",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Five Nights in the Midwest",
+    "artist": "Jason Stein / Damon Smith / Adam Shead",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Sounds Have Dreams",
+    "artist": "Asteroid Ekosystem",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Eponymously Titled",
+    "artist": "Living With Tollways",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Members… Don't!",
+    "artist": "Tyshawn Sorey",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "New Digs",
+    "artist": "Michael Formanek",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "As It Relates To Now",
+    "artist": "Christian Dillingham",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "New Lines",
+    "artist": "Christoph Irniger and Marc Perrenoud",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Lifeline",
+    "artist": "Pat Thomas, Dominic Lash, Tony Orrell",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Joyful Noise: Live In Hamburg 1984",
+    "artist": "Carla Bley",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Elemental",
+    "artist": "Mark Wingfield",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
+    "source": "Avant Music News / All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Keep Telling Yourself That",
+    "artist": "Goal Weight (Maggie Cox and Jennifer Gersten)",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/13/the-free-jazz-collective-reviews-548/",
+    "source": "Avant Music News / Free Jazz Collective",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "2 Comp",
+    "artist": "Anthony Braxton",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/13/the-free-jazz-collective-reviews-548/",
+    "source": "Avant Music News / Free Jazz Collective",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Hypnomaniac",
+    "artist": "Camila Nebbia, Goncalo Almeida, Sylvain Darrifourcq",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/13/the-free-jazz-collective-reviews-548/",
+    "source": "Avant Music News / Free Jazz Collective",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Noche Y Niebla",
+    "artist": "Luis Nacht and Camila Nebbia",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/13/the-free-jazz-collective-reviews-548/",
+    "source": "Avant Music News / Free Jazz Collective",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Members...Don't!",
+    "artist": "Tyshawn Sorey",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/13/the-free-jazz-collective-reviews-548/",
+    "source": "Avant Music News / Free Jazz Collective",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "What Is Old Is New Again",
+    "artist": "Han-earl Park",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/13/the-free-jazz-collective-reviews-548/",
+    "source": "Avant Music News / Free Jazz Collective",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Vents d'Aether",
+    "artist": "Jerome Bouve and Delphine Dora",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
+    "source": "Avant Music News / Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Symphonies",
+    "artist": "Clearlight",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
+    "source": "Avant Music News / Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Theta Seven",
+    "artist": "Orchestra Of The Upper Atmosphere",
+    "score": "4",
+    "url": "https://www.musiquemachine.com/reviews/orchestra-of-the-upper-atmosphere-theta-seven-1778168204002",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-07",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Langeleik",
+    "artist": "Geir Sundstol and Joe Harvey-Whyte",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
+    "source": "Avant Music News / Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Untitled",
+    "artist": "No Fun HNW",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
+    "source": "Avant Music News / Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Split",
+    "artist": "RDKPL and Hana Haruna",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
+    "source": "Avant Music News / Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Diathermy II",
+    "artist": "Pink Wool",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
+    "source": "Avant Music News / Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Dras",
+    "artist": "Alex Zhang Hungtai",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
+    "source": "Avant Music News / Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "G.A.: Five: Continuum",
+    "artist": "Ourobonic Plague",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/fringes-of-sound-reviews-94/",
+    "source": "Avant Music News / Fringes of Sound",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Perpetuity #1",
+    "artist": "rsn",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/fringes-of-sound-reviews-94/",
+    "source": "Avant Music News / Fringes of Sound",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Is The Silence...",
+    "artist": "existent/nonexistent",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/fringes-of-sound-reviews-94/",
+    "source": "Avant Music News / Fringes of Sound",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Memory Piece",
+    "artist": "The Lonely Bell",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/11/fringes-of-sound-reviews-94/",
+    "source": "Avant Music News / Fringes of Sound",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Looking For Consonance",
+    "artist": "John Hollenbeck's George",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
+    "source": "Avant Music News / JazzTrail",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Wailers",
+    "artist": "Rodrigo Amado's This Is Our Language Quartet",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
+    "source": "Avant Music News / JazzTrail",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Celebrating Live",
+    "artist": "Jonny Wartel / Mathias Landæus / Georgia Wartel Collins / Henrik Wartel",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
+    "source": "Avant Music News / JazzTrail",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Callithumpian",
+    "artist": "Elijah Shiffer and The Robber Crabs",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
+    "source": "Avant Music News / JazzTrail",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Ritual",
+    "artist": "Caleb Wheeler Curtis",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
+    "source": "Avant Music News / JazzTrail",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Areas",
+    "artist": "Nick Fraser",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
+    "source": "Avant Music News / JazzTrail",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "The Grit (I Shall Sing Until My Land Is Free)",
+    "artist": "Ptastvo",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
+    "source": "Avant Music News / A Closer Listen",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Yutori",
+    "artist": "Buildings and Food",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
+    "source": "Avant Music News / A Closer Listen",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "Abisso",
+    "artist": "Filippo Lilli and Ludovica Manzo",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
+    "source": "Avant Music News / A Closer Listen",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "broadcast",
+    "artist": "kyivite",
+    "score": "",
+    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
+    "source": "Avant Music News / A Closer Listen",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "",
+    "site_id": "avantmusicnews",
+    "crawl_status": "success",
+    "source_file": "avant_music_news_reviews.json"
+  },
+  {
+    "album": "BTS WORLD TOUR 'ARIRANG'",
+    "artist": "BTS",
+    "score": null,
+    "url": "https://www.bandwagon.asia/articles/bts-turn-mexico-city-into-a-city-wide-celebration-on-arirang-tour-stop-gig-report",
+    "source": "Bandwagon Asia",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "gigs",
+      "review",
+      "events",
+      "k-pop",
+      "bts"
+    ],
+    "excerpt": "BTS brought Mexico City to a standstill with three explosive sold-out nights of their BTS WORLD TOUR 'ARIRANG', turning the city into a festival-like celebration from 7 May to 10 May. The group's Mexico City run reportedly drew around 150,000 attendees, with local authorities estimating that tens of thousands more gathered outside the stadium on Days 2 and 3.",
+    "site_id": "bandwagon_asia",
+    "crawl_status": "success",
+    "source_file": "bandwagon_asia_reviews.json"
+  },
+  {
+    "album": "Zhao Lusi 1st Overseas Solo Concert",
+    "artist": "Zhao Lusi",
+    "score": null,
+    "url": "https://www.bandwagon.asia/articles/zhao-lusi-dazzles-thai-fans-with-dreamy-bangkok-concert-debut-gig-report",
+    "source": "Bandwagon Asia",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "gigs",
+      "review",
+      "events",
+      "concerts",
+      "zhao-lusi"
+    ],
+    "excerpt": "Zhao Lusi brought romance, warmth, and plenty of heartfelt moments to Bangkok on 9 May as the Chinese superstar staged her first-ever overseas solo concert at IMPACT Arena. The show transformed the venue into a dreamy escape, with fans joining the singer and actress for an evening built around love, connection, and shared memories.",
+    "site_id": "bandwagon_asia",
+    "crawl_status": "success",
+    "source_file": "bandwagon_asia_reviews.json"
+  },
+  {
+    "album": "Torino Jazz Festival 2026",
+    "artist": "",
+    "score": null,
+    "url": "http://www.freejazzblog.org/2026/05/torino-jazz-festival-2026.html",
+    "source": "Free Jazz Blog",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "Festival"
+    ],
+    "excerpt": "<p></p><div class=\"separator\" style=\"clear: both; text-align: center;\"><a href=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLfpA6_aa2bpcN4QHQOzSkjsDs65NQtokJxEv3goUgPYiTHWdMKKxT3H95mYLiunb-BLYPii34xOa08ZhDEkNxhXZhOtOttk4lHSSGEGjUtQSdOSMwej6PGFtruKcTKe-4dPzjW7vhXFeLhOHxvvGPI7tYL1sk_VqjXXRRgcuHd6zNZTRDP1_TCGqCJ9iI/s225/tjf26.png\" imageanchor=\"1\" style=\"margin-left: 1em; margin-right: 1em;\"><img border=\"0\" data-original-height=\"225\" data-original-width=\"225\" height=\"225\" src=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLfpA6_aa2bpcN4QHQOzSkjsDs65NQtokJxEv3goUgPYiTHWdMKKxT3H95mYLiunb-BLYPii34xOa08ZhDEkNxhXZhOtOttk4lHSSGEGjUtQSdOSMwej6PGFtruKcTKe-4dPzjW7vhXFeLhOHxvvGPI7tYL1sk_VqjXXRRgcuHd6zNZTRDP1_TCGqCJ9iI/s1600/tjf26.png\" width=\"225\" /></a></div><p></p><p>By&nb",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "reviewer": "Free Jazz Collective",
+    "source_file": "free_jazz_blog_reviews.json"
+  },
+  {
+    "album": "2 Comp (2023)",
+    "artist": "Anthony Braxton",
+    "score": null,
+    "url": "http://www.freejazzblog.org/2026/05/anthony-braxton-2-comp-2023-schott.html",
+    "source": "Free Jazz Blog",
+    "pub_date": "2026-05-11",
+    "tags": [],
+    "excerpt": "<div class=\"separator\" style=\"clear: both; text-align: center;\"><a href=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5rLIxpuoxpR7nTH4v8g8yS53IVERcuEE-8M0xEMUtNmOml1l4_B0ZNMe_qc5eg8-xwoq3_eWz7R7X_joQFRyXwCF27x1uPLlK80nGTAJmFOuUqk38HCWxY_sjr4j68kLyPgRrwrkQgAaKh4MNKud1JD3T9XqHLkO13uB3fI7LYQCZdsuX5n1eU2oEal_T/s1000/T-19282_Braxton_U1_648.jpg\" imageanchor=\"1\" style=\"margin-left: 1em; margin-right: 1em;\"><img border=\"0\" data-original-height=\"1000\" data-original-width=\"1000\" height=\"320\" src=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5rLIxpuoxpR7nTH4v8g8yS53IVERcuEE-8M0xEMUtNmOml1l4_B0ZNMe_qc5eg8-xwoq3_eWz7R7X_joQFRyXwCF27x1uPLlK80nGTAJmFOuUqk38HCWxY_sjr4j68kLyPgRrwrkQgAaKh4MNKud1JD3T9XqHLkO13uB3fI7LYQCZdsuX5n1eU2oEal_T/s320/T-19282_Braxton_U1_648.jpg\" width=\"320",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "reviewer": "Don Phipps",
+    "source_file": "free_jazz_blog_reviews.json"
+  },
+  {
+    "album": "Making Space: The Work of Access in Experimental Music",
+    "artist": "",
+    "score": null,
+    "url": "http://www.freejazzblog.org/2026/05/making-space-work-of-access-in.html",
+    "source": "Free Jazz Blog",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "feature",
+      "Festival"
+    ],
+    "excerpt": "<p></p><table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"tr-caption-container\" style=\"margin-left: auto; margin-right: auto;\"><tbody><tr><td style=\"text-align: center;\"><a href=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgRKuy0I077QLays3TwJ4tGqC51DBis-6tJQ0r-U857ukDFRUFI0BYKQZ_1YZQLs7rKwDwk73dbxIG5WU7xyBodb65NikK75cy96bu1KYvK-THVZoVTk_HPiQYfCF5MvEMoovIOME_Je-t0lTMH9h_RVAr_BlIt06Wr3GW0VbKV9qhZkWMYUGKkZmXOextN/s5472/CoraWagoner_DavidByrne_BE2026--4.jpg\" style=\"margin-left: auto; margin-right: auto;\"><img border=\"0\" data-original-height=\"3648\" data-original-width=\"5472\" height=\"266\" src=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgRKuy0I077QLays3TwJ4tGqC51DBis-6tJQ0r-U857ukDFRUFI0BYKQZ_1YZQLs7rKwDwk73dbxIG5WU7xyBodb65NikK75cy96bu1KYvK-THVZoVTk_HPiQYf",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "reviewer": "Jeff Arnal",
+    "source_file": "free_jazz_blog_reviews.json"
+  },
+  {
+    "album": "Hypnomaniac",
+    "artist": "Camila Nebbia, Gonçalo Almeida, Sylvain Darrifourcq",
+    "score": null,
+    "url": "http://www.freejazzblog.org/2026/05/camila-nebbia-goncalo-almeida-sylvain.html",
+    "source": "Free Jazz Blog",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "Sax trio"
+    ],
+    "excerpt": "<p></p><div class=\"separator\" style=\"clear: both; text-align: center;\"><a href=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyB6vdqQ6znsCZh7lZ0pkgVV0gtBMrYRczG6nFa00LtU5ENjifWwzF6wGeaAyJhxOZ_GUC9at9kDOHgCMrI3Th31g5W-DvLMNErSciHYCbEE17w8yBq45TvQGN3L-hUo6tb_vmaeECKKLL2RNgsXxcLC5Plqnyf-a91M_JvlG80JjU4hVZuk9ZoZnkBpQ/s1200/a2675897746_10.jpg\" style=\"margin-left: 1em; margin-right: 1em;\"><img border=\"0\" data-original-height=\"1200\" data-original-width=\"1200\" height=\"320\" src=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyB6vdqQ6znsCZh7lZ0pkgVV0gtBMrYRczG6nFa00LtU5ENjifWwzF6wGeaAyJhxOZ_GUC9at9kDOHgCMrI3Th31g5W-DvLMNErSciHYCbEE17w8yBq45TvQGN3L-hUo6tb_vmaeECKKLL2RNgsXxcLC5Plqnyf-a91M_JvlG80JjU4hVZuk9ZoZnkBpQ/s320/a2675897746_10.jpg\" width=\"320\" /></a></div>By Stef Gijss",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "reviewer": "Stef Gijssels",
+    "source_file": "free_jazz_blog_reviews.json"
+  },
+  {
+    "album": "Noche Y Niebla",
+    "artist": "Luis Nacht & Camila Nebbia",
+    "score": null,
+    "url": "http://www.freejazzblog.org/2026/05/luis-nacht-camila-nebbia-noche-y-niebla.html",
+    "source": "Free Jazz Blog",
+    "pub_date": "2026-05-08",
+    "tags": [],
+    "excerpt": "<div class=\"separator\" style=\"clear: both; text-align: center;\"><a href=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5QNqtY9W-ye-c7EpcskhiM_10bQy0PeTN_xuAtT5oQEdUU6xMHjmPUhkcc8Z7OnH0hkyUCpZjnGERNRSYol2cmch-BihJV4y9MN3dh15Pn_BiiuffCkuafGr9KljR3orIQQKZyz0tPyL9Ye8hEQIY53EzTcPOfNPr293tf_d1J-RgT6ucn5RbSvh4PW5o/s1200/noche.jpg\" style=\"margin-left: 1em; margin-right: 1em;\"><img border=\"0\" data-original-height=\"1200\" data-original-width=\"1200\" height=\"320\" src=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5QNqtY9W-ye-c7EpcskhiM_10bQy0PeTN_xuAtT5oQEdUU6xMHjmPUhkcc8Z7OnH0hkyUCpZjnGERNRSYol2cmch-BihJV4y9MN3dh15Pn_BiiuffCkuafGr9KljR3orIQQKZyz0tPyL9Ye8hEQIY53EzTcPOfNPr293tf_d1J-RgT6ucn5RbSvh4PW5o/s320/noche.jpg\" width=\"320\" /></a></div><p>By&nbsp;<a href=\"https://www.free",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "reviewer": "Free Jazz Collective",
+    "source_file": "free_jazz_blog_reviews.json"
+  },
+  {
+    "album": "Members…Don’t!",
+    "artist": "Tyshawn Sorey",
+    "score": null,
+    "url": "http://www.freejazzblog.org/2026/05/tyshawn-sorey-membersdont-pi-recordings.html",
+    "source": "Free Jazz Blog",
+    "pub_date": "2026-05-07",
+    "tags": [],
+    "excerpt": "<p></p><div class=\"separator\" style=\"clear: both; text-align: center;\"><a href=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaoyonbn-DeAfVipFvcRY6j8sfVHcI-AnaGL1NBqLnFC7W7KpKuC07GUxMSKmVJ7SaMDqhabet9etyjacaXDrkUNP8wMCvppTWFU5S39D1WWMVL3lowTNWRvb0olGsz8s727nKLWOwSL9pfNucqoF1xiGmbY2IPXEAtn_wy-Hiq-Z9YIJNgrzDQDZhA_Jc/s1200/sorey.jpg\" style=\"margin-left: 1em; margin-right: 1em;\"><img border=\"0\" data-original-height=\"1200\" data-original-width=\"1200\" height=\"320\" src=\"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaoyonbn-DeAfVipFvcRY6j8sfVHcI-AnaGL1NBqLnFC7W7KpKuC07GUxMSKmVJ7SaMDqhabet9etyjacaXDrkUNP8wMCvppTWFU5S39D1WWMVL3lowTNWRvb0olGsz8s727nKLWOwSL9pfNucqoF1xiGmbY2IPXEAtn_wy-Hiq-Z9YIJNgrzDQDZhA_Jc/s320/sorey.jpg\" width=\"320\" /></a></div><p></p><p>By <a href=\"https:/",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "reviewer": "Fotis Nikolakopoulos",
+    "source_file": "free_jazz_blog_reviews.json"
+  },
+  {
+    "album": "Music For Stillness",
+    "artist": "Harlan Silverman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/harlan-silverman-music-for-stillness/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Harlan Silverman",
+      "Longplayer (LP)",
+      "Mississippi Records"
+    ],
+    "excerpt": "Harlan Silverman – Music For Stillness        ",
+    "site_id": "hhv_mag",
+    "crawl_status": "full_content",
+    "headline": "Harlan Silverman – Music For Stillness",
+    "author_name": "Albert Koch",
+    "source_file": "hhv_mag_reviews.json"
+  },
+  {
+    "album": "Diana In The Autumn Wind",
+    "artist": "Gap Mangione",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/gap-mangione-diana-in-the-autumn-wind/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Be With Records",
+      "Gap Mangione",
+      "Longplayer (LP)",
+      "Reissue"
+    ],
+    "excerpt": "Gap Mangione – Diana In The Autumn Wind        ",
+    "site_id": "hhv_mag",
+    "crawl_status": "full_content",
+    "headline": "Gap Mangione – Diana In The Autumn Wind",
+    "author_name": "Martin Silbermann",
+    "source_file": "hhv_mag_reviews.json"
+  },
+  {
+    "album": "Whoops Wrong Planet",
+    "artist": "Cloud Management & Vivien Goldman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/cloud-management-vivien-goldman-whoops-wrong-planet/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "Altin Village & Mine Records",
+      "Cloud Management",
+      "Longplayer (LP)",
+      "Vivien Goldman"
+    ],
+    "excerpt": "Was zunächst wie eine ungewöhnliche Begegnung zwischen Generationen, Szenen und geografischen Welten wirkt, entfaltet sich als überraschend stimmig&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only",
+    "source_file": "hhv_mag_reviews.json"
+  },
+  {
+    "album": "Dreams ’24 / ’25",
+    "artist": "Bill Wells",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/bill-wells-dreams-24-25/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "Bill Wells",
+      "Karaoke Kalk",
+      "Longplayer (LP)"
+    ],
+    "excerpt": "Bill Wells, Solitär aus Schottland, entwickelt im Schlaf offenbar eine ähnlich rege Fantasie wie in seinem breit aufgestellten&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only",
+    "source_file": "hhv_mag_reviews.json"
+  },
+  {
+    "album": "The Moth",
+    "artist": "Cancer House",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/cancer-house-the-moth/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "Cancer House",
+      "Longplayer (LP)",
+      "Motion Ward"
+    ],
+    "excerpt": "Mit The Moth gelingt Cancer House etwas Seltenes: Das Album modernisiert die Sprache von Slowcore und Post-Rock, ohne&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only",
+    "source_file": "hhv_mag_reviews.json"
+  },
+  {
+    "album": "Stained Glass Starling",
+    "artist": "Razen & Dick van der Harst",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/razen-dick-van-der-harst-stained-glass-starling/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "Dick van der Harst",
+      "Longplayer (LP)",
+      "Razen",
+      "Robert Beatty",
+      "VIERNULVIER Records"
+    ],
+    "excerpt": "Harmonium, Basse à Pied, Monochord, Chalumeau, Erhu, Kacapi, Tromba Marina, Serpent, Hurdy-Gurdy, Blockflöten. Die wenigsten davon sind aus&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only",
+    "source_file": "hhv_mag_reviews.json"
+  },
+  {
+    "album": "Sol.Hz",
+    "artist": "Seefeel",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/seefeel-sol-hz/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-07",
+    "tags": [
+      "Unkategorisiert",
+      "Longplayer (LP)",
+      "Seefeel",
+      "Warp Records"
+    ],
+    "excerpt": "Seefeel became known in the mid-1990s as the first Warp act with guitars. Perhaps because of their hybrid&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only",
+    "source_file": "hhv_mag_reviews.json"
+  },
+  {
+    "album": "Train On The Island",
+    "artist": "Aldous Harding",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/aldous-harding-train-on-the-island/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-07",
+    "tags": [
+      "Unkategorisiert",
+      "4AD",
+      "Aldous Harding",
+      "Longplayer (LP)"
+    ],
+    "excerpt": "Train On The Island ist ein Chamäleon: verspielt, harmonisch, melancholisch und quirky. Das fünfte Studioalbum der Neuseeländerin Aldous&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only",
+    "source_file": "hhv_mag_reviews.json"
+  },
+  {
+    "album": "Au Naturel",
+    "artist": "SydeBoob Duo",
+    "score": null,
+    "url": "https://icareifyoulisten.com/2026/05/sydeboob-duo-au-naturel-is-a-bold-and-athletic-debut/",
+    "source": "I CARE IF YOU LISTEN",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "contemporary classical",
+      "new music",
+      "living music",
+      "Album",
+      "Anna Elder",
+      "Sarah Steranka",
+      "New Focus Recordings"
+    ],
+    "excerpt": "As SydeBoob Duo, soprano Anna Elder and flutist Sarah Steranka perform bold and athletic repertoire with an inviting sense of familiarity that encourages deep listening. Their debut album Au Naturel (New Focus Recordings, 2026) showcases foundational works from their repertoire by Rebecca Saunders, Ramin Akhavijou, Anthony Braxton, Max Johnson, Eric Moe, and Beat Furrer.",
+    "site_id": "icareifyoulisten",
+    "crawl_status": "success",
+    "source_file": "icareifyoulisten_reviews.json"
+  },
+  {
+    "album": "Walkman",
+    "artist": "Speedy J",
+    "score": null,
+    "url": "https://igloomag.com/reviews/speedy-j-walkman-stoor",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "glitch",
+      "IDM"
+    ],
+    "excerpt": "There's no dancefloor here, no need to lock into a groove or deliver a drop. Instead, Paap is chasing sound for sound's sake, pushing stereo dynamics, distorting drum loops until they fray, stretching reverbs until they fill entire rooms. Walkman is his first solo album in over 20 years, a 90-minute, 20-track journey released on STOOR in 2026.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "source_file": "igloo_magazine_reviews.json"
+  },
+  {
+    "album": "OS ZA CR AA NC",
+    "artist": "Özcan Saraç",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ozcan-sarac-os-za-cr-aa-nc-evel",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "glitch",
+      "IDM"
+    ],
+    "excerpt": "OS ZA CR AA NC stands as an immense body of experimental electronic excavation — a sprawling surge of shattered atmospheres, industrial textures, and glitch-laden compositions. Özcan Saraç's work pushes the boundaries of electronic music with dense, layered sound design.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "source_file": "igloo_magazine_reviews.json"
   },
   {
     "album": "Exploraciones al Vacio",
@@ -21,15 +1183,14 @@
     "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "Exploraciones Al Vacio works because it refuses to play nice. The field recordings, the layered textures, the deliberate pacing, it all adds up to something that feels purposeful rather than indulgent. What stands out about Exploraciones Al Vacio is that SKSSS uses a lot of different sound material to keep the track momentum going and busy. This isn't static drone, it's active, shifting, and layered with field recordings, processed instruments, and textural elements that evolve throughout each piece.",
+    "excerpt": "Exploraciones Al Vacio works because it refuses to play nice. The field recordings, the layered textures, and unpredictable structures create an immersive sonic experience that rewards careful listening.",
     "site_id": "igloo_magazine",
     "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
+    "source_file": "igloo_magazine_reviews.json"
   },
   {
     "album": "I Like Pretty Things",
@@ -40,15 +1201,14 @@
     "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "What begins as mechanical sound manipulation gradually transforms into drum-heavy recollections from another era entirely. A surreal passage through decades of IDM evolution, overflowing with restless imagination and stylistic bliss. Neil Burkdoll (Negative Neil), aka Half-Ass Astronaut, delivers a multidimensional abstract electronic foray with I Like Pretty Things, an album threading together vintage IDM motifs, brisk elemental atmospheres, and finely shaped melodic strands.",
+    "excerpt": "What begins as mechanical sound manipulation gradually transforms into drum-heavy recollections from another era entirely. A surreal passage through sound that blends the mechanical and the melodic.",
     "site_id": "igloo_magazine",
     "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
+    "source_file": "igloo_magazine_reviews.json"
   },
   {
     "album": "Chambers EP",
@@ -59,537 +1219,13 @@
     "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
-      "glitch",
       "electroacoustic"
     ],
-    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around. It's the kind of release that sneaks up on you, not flashy, but it sticks. By the time it's over, you realize there's more going on than you initially thought. This is a strong showing from Ruben, and for a limited run of 30 cassettes, it punches well above its weight.",
+    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around — a sign of artistic maturity in electronic composition.",
     "site_id": "igloo_magazine",
     "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
-  },
-  {
-    "album": "Vents d'Aether",
-    "artist": "Jérôme Bouve & Delphine Dora",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Josh Landry. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Symphonies",
-    "artist": "Clearlight",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Roger Batty. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Theta Seven",
-    "artist": "Orchestra Of The Upper Atmosphere",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Roger Batty. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Langeleik",
-    "artist": "Geir Sundstøl & Joe Harvey-Whyte",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Roger Batty. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Untitled",
-    "artist": "No Fun HNW",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Roger Batty. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Split",
-    "artist": "RDKPL/Hana Haruna",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Roger Batty. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Diathermy II",
-    "artist": "Pink Wool",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Roger Batty. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Wormhole",
-    "artist": "Kreng",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Paul Casey. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Dras",
-    "artist": "Alex Zhang Hungtai",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/musique-machine-reviews-1203/",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Colin Lang. Source: Musique Machine.",
-    "site_id": "musique_machine",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Let X=X (Live)",
-    "artist": "Laurie Anderson with Sexmob",
-    "score": "",
-    "url": "https://thequietus.com/quietus-reviews/laurie-anderson-with-sexmob-let-xx-live-review/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "techno",
-      "experimental"
-    ],
-    "excerpt": "Laurie Anderson with Sexmob Let X=X (Live) A live set from 2023 sees Laurie Anderson re-imagining her own songs – and, perhaps surprisingly, one from Lou Reed's album with Metallica. Let X=X (Live) by Laurie Anderson. Anderson is known for ambitious, conceptual projects, so it is unsurprising that she would want her live album to be a complete representation of the experience of her show. Her latest has a strong sense of narrative that elevates it beyond the standard performance documentation. S",
-    "site_id": "the_quietus",
-    "crawl_status": "ok",
-    "scraper_file": "the_quietus"
-  },
-  {
-    "album": "Straight Hedge! Punk & HC For May",
-    "artist": "Various",
-    "score": "",
-    "url": "https://thequietus.com/quietus-reviews/punk/best-new-punk-hardcore-music-review-skintern-byford-dolphin-incident-bags-of-blood-mark-clayden/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "punk"
-    ],
-    "excerpt": "Straight Hedge! Noel Gardner Reviews Punk & HC For May. From bone-boiling Aussie racket to French powerpop crust via Cleveland, Bristol, Ross-on-Wye and more, Noel Gardner's guide to the best in brand new punk returns. Gunner. At the time of typing this sentence, almost exactly one third of the year has gone by, and I have call to be thinking about how Skintern of London were the second band I saw in 2026, as now there is a Skintern tape, Free Use, to say things about. Its seven songs are lurid ",
-    "site_id": "the_quietus",
-    "crawl_status": "ok",
-    "scraper_file": "the_quietus"
-  },
-  {
-    "album": "Head Shot Shy",
-    "artist": "Teresa Riemann",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/amn-picks-of-the-week-riemann-merivale-and-sikora-vyormouth-ava-mendoza-transition-unit/",
-    "source": "avantmusicnews",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "AMN Pick of the Week: Head Shot Shy by Teresa Riemann (2025)",
-    "site_id": "avantmusicnews",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Abhaile",
-    "artist": "Finola Merivale / Catherine Sikora",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/amn-picks-of-the-week-riemann-merivale-and-sikora-vyormouth-ava-mendoza-transition-unit/",
-    "source": "avantmusicnews",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "AMN Pick of the Week: Abhaile by Finola Merivale / Catherine Sikora (2026)",
-    "site_id": "avantmusicnews",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Sheets of Sound",
-    "artist": "Transition Unit (Lencastre / Pinheiro / Serries)",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/12/amn-picks-of-the-week-riemann-merivale-and-sikora-vyormouth-ava-mendoza-transition-unit/",
-    "source": "avantmusicnews",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "AMN Pick of the Week: Sheets of Sound by Transition Unit (Lencastre / Pinheiro / Serries) (2026)",
-    "site_id": "avantmusicnews",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "THALASSA",
-    "artist": "SHHE",
-    "score": null,
-    "url": "https://acloserlisten.com/2026/05/11/shhe-thalassa/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-11",
-    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
-    "excerpt": "THALASSA begins and ends with the sound of breath. The Greek goddess for whom the album is named is the literal personification of the sea, and SHHE (Su Shaw) traces her footsteps across the Mediterranean Sea, channeling her spirit and voice.  Inhalations and exhalations become the rhythm of the waves; subtle shifts become currents; recurring patterns become… THALASSAbegins and ends with the sound of breath. The Greek goddess for whom the album is named is the literal personification of the sea, andSHHE(Su Shaw) traces her footsteps across the Mediterranean Sea, channeling her spirit and voice.  Inhalations and exhalations become the rhythm of the waves; subtle shifts become currents; recurring patterns become tides; and when the electronics foam and surge, they become the storm, both lite",
-    "site_id": "a_closer_listen",
-    "crawl_status": "success",
-    "scraper_file": "a_closer_listen"
-  },
-  {
-    "album": "Five Nights in the Midwest",
-    "artist": "Jason Stein / Damon Smith / Adam Shead",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Mark Corroto, May 9, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Sounds Have Dreams",
-    "artist": "Asteroid Ekosystem",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Glenn Astarita, May 9, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Eponymously Titled",
-    "artist": "Living With Tollways",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Glenn Astarita, May 8, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Members… Don't!",
-    "artist": "Tyshawn Sorey",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Mike Jurkovic, May 7, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "New Digs",
-    "artist": "Michael Formanek",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Glenn Astarita, May 6, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "As It Relates To Now",
-    "artist": "Christian Dillingham",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Glenn Astarita, May 6, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "New Lines",
-    "artist": "Christoph Irniger and Marc Perrenoud",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Glenn Astarita, May 5, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Lifeline",
-    "artist": "Pat Thomas, Dominic Lash, Tony Orrell",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by John Sharpe, May 4, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Joyful Noise: Live In Hamburg 1984",
-    "artist": "Carla Bley",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Mike Jurkovic, May 3, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Elemental",
-    "artist": "Mark Wingfield",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/all-about-jazz-reviews-933/",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Glenn Astarita, May 3, 2026. Source: All About Jazz.",
-    "site_id": "allaboutjazz",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "G.A.: Five: Continuum",
-    "artist": "Ourobonic Plague",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/fringes-of-sound-reviews-94/",
-    "source": "Fringes of Sound",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Lars Haur, May 7, 2026. Source: Fringes of Sound.",
-    "site_id": "fringes_of_sound",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Perpetuity #1",
-    "artist": "rsn",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/fringes-of-sound-reviews-94/",
-    "source": "Fringes of Sound",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Lars Haur, May 6, 2026. Source: Fringes of Sound.",
-    "site_id": "fringes_of_sound",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Is The Silence…",
-    "artist": "existent/nonexistent",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/fringes-of-sound-reviews-94/",
-    "source": "Fringes of Sound",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Lars Haur, May 5, 2026. Source: Fringes of Sound.",
-    "site_id": "fringes_of_sound",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Memory Piece",
-    "artist": "The Lonely Bell",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/fringes-of-sound-reviews-94/",
-    "source": "Fringes of Sound",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Lars Haur, May 4, 2026. Source: Fringes of Sound.",
-    "site_id": "fringes_of_sound",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
+    "source_file": "igloo_magazine_reviews.json"
   },
   {
     "album": "Shadow Tactics EP",
@@ -597,18 +1233,17 @@
     "score": null,
     "url": "https://igloomag.com/reviews/wonks-shadow-tactics-zoitrax",
     "source": "Igloo Magazine",
-    "pub_date": "2026-05-11",
+    "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
-      "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM",
+      "breakbeat"
     ],
-    "excerpt": "Shadow Tactics maintains a focus on structure and texture—beats splinter, surfaces scrape, and each element is placed with intent. It's a concise study in mechanical detail and broken rhythm, placing WONKS in conversation with artists like Richard Devine, Funckarma, Hecq, and Funkstörung. There's a fidgety, percussive charge running through WONKS' Shadow Tactics, a set of four tightly engineered pieces that probe the mechanics of funk from the inside out.",
+    "excerpt": "Shadow Tactics maintains a focus on structure and texture — beats splinter, surfaces scrape, and each element is placed with intent. It's a record that rewards close attention.",
     "site_id": "igloo_magazine",
     "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
+    "source_file": "igloo_magazine_reviews.json"
   },
   {
     "album": "Ailurophobia",
@@ -616,177 +1251,17 @@
     "score": null,
     "url": "https://igloomag.com/reviews/octavcat-ailurophobia-vlsi",
     "source": "Igloo Magazine",
-    "pub_date": "2026-05-11",
+    "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "Octavat balances playful experimentation with precise execution, offering moments of introspection, energy, and pure groove. Ailurophobia is a fecund, joyous exploration of rhythm, texture, and mood—an electronic album that delights in detail, danceability, and inventive sound design. UK electronic wizards Octavat return in fine form with the ten-track set Ailurophobia, conjuring grid-shaped rhythms, machine-gun glitches, and intricate dance formations.",
+    "excerpt": "Octavcat balances playful experimentation with precise execution, offering moments of introspection, energy, and sonic surprise across this latest release.",
     "site_id": "igloo_magazine",
     "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
-  },
-  {
-    "album": "Detached From The Rest Of You",
-    "artist": "Loraine James",
-    "score": "",
-    "url": "https://thequietus.com/quietus-reviews/loraine-james-detached-from-the-rest-of-you-review/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "idm",
-      "electronic",
-      "dance"
-    ],
-    "excerpt": "Loraine James Detached From The Rest Of You The Enfield-born producer's latest album may be full of complex rhythms, but the emotions are red raw and direct. Detached From The Rest Of You by Loraine James. For much of its history, the field of intelligent dance music (IDM) has been a sanctuary for cold precision. It is a space where producers often prioritise the mathematics of rhythm over the messy realities of the human heart. Loraine James has spent the better part of the last decade dismantl",
-    "site_id": "the_quietus",
-    "crawl_status": "ok",
-    "scraper_file": "the_quietus"
-  },
-  {
-    "album": "Julius Eastman Vol. 5: Gay Guerrilla",
-    "artist": "Wild Up",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/amn-reviews-amn-reviews-wild-up-julius-eastman-vol-5-gay-guerrilla-2026-new-amsterdam-records/",
-    "source": "avantmusicnews",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "classical",
-      "minimalist",
-      "chamber"
-    ],
-    "excerpt": "Gay Guerrilla is the fifth release in Wild Up's Eastman series. Each of these offerings is excellent, and this year's take is one of the most assured installments. Wild Up extends the original four-piano score into chamber orchestra form, with strings, horns, reeds, and (of course) pianos. Played expertly, Gay Guerrilla is exhilarating and hypnotic. The album takes the classical tradition's decorum and mutilates it into something furious and alive. Bravo.",
-    "site_id": "avantmusicnews",
-    "crawl_status": "success",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Radeche Fonne",
-    "artist": "Matteo Stella",
-    "score": null,
-    "url": "https://acloserlisten.com/2026/05/10/matteo-stella-radeche-fonne/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-10",
-    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
-    "excerpt": "Matteo Stella’s Radeche Fonne resists the pastoral temptation that often shadows music rooted in place. While deeply embedded in the geography and traditions of the Marche region, the album refuses nostalgia, instead exposing the tensions that underlie rural life—its frictions, silences and coded forms of conflict. The opening \"Cagnara Muta\" sets the tone: a reference… Matteo Stella’sRadeche Fonneresists the pastoral temptation that often shadows music rooted in place. While deeply embedded in the geography and traditions of the Marche region, the album refuses nostalgia, instead exposing the tensions that underlie rural life—its frictions, silences and coded forms of conflict. The opening “Cagnara Muta” sets the tone: a reference to silent quarrels conducted through gestures and objects r",
-    "site_id": "a_closer_listen",
-    "crawl_status": "success",
-    "scraper_file": "a_closer_listen"
-  },
-  {
-    "album": "The Grit (I Shall Sing Until My Land Is Free)",
-    "artist": "Ptastvo",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Richard Allen, May 9, 2026. Source: A Closer Listen.",
-    "site_id": "a_closer_listen",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "K-Core",
-    "artist": "HWXXNG",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Richard Allen, May 7, 2026. Source: A Closer Listen.",
-    "site_id": "a_closer_listen",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Wormhole",
-    "artist": "Kreng",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Richard Allen, May 6, 2026. Source: A Closer Listen.",
-    "site_id": "a_closer_listen",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Yutori",
-    "artist": "Buildings and Food",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Richard Allen, May 4, 2026. Source: A Closer Listen.",
-    "site_id": "a_closer_listen",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Abisso",
-    "artist": "Filippo Lilli and Ludovica Manzo",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Feature by Gianmarco Del Re, May 3, 2026. Source: A Closer Listen.",
-    "site_id": "a_closer_listen",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "broadcast",
-    "artist": "kyïvite",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/a-closer-listen-reviews-638/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Reviewed by Richard Allen, May 2, 2026. Source: A Closer Listen.",
-    "site_id": "a_closer_listen",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
+    "source_file": "igloo_magazine_reviews.json"
   },
   {
     "album": "Unit Shifter Compilation 2",
@@ -794,383 +1269,1219 @@
     "score": null,
     "url": "https://igloomag.com/reviews/unit-shifter-compilation-2",
     "source": "Igloo Magazine",
-    "pub_date": "2026-05-10",
+    "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "Unit Shifter has been quietly building a catalog that spans the breadth of contemporary electronic music, and Compilation 2 is a strong showcase of that vision. For a label ten years in, this is exactly the kind of release that reinforces their place in the scene, varied, charitable, and committed to curating music that actually takes you somewhere. Unit Shifter Records celebrates its 10-year anniversary with Compilation 2, a curated journey through Copenhagen's electronic music scene and beyond.",
+    "excerpt": "Unit Shifter has been quietly building a catalog that spans the breadth of contemporary electronic music, and this compilation brings together artists who embody that ethos of exploration.",
     "site_id": "igloo_magazine",
     "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
+    "source_file": "igloo_magazine_reviews.json"
   },
   {
-    "album": "Looking For Consonance",
-    "artist": "John Hollenbeck's George",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
-    "source": "JazzTrail",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Filipe Freitas, May 5, 2026. Source: JazzTrail.",
-    "site_id": "jazztrail",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Wailers",
-    "artist": "Rodrigo Amado's This Is Our Language Quartet",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
-    "source": "JazzTrail",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Filipe Freitas, May 4, 2026. Source: JazzTrail.",
-    "site_id": "jazztrail",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Celebrating Live",
-    "artist": "Jonny Wartel / Mathias Landæus / Georgia Wartel Collins / Henrik Wartel",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
-    "source": "JazzTrail",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Filipe Freitas, April 23, 2026. Source: JazzTrail.",
-    "site_id": "jazztrail",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Callithumpian",
-    "artist": "Elijah Shiffer and The Robber Crabs",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
-    "source": "JazzTrail",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Filipe Freitas, April 21, 2026. Source: JazzTrail.",
-    "site_id": "jazztrail",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Ritual",
-    "artist": "Caleb Wheeler Curtis",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
-    "source": "JazzTrail",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Filipe Freitas, April 20, 2026. Source: JazzTrail.",
-    "site_id": "jazztrail",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Areas",
-    "artist": "Nick Fraser",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/jazztrail-reviews-117/",
-    "source": "JazzTrail",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz"
-    ],
-    "excerpt": "Reviewed by Filipe Freitas, April 16, 2026. Source: JazzTrail.",
-    "site_id": "jazztrail",
-    "crawl_status": "roundup_listing",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "Alive Alone, Alive Together",
-    "artist": "Ava Mendoza",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/amn-reviews-ava-mendoza-alive-alone-alive-together-2026-burning-ambulance-music/",
-    "source": "avantmusicnews",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "jazz",
-      "improvisation",
-      "guitar"
-    ],
-    "excerpt": "Ava Mendoza is simply one of the best guitarists around today. She has played with a murderer's row of improvisers and experimentalists over the last 20 years, across styles incorporating rock, blues, jazz, bluegrass, metal, and the avant-garde. Alive Alone, Alive Together collects Mendoza's recent live recordings from four different events. These are matter-of-fact guitar heroics without any sense of ego. Or restraint.",
-    "site_id": "avantmusicnews",
-    "crawl_status": "success",
-    "scraper_file": "avant_music_news"
-  },
-  {
-    "album": "The Grit",
-    "artist": "Ptastvo",
-    "score": null,
-    "url": "https://acloserlisten.com/2026/05/09/ptastvo-the-grit/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-09",
-    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
-    "excerpt": "The Grit is one of the most striking documents to emerge from Ukraine this year.  Written from the perspective of a veteran who is now part of a large volunteer force providing support and supplies to active members of the Ukrainian armed forces, the album attempts to process the unprocessable, using music as a backdrop… The Gritis one of the most striking documents to emerge from Ukraine this year.  Written from the perspective of a veteran who is now part of a large volunteer force providing support and supplies to active members of the Ukrainian armed forces, the album attempts to process the unprocessable, using music as a backdrop to trauma while emphasizing ~ and in some cases even generating ~ “the energy to go on.”  Recording asPtastvo(Ukrainian for “birdlife” or “all the birds”), ",
-    "site_id": "a_closer_listen",
-    "crawl_status": "success",
-    "scraper_file": "a_closer_listen"
-  },
-  {
-    "album": "SUN SERIES AE\\SS_02 EP",
+    "album": "SUN SERIES | AE\\SS_02 EP",
     "artist": "7053M4R14",
     "score": null,
     "url": "https://igloomag.com/reviews/7053m4r14-sun-series-adepta-editions",
     "source": "Igloo Magazine",
-    "pub_date": "2026-05-09",
+    "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "Together, these tracks form a succinct pairing, orbiting just beyond cerebral breakbeat fragments and electronic flickers—an intense sonic link that stretches rhythm toward its outer limits. A darker electronic patina coats these two brisk downtempo cuts. Granada-based veteran José María Moreno Vega, operating as 7053M4R14, delivers a limited 8\" lathe-cut vinyl alongside a digital edition—SUN SERIES stands as a decisive achievement.",
+    "excerpt": "These tracks form a succinct pairing, orbiting just beyond cerebral breakbeat fragments and electronic flickers — an intense sonic link that stretches rhythm toward its outer limits.",
     "site_id": "igloo_magazine",
     "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
+    "source_file": "igloo_magazine_reviews.json"
   },
   {
-    "album": "DL Poisons",
-    "artist": "Icky Reels",
+    "album": "Jazzkaar festival escapes jazz but still compels",
+    "artist": "Pascal Dorban",
     "score": null,
-    "url": "https://igloomag.com/reviews/icky-reels-dl-poisons",
-    "source": "Igloo Magazine",
+    "url": "https://jazzjournal.co.uk/2026/05/13/jazzkaar-festival-escapes-jazz-but-still-compels/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": " Jazzkaar festival escapes jazz but still compels - Jazz Journal Facebook X News Reviews New releases Audio Reviews Book Reviews Film Reviews Live Reviews Request JJ review Columns Alt. Takes Count me in… Letters Obituaries On the Other Hand Still Clinging to the Wreckage Features Library From the J",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Dialogue Vol. II",
+    "artist": "Therrien, Rachel",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Catalonian pianist Albert Marquès and Grammy-nominated Canadian trumpeter Rachel Therrien release Dialogue Vol. II, the second installment in a two-part collaboration resulting from a decade-long musical friendship, sharing a playfulness and freeness",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Attunement",
+    "artist": "s . Martin, Heidi",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Having completed two years of research at Rutgers University (2023-2024) which focused on the American jazz vocalist, songwriter, actress and civil rights activist Abbey Lincoln, Heidi Martin was subsequently awarded a Jazz Studies Dana Library Fello",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Katarahi",
+    "artist": "Melford, Myra and Satoko Fujii",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Two of the most acclaimed pianists in creative music, Myra Melford and Satoko Fujii, come together for their first duet album since 2007. A deep and beautiful musical conversation, the album was recorded live at JazzFestival Lebnitz. (Rogue Art) - Ad",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Arakatak",
+    "artist": "Hear Lubomyr Melnyk . Metropole Orkest",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Metropole Orchestra presents Arakatak, a brand new collection of music to celebrate the monumental orchestra’s 80th anniversary. Through 8 pieces by 8 different prominent composers, the group sheds light on the Metropole Orchestra of the past, presen",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Twisted Summer",
+    "artist": "Marc Ducret",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "10.04.2026 Inspired by the sound of the legendary jazz clarinetist and saxophonist Jimmy Giuffre’s trio, which also featured jazz icons such as guitarist Jim Hall and trombonist Bob Brookmeyer, the Mockūnas – Blaser – Ducret trio creates their o",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "A Name I Knew",
+    "artist": "nas . Molina, Pedro",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "How does time sound as it dissolves, as forgetting lays waste to what was once certain? A Name I Knew moves through this landscape, centering on Alzheimer’s: from jazz to pop/rock, from structure to the freedom of free improvisation. Each composition",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "The Incredible Jazz Guitar Of Wes Montgomery (Crystal Clear Vinyl)",
+    "artist": "Hear Pedro Molina . Montgomery, Wes",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Special limited edition of Wes Montgomery’s classic album that became the inspiration for pf countless other guitarist guitarists, including such players as Pat Metheny and John Scofield. Reissued as a special collectors’ edition on crystal clear vin",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Take Twelve",
+    "artist": "Morgan, Lee",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "‘Take Twelve’ showcases Lee Morgan’s fiery hard‑bop trumpet in a spirited, thoughtful set full of original (Jazz Wax Records JWR4647LP – LP) Morrin, Chase’s IZE Trio: Global Prayer They say : The IZE Trio – featuring pianist Chase Morrin, cellist Naz",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Global Prayer",
+    "artist": "s IZE Trio",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The IZE Trio – featuring pianist Chase Morrin, cellist Nazeem Alatrash, and percussionist George Lernis, joined by special guests including bassist John Patitucci – melds jazz, classical, and maqam (microtonal music from Greece, Turkey, Cypress, Pale",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Blue Side Vol. 1",
+    "artist": "nez",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Pianist-composer Tobin Mueller teams up with saxophonist Tomás Martinez and others to create a fresh sound as presented in Blue Side Vol. 1. The recordings were mixed and mastered at Factory Underground Studio, produced by Kenny Cash and Mueller. The",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "No Need For A Driver´s License",
+    "artist": "nen, Inge Weatherhead Breistein",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Nils Are Drønen and Inge Weatherhead Breistein are both highly active musicians in the Bergen jazz community. As a duo, their focus is acoustic free jazz, pointing towards the 1960s and 1970s. Rooted in tradition, but also shaped by newer music, the",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Novos Londrinos",
+    "artist": "Novos Londrinos",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Bossa nova, samba, baiao, spiritual jazz and Cape Verdean rhythms form an enchanting mosaic on the debut EP from London-based Novos Londrinos. Brought together by a shared love of 60s/70s Brazilian music, the group combines sophisticated songwriting,",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Third Nature",
+    "artist": "Hear Novos Londrinos . Ocean Fanfare",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Celebrated Danish-Polish quartet Ocean Fanfare return with Third Nature, the final instalment in their long-form Nature Trilogy. Led by trumpeter Tomasz Dąbrowski and saxophonist Sven Dam Meinild, the group pushes further into structurally open, impr",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "The Sorceress",
+    "artist": "Ochoa, Audrey",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Juno Award-nominated powerhouse trombonist, Canada’s Audrey Ochoa, releases a vibrant fusion of jazz, electronica, swing, and pop in a sonic portrait that brings together many influences. Each track blends improvisation with infectious hooks and lush",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Waiting Music",
+    "artist": "Hear Audrey Ochoa . Open Thread",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Australian–Canadian quartet Open Thread return with Waiting Music, a richly textured new album that captures the evolving chemistry of four distinctive improvisers. A documentation of an evolving collaboration born from a series of improvised perform",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "New releases April-May 2026, H-L",
+    "artist": "Jazz Journal",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": " New releases April-May 2026, H-L - Jazz Journal var tdBlocksArray = []; //here we store all the items for the current page // td_block class - each ajax block uses a object of this class for requests function tdBlock() { this.id = ''; this.block_type = 1; //block type id (1-234 etc) this.atts = '';",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Été Large & Wallis Bird",
+    "artist": "Large",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
     "pub_date": "2026-05-09",
     "tags": [
-      "experimental electronic",
-      "IDM",
-      "ambient",
-      "glitch",
-      "electroacoustic"
+      "jazz",
+      "reviews"
     ],
-    "excerpt": "The downtempo chug is still there, but it's been processed through decades of IDM evolution, filtered through the same sensibility that informed Beans' abstract hip-hop work and Schematic's experimental roster. DL Poisons' unsettling in the way that the best experimental electronic music should be, familiar enough to feel grounded, strange enough to keep you off balance. Adrian Bertolone—the mind behind Icky Reels—has spent over a decade crafting some of the freshest, most intriguing electronic music on the scene without much fanfare.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
+    "excerpt": "Saxophonist Luise Volkmann’s ensemble Été Large collaborate with Irish songwriter Wallis Bird on an EP to highlight both the band’s orchestral side and the twisted, folk-ish little universe they inhabit. Songs with sweeping scale, beauty and drama. M",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
   },
   {
-    "album": "Cartographies of the Unseen",
-    "artist": "Vyormouth",
+    "album": "Reclusive Mountain",
+    "artist": "Evensen, Terje",
     "score": null,
-    "url": "https://avantmusicnews.com/2026/05/09/amn-reviews-vyormouth-cartographies-of-the-unseen-2026-zerok/",
-    "source": "avantmusicnews",
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
     "pub_date": "2026-05-09",
     "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde",
-      "drone",
-      "ambient",
-      "dark"
+      "jazz",
+      "reviews"
     ],
-    "excerpt": "On Cartographies of the Unseen, Vyormouth explores hidden, buried, or abandoned places in frozen settings, and asks something different of the listener. Across more than three hours of slow-moving drones, the album rejects the implicit contract that engagement-economy media demands. There is no hook arriving every fifteen seconds. Tracks unfold at the pace of geological processes. Music at this scale operates like a physical environment.",
-    "site_id": "avantmusicnews",
-    "crawl_status": "success",
-    "scraper_file": "avant_music_news"
+    "excerpt": "Reclusive Mountain is a new album by Norwegian composer and drummer Terje Evensen, released on May 22, 2026. Featuring an international ensemble, it explores a landscape where rhythm, electronics, and melodic layers merge. The music moves between gro",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
   },
   {
-    "album": "Bestarium Sombre",
-    "artist": "Anastasia Kristensen",
+    "album": "Falcón in Blue",
+    "artist": "n, Alejandro",
     "score": null,
-    "url": "https://acloserlisten.com/2026/05/08/anastasia-kristensen-bestarium-sombre/",
-    "source": "A Closer Listen",
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Alejandro Falcón Returns to the Core of Cuban Musical Language on Falcón in Blue (Dot Time Records, DT9189) Favre, Pierre: Bird Food They say : Recorded live in Zurich in 1968, Bird Food captures the Pierre Favre Trio — Pierre Favre (drums), Irène Sc",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Bird Food",
+    "artist": "Favre, Pierre",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Recorded live in Zurich in 1968, Bird Food captures the Pierre Favre Trio — Pierre Favre (drums), Irène Schweizer (piano), George Mraz (bass) — at the height of their powers: free, fiery, fully alive. Rediscovered after half a century and released by",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "The New Atomic",
+    "artist": "s Imaginary Big Band",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Award winning Leeds-based ensemble Ferg’s Imaginary Big Band return with their raucous third album The New Atomic – a bold statement in 21st-century big band music. Known for explosive live performances and a roster that often swells to 25+ players,",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Sweet And Lovely",
+    "artist": "Ferri, Gianmarco",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Published by the independent label Wow Records and available on digital platforms starting Friday, April 3, Sweet and Lovely is the new recording project by a brilliant jazz guitar talent: Gianmarco Ferri. Joinin him on this album are two prominent f",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "American double bassist Doug Weiss and drummer Luca Santaniello, originally from Molise but now based and active in the United States. (WoW Records WJ0124) Florio, Alessandro: Controra Avenue",
+    "artist": "two prominent figures from the international jazz scene",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Italian guitarist and composer Alessandro Florio returns with his Hammond Trio after 10 (!) years. Named after the hottest, early afternoon hours of a South-Italian day and a fictitious New York avenue, this music was born in the Mediterranean but re",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Through The Cracks The Light Is Born",
+    "artist": "Franke, Marie-Paule",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The powerful and versatile jazz singer Marie-Paule Franke debuts a set of her haunting originals on Through the Cracks the Light Is Born. Joined by a top-notch New York-based quartet, the vocalist performs seven songs that are both thoughtful and emo",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "The Eureka Concert",
+    "artist": "Eggar, Dave",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Two Grammy-winning musicians known for shaping pop history– songwriter/producer, Toby Gad, (“All of Me” by John Legend, Fergie’s “Big Girls Don’t Cry”, Beyonce’s “If I Were A Boy”) and cellist Dave Eggar (Coldplay, Andrea Bocelli, Evanescence) create",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Sowden House",
+    "artist": "Dave Eggar . Garbett, Freyja",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The worlds of jazz, cinema, and video game storytelling converge on Sowden House, the new album from ARIA award-winning pianist, composer and producer Freyja Garbett, set for release on June 26th, 2026 on Earshift Music. Originally conceived as the s",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Jazz Samba",
+    "artist": "Charlie Byrd",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "While the 1953 Bud Shank/Laurindo Almeida recordings were the precursors of bossa (Waxtime Clear Vinyl 526032 – LP) Glorious Assembly Jazz Orchestra, The: Glorious Assembly They say : Glorious Assembly debuts 2nd May. A 21-piece jazz orchestra featur",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Glorious Assembly",
+    "artist": "Glorious Assembly Jazz Orchestra, The",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Glorious Assembly debuts 2nd May. A 21-piece jazz orchestra featuring Ian Thomas, John Parricelli, Gareth Williams, Loz Garratt, Tori Freestone, Mark Lockheart, Phil Meadows, Kasper Rietkerk, Claire McInerney, Gareth Lockrane, Michael Whight, Steve M",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Rhombus",
+    "artist": "Stewart, Bill",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Organist Larry Goldings, Guitarist Peter Bernstein and Drummer Bill Stewart Reconvene their Celebrates Trio for “Rhombus”, marking 35 years of history with distinctive music by Keith Jarrett, Wayne Shorter, Abdullah Ibrahim, Monk, and Irving Berlin,",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Feebles, Fables & Ferns",
+    "artist": "Fred Hersch",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Feebles, Fables and Ferns captures a rare one-time coming together of luminaries Mick Goodrick and Fred Hersch, both active in Boston at the time, recorded in Hersch’s studio in New York, August 1988. Looking back at the session in 2025, Hersch notes",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "To Some Place New",
+    "artist": "Granci, Milena",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "French-Italian pianist and composer Milena Granci introduces To Some Place New (May 14th, 2026), a striking debut that blends contemporary jazz with folk lyricism and cinematic atmosphere. Based in London, Granci leads a six-piece ensemble whose musi",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Mezzanine",
+    "artist": "Greenhouse Ensemble",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Greenhouse Ensemble’s Mezzanine marks a confident step forward for the Québec-based septet, blending contemporary jazz with Québécois folk influences and subtle experimental textures. Built through a highly collaborative process, the album showcases",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Americana",
+    "artist": "Gripper, Eddie",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Americana sees pianist Eddie Gripper joined by his trio, Patrick Barrett-Donlon on drums and Clem Saynor on double bass, across seven original compositions and a single cover of Paul Simon’s ‘American Tune’. Written during a six-week hitchhiking jour",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "Solar Boats",
+    "artist": "Guess What",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Despite their obsession of appearing on stage in astronaut onesies and mystical masks, we do know who is responsible for this cosmic saga : drummer and beatmaker Luke Warmcop (Phat Dat, Orchestre du Montplaisant) and keyboardist Graham Mushnik (Derya",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "New releases April-May 2026, C-D",
+    "artist": "Jazz Journal",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/08/new-releases-april-may-2026-c-d/",
+    "source": "Jazz Journal",
     "pub_date": "2026-05-08",
-    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
-    "excerpt": "Bestarium Sombre is a spiritual successor to Dominic Eulberg's Mannigfaltig, a clubworthy album on which nearly every track is dedicated to a single species.  The big difference is that some of Anastasia Kristensen's \"dark beasts\" are real, while others are imaginary. The magpie, of course, is one of the real ones, and gets to lead off the… Bestarium Sombreis a spiritual successor to Dominic Eulberg’sMannigfaltig, a clubworthy album on which nearly every track is dedicated to a single species.  The big difference is that some ofAnastasia Kristensen‘s “dark beasts” are real, while others are imaginary. The magpie, of course, is one of the real ones, and gets to lead off the set with its song (before the track titled “Intro”!).  In addition to its song, the bird is known for being playful an",
-    "site_id": "a_closer_listen",
-    "crawl_status": "success",
-    "scraper_file": "a_closer_listen"
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": " New releases April-May 2026, C-D - Jazz Journal <link rel='stylesheet' id='typicons-css' href='https://jazzjournal.co.uk/wp-content/plugins/td-composer/assets/fonts/typicons/typicons.css?ver=2",
+    "site_id": "jazz_journal",
+    "crawl_status": "listing",
+    "source_file": "jazz_journal_reviews.json"
   },
   {
-    "album": "Dark Assembly",
-    "artist": "Moonphase",
+    "album": "jazzahead! 2026, Bremen, Germany",
+    "artist": "Pascal Dorban",
     "score": null,
-    "url": "https://igloomag.com/reviews/moonphase-dark-assembly-petroglyph",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-08",
+    "url": "https://jazzjournal.co.uk/2026/05/07/jazzahead-2026-bremen-germany/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-07",
     "tags": [
-      "experimental electronic",
-      "IDM",
-      "ambient",
-      "glitch",
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Marking a significant milestone in its history, jazzahead! (so styled) celebrated its 20th anniversary with flair – an achievement greatly enhanced by the presence of partner country Sweden. Long considered a prime candidate for the festival spotlight, Sweden not only met but exceeded expectations. After a somewhat underwhelming opening by the Norrbotten Big Band – […] The post jazzahead! 2026, Bremen, Germany appeared first on Jazz Journal .",
+    "site_id": "jazz_journal",
+    "crawl_status": "rss_listing",
+    "source_file": "jazz_journal_reviews.json"
+  },
+  {
+    "album": "The Chaining Loops",
+    "artist": "Olivier Le Goas Ensemble Pulse",
+    "score": null,
+    "url": "https://jazztrail.net/blog/olivier-le-goas-the-chaining-loops-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "contemporary jazz",
+      "modern creative",
+      "avant garde jazz",
+      "odd meter"
+    ],
+    "excerpt": "Intrepid French drummer Olivier Le Goas reunites his Ensemble Pulse—a high-spirited septet formed during a creative residency in 2021—to perform five new original compositions. A devoted explorer of odd meters, animated rhythmic patterns, and kinetic grooves, Le Goas delivers exactly that on The Chaining Loops. His compositional strengths become evident from the outset in the expansive, constantly shifting title track. Vibraphonist David Patrois introduces the piece with an enchanting prelude before an asymmetrical pulse emerges, opening space for trombonist Gueorgui Kornazov's improvisation. Chamber-like guitar-sax passages soon give way to another sharply accented odd-meter section, this time supporting a nervy cornet solo from Médéric Collignon, followed by a more cerebral soprano saxophone statement from Frédéric Borey. The orchestration continuously evolves, and the ensemble remains tightly unified in both melody and rhythm before settling briefly into a slower 4/4 passage over which guitarist Michael Felberbaum stretches out.",
+    "site_id": "jazz_trail",
+    "crawl_status": "full_content",
+    "source_file": "jazz_trail_reviews.json"
+  },
+  {
+    "album": "Echoes",
+    "artist": "Harry Skoler",
+    "score": null,
+    "url": "https://jazztrail.net/blog/harry-skoler-echoes-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "post bop",
+      "avant garde jazz"
+    ],
+    "excerpt": "With a voice unmistakably his own, clarinetist and composer Harry Skoler traverses a variety of open-ended atmospheres, displaying an instinctive ability to merge traditional jazz language with contemporary sensibilities in ways that continue to shape his artistic identity. On his seventh album as a leader, Echoes—a tribute to his jazz heroes—Skoler is joined by guitar visionary Bill Frisell and reunited with the rhythm section from Red Brick Hill (Sunnyside, 2024): bassist Dezron Douglas and drummer Johnathan Blake. Produced once again by saxophonist Walter Smith III, the album draws from familiar ingredients while embracing a welcome sense of risk through occasional ventures into avant-garde territory. The quartet has developed a genuine musical empathy that radiates throughout the recording, making Echoes an album that rewards repeated listening.",
+    "site_id": "jazz_trail",
+    "crawl_status": "full_content",
+    "source_file": "jazz_trail_reviews.json"
+  },
+  {
+    "album": "Alive With Ghosts Today",
+    "artist": "Chris Potter",
+    "score": null,
+    "url": "https://jazztrail.net/blog/chris-potter-alive-with-ghosts-today-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-07",
+    "tags": [
+      "jazz",
+      "contemporary jazz",
+      "post bop"
+    ],
+    "excerpt": "Chris Potter, a top-tier saxophonist and composer with a brilliant 35-year career in contemporary jazz, unveils a compelling new suite inspired by abolitionist John Brown's Raid of 1859. The music addresses the complexities and contradictions of America within an encouraging, deeply expressive framework, where Potter's full-bodied tenor sound emerges through surging solos marked by clarity, emotion, and conviction. For this septet project, Potter assembles a remarkable group of musicians who share his fearless creative vision. Advocating freedom and peace for everyone, Potter plays his absolute truth with harmonic rigor and wholehearted improvisation. For its message and artistry alike, Alive With Ghosts Today is a precious offering.",
+    "site_id": "jazz_trail",
+    "crawl_status": "full_content",
+    "source_file": "jazz_trail_reviews.json"
+  },
+  {
+    "album": "The Ghost(UHD, Blu-Ray, & CD)",
+    "artist": "The Ghost",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/the-ghost-the-ghost-uhd-blu-ray-cd-1778668227207",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "dark ambient",
+      "industrial",
       "electroacoustic"
     ],
-    "excerpt": "Dark Assembly is at once cold, organic, desolate, and turbulent. The album unfolds like a powerful ascending electronic ritual, shrouded in a vertiginous blackened aura where cinematic tension and spiritual desolation coexist in fascinating balance. Moonphase is a superb deep audio and doom-laden atmospheric duo formed by Shane Beck and Øystein Q. Jørgensen.",
-    "site_id": "igloo_magazine",
+    "excerpt": "From the early 1960's, The Ghost is a prime example of Italian Gothic horror. It features a creepy grand house and mausoleum, an eerily building atmosphere & amping it up melodrama. As well as, ghoulish & bloody effects, and last but hardly least, we have Barbara Steel, on top form. Here from those prime cinematic ghouls, Severin- it's a ltd four-disc release of the film. It features a new 4k print, four hours of special features, a 2019 doc about Italian Gothic horror, and a seventy-minute CD.",
+    "site_id": "musique_machine",
     "crawl_status": "success",
-    "scraper_file": "igloo_magazine"
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Brute 1976 (VOD)",
+    "artist": "Brute 1976",
+    "score": "2",
+    "url": "https://www.musiquemachine.com/reviews/brute-1976-brute-1976-vod-1778665226871",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Despite its brutish and blunt name, this slasher directed by Marcel Walz is a stylishly photographed affair. As it opens emphatically on \"August 19, 1976,\" when we catch up with two young women trapped on a roadside who make the mistake of wandering down a mineshaft to an apparently sticky and flesh-ripping end.... The style, however, can't make up for a horror that is disappointingly more derivative than reverential.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Neither Precious Nor Noble",
+    "artist": "Andrew Liles",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/andrew-liles-neither-precious-nor-noble-1778655405198",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Some of the world will look at the periodic table and see dull rows of squares and letters, but others will see inspiration, looking to pull some chaos from its well ordered matrix. Andrew Liles is one that wanted to tap into these elements and let them sing. In Neither Precious Nor Noble, he focuses on twenty different metals, turning them into sound sources, and working his magic on them to create a really cool and very listenable collection of tracks.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Split",
+    "artist": "Graveyard Witchcraft & Desecration Altar",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/graveyard-witchcraft-desecration-altar-split-1778601276233",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Here's a wall noise split with a rather sacrilegious cover- featuring a perversely altered statue of the Virgin Mary. Featured are two thickly seared example of the wall form- one from Indiana-based Graveyard Witchcraft, and the other from South Carolina's Desecration Altar.",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "No Such Thing As Love For…",
+    "artist": "Silver Dove",
+    "score": "4",
+    "url": "https://www.musiquemachine.com/reviews/silver-dove-no-such-thing-as-love-for-1778600535709",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "No Such Thing As Love For… is a new around two hour release from Liverpool's Silver Dove. It offers up a blend/ mix of hazy guitar drone/ ambience, walled/ textured noise, and dreamy/ abstract sound making.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Non-Stop Negative Enforcement",
+    "artist": "Damien De Coene",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/damien-de-coene-non-stop-negative-enforcement-1778599850849",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Non-Stop Negative Enforcement presents with two slabs of churning, grinding & weighty wall noise. If your familiar with the euro wall scene of say the 5 or so years, I'm sure you know Damien De Coene name- the Spanish based noise maker who has been behind such projects as, Charles Razeur, Verwelk, Renoffski, and more recently Dod Cathedral.",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "The Ugly( Blu Ray)",
+    "artist": "The Ugly",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/the-ugly-the-ugly-blu-ray-1778571315488",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "The Ugly is a late 90's serial killer drama/ thriller from New Zealand. It regards a female psychologist going to assess a charming, but dangerous killer- who claims he's been haunted by the sprints of those he's murdered. The film has a decidedly jarring/ darting structure with some effective moments of building tension, shock, and a general unbalanced vibe.",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Innerspace (UHD/ Blu Ray)",
+    "artist": "Innerspace",
+    "score": "4",
+    "url": "https://www.musiquemachine.com/reviews/innerspace-innerspace-uhd-blu-ray-1778570594730",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "From the late 80's Innerspace is entertaining/ largely undated blend of sci-fi, physical comedy, romance and action. It regards a washed-up test pilot (Dennis Quiad), getting involved in a secret miniaturization experiment- but instead of been injected into the planned rabbit, he gets shot inside bumbling hypochondriac (Martin Short).",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Vents d'Aether",
+    "artist": "Jérôme Bouve & Delphine Dora",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/j-r-me-bouve-delphine-dora-vents-d-aether-1778485172664",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Jérôme Bouve & Delphine Dora present an album of thoughtfully yearning magickal drone, encircled with field recordings, for their first collaboration, this album entitled Vents d'aether, released on Hallow Ground. The album has a twenty-minute opening track, titled after the album, followed by a series of shorter pieces.",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "VHS Maniacs! Volume 1( DVD)",
+    "artist": "VHS Maniacs! Volume 1",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/vhs-maniacs-volume-1-vhs-maniacs-volume-1-dvd-1778428617093",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "This 2-disc DVD collection from FilmLandia and Aggregate Media features two documentary films looking at the VHS phenomenon that swept across the planet in the 1980s. Both films are a nostalgic trip into the golden age of VHS, however we are treated to a lot of chat and discussion about how VHS tapes continue to live on in the horror and exploitation underground.",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Symphonies( CD boxset)",
+    "artist": "Clearlight",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/clearlight-symphonies-cd-boxset-1778244217112",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-08",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Langeleik",
+    "artist": "Geir Sundstøl & Joe Harvey-Whyte",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/geir-sundst-l-joe-harvey-whyte-langeleik-1778150489196",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-07",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "",
+    "site_id": "musique_machine",
+    "crawl_status": "site_unavailable",
+    "source_file": "musique_machine_reviews.json"
+  },
+  {
+    "album": "Tiny Sun (Martina Sorbara, Jonathan Goldsmith, and Don Rooke) - Vanishment",
+    "artist": "Tiny Sun",
+    "score": null,
+    "url": "https://www.rootsworld.com/reviews/tinysun-26.shtml",
+    "source": "RootsWorld",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Composed, performed, and produced by Martina Sorbara, Jonathan Goldsmith, and Don Rooke, the record is vaguely Americana, with plucked guitars and ukuleles, chiming keyboards, and the lonesome slide of the guitar",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "source_file": "roots_world_reviews.json"
+  },
+  {
+    "album": "Symphonique",
+    "artist": "Voïvod",
+    "score": null,
+    "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25533",
+    "source": "sea_of_tranquility",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "prog",
+      "fusion",
+      "metal",
+      "jazz-rock"
+    ],
+    "excerpt": "Voivod's latest release Symphonique is an ambitious release. It's a live album featuring a career spanning setlist from the Canadian band, accompanied by the Quebec Symphony Orchestra. The album was recorded live on June 4, 2025 at the Grand Théâtre in Quebec City, and is due for release just over a year later (5th June 2026). As a long time fan of this band, I absolutely adore this album... The arrangements really support and enhance the tracks, adding elements to the songs that didn't exist before, without taking away any of their heart and soul... This album should be an instant buy for die hard fans of the band, and is certainly worth checking out if you're a more casual fan too.",
+    "site_id": "sea_of_tranquility",
+    "crawl_status": "no_score",
+    "source_file": "sea_of_tranquility_reviews.json"
+  },
+  {
+    "album": "A Reflection Distorts Over Water",
+    "artist": "Camila Nebbia (feat. Marilyn Crispell & Lesley Mok)",
+    "score": null,
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3016",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-12",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "With great cooperation between the Americas, two US improvisers — pianist Marilyn Crispell and drummer Lesley Mok — join with Argentinean tenor saxophonist Camila Nebbia for set of free-form improvisations that balance lyrical expression with avant-garde exploration.",
+    "site_id": "squids_ear_3016",
+    "crawl_status": "success",
+    "source_file": "squids_ear_reviews.json"
+  },
+  {
+    "album": "Collection Supranaturelle: Induction / Mutation",
+    "artist": "Eric La Casa / Francisco Lopez",
+    "score": null,
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3015",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-11",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "A two-disc release from La Casa and López that shares nothing overtly in common — one disc from each artist — yet is grouped under the same title, perhaps indicating a shared sensibility about the natural world and its transformation through sound.",
+    "site_id": "squids_ear_3015",
+    "crawl_status": "success",
+    "source_file": "squids_ear_reviews.json"
+  },
+  {
+    "album": "Live from Studio Rivbea",
+    "artist": "Oliver Lake / Fred Hopkins / Phillip Wilson / Baikida Carroll / Michael Gregory Jackson",
+    "score": null,
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3014",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-07",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "A live recording from Studio Rivbea featuring the collective of Oliver Lake (saxophone), Fred Hopkins (bass), Phillip Wilson (drums), Baikida Carroll (trumpet), and Michael Gregory Jackson (guitar), capturing an energetic set of avant-garde jazz improvisation.",
+    "site_id": "squids_ear_3014",
+    "crawl_status": "success",
+    "source_file": "squids_ear_reviews.json"
+  },
+  {
+    "album": "Drift",
+    "artist": "James Opstad",
+    "score": null,
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3013",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-07",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "Bassist and composer James Opstad is an active presence in the contemporary music field, predominantly as a performer across a stimulating diversity of genres. Notably, he's a current member of Apartment House and various other ensembles.",
+    "site_id": "squids_ear_3013",
+    "crawl_status": "success",
+    "source_file": "squids_ear_reviews.json"
+  },
+  {
+    "album": "The Romantic Piano Concerto 1991-2007 Edition",
+    "artist": "Various (Hyperion)",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-the-hyperion-romantic-piano-concerto-edition-1991-2007/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "classical",
+      "contemporary",
+      "piano",
+      "romantic",
+      "box set",
+      "hyperion"
+    ],
+    "excerpt": "Hyperion's Romantic Piano Concerto series stands as one of the most ambitious and comprehensive recording projects in the history of classical music. The set offers a comprehensive overview of the virtuoso tradition, documenting the historical repertoire of an instrument that continues to reign supreme in the concert hall today.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success",
+    "source_file": "the_classic_review_reviews.json"
+  },
+  {
+    "album": "Arcadi Volodos Plays Schubert and Schumann (2026)",
+    "artist": "Arcadi Volodos",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/arcadi-volodos-schubert-schumann/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "classical",
+      "contemporary",
+      "piano",
+      "schubert",
+      "schumann"
+    ],
+    "excerpt": "Arcadi Volodos pairs Schubert's Piano Sonata in D major, D. 850 (Gasteiner) with Schumann's Kinderszenen, Op. 15 in a live recital recorded at the Fondation Louis Vuitton. The two works present contrasting Romantic ideals: a large-scale four-movement sonata of public ambition and an intimate cycle of character pieces.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success",
+    "source_file": "the_classic_review_reviews.json"
+  },
+  {
+    "album": "Symbols",
+    "artist": "Sergeant",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/sergeant-symbols-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-13",
+    "tags": [],
+    "excerpt": "From Belgium, an experimental rock trio unafraid to slice up their own jams with a pair of garden shears and dance merrily amongst the shreds Symbols by Sergeant Brussels-based plunderphonic rock band Sergeant’s self-titled 2023 debut saw the band homaging “DJ Shadow in reverse”, splicing and collaging their own wayward jams into avant-pop songs. Jagged little guitars, discreetly flickering beats, and detached, lost-sounding vocals pushed the band towards a phantom pop music, but maybe more of a",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "source_file": "the_quietus_reviews.json"
+  },
+  {
+    "album": "Let X=X (Live)",
+    "artist": "Laurie Anderson with Sexmob",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/laurie-anderson-with-sexmob-let-xx-live-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-12",
+    "tags": [],
+    "excerpt": "A live set from 2023 sees Laurie Anderson re-imagining her own songs – and, perhaps surprisingly, one from Lou Reed's album with Metallica Let X=X (Live) by Laurie Anderson Laurie Anderson is known for ambitious, conceptual projects, so it is unsurprising that she would want her live album to be a complete representation of the experience of her show. Her latest Let X=X, has a strong sense of narrative that elevates it beyond the standard performance documentation. Songs are neatly grouped along",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "source_file": "the_quietus_reviews.json"
   },
   {
     "album": "Feeling Is Structure",
     "artist": "Max Cooper",
-    "score": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/max-cooper-feeling-is-structure/",
     "source": "The Quietus",
     "pub_date": "2026-05-08",
-    "tags": [
-      "electronic",
-      "techno",
-      "experimental"
-    ],
-    "excerpt": "Max Cooper Feeling Is Structure The Belfast-born producer risks neglecting what makes music special in his zeal to present himself as an artist. Feeling Is Structure by Max Cooper. Max Cooper's ninth studio release has been created with microscopic attention to detail, exactly what you'd expect considering the London-based techno and electronic producer's former life as a computational biologist. But in focusing so intently on the minutiae, the bigger picture can feel neglected. The album was or",
+    "tags": [],
+    "excerpt": "The Belfast-born producer risks neglecting what makes music special in his zeal to present himself as an artist Feeling Is Structure by Max Cooper Max Cooper’s ninth studio release has been created with microscopic attention to detail, exactly what you’d expect considering the London-based techno and electronic producer’s former life as a computational biologist. But in focussing so intently on the minutiae, the bigger picture can feel neglected. The album was originally developed for Cooper’s a",
     "site_id": "the_quietus",
-    "crawl_status": "ok",
-    "scraper_file": "the_quietus"
-  },
-  {
-    "album": "Radio-Activity",
-    "artist": "Kraftwerk",
-    "score": "",
-    "url": "https://thequietus.com/quietus-reviews/reissue-of-the-week/kraftwerk-radioactivity-review/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-08",
-    "tags": [
-      "electronic",
-      "experimental"
-    ],
-    "excerpt": "Reissue of the Week: Kraftwerk's Radio-Activity. Jude Rogers counts the ways in which a new reissue 50th Anniversary Edition of Radio-Activity is a good if complicated thing. Why is there yet another reissue of Radio-Activity? Let me count the ways. Eins: Because this Dolby Atmos mix is not quite the same record. Back in March, in a dark playback studio in the industrial hinterlands of King's Cross, I heard my favourite Kraftwerk album brightened and shined. I heard tones I didn't recognise, voc",
-    "site_id": "the_quietus",
-    "crawl_status": "ok",
-    "scraper_file": "the_quietus"
-  },
-  {
-    "album": "K-Core",
-    "artist": "HWXXNG",
-    "score": null,
-    "url": "https://acloserlisten.com/2026/05/07/hwxxng-k-core/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-07",
-    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
-    "excerpt": "What is K-Core?  In the hands of DJ HWXXNG (Jaeho Hwang), K-Core deconstructs traditional Korean music and refits it for the modern era.   The visual element is important as well, a way to demonstrate that the past has a way of haunting the present, while the present continues to reevaluate the past. Consider for example… What isK-Core?  In the hands of DJHWXXNG(Jaeho Hwang), K-Core deconstructs traditional Korean music and refits it for the modern era.   The visual element is important as well, a way to demonstrate that the past has a way of haunting the present, while the present continues to reevaluate the past. Consider for example the bonkers teaser videos forShift Keyand “2045 Apocalypse.”  “Shift Key” is an anime nightmare of malevolent demons who look to have descended from dragons",
-    "site_id": "a_closer_listen",
     "crawl_status": "success",
-    "scraper_file": "a_closer_listen"
+    "source_file": "the_quietus_reviews.json"
   },
   {
     "album": "Extinction Burst!",
-    "artist": "Guttersnipe",
-    "score": "",
+    "artist": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/album-of-the-week/extinction-burst-guttersnipe-review/",
     "source": "The Quietus",
     "pub_date": "2026-05-07",
-    "tags": [
-      "noise",
-      "experimental",
-      "psych"
-    ],
-    "excerpt": "Crisis Energy: Extinction Burst! by Guttersnipe. Back after an eight-year album gap, the Leeds duo have met the moment, matching the scale of our psychic overwhelm with an album of more-than-human intensity. In Perdido Street Station, China Miéville describes 'crisis energy', the moment when a system pushed to its absolute limit transforms, where collapse and maximum release become the same event. Guttersnipe adopt this idea as their guiding principle. On Extinction Burst!, their first record in",
+    "tags": [],
+    "excerpt": "In Perdido Street Station, China Miéville describes “crisis energy”, the moment when a system pushed to its absolute limit transforms, where collapse and maximum release become the same event. Guttersnipe adopt this idea as their guiding principle. On Extinction Burst!, their first record in eight years, they turn crisis energy from concept into visceral reality. The Leeds duo (Uroceras Gigas and Tipula Confusa) see the supposed split between the cerebral and the visceral as a cultural fabricati",
     "site_id": "the_quietus",
-    "crawl_status": "ok",
-    "scraper_file": "the_quietus"
+    "crawl_status": "success",
+    "source_file": "the_quietus_reviews.json"
   },
   {
     "album": "Sigils For Survival",
     "artist": "Octo Octa",
-    "score": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/octo-octa-sigils-for-survival-review/",
     "source": "The Quietus",
     "pub_date": "2026-05-07",
-    "tags": [
-      "dance",
-      "electronic",
-      "idm"
-    ],
-    "excerpt": "Octo Octa Sigils For Survival The American producer's latest album documents a decade of queer life through chaos magic and clubhouse momentum. Sigils For Survival by Octo Octa. In the late autumn of 2015, Maya Bouldry-Morrison, the producer known as Octo Octa, stepped out from the protective anonymity of the DJ booth to claim her identity as a transgender woman. It was a moment that fundamentally recalibrated her relationship with the dancefloor, transforming it from a place of mere performance",
+    "tags": [],
+    "excerpt": "The American producer's latest album documents a decade of queer life through chaos magic and clubhouse momentum Sigils For Survival by Octo Octa In the late autumn of 2015, Maya Bouldry-Morrison, the producer known as Octo Octa, stepped out from the protective anonymity of the DJ booth to claim her identity as a transgender woman. It was a moment that fundamentally recalibrated her relationship with the dancefloor, transforming it from a place of mere performance into a site of profound, public",
     "site_id": "the_quietus",
-    "crawl_status": "ok",
-    "scraper_file": "the_quietus"
-  },
-  {
-    "album": "“A myth can often be more stimulating than actuality”",
-    "artist": "Love Magic Power Danger Bliss",
-    "score": null,
-    "url": "https://www.thewire.co.uk/in-writing/essays/a-myth-can-often-be-more-stimulating-than-actuality-new-yoko-ono-book-reviewed",
-    "source": "The Wire",
-    "pub_date": "2026-05-07",
-    "tags": [
-      "experimental",
-      "avant-garde",
-      "sound art",
-      "improvisations"
-    ],
-    "excerpt": "This website uses cookies . Please let us know if you agree to this.",
-    "site_id": "the_wire",
     "crawl_status": "success",
-    "scraper_file": "the_wire"
-  },
-  {
-    "album": "Wormhole",
-    "artist": "Kreng",
-    "score": null,
-    "url": "https://acloserlisten.com/2026/05/06/kreng-wormhole/",
-    "source": "A Closer Listen",
-    "pub_date": "2026-05-06",
-    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
-    "excerpt": "Eleven years have passed since The Summoner was released, long enough for us to wonder if we'd ever hear from Kreng again.  Over the past decade, the artist has been composing for theatre and cinema, which is a perfect pivot given his penchant for dark and moody atmospheres.  Works for Abattoir Férme 2007 - 2011 appeared on our very… Eleven years have passed sinceThe Summonerwas released, long enough for us to wonder if we’d ever hear fromKrengagain.  Over the past decade, the artist has been composing for theatre and cinema, which is a perfect pivot given his penchant for dark and moody atmospheres.Works for Abattoir Férme 2007 – 2011appeared on our very first collection ofMusic for Haunted Houses, and everything Kreng composes sounds like October. Wormholerepresents a slight shift towa",
-    "site_id": "a_closer_listen",
-    "crawl_status": "success",
-    "scraper_file": "a_closer_listen"
+    "source_file": "the_quietus_reviews.json"
   },
   {
     "album": "Let It Go",
     "artist": "Russell Haswell",
-    "score": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/russel-haswell-let-it-go-review/",
     "source": "The Quietus",
     "pub_date": "2026-05-06",
-    "tags": [
-      "noise",
-      "experimental"
-    ],
-    "excerpt": "Russell Haswell Let It Go Coventry's own noise brutalist is as magnificently unlistenable as ever. LET IT GO by Russell Haswell. As we pick our way through the scurf and scree of the modern world, outraged and numb at every turn, we can maybe agree that Russell Haswell's new record is a useful corrective and something of an unlikely balm. Here, with Haswell at the controls, we are just living in a world of shit, some of us are in the gutter but looking at the kerb, we've just roasted an Alsatian",
+    "tags": [],
+    "excerpt": "LET IT GO by Russell Haswell As we pick our way through the scurf and scree of the modern world, outraged and numbed at every turn, we can maybe agree that Russell Haswell’s new record, Let It Go, is a useful corrective and something of an unlikely balm. Here, with Haswell at the controls, we are just living in a world of shit, some of us are in the gutter but looking at the kerb, we’ve just roasted an Alsatian’s leg in our thirtieth-floor apartment, and so on. Let It Go is a total heap of noise",
     "site_id": "the_quietus",
-    "crawl_status": "ok",
-    "scraper_file": "the_quietus"
+    "crawl_status": "success",
+    "source_file": "the_quietus_reviews.json"
+  },
+  {
+    "album": "Disco Chimi",
+    "artist": "Charlie Chimi",
+    "score": null,
+    "url": "https://www.truthandliesmusic.com/magazine/charlie-chimi-disco-chimi-club-coco-a-review",
+    "source": "Truth & Lies",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "free jazz",
+      "improvised music",
+      "adventurous jazz",
+      "afro-cuban",
+      "latin",
+      "club coco"
+    ],
+    "excerpt": "What would a record by a Dominican Republic-raised Cuban artist now residing in Brooklyn sound like? Well, all of those places at once if you're Charlie Chimi and this is the debut artist album for Coco Maria's new label. Afro-Cuban rhythms, no-wave garage punk edge, homemade funk and a fearless middle-fingered attitude towards generic straightforwardness are all here. It's also fun, surreal, irreverent and ace.",
+    "site_id": "truth_and_lies_music",
+    "crawl_status": "full_content",
+    "source_file": "truth_and_lies_music_reviews.json"
+  },
+  {
+    "album": "Ranjha",
+    "artist": "Shye Ben Tzur, Jonny Greenwood & The Rajasthan Express",
+    "score": null,
+    "url": "https://worldmusiccentral.org/ranjha-a-window-into-a-phenomenal-desert-tradition/",
+    "source": "World Music Central",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "Indian music",
+      "Jonny Greenwood",
+      "Rajasthan Express",
+      "Rajasthani music",
+      "Shye Ben Tzur",
+      "world fusion",
+      "world music"
+    ],
+    "excerpt": "A decade after Junun, Ranjha is a recording with deeper confidence and sharper focus. The setting has shifted from the sandstone vastness of Mehrangarh Fort in Jodhpur (Rajasthan, India) to an Oxford studio in the UK. However, the album retains the same restless spirit: musicians pursue communion through irresistible rhythm, repetition and ecstatic release. Shye Ben Tzur's compositions include influences from Qawwali, Manganiar folk traditions and Sufi poetry.",
+    "site_id": "worldmusiccentral",
+    "crawl_status": "success",
+    "source_file": "world_music_central_reviews.json"
+  },
+  {
+    "album": "Oud for Palestine",
+    "artist": "Saied Silbak",
+    "score": null,
+    "url": "https://worldmusiccentral.org/saied-silbak-finds-beauty-tradition-and-resilience-in-oud-for-palestine/",
+    "source": "World Music Central",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Arabic music",
+      "Gaza",
+      "oud",
+      "Palestine",
+      "Palestinian music",
+      "Saied Silbak",
+      "world fusion",
+      "world music"
+    ],
+    "excerpt": "Saied Silbak has emerged as a prominent London-based oud player and composer whose music is deeply influenced by Arabic, Turkish, Indian, jazz, and western classical traditions. On Oud for Palestine, he presents joyful Palestinian folk songs, elegantly crafted with a superb trio format that includes Nina Harries on double bass and Haneen Kiwan in Arabic percussion. The album balances Silbak's technical brilliance with expressive, enthralling melodies, immersive arrangements, and thrilling percussion.",
+    "site_id": "worldmusiccentral",
+    "crawl_status": "success",
+    "source_file": "world_music_central_reviews.json"
+  },
+  {
+    "album": "American Portraits",
+    "artist": "Martin Cooper",
+    "score": null,
+    "url": "https://worldmusiccentral.org/marty-cooper-revisits-his-catalog-on-american-portraits/",
+    "source": "World Music Central",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "American folk music",
+      "Martin Cooper"
+    ],
+    "excerpt": "American Portraits by folk singer-songwriter Marty Cooper gathers Cooper's own versions of songs long associated with other artists. Warm lead vocals, choruses, and a wide range of musical instruments provide a splendid mix of American folk music and Americana. The new, extraordinary collection features titles previously popularized elsewhere, including You Can't Be a Beacon (If Your Light Don't Shine) and A Little Bit Country, a Little Bit Rock 'n' Roll.",
+    "site_id": "worldmusiccentral",
+    "crawl_status": "success",
+    "source_file": "world_music_central_reviews.json"
+  },
+  {
+    "album": "Stopover",
+    "artist": "Nasibo & Zigwiton",
+    "score": null,
+    "url": "https://worldmusiccentral.org/stopover-a-delightful-meeting-of-mbira-and-guitar/",
+    "source": "World Music Central",
+    "pub_date": "2026-05-09",
+    "tags": [
+      "world music"
+    ],
+    "excerpt": "Released in May 2025, Stopover is a charming six-track EP born from the cross-cultural collaboration between Zimbabwean vocalist and mbira player Nasibo Mutize and French guitarist-composer Raphael Joly, known as Zigwiton. The project intertwines traditional African sounds with contemporary arrangements, connecting East and West Africa, Harare and Addis Ababa, where Joly has lived for 18 years.",
+    "site_id": "worldmusiccentral",
+    "crawl_status": "success",
+    "source_file": "world_music_central_reviews.json"
+  },
+  {
+    "album": "A Dream In Essaouira",
+    "artist": "Abdel Benaddi",
+    "score": null,
+    "url": "https://worldmusiccentral.org/abdel-benaddi-gnawa-tradition-captured-live-in-essaouira/",
+    "source": "World Music Central",
+    "pub_date": "2026-05-08",
+    "tags": [
+      "Abdel Benaddi",
+      "Gnawa",
+      "Gnawa music",
+      "Moroccan music",
+      "world music"
+    ],
+    "excerpt": "Abdel Benaddi is a hereditary Gnawa musician from Essawira, Morocco, a coastal city known for its longstanding Gnawa ceremonial culture. He serves as Director of the Zaouia Sinda Bilal (Ceremonial House of Gnawa) in Essawira, where he helps organize community gatherings and ritual ceremonies that sustain the tradition. A Dream In Essaouira documents a traditional Gnawa performance as practiced in Essawira in 2024.",
+    "site_id": "worldmusiccentral",
+    "crawl_status": "success",
+    "source_file": "world_music_central_reviews.json"
+  },
+  {
+    "album": "My Little Snap Bean: Zydeco for Children",
+    "artist": "Johnette Downing, Nathan Williams & The Zydeco Cha Chas",
+    "score": null,
+    "url": "https://worldmusiccentral.org/johnette-downing-and-nathan-williams-unite-for-louisiana-focused-childrens-zydeco-album/",
+    "source": "World Music Central",
+    "pub_date": "2026-05-07",
+    "tags": [
+      "Johnette Downing",
+      "Louisiana music",
+      "Nathan Williams & The Zydeco Cha Chas",
+      "world music",
+      "Zydeco"
+    ],
+    "excerpt": "Johnette Downing's My Little Snap Bean: Zydeco for Children feels like a cherished cultural inheritance passed hand to hand. Crafted together with Nathan Williams & The Zydeco Cha Chas, the album brings Louisiana tradition into a child's ear. The result is joyful music, full of bounce, memory, and local knowledge. Downing and Williams understand that children's music does not need to be simplified to be welcoming. Their musicianship is deft, earthy, and expressive.",
+    "site_id": "worldmusiccentral",
+    "crawl_status": "success",
+    "source_file": "world_music_central_reviews.json"
   }
 ]
