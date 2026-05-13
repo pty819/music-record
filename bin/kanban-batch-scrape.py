@@ -144,7 +144,7 @@ URL：{url}
 输入目录：{date_dir}（绝对路径）
 输入文件：{date_dir}/*_reviews.json（共 {len(all_task_ids)} 个）
 输出文件（均使用绝对路径）：
-  - {date_dir}/aggregated.json   （当天所有去重后的评论）
+  - {date_dir}/aggregated.json   （当天所有去重后的评论，纯列表格式）
   - {date_dir}/filtered.json     （当天评分 >= 6 的评论）
   - /home/liyifan/music-record/recommend/{DATE}.md  （当天全量 markdown，直接作为唯一输出）
 
@@ -153,32 +153,147 @@ URL：{url}
 2. 遍历 {date_dir}/*_reviews.json（绝对路径）
 3. 解析所有 JSON 数组合并
 4. 按 (album+artist) 去重，保留评分最高的来源
-5. 按评分公司打分：total_score = critic_quality + taste_match + novelty + cross_domain_bonus + regional_bonus - mainstream_penalty
-6. 输出 aggregated.json（全量） 和 filtered.json（>=6分）到 {date_dir}/
+5. 执行评分代码（见下方），输出 total_score
+6. 输出 aggregated.json（全量，纯列表）和 filtered.json（>=6分）到 {date_dir}/
 7. 生成全量 markdown（含 ★10/8/6 分级）→ 直接写入 /home/liyifan/music-record/recommend/{DATE}.md
 
-   **Markdown 格式规范（必须遵守）：**
-   ```
-   # Daily Music Recommendations — {DATE}
+=== 可执行代码（必须执行）===
+```python
+import json, os
+from datetime import datetime
 
-   *Generated {TODAY.isoformat()} · N reviews from X sites · M passed filter (≥6/10)*
+DATE = "{DATE}"
+date_dir = "{date_dir}"
+TODAY = datetime.now()
 
-   ## ★10 — Top Picks
+# ── 读取所有 scraper JSON ──────────────────────────────────────
+all_files = [f for f in os.listdir(date_dir) if f.endswith("_reviews.json")]
+reviews = []
+for fname in all_files:
+    fpath = os.path.join(date_dir, fname)
+    with open(fpath) as f:
+        reviews.extend(json.load(f))
+print(f"Loaded {{len(reviews)}} reviews from {{len(all_files)}} files")
 
-   **[Album] — [Artist]** [[score], source]
-   [Listen/read →](url)
-   > 完整推荐理由（从 excerpt 字段原样摘录，不要改写，不要用省略号截断）
+# ── 去重：按 (album+artist) 保留评分最高的来源 ─────────────────
+seen = {{}}
+for r in reviews:
+    key = (r.get("album",""), r.get("artist",""))
+    old = seen.get(key, {{}})
+    if "score" not in old or (r.get("score") and r.get("score",0) > old.get("score",0)):
+        seen[key] = r
+reviews = list(seen.values())
+print(f"Deduplicated: {{len(reviews)}} unique")
 
-   ## ★8 — Notable
-   ...
+# ── 评分函数（与 skill/SKILL.md 一致）────────────────────────────
+def score_review(r):
+    excerpt = r.get("excerpt","") or ""
+    tags_raw = r.get("tags","")
+    tags = [t.lower().strip() for t in tags_raw.split(",")] if isinstance(tags_raw,str) else tags_raw
+    elen = len(excerpt)
+    cq = min(5, elen // 100) if elen > 0 else 0
+    avant_kw = ["experimental","avant-garde","free jazz","electroacoustic","drone",
+                "ambient","idm","glitch","industrial","sound art","modern composition",
+                "field recording","improvisation","noise","ritual","dark ambient",
+                "dungeon synth","darksynth","synthwave"]
+    tm = min(5, sum(1 for t in tags for k in avant_kw if k in t))
+    novelty_kw = ["unique","rare","first","unusual","innovative","cross-cultural","world","ritual"]
+    nov = min(3, sum(1 for kw in novelty_kw if kw.lower() in excerpt.lower()))
+    domains = set()
+    for t in tags:
+        if any(k in t for k in ["jazz","improvisation"]): domains.add("jazz")
+        if any(k in t for k in ["electronic","idm","glitch","ambient","drone"]): domains.add("electronic")
+        if any(k in t for k in ["world","african","asian","latin","folk"]): domains.add("world")
+        if any(k in t for k in ["classical","chamber","minimalist"]): domains.add("classical")
+    cdb = max(0, len(domains) - 1) if len(domains) > 1 else 0
+    reg_kw = ["southeast asia","south america","africa","middle east","central asia","southeast asian"]
+    reg = 2 if any(kw in " ".join(tags) for kw in reg_kw) else (1 if any(kw in excerpt.lower() for kw in ["asia","africa","latin"]) else 0)
+    pen = 1 if cq <= 1 else 0
+    return max(0, cq + tm + nov + cdb + reg - pen)
 
-   ## ★6 — Notable
-   ...
-   ```
-   - 按评分分三栏：★10（>=9分）、★8（7-8分）、★6（6分）
-   - 每条保留：专辑名、艺人、评分、来源URL、完整推荐理由
-   - **推荐理由必须完整摘录自 JSON 的 excerpt 字段**，原文是什么就写什么，不要改写，不要截断，不要加省略号
-   - 推荐理由要突出声音特征/创新点/场景感
+# ── 执行评分 ───────────────────────────────────────────────────
+for r in reviews:
+    r["total_score"] = score_review(r)
+
+scored = sorted(reviews, key=lambda x: x["total_score"], reverse=True)
+passed = [r for r in scored if r["total_score"] >= 6]
+print(f"Passed (>=6): {{len(passed)}}")
+
+# ── 中文推荐理由生成函数 ───────────────────────────────────────
+def gen_cn(r):
+    excerpt = r.get("excerpt","") or ""
+    tags_raw = r.get("tags","")
+    tags_str = tags_raw.lower() if isinstance(tags_raw,str) else " ".join(tags_raw).lower()
+    parts = []
+    el = excerpt.lower()
+    if "field recording" in tags_str: parts.append("实地录音素材构建声音地景")
+    if any(k in tags_str for k in ["drone","ambient"]): parts.append("低频嗡鸣与氛围纹理")
+    if any(k in tags_str for k in ["idm","glitch","electronic"]): parts.append("IDM/glitch 结构与电子音色设计")
+    if any(k in tags_str for k in ["experimental","avant-garde"]): parts.append("前卫实验与解构手法")
+    if any(k in tags_str for k in ["jazz","improvisation"]): parts.append("即兴爵士语汇")
+    if any(k in tags_str for k in ["noise","industrial"]): parts.append("噪音/工业粗粝质感")
+    if any(k in tags_str for k in ["classical","minimalist","chamber"]): parts.append("古典极简主义与室内乐语")
+    if any(k in tags_str for k in ["world","african","asian","latin"]): parts.append("世界音乐元素")
+    if any(k in tags_str for k in ["dark ambient","dungeon synth","darksynth"]): parts.append("暗黑氛围与仪式性声响")
+    if "ritual" in el: parts.append("仪式性的声音进程")
+    if "layer" in el or "texture" in el: parts.append("多层纹理堆叠")
+    if "dark" in el or "horror" in el: parts.append("暗黑声景与心理张力")
+    if "improvis" in el: parts.append("即兴演奏的现场能量")
+    if "ukraine" in el or "war" in el: parts.append("战争创伤与声音记忆")
+    if "korean" in el: parts.append("韩国传统音乐与当代电子的解构重构")
+    if "geography" in el or "geological" in el: parts.append("地理/地景声景与文化根系")
+    if "synthwave" in tags_str or "retrowave" in tags_str: parts.append("合成器复古美学")
+    if "dungeon synth" in tags_str: parts.append("地下迷宫氛围与幻想叙事")
+    if not parts: parts = ["值得关注的前卫实验声响"]
+    return "；".join(parts[:4])
+
+# ── 生成 markdown ─────────────────────────────────────────────
+lines = [
+    f"# Daily Music Recommendations — {DATE}\n",
+    f"*Generated {{TODAY.isoformat()}} · {{len(reviews)}} reviews · {{len(passed)}} passed filter (≥6/10)*\n"
+]
+top = [r for r in scored if r["total_score"] >= 11]
+mid = [r for r in scored if 8 <= r["total_score"] <= 10]
+low = [r for r in scored if 6 <= r["total_score"] < 8]
+if top:
+    lines.append("## ★10 — Top Picks\n")
+    for r in top:
+        lines.append(f"**{{r['album']}} — {{r['artist']}}** [★{{r['total_score']}}], {{r.get('source','unknown')}}")
+        lines.append(f"[阅读原文 →]({{r.get('url','#')}})")
+        lines.append(f"> 🔶 *{{gen_cn(r)}}*\n")
+        lines.append(f"> {{r.get('excerpt','')}}")
+        lines.append("")
+if mid:
+    lines.append("## ★8-9 — Notable\n")
+    for r in mid:
+        lines.append(f"**{{r['album']}} — {{r['artist']}}** [★{{r['total_score']}}], {{r.get('source','unknown')}}")
+        lines.append(f"[阅读原文 →]({{r.get('url','#')}})")
+        lines.append(f"> 🔶 *{{gen_cn(r)}}*\n")
+        lines.append(f"> {{r.get('excerpt','')}}")
+        lines.append("")
+if low:
+    lines.append("## ★6-8 — 此外值得关注\n")
+    for r in low:
+        lines.append(f"**{{r['album']}} — {{r['artist']}}** [★{{r['total_score']}}], {{r.get('source','unknown')}}")
+        lines.append(f"[阅读原文 →]({{r.get('url','#')}})")
+        lines.append(f"> 🔶 *{{gen_cn(r)}}*\n")
+        lines.append(f"> {{r.get('excerpt','')}}")
+        lines.append("")
+
+# ── 写文件 ────────────────────────────────────────────────────
+md_path = f"/home/liyifan/music-record/recommend/{{DATE}}.md"
+with open(md_path, "w") as f:
+    f.write("\n".join(lines))
+print(f"Wrote {{md_path}}")
+
+with open(f"{{date_dir}}/filtered.json", "w") as f:
+    json.dump(passed, f, ensure_ascii=False, indent=2)
+
+with open(f"{{date_dir}}/aggregated.json", "w") as f:
+    json.dump(scored, f, ensure_ascii=False, indent=2)
+
+print("Done")
+```
 
 8. **同步 skill + 脚本最新副本到 music-record**：
    ```bash
@@ -187,7 +302,7 @@ URL：{url}
    cp /home/liyifan/.hermes/skills/music/music-daily-recs/SKILL.md /home/liyifan/music-record/skills/music/music-daily-recs/
    cp /home/liyifan/.local/bin/kanban-batch-scrape.py /home/liyifan/music-record/bin/
    ```
-9. GitHub 推送（结果 + skill + 脚本一起）：
+9. **GitHub 推送（结果 + skill + 脚本一起）**：
    ```bash
    cd /home/liyifan/music-record
    git add 2026/{MONTH}/{DATE}/ recommend/{DATE}.md
