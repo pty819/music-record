@@ -72,7 +72,7 @@
         "sound art"
       ],
       "automationStatus": "default_on",
-      "crawl_strategy": "playwright_headless"
+      "crawl_strategy": "http_get"
     },
     {
       "id": "the_quietus",
