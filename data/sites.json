@@ -11,12 +11,12 @@
       "name": "The Wire",
       "homepage": "https://www.thewire.co.uk/",
       "rss_url": "https://www.thewire.co.uk/rss",
-      "reviews_url": "https://www.thewire.co.uk/audio",
+      "reviews_url": "https://www.thewire.co.uk/in-writing",
       "has_rss": true,
       "tier": "S",
       "crawl_frequency": "daily",
       "parser_hint": {
-        "article_url_pattern": "thewire.co.uk/tag/|thewire.co.uk/category/reviews",
+        "article_url_pattern": "thewire.co.uk/in-writing/",
         "list_selector": "article .article-title a, .review-title a",
         "album_selector": "article h1, .article-header h1",
         "author_selector": ".author-name a, .byline a",
@@ -31,12 +31,14 @@
       ],
       "notes": "英国严肃前卫/实验/声艺核心媒体",
       "startUrls": [
-        "https://www.thewire.co.uk/audio"
+        "https://www.thewire.co.uk/in-writing"
       ],
       "allowUrlPatterns": [
-        "/audio/",
-        "/tracks/",
-        "/on-air/"
+        "/in-writing/essays/",
+        "/in-writing/columns/",
+        "/in-writing/collateral-damage/",
+        "/in-writing/book-extracts/",
+        "/in-writing/the-portal/"
       ],
       "denyUrlPatterns": [
         "/about",
