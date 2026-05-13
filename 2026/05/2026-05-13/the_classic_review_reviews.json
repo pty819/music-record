@@ -1,0 +1,39 @@
+[
+  {
+    "album": "The Romantic Piano Concerto 1991-2007 Edition",
+    "artist": "Various (Hyperion)",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-the-hyperion-romantic-piano-concerto-edition-1991-2007/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "classical",
+      "contemporary",
+      "piano",
+      "romantic",
+      "box set",
+      "hyperion"
+    ],
+    "excerpt": "Hyperion's Romantic Piano Concerto series stands as one of the most ambitious and comprehensive recording projects in the history of classical music. The set offers a comprehensive overview of the virtuoso tradition, documenting the historical repertoire of an instrument that continues to reign supreme in the concert hall today.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Arcadi Volodos Plays Schubert and Schumann (2026)",
+    "artist": "Arcadi Volodos",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/arcadi-volodos-schubert-schumann/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "classical",
+      "contemporary",
+      "piano",
+      "schubert",
+      "schumann"
+    ],
+    "excerpt": "Arcadi Volodos pairs Schubert's Piano Sonata in D major, D. 850 (Gasteiner) with Schumann's Kinderszenen, Op. 15 in a live recital recorded at the Fondation Louis Vuitton. The two works present contrasting Romantic ideals: a large-scale four-movement sonata of public ambition and an intimate cycle of character pieces.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "album": "BTS WORLD TOUR 'ARIRANG'",
+    "artist": "BTS",
+    "score": null,
+    "url": "https://www.bandwagon.asia/articles/bts-turn-mexico-city-into-a-city-wide-celebration-on-arirang-tour-stop-gig-report",
+    "source": "Bandwagon Asia",
+    "pub_date": "2026-05-12",
+    "tags": ["gigs", "review", "events", "k-pop", "bts"],
+    "excerpt": "BTS brought Mexico City to a standstill with three explosive sold-out nights of their BTS WORLD TOUR 'ARIRANG', turning the city into a festival-like celebration from 7 May to 10 May. The group's Mexico City run reportedly drew around 150,000 attendees, with local authorities estimating that tens of thousands more gathered outside the stadium on Days 2 and 3.",
+    "site_id": "bandwagon_asia",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Zhao Lusi 1st Overseas Solo Concert",
+    "artist": "Zhao Lusi",
+    "score": null,
+    "url": "https://www.bandwagon.asia/articles/zhao-lusi-dazzles-thai-fans-with-dreamy-bangkok-concert-debut-gig-report",
+    "source": "Bandwagon Asia",
+    "pub_date": "2026-05-11",
+    "tags": ["gigs", "review", "events", "concerts", "zhao-lusi"],
+    "excerpt": "Zhao Lusi brought romance, warmth, and plenty of heartfelt moments to Bangkok on 9 May as the Chinese superstar staged her first-ever overseas solo concert at IMPACT Arena. The show transformed the venue into a dreamy escape, with fans joining the singer and actress for an evening built around love, connection, and shared memories.",
+    "site_id": "bandwagon_asia",
+    "crawl_status": "success"
+  }
+]

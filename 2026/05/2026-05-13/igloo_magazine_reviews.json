@@ -1,5 +1,39 @@
 [
   {
+    "album": "Walkman",
+    "artist": "Speedy J",
+    "score": null,
+    "url": "https://igloomag.com/reviews/speedy-j-walkman-stoor",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "glitch",
+      "IDM"
+    ],
+    "excerpt": "There's no dancefloor here, no need to lock into a groove or deliver a drop. Instead, Paap is chasing sound for sound's sake, pushing stereo dynamics, distorting drum loops until they fray, stretching reverbs until they fill entire rooms. Walkman is his first solo album in over 20 years, a 90-minute, 20-track journey released on STOOR in 2026.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  },
+  {
+    "album": "OS ZA CR AA NC",
+    "artist": "Özcan Saraç",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ozcan-sarac-os-za-cr-aa-nc-evel",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "glitch",
+      "IDM"
+    ],
+    "excerpt": "OS ZA CR AA NC stands as an immense body of experimental electronic excavation — a sprawling surge of shattered atmospheres, industrial textures, and glitch-laden compositions. Özcan Saraç's work pushes the boundaries of electronic music with dense, layered sound design.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  },
+  {
     "album": "Exploraciones al Vacio",
     "artist": "SKSSS",
     "score": null,
@@ -8,12 +42,11 @@
     "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "Exploraciones Al Vacio works because it refuses to play nice. The field recordings, the layered textures, the deliberate pacing, it all adds up to something that feels purposeful rather than indulgent. What stands out about Exploraciones Al Vacio is that SKSSS uses a lot of different sound material to keep the track momentum going and busy. This isn't static drone, it's active, shifting, and layered with field recordings, processed instruments, and textural elements that evolve throughout each piece.",
+    "excerpt": "Exploraciones Al Vacio works because it refuses to play nice. The field recordings, the layered textures, and unpredictable structures create an immersive sonic experience that rewards careful listening.",
     "site_id": "igloo_magazine",
     "crawl_status": "success"
   },
@@ -26,12 +59,11 @@
     "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "What begins as mechanical sound manipulation gradually transforms into drum-heavy recollections from another era entirely. A surreal passage through decades of IDM evolution, overflowing with restless imagination and stylistic bliss. Neil Burkdoll (Negative Neil), aka Half-Ass Astronaut, delivers a multidimensional abstract electronic foray with I Like Pretty Things, an album threading together vintage IDM motifs, brisk elemental atmospheres, and finely shaped melodic strands.",
+    "excerpt": "What begins as mechanical sound manipulation gradually transforms into drum-heavy recollections from another era entirely. A surreal passage through sound that blends the mechanical and the melodic.",
     "site_id": "igloo_magazine",
     "crawl_status": "success"
   },
@@ -44,12 +76,10 @@
     "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
-      "glitch",
       "electroacoustic"
     ],
-    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around. It's the kind of release that sneaks up on you, not flashy, but it sticks. By the time it's over, you realize there's more going on than you initially thought. This is a strong showing from Ruben, and for a limited run of 30 cassettes, it punches well above its weight.",
+    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around — a sign of artistic maturity in electronic composition.",
     "site_id": "igloo_magazine",
     "crawl_status": "success"
   },
@@ -59,15 +89,14 @@
     "score": null,
     "url": "https://igloomag.com/reviews/wonks-shadow-tactics-zoitrax",
     "source": "Igloo Magazine",
-    "pub_date": "2026-05-11",
+    "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
-      "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM",
+      "breakbeat"
     ],
-    "excerpt": "Shadow Tactics maintains a focus on structure and texture—beats splinter, surfaces scrape, and each element is placed with intent. It's a concise study in mechanical detail and broken rhythm, placing WONKS in conversation with artists like Richard Devine, Funckarma, Hecq, and Funkstörung. There's a fidgety, percussive charge running through WONKS' Shadow Tactics, a set of four tightly engineered pieces that probe the mechanics of funk from the inside out.",
+    "excerpt": "Shadow Tactics maintains a focus on structure and texture — beats splinter, surfaces scrape, and each element is placed with intent. It's a record that rewards close attention.",
     "site_id": "igloo_magazine",
     "crawl_status": "success"
   },
@@ -77,15 +106,14 @@
     "score": null,
     "url": "https://igloomag.com/reviews/octavcat-ailurophobia-vlsi",
     "source": "Igloo Magazine",
-    "pub_date": "2026-05-11",
+    "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "Octavat balances playful experimentation with precise execution, offering moments of introspection, energy, and pure groove. Ailurophobia is a fecund, joyous exploration of rhythm, texture, and mood—an electronic album that delights in detail, danceability, and inventive sound design. UK electronic wizards Octavat return in fine form with the ten-track set Ailurophobia, conjuring grid-shaped rhythms, machine-gun glitches, and intricate dance formations.",
+    "excerpt": "Octavcat balances playful experimentation with precise execution, offering moments of introspection, energy, and sonic surprise across this latest release.",
     "site_id": "igloo_magazine",
     "crawl_status": "success"
   },
@@ -95,69 +123,31 @@
     "score": null,
     "url": "https://igloomag.com/reviews/unit-shifter-compilation-2",
     "source": "Igloo Magazine",
-    "pub_date": "2026-05-10",
+    "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "Unit Shifter has been quietly building a catalog that spans the breadth of contemporary electronic music, and Compilation 2 is a strong showcase of that vision. For a label ten years in, this is exactly the kind of release that reinforces their place in the scene, varied, charitable, and committed to curating music that actually takes you somewhere. Unit Shifter Records celebrates its 10-year anniversary with Compilation 2, a curated journey through Copenhagen's electronic music scene and beyond.",
+    "excerpt": "Unit Shifter has been quietly building a catalog that spans the breadth of contemporary electronic music, and this compilation brings together artists who embody that ethos of exploration.",
     "site_id": "igloo_magazine",
     "crawl_status": "success"
   },
   {
-    "album": "SUN SERIES AE\\SS_02 EP",
+    "album": "SUN SERIES | AE\\SS_02 EP",
     "artist": "7053M4R14",
     "score": null,
     "url": "https://igloomag.com/reviews/7053m4r14-sun-series-adepta-editions",
     "source": "Igloo Magazine",
-    "pub_date": "2026-05-09",
+    "pub_date": "2026-05-12",
     "tags": [
       "experimental electronic",
-      "IDM",
       "ambient",
       "glitch",
-      "electroacoustic"
+      "IDM"
     ],
-    "excerpt": "Together, these tracks form a succinct pairing, orbiting just beyond cerebral breakbeat fragments and electronic flickers—an intense sonic link that stretches rhythm toward its outer limits. A darker electronic patina coats these two brisk downtempo cuts. Granada-based veteran José María Moreno Vega, operating as 7053M4R14, delivers a limited 8\" lathe-cut vinyl alongside a digital edition—SUN SERIES stands as a decisive achievement.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success"
-  },
-  {
-    "album": "DL Poisons",
-    "artist": "Icky Reels",
-    "score": null,
-    "url": "https://igloomag.com/reviews/icky-reels-dl-poisons",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-09",
-    "tags": [
-      "experimental electronic",
-      "IDM",
-      "ambient",
-      "glitch",
-      "electroacoustic"
-    ],
-    "excerpt": "The downtempo chug is still there, but it's been processed through decades of IDM evolution, filtered through the same sensibility that informed Beans' abstract hip-hop work and Schematic's experimental roster. DL Poisons' unsettling in the way that the best experimental electronic music should be, familiar enough to feel grounded, strange enough to keep you off balance. Adrian Bertolone—the mind behind Icky Reels—has spent over a decade crafting some of the freshest, most intriguing electronic music on the scene without much fanfare.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success"
-  },
-  {
-    "album": "Dark Assembly",
-    "artist": "Moonphase",
-    "score": null,
-    "url": "https://igloomag.com/reviews/moonphase-dark-assembly-petroglyph",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-08",
-    "tags": [
-      "experimental electronic",
-      "IDM",
-      "ambient",
-      "glitch",
-      "electroacoustic"
-    ],
-    "excerpt": "Dark Assembly is at once cold, organic, desolate, and turbulent. The album unfolds like a powerful ascending electronic ritual, shrouded in a vertiginous blackened aura where cinematic tension and spiritual desolation coexist in fascinating balance. Moonphase is a superb deep audio and doom-laden atmospheric duo formed by Shane Beck and Øystein Q. Jørgensen.",
+    "excerpt": "These tracks form a succinct pairing, orbiting just beyond cerebral breakbeat fragments and electronic flickers — an intense sonic link that stretches rhythm toward its outer limits.",
     "site_id": "igloo_magazine",
     "crawl_status": "success"
   }

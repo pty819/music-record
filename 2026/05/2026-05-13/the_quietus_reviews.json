@@ -1,125 +1,74 @@
 [
   {
+    "album": "Symbols",
+    "artist": "Sergeant",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/sergeant-symbols-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-13",
+    "tags": [],
+    "excerpt": "From Belgium, an experimental rock trio unafraid to slice up their own jams with a pair of garden shears and dance merrily amongst the shreds Symbols by Sergeant Brussels-based plunderphonic rock band Sergeant’s self-titled 2023 debut saw the band homaging “DJ Shadow in reverse”, splicing and collaging their own wayward jams into avant-pop songs. Jagged little guitars, discreetly flickering beats, and detached, lost-sounding vocals pushed the band towards a phantom pop music, but maybe more of a",
+    "site_id": "the_quietus",
+    "crawl_status": "success"
+  },
+  {
     "album": "Let X=X (Live)",
     "artist": "Laurie Anderson with Sexmob",
-    "score": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/laurie-anderson-with-sexmob-let-xx-live-review/",
     "source": "The Quietus",
     "pub_date": "2026-05-12",
-    "tags": [
-      "techno",
-      "experimental"
-    ],
-    "excerpt": "Laurie Anderson with Sexmob Let X=X (Live) A live set from 2023 sees Laurie Anderson re-imagining her own songs – and, perhaps surprisingly, one from Lou Reed's album with Metallica. Let X=X (Live) by Laurie Anderson. Anderson is known for ambitious, conceptual projects, so it is unsurprising that she would want her live album to be a complete representation of the experience of her show. Her latest has a strong sense of narrative that elevates it beyond the standard performance documentation. S",
+    "tags": [],
+    "excerpt": "A live set from 2023 sees Laurie Anderson re-imagining her own songs – and, perhaps surprisingly, one from Lou Reed's album with Metallica Let X=X (Live) by Laurie Anderson Laurie Anderson is known for ambitious, conceptual projects, so it is unsurprising that she would want her live album to be a complete representation of the experience of her show. Her latest Let X=X, has a strong sense of narrative that elevates it beyond the standard performance documentation. Songs are neatly grouped along",
     "site_id": "the_quietus",
-    "crawl_status": "ok"
-  },
-  {
-    "album": "Detached From The Rest Of You",
-    "artist": "Loraine James",
-    "score": "",
-    "url": "https://thequietus.com/quietus-reviews/loraine-james-detached-from-the-rest-of-you-review/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "idm",
-      "electronic",
-      "dance"
-    ],
-    "excerpt": "Loraine James Detached From The Rest Of You The Enfield-born producer's latest album may be full of complex rhythms, but the emotions are red raw and direct. Detached From The Rest Of You by Loraine James. For much of its history, the field of intelligent dance music (IDM) has been a sanctuary for cold precision. It is a space where producers often prioritise the mathematics of rhythm over the messy realities of the human heart. Loraine James has spent the better part of the last decade dismantl",
-    "site_id": "the_quietus",
-    "crawl_status": "ok"
+    "crawl_status": "success"
   },
   {
     "album": "Feeling Is Structure",
     "artist": "Max Cooper",
-    "score": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/max-cooper-feeling-is-structure/",
     "source": "The Quietus",
     "pub_date": "2026-05-08",
-    "tags": [
-      "electronic",
-      "techno",
-      "experimental"
-    ],
-    "excerpt": "Max Cooper Feeling Is Structure The Belfast-born producer risks neglecting what makes music special in his zeal to present himself as an artist. Feeling Is Structure by Max Cooper. Max Cooper's ninth studio release has been created with microscopic attention to detail, exactly what you'd expect considering the London-based techno and electronic producer's former life as a computational biologist. But in focusing so intently on the minutiae, the bigger picture can feel neglected. The album was or",
+    "tags": [],
+    "excerpt": "The Belfast-born producer risks neglecting what makes music special in his zeal to present himself as an artist Feeling Is Structure by Max Cooper Max Cooper’s ninth studio release has been created with microscopic attention to detail, exactly what you’d expect considering the London-based techno and electronic producer’s former life as a computational biologist. But in focussing so intently on the minutiae, the bigger picture can feel neglected. The album was originally developed for Cooper’s a",
     "site_id": "the_quietus",
-    "crawl_status": "ok"
+    "crawl_status": "success"
   },
   {
     "album": "Extinction Burst!",
-    "artist": "Guttersnipe",
-    "score": "",
+    "artist": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/album-of-the-week/extinction-burst-guttersnipe-review/",
     "source": "The Quietus",
     "pub_date": "2026-05-07",
-    "tags": [
-      "noise",
-      "experimental",
-      "psych"
-    ],
-    "excerpt": "Crisis Energy: Extinction Burst! by Guttersnipe. Back after an eight-year album gap, the Leeds duo have met the moment, matching the scale of our psychic overwhelm with an album of more-than-human intensity. In Perdido Street Station, China Miéville describes 'crisis energy', the moment when a system pushed to its absolute limit transforms, where collapse and maximum release become the same event. Guttersnipe adopt this idea as their guiding principle. On Extinction Burst!, their first record in",
+    "tags": [],
+    "excerpt": "In Perdido Street Station, China Miéville describes “crisis energy”, the moment when a system pushed to its absolute limit transforms, where collapse and maximum release become the same event. Guttersnipe adopt this idea as their guiding principle. On Extinction Burst!, their first record in eight years, they turn crisis energy from concept into visceral reality. The Leeds duo (Uroceras Gigas and Tipula Confusa) see the supposed split between the cerebral and the visceral as a cultural fabricati",
     "site_id": "the_quietus",
-    "crawl_status": "ok"
+    "crawl_status": "success"
   },
   {
     "album": "Sigils For Survival",
     "artist": "Octo Octa",
-    "score": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/octo-octa-sigils-for-survival-review/",
     "source": "The Quietus",
     "pub_date": "2026-05-07",
-    "tags": [
-      "dance",
-      "electronic",
-      "idm"
-    ],
-    "excerpt": "Octo Octa Sigils For Survival The American producer's latest album documents a decade of queer life through chaos magic and clubhouse momentum. Sigils For Survival by Octo Octa. In the late autumn of 2015, Maya Bouldry-Morrison, the producer known as Octo Octa, stepped out from the protective anonymity of the DJ booth to claim her identity as a transgender woman. It was a moment that fundamentally recalibrated her relationship with the dancefloor, transforming it from a place of mere performance",
+    "tags": [],
+    "excerpt": "The American producer's latest album documents a decade of queer life through chaos magic and clubhouse momentum Sigils For Survival by Octo Octa In the late autumn of 2015, Maya Bouldry-Morrison, the producer known as Octo Octa, stepped out from the protective anonymity of the DJ booth to claim her identity as a transgender woman. It was a moment that fundamentally recalibrated her relationship with the dancefloor, transforming it from a place of mere performance into a site of profound, public",
     "site_id": "the_quietus",
-    "crawl_status": "ok"
+    "crawl_status": "success"
   },
   {
     "album": "Let It Go",
     "artist": "Russell Haswell",
-    "score": "",
+    "score": null,
     "url": "https://thequietus.com/quietus-reviews/russel-haswell-let-it-go-review/",
     "source": "The Quietus",
     "pub_date": "2026-05-06",
-    "tags": [
-      "noise",
-      "experimental"
-    ],
-    "excerpt": "Russell Haswell Let It Go Coventry's own noise brutalist is as magnificently unlistenable as ever. LET IT GO by Russell Haswell. As we pick our way through the scurf and scree of the modern world, outraged and numb at every turn, we can maybe agree that Russell Haswell's new record is a useful corrective and something of an unlikely balm. Here, with Haswell at the controls, we are just living in a world of shit, some of us are in the gutter but looking at the kerb, we've just roasted an Alsatian",
+    "tags": [],
+    "excerpt": "LET IT GO by Russell Haswell As we pick our way through the scurf and scree of the modern world, outraged and numbed at every turn, we can maybe agree that Russell Haswell’s new record, Let It Go, is a useful corrective and something of an unlikely balm. Here, with Haswell at the controls, we are just living in a world of shit, some of us are in the gutter but looking at the kerb, we’ve just roasted an Alsatian’s leg in our thirtieth-floor apartment, and so on. Let It Go is a total heap of noise",
     "site_id": "the_quietus",
-    "crawl_status": "ok"
-  },
-  {
-    "album": "Straight Hedge! Punk & HC For May",
-    "artist": "Various",
-    "score": "",
-    "url": "https://thequietus.com/quietus-reviews/punk/best-new-punk-hardcore-music-review-skintern-byford-dolphin-incident-bags-of-blood-mark-clayden/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "punk"
-    ],
-    "excerpt": "Straight Hedge! Noel Gardner Reviews Punk & HC For May. From bone-boiling Aussie racket to French powerpop crust via Cleveland, Bristol, Ross-on-Wye and more, Noel Gardner's guide to the best in brand new punk returns. Gunner. At the time of typing this sentence, almost exactly one third of the year has gone by, and I have call to be thinking about how Skintern of London were the second band I saw in 2026, as now there is a Skintern tape, Free Use, to say things about. Its seven songs are lurid ",
-    "site_id": "the_quietus",
-    "crawl_status": "ok"
-  },
-  {
-    "album": "Radio-Activity",
-    "artist": "Kraftwerk",
-    "score": "",
-    "url": "https://thequietus.com/quietus-reviews/reissue-of-the-week/kraftwerk-radioactivity-review/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-08",
-    "tags": [
-      "electronic",
-      "experimental"
-    ],
-    "excerpt": "Reissue of the Week: Kraftwerk's Radio-Activity. Jude Rogers counts the ways in which a new reissue 50th Anniversary Edition of Radio-Activity is a good if complicated thing. Why is there yet another reissue of Radio-Activity? Let me count the ways. Eins: Because this Dolby Atmos mix is not quite the same record. Back in March, in a dark playback studio in the industrial hinterlands of King's Cross, I heard my favourite Kraftwerk album brightened and shined. I heard tones I didn't recognise, voc",
-    "site_id": "the_quietus",
-    "crawl_status": "ok"
+    "crawl_status": "success"
   }
 ]

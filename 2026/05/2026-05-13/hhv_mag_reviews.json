@@ -1,0 +1,140 @@
+[
+  {
+    "album": "Music For Stillness",
+    "artist": "Harlan Silverman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/harlan-silverman-music-for-stillness/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Harlan Silverman",
+      "Longplayer (LP)",
+      "Mississippi Records"
+    ],
+    "excerpt": "Harlan Silverman – Music For Stillness        ",
+    "site_id": "hhv_mag",
+    "crawl_status": "full_content",
+    "headline": "Harlan Silverman – Music For Stillness",
+    "author_name": "Albert Koch"
+  },
+  {
+    "album": "Diana In The Autumn Wind",
+    "artist": "Gap Mangione",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/gap-mangione-diana-in-the-autumn-wind/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Be With Records",
+      "Gap Mangione",
+      "Longplayer (LP)",
+      "Reissue"
+    ],
+    "excerpt": "Gap Mangione – Diana In The Autumn Wind        ",
+    "site_id": "hhv_mag",
+    "crawl_status": "full_content",
+    "headline": "Gap Mangione – Diana In The Autumn Wind",
+    "author_name": "Martin Silbermann"
+  },
+  {
+    "album": "Whoops Wrong Planet",
+    "artist": "Cloud Management & Vivien Goldman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/cloud-management-vivien-goldman-whoops-wrong-planet/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "Altin Village & Mine Records",
+      "Cloud Management",
+      "Longplayer (LP)",
+      "Vivien Goldman"
+    ],
+    "excerpt": "Was zunächst wie eine ungewöhnliche Begegnung zwischen Generationen, Szenen und geografischen Welten wirkt, entfaltet sich als überraschend stimmig&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only"
+  },
+  {
+    "album": "Dreams ’24 / ’25",
+    "artist": "Bill Wells",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/bill-wells-dreams-24-25/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "Bill Wells",
+      "Karaoke Kalk",
+      "Longplayer (LP)"
+    ],
+    "excerpt": "Bill Wells, Solitär aus Schottland, entwickelt im Schlaf offenbar eine ähnlich rege Fantasie wie in seinem breit aufgestellten&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only"
+  },
+  {
+    "album": "The Moth",
+    "artist": "Cancer House",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/cancer-house-the-moth/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "Cancer House",
+      "Longplayer (LP)",
+      "Motion Ward"
+    ],
+    "excerpt": "Mit The Moth gelingt Cancer House etwas Seltenes: Das Album modernisiert die Sprache von Slowcore und Post-Rock, ohne&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only"
+  },
+  {
+    "album": "Stained Glass Starling",
+    "artist": "Razen & Dick van der Harst",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/razen-dick-van-der-harst-stained-glass-starling/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "Dick van der Harst",
+      "Longplayer (LP)",
+      "Razen",
+      "Robert Beatty",
+      "VIERNULVIER Records"
+    ],
+    "excerpt": "Harmonium, Basse à Pied, Monochord, Chalumeau, Erhu, Kacapi, Tromba Marina, Serpent, Hurdy-Gurdy, Blockflöten. Die wenigsten davon sind aus&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only"
+  },
+  {
+    "album": "Sol.Hz",
+    "artist": "Seefeel",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/seefeel-sol-hz/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-07",
+    "tags": [
+      "Unkategorisiert",
+      "Longplayer (LP)",
+      "Seefeel",
+      "Warp Records"
+    ],
+    "excerpt": "Seefeel became known in the mid-1990s as the first Warp act with guitars. Perhaps because of their hybrid&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only"
+  },
+  {
+    "album": "Train On The Island",
+    "artist": "Aldous Harding",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/aldous-harding-train-on-the-island/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-07",
+    "tags": [
+      "Unkategorisiert",
+      "4AD",
+      "Aldous Harding",
+      "Longplayer (LP)"
+    ],
+    "excerpt": "Train On The Island ist ein Chamäleon: verspielt, harmonisch, melancholisch und quirky. Das fünfte Studioalbum der Neuseeländerin Aldous&#8230;",
+    "site_id": "hhv_mag",
+    "crawl_status": "listing_only"
+  }
+]

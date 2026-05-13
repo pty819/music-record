@@ -1,0 +1,564 @@
+{
+  "site": "jazz_journal",
+  "count": 37,
+  "crawl_status": "success",
+  "method": "RSS feed + curl (cloudflare fallback)",
+  "days_scanned": "7",
+  "reviews": [
+    {
+      "album": "Jazzkaar festival escapes jazz but still compels",
+      "artist": "Pascal Dorban",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/13/jazzkaar-festival-escapes-jazz-but-still-compels/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-13",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": " Jazzkaar festival escapes jazz but still compels - Jazz Journal Facebook X News Reviews New releases Audio Reviews Book Reviews Film Reviews Live Reviews Request JJ review Columns Alt. Takes Count me in\u2026 Letters Obituaries On the Other Hand Still Clinging to the Wreckage Features Library From the J",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Dialogue Vol. II",
+      "artist": "Therrien, Rachel",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Catalonian pianist Albert Marqu\u00e8s and Grammy-nominated Canadian trumpeter Rachel Therrien release Dialogue Vol. II, the second installment in a two-part collaboration resulting from a decade-long musical friendship, sharing a playfulness and freeness",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Attunement",
+      "artist": "s . Martin, Heidi",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Having completed two years of research at Rutgers University (2023-2024) which focused on the American jazz vocalist, songwriter, actress and civil rights activist Abbey Lincoln, Heidi Martin was subsequently awarded a Jazz Studies Dana Library Fello",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Katarahi",
+      "artist": "Melford, Myra and Satoko Fujii",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Two of the most acclaimed pianists in creative music, Myra Melford and Satoko Fujii, come together for their first duet album since 2007. A deep and beautiful musical conversation, the album was recorded live at JazzFestival Lebnitz. (Rogue Art) - Ad",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Arakatak",
+      "artist": "Hear Lubomyr Melnyk . Metropole Orkest",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Metropole Orchestra presents Arakatak, a brand new collection of music to celebrate the monumental orchestra\u2019s 80th anniversary. Through 8 pieces by 8 different prominent composers, the group sheds light on the Metropole Orchestra of the past, presen",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Twisted Summer",
+      "artist": "Marc Ducret",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "10.04.2026 Inspired by the sound of the legendary jazz clarinetist and saxophonist Jimmy Giuffre\u2019s trio, which also featured jazz icons such as guitarist Jim Hall and trombonist Bob Brookmeyer, the Mock\u016bnas \u2013 Blaser \u2013 Ducret trio creates their o",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "A Name I Knew",
+      "artist": "nas . Molina, Pedro",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "How does time sound as it dissolves, as forgetting lays waste to what was once certain? A Name I Knew moves through this landscape, centering on Alzheimer\u2019s: from jazz to pop/rock, from structure to the freedom of free improvisation. Each composition",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "The Incredible Jazz Guitar Of Wes Montgomery (Crystal Clear Vinyl)",
+      "artist": "Hear Pedro Molina . Montgomery, Wes",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Special limited edition of Wes Montgomery\u2019s classic album that became the inspiration for pf countless other guitarist guitarists, including such players as Pat Metheny and John Scofield. Reissued as a special collectors\u2019 edition on crystal clear vin",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Take Twelve",
+      "artist": "Morgan, Lee",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "\u2018Take Twelve\u2019 showcases Lee Morgan\u2019s fiery hard\u2011bop trumpet in a spirited, thoughtful set full of original (Jazz Wax Records JWR4647LP \u2013 LP) Morrin, Chase\u2019s IZE Trio: Global Prayer They say : The IZE Trio \u2013 featuring pianist Chase Morrin, cellist Naz",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Global Prayer",
+      "artist": "s IZE Trio",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "The IZE Trio \u2013 featuring pianist Chase Morrin, cellist Nazeem Alatrash, and percussionist George Lernis, joined by special guests including bassist John Patitucci \u2013 melds jazz, classical, and maqam (microtonal music from Greece, Turkey, Cypress, Pale",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Blue Side Vol. 1",
+      "artist": "nez",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Pianist-composer Tobin Mueller teams up with saxophonist Tom\u00e1s Martinez and others to create a fresh sound as presented in Blue Side Vol. 1. The recordings were mixed and mastered at Factory Underground Studio, produced by Kenny Cash and Mueller. The",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "No Need For A Driver\u00b4s License",
+      "artist": "nen, Inge Weatherhead Breistein",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Nils Are Dr\u00f8nen and Inge Weatherhead Breistein are both highly active musicians in the Bergen jazz community. As a duo, their focus is acoustic free jazz, pointing towards the 1960s and 1970s. Rooted in tradition, but also shaped by newer music, the",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Novos Londrinos",
+      "artist": "Novos Londrinos",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Bossa nova, samba, baiao, spiritual jazz and Cape Verdean rhythms form an enchanting mosaic on the debut EP from London-based Novos Londrinos. Brought together by a shared love of 60s/70s Brazilian music, the group combines sophisticated songwriting,",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Third Nature",
+      "artist": "Hear Novos Londrinos . Ocean Fanfare",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Celebrated Danish-Polish quartet Ocean Fanfare return with Third Nature, the final instalment in their long-form Nature Trilogy. Led by trumpeter Tomasz D\u0105browski and saxophonist Sven Dam Meinild, the group pushes further into structurally open, impr",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "The Sorceress",
+      "artist": "Ochoa, Audrey",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Juno Award-nominated powerhouse trombonist, Canada\u2019s Audrey Ochoa, releases a vibrant fusion of jazz, electronica, swing, and pop in a sonic portrait that brings together many influences. Each track blends improvisation with infectious hooks and lush",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Waiting Music",
+      "artist": "Hear Audrey Ochoa . Open Thread",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-12",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Australian\u2013Canadian quartet Open Thread return with Waiting Music, a richly textured new album that captures the evolving chemistry of four distinctive improvisers. A documentation of an evolving collaboration born from a series of improvised perform",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "New releases April-May 2026, H-L",
+      "artist": "Jazz Journal",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-11",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": " New releases April-May 2026, H-L - Jazz Journal var tdBlocksArray = []; //here we store all the items for the current page // td_block class - each ajax block uses a object of this class for requests function tdBlock() { this.id = ''; this.block_type = 1; //block type id (1-234 etc) this.atts = '';",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "\u00c9t\u00e9 Large & Wallis Bird",
+      "artist": "Large",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Saxophonist Luise Volkmann\u2019s ensemble \u00c9t\u00e9 Large collaborate with Irish songwriter Wallis Bird on an EP to highlight both the band\u2019s orchestral side and the twisted, folk-ish little universe they inhabit. Songs with sweeping scale, beauty and drama. M",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Reclusive Mountain",
+      "artist": "Evensen, Terje",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Reclusive Mountain is a new album by Norwegian composer and drummer Terje Evensen, released on May 22, 2026. Featuring an international ensemble, it explores a landscape where rhythm, electronics, and melodic layers merge. The music moves between gro",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Falc\u00f3n in Blue",
+      "artist": "n, Alejandro",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Alejandro Falc\u00f3n Returns to the Core of Cuban Musical Language on Falc\u00f3n in Blue (Dot Time Records, DT9189) Favre, Pierre: Bird Food They say : Recorded live in Zurich in 1968, Bird Food captures the Pierre Favre Trio \u2014 Pierre Favre (drums), Ir\u00e8ne Sc",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Bird Food",
+      "artist": "Favre, Pierre",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Recorded live in Zurich in 1968, Bird Food captures the Pierre Favre Trio \u2014 Pierre Favre (drums), Ir\u00e8ne Schweizer (piano), George Mraz (bass) \u2014 at the height of their powers: free, fiery, fully alive. Rediscovered after half a century and released by",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "The New Atomic",
+      "artist": "s Imaginary Big Band",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Award winning Leeds-based ensemble Ferg\u2019s Imaginary Big Band return with their raucous third album The New Atomic \u2013 a bold statement in 21st-century big band music. Known for explosive live performances and a roster that often swells to 25+ players,",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Sweet And Lovely",
+      "artist": "Ferri, Gianmarco",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Published by the independent label Wow Records and available on digital platforms starting Friday, April 3, Sweet and Lovely is the new recording project by a brilliant jazz guitar talent: Gianmarco Ferri. Joinin him on this album are two prominent f",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "American double bassist Doug Weiss and drummer Luca Santaniello, originally from Molise but now based and active in the United States. (WoW Records WJ0124) Florio, Alessandro: Controra Avenue",
+      "artist": "two prominent figures from the international jazz scene",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Italian guitarist and composer Alessandro Florio returns with his Hammond Trio after 10 (!) years. Named after the hottest, early afternoon hours of a South-Italian day and a fictitious New York avenue, this music was born in the Mediterranean but re",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Through The Cracks The Light Is Born",
+      "artist": "Franke, Marie-Paule",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "The powerful and versatile jazz singer Marie-Paule Franke debuts a set of her haunting originals on Through the Cracks the Light Is Born. Joined by a top-notch New York-based quartet, the vocalist performs seven songs that are both thoughtful and emo",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "The Eureka Concert",
+      "artist": "Eggar, Dave",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Two Grammy-winning musicians known for shaping pop history\u2013 songwriter/producer, Toby Gad, (\u201cAll of Me\u201d by John Legend, Fergie\u2019s \u201cBig Girls Don\u2019t Cry\u201d, Beyonce\u2019s \u201cIf I Were A Boy\u201d) and cellist Dave Eggar (Coldplay, Andrea Bocelli, Evanescence) create",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Sowden House",
+      "artist": "Dave Eggar . Garbett, Freyja",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "The worlds of jazz, cinema, and video game storytelling converge on Sowden House, the new album from ARIA award-winning pianist, composer and producer Freyja Garbett, set for release on June 26th, 2026 on Earshift Music. Originally conceived as the s",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Jazz Samba",
+      "artist": "Charlie Byrd",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "While the 1953 Bud Shank/Laurindo Almeida recordings were the precursors of bossa (Waxtime Clear Vinyl 526032 \u2013 LP) Glorious Assembly Jazz Orchestra, The: Glorious Assembly They say : Glorious Assembly debuts 2nd May. A 21-piece jazz orchestra featur",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Glorious Assembly",
+      "artist": "Glorious Assembly Jazz Orchestra, The",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Glorious Assembly debuts 2nd May. A 21-piece jazz orchestra featuring Ian Thomas, John Parricelli, Gareth Williams, Loz Garratt, Tori Freestone, Mark Lockheart, Phil Meadows, Kasper Rietkerk, Claire McInerney, Gareth Lockrane, Michael Whight, Steve M",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Rhombus",
+      "artist": "Stewart, Bill",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Organist Larry Goldings, Guitarist Peter Bernstein and Drummer Bill Stewart Reconvene their Celebrates Trio for \u201cRhombus\u201d, marking 35 years of history with distinctive music by Keith Jarrett, Wayne Shorter, Abdullah Ibrahim, Monk, and Irving Berlin,",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Feebles, Fables & Ferns",
+      "artist": "Fred Hersch",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Feebles, Fables and Ferns captures a rare one-time coming together of luminaries Mick Goodrick and Fred Hersch, both active in Boston at the time, recorded in Hersch\u2019s studio in New York, August 1988. Looking back at the session in 2025, Hersch notes",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "To Some Place New",
+      "artist": "Granci, Milena",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "French-Italian pianist and composer Milena Granci introduces To Some Place New (May 14th, 2026), a striking debut that blends contemporary jazz with folk lyricism and cinematic atmosphere. Based in London, Granci leads a six-piece ensemble whose musi",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Mezzanine",
+      "artist": "Greenhouse Ensemble",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Greenhouse Ensemble\u2019s Mezzanine marks a confident step forward for the Qu\u00e9bec-based septet, blending contemporary jazz with Qu\u00e9b\u00e9cois folk influences and subtle experimental textures. Built through a highly collaborative process, the album showcases",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Americana",
+      "artist": "Gripper, Eddie",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Americana sees pianist Eddie Gripper joined by his trio, Patrick Barrett-Donlon on drums and Clem Saynor on double bass, across seven original compositions and a single cover of Paul Simon\u2019s \u2018American Tune\u2019. Written during a six-week hitchhiking jour",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "Solar Boats",
+      "artist": "Guess What",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/09/new-releases-april-may-2026-e-g/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-09",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Despite their obsession of appearing on stage in astronaut onesies and mystical masks, we do know who is responsible for this cosmic saga : drummer and beatmaker Luke Warmcop (Phat Dat, Orchestre du Montplaisant) and keyboardist Graham Mushnik (Derya",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "New releases April-May 2026, C-D",
+      "artist": "Jazz Journal",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/08/new-releases-april-may-2026-c-d/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-08",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": " New releases April-May 2026, C-D - Jazz Journal <link rel='stylesheet' id='typicons-css' href='https://jazzjournal.co.uk/wp-content/plugins/td-composer/assets/fonts/typicons/typicons.css?ver=2",
+      "site_id": "jazz_journal",
+      "crawl_status": "listing"
+    },
+    {
+      "album": "jazzahead! 2026, Bremen, Germany",
+      "artist": "Pascal Dorban",
+      "score": null,
+      "url": "https://jazzjournal.co.uk/2026/05/07/jazzahead-2026-bremen-germany/",
+      "source": "Jazz Journal",
+      "pub_date": "2026-05-07",
+      "tags": [
+        "jazz",
+        "reviews"
+      ],
+      "excerpt": "Marking a significant milestone in its history, jazzahead! (so styled) celebrated its 20th anniversary with flair \u2013 an achievement greatly enhanced by the presence of partner country Sweden. Long considered a prime candidate for the festival spotlight, Sweden not only met but exceeded expectations. After a somewhat underwhelming opening by the Norrbotten Big Band \u2013 [\u2026] The post jazzahead! 2026, Bremen, Germany appeared first on Jazz Journal .",
+      "site_id": "jazz_journal",
+      "crawl_status": "rss_listing"
+    }
+  ]
+}
