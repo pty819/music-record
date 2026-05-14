@@ -112,6 +112,7 @@ URL：{url}
 
 任务：
 1. 判断站点是否有 RSS：优先用 curl + feedparser 解析 RSS，过滤出最近 3 天条目
+   🔸 许多站的 RSS 在 <description> CDATA 字段有完整正文（如 The Wire）。用 feedparser 的 summary 字段获取全文，strip HTML 后取前 500 字填入 excerpt。如果没有正文仅摘要则用摘要。
 2. 如果没有 RSS：用 browser_navigate headless 访问 reviews_url，只浏览列表页前 2 页，筛选 3 天内的文章
 3. **Cookie 墙处理**（所有站点必须执行）：
    - browser_navigate 之后，检查页面是否有 cookie consent banner
@@ -119,13 +120,15 @@ URL：{url}
    - 如果找到任意 "Agree" / "Accept" / "I agree" 按钮，立即点击，等 1 秒让 banner 消失
    - 然后再继续提取内容
 4. 对每篇评论抓取：专辑名、艺人、评分、评论URL、发布日期、来源、摘要
+   ⚠️ 如果文章不是传统乐评格式（特稿/专题/访谈/音频节目）：将文章标题填入 album，栏目名或分类填入 artist，type 设为 "feature"，score 设为 null
 5. **时间判断**：pub_date 在 3 天内则抓取；超过 3 天则停止，不再继续翻页
 6. 如果该站**没有任何 3 天内的文章**：输出空数组 `[]`，不要报错，不要重试，直接结束
 7. 遇到 paywall/cloudflare：标记 `"status": "paywalled"` 或 `"status": "blocked"`，返回空数组
    8. **非音乐过滤**：提取标题后，如果 artist 或 album 包含 (BLU-RAY、 (BLU RAY、 (UHD、 (VOD)、 (DVD 等关键词，说明这是电影/碟片评测，不是音乐，跳过该条目
 9. 输出：JSON 数组，写入 {out_file}
-   每条格式：{{"album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "site_id", "crawl_status"}}
-   10. kanban_complete(summary="scraped N reviews from {name} (last 3 days)", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}})"""
+   每条格式：{{"album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "site_id", "crawl_status", "type"}}
+   type 取值："review"（传统乐评）或 "feature"（特稿/专题/访谈/音频节目）
+   10. kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}})"""
 
             tid = hermes_create(
                 title=title,
@@ -206,6 +209,8 @@ SITE_TAGS = {
     "the_quietus": ["experimental","electronic","jazz","world","avant-garde"],
     "jazz_trail": ["avant-garde jazz","experimental","improvisation"],
     "avant_music_news": ["experimental","weird","progressive","avant-garde"],
+    "all_about_jazz": ["jazz","fusion","avant-garde","avant-jazz","world"],
+    "the_wire": ["experimental","avant-garde","free jazz","electronic","drone","ambient","world","contemporary","improvisation"],
 }
 
 def get_site_taste_baseline(site_id):
@@ -280,7 +285,7 @@ def score_review(r, site_id="musique_machine"):
         has_detail = any(k in el for k in ["texture","layer","narrative","worldbuilding","composition","ritual"])
         if not has_detail and ("lo-fi" in el or "noise" in el): dr += 1
     
-    pen = 1 if cq <= 1 else 0
+    pen = 1 if cq <= 1 and tm < 3 else 0
     return max(0, cq + tm + nov + cdb + reg - mp - dr - pen)
 
 # ── 执行评分 ───────────────────────────────────────────────────

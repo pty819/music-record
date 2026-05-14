@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "album": "Unlimited Editions: Potlatch",
+    "artist": "The Wire - Audio",
+    "score": null,
+    "url": "https://www.thewire.co.uk/audio/tracks/unlimited-editions-potlatch",
+    "source": "The Wire",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "experimental",
+      "avant-garde",
+      "audio"
+    ],
+    "excerpt": "To accompany his feature on French improv label Potlatch in The Wire 508, Seymour Wright compiles an annotated playlist from across the label s 30 year history Parisian label Potlatch s 29 year catalogue spans the late 20th/early 21st century global flow of ideas and collaboration in improvised music. Its remarkable series of elegant, substantial music came to a close with final a release at the end of 2025, Jean-Luc Guionnet s alto saxophone solo L &Eacute;paisseur De L Air Live (reviewed in Th",
+    "site_id": "the_wire",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Invisible Jukebox mix: Guttersnipe",
+    "artist": "The Wire - Audio",
+    "score": null,
+    "url": "https://www.thewire.co.uk/audio/tracks/invisible-jukebox-mix-guttersnipe",
+    "source": "The Wire",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "avant-garde",
+      "audio"
+    ],
+    "excerpt": "Listen to the music we played to noise rock duo Guttersnipe during their Invisible Jukebox interview in The Wire 508 Each month in the magazine we play an artist or group a series of tracks which they are asked to comment on with no prior knowledge of what they are about to hear. In The Wire 508 it is the turn of noise rock duo Guttersnipe. Here you can listen to a mix of the tracks our correspondent Stewart Smith played to Guttersnipe during the interview, which is published in full in The Wire",
+    "site_id": "the_wire",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]

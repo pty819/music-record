@@ -15,6 +15,7 @@
     "site_id": "musique_machine",
     "crawl_status": "success",
     "_site": "musique_machine",
+    "type": "review",
     "total_score": 10
   },
   {
@@ -38,6 +39,7 @@
     "site_id": "world_music_central",
     "crawl_status": "success",
     "_site": "world_music_central",
+    "type": "review",
     "total_score": 9
   },
   {
@@ -57,6 +59,28 @@
     "site_id": "igloo_magazine",
     "crawl_status": "success",
     "_site": "igloo_magazine",
+    "type": "review",
+    "total_score": 8
+  },
+  {
+    "album": "No Nation But Imagination",
+    "artist": "Alexander Hawkins",
+    "score": null,
+    "url": "https://jazztrail.net/blog/alexander-hawkins-no-nation-but-imagination-album-review",
+    "source": "JazzTrail",
+    "pub_date": "May 14, 2026",
+    "tags": [
+      "jazz",
+      "contemporary jazz",
+      "experimental jazz",
+      "modern creative"
+    ],
+    "excerpt": "With No Nation But Imagination, British pianist and composer Alexander Hawkins delivers a radical and fascinatingly complex work that may leave listeners wondering how its intertwining layers of piano, synths, harp, flute, drums, turntables, and samples fit together so naturally.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "label": "Intakt Records, 2026",
+    "_site": "jazz_trail",
+    "type": "review",
     "total_score": 8
   },
   {
@@ -75,6 +99,7 @@
     "site_id": "musique_machine",
     "crawl_status": "success",
     "_site": "musique_machine",
+    "type": "review",
     "total_score": 8
   },
   {
@@ -93,6 +118,7 @@
     "site_id": "musique_machine",
     "crawl_status": "success",
     "_site": "musique_machine",
+    "type": "review",
     "total_score": 8
   },
   {
@@ -113,6 +139,7 @@
     "reviewer": "Michael Stone",
     "label": "Otá digital",
     "_site": "roots_world",
+    "type": "review",
     "total_score": 8
   },
   {
@@ -131,6 +158,7 @@
     "site_id": "hhv_mag",
     "crawl_status": "success",
     "_site": "hhv_mag",
+    "type": "review",
     "total_score": 7
   },
   {
@@ -150,6 +178,7 @@
     "site_id": "igloo_magazine",
     "crawl_status": "success",
     "_site": "igloo_magazine",
+    "type": "review",
     "total_score": 7
   },
   {
@@ -169,6 +198,26 @@
     "site_id": "igloo_magazine",
     "crawl_status": "success",
     "_site": "igloo_magazine",
+    "type": "review",
+    "total_score": 7
+  },
+  {
+    "album": "Chambers EP",
+    "artist": "Ruben",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ruben-chambers",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "electroacoustic"
+    ],
+    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around. It's the kind of release that sneaks up on you, not flashy, but it sticks.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "type": "review",
     "total_score": 7
   },
   {
@@ -188,6 +237,7 @@
     "site_id": "igloo_magazine",
     "crawl_status": "success",
     "_site": "igloo_magazine",
+    "type": "review",
     "total_score": 7
   },
   {
@@ -207,26 +257,7 @@
     "site_id": "igloo_magazine",
     "crawl_status": "success",
     "_site": "igloo_magazine",
-    "total_score": 7
-  },
-  {
-    "album": "No Nation But Imagination",
-    "artist": "Alexander Hawkins",
-    "score": null,
-    "url": "https://jazztrail.net/blog/alexander-hawkins-no-nation-but-imagination-album-review",
-    "source": "JazzTrail",
-    "pub_date": "May 14, 2026",
-    "tags": [
-      "jazz",
-      "contemporary jazz",
-      "experimental jazz",
-      "modern creative"
-    ],
-    "excerpt": "With No Nation But Imagination, British pianist and composer Alexander Hawkins delivers a radical and fascinatingly complex work that may leave listeners wondering how its intertwining layers of piano, synths, harp, flute, drums, turntables, and samples fit together so naturally.",
-    "site_id": "jazz_trail",
-    "crawl_status": "success",
-    "label": "Intakt Records, 2026",
-    "_site": "jazz_trail",
+    "type": "review",
     "total_score": 7
   },
   {
@@ -241,6 +272,7 @@
     "site_id": "squids_ear",
     "crawl_status": "success",
     "_site": "squids_ear",
+    "type": "review",
     "total_score": 7
   },
   {
@@ -255,6 +287,25 @@
     "site_id": "squids_ear",
     "crawl_status": "success",
     "_site": "squids_ear",
+    "type": "review",
+    "total_score": 7
+  },
+  {
+    "album": "The Romantic Piano Concerto 1991-2007 Edition",
+    "artist": "Various (Hyperion)",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-the-hyperion-romantic-piano-concerto-edition-1991-2007/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "classical",
+      "contemporary"
+    ],
+    "excerpt": "Hyperion's Romantic Piano Concerto series stands as one of the most ambitious and comprehensive recording projects in the history of classical music. Launched in 1991 with the aim of reviving forgotten works, it developed into an encyclopedic exploration of the genre. Now, Hyperion has gathered the first era of this project into a single 50-CD box set, The Romantic Piano Concerto 1991-2007 Edition. For the serious piano aficionado, this box set is a valuable collection, offering a comprehensive overview of the virtuoso tradition.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success",
+    "_site": "the_classic_review",
+    "type": "review",
     "total_score": 7
   },
   {
@@ -277,6 +328,7 @@
     "site_id": "the_quietus",
     "crawl_status": "success",
     "_site": "the_quietus",
+    "type": "review",
     "total_score": 7
   },
   {
@@ -299,7 +351,266 @@
     "site_id": "world_music_central",
     "crawl_status": "success",
     "_site": "world_music_central",
+    "type": "review",
     "total_score": 7
+  },
+  {
+    "album": "Unlimited Editions: Potlatch",
+    "artist": "The Wire - Audio",
+    "score": null,
+    "url": "https://www.thewire.co.uk/audio/tracks/unlimited-editions-potlatch",
+    "source": "The Wire",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "experimental",
+      "avant-garde",
+      "audio"
+    ],
+    "excerpt": "To accompany his feature on French improv label Potlatch in The Wire 508, Seymour Wright compiles an annotated playlist from across the label s 30 year history Parisian label Potlatch s 29 year catalogue spans the late 20th/early 21st century global flow of ideas and collaboration in improvised music. Its remarkable series of elegant, substantial music came to a close with final a release at the end of 2025, Jean-Luc Guionnet s alto saxophone solo L &Eacute;paisseur De L Air Live (reviewed in Th",
+    "site_id": "the_wire",
+    "crawl_status": "success",
+    "type": "feature",
+    "_site": "the_wire",
+    "total_score": 7
+  },
+  {
+    "album": "Invisible Jukebox mix: Guttersnipe",
+    "artist": "The Wire - Audio",
+    "score": null,
+    "url": "https://www.thewire.co.uk/audio/tracks/invisible-jukebox-mix-guttersnipe",
+    "source": "The Wire",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental",
+      "avant-garde",
+      "audio"
+    ],
+    "excerpt": "Listen to the music we played to noise rock duo Guttersnipe during their Invisible Jukebox interview in The Wire 508 Each month in the magazine we play an artist or group a series of tracks which they are asked to comment on with no prior knowledge of what they are about to hear. In The Wire 508 it is the turn of noise rock duo Guttersnipe. Here you can listen to a mix of the tracks our correspondent Stewart Smith played to Guttersnipe during the interview, which is published in full in The Wire",
+    "site_id": "the_wire",
+    "crawl_status": "success",
+    "type": "feature",
+    "_site": "the_wire",
+    "total_score": 7
+  },
+  {
+    "album": "Many Worlds",
+    "artist": "Andrew MacKelvie",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/many-worlds",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Hangin' In",
+    "artist": "Joan Fort",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/hangin-in",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "The Oscar Peterson Trio at Baker's Keyboard Lounge",
+    "artist": "Oscar Peterson",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/the-oscar-peterson-trio-at-bakers-keyboard-lounge",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Boundless Species",
+    "artist": "Jamile & Vinicius Gomes, feat. Joe Martin",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/boundless-species",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Alight Upon the Lake: Live at the Jazz Showcase",
+    "artist": "Yusef Lateef",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/alight-upon-the-lake-live-at-the-jazz-showcase",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Live at Merrimans' Playhouse: Oscar Peterson Tribute",
+    "artist": "Scott Routenberg Trio",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/live-at-merrimans-playhouse-oscar-peterson-tribute",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Shapeshifter",
+    "artist": "Jon Henriksson",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/shapeshifter",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Fragments: The Complete 1969 Salle Pleyel Concerts",
+    "artist": "Cecil Taylor",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/fragments-the-complete-1969-salle-pleyel-concerts",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Thank You Notes--The Music of Gregg Hill",
+    "artist": "The Paul Keller Orchestra",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/thank-you-notes-the-music-of-gregg-hill",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Move Fast And Mend Things",
+    "artist": "Hi Res Heart",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/move-fast-and-mend-things",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "No Goats",
+    "artist": "Finely Tuned Elephant",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/no-goats",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "type": "review",
+    "total_score": 6
   },
   {
     "album": "Julius Eastman Vol. 5: Gay Guerrilla",
@@ -318,6 +629,7 @@
     "site_id": "avant_music_news",
     "crawl_status": "direct",
     "_site": "avant_music_news",
+    "type": "review",
     "total_score": 6
   },
   {
@@ -337,6 +649,61 @@
     "site_id": "avant_music_news",
     "crawl_status": "direct",
     "_site": "avant_music_news",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Keep Telling Yourself That",
+    "artist": "Goal Weight (Maggie Cox and Jennifer Gersten)",
+    "score": null,
+    "url": "https://www.freejazzblog.org/2026/05/goal-weight-maggie-cox-and-jennifer.html",
+    "source": "freejazzblog.org",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "free jazz",
+      "improvised music"
+    ],
+    "excerpt": "An absorbing series of stimulating improvised dialogues between bassist Maggie Cox and violinist Jennifer Gersten. This imaginative and thought-provoking album is a demonstration of virtuosity and brilliance.",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "_site": "free_jazz_blog",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "2 Comp (2023)",
+    "artist": "Anthony Braxton",
+    "score": null,
+    "url": "https://www.freejazzblog.org/2026/05/anthony-braxton-2-comp-2023-schott.html",
+    "source": "freejazzblog.org",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "free jazz",
+      "avant-jazz"
+    ],
+    "excerpt": "Dense and dissonant chords overflow with subtle but edgy excitement. A stellar illustration of Braxton's creative music. His expert ability to juxtapose instrumental voicings to create elaborate structures is in full evidence.",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "_site": "free_jazz_blog",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Toothpaste For Your Elephant",
+    "artist": "Various Artists",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/various-artists-toothpaste-for-your-elephant/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "Compilation",
+      "Ó Mhaidin"
+    ],
+    "excerpt": "Das Zusammenstellen einer stimmigen Kompilation mit diversen Stilen ist keine leichte Aufgabe. Dem Londoner Label Ó Mhaidin gelingt es gleich mit Katalognummer 01. Toothpaste For Your Elephant heißt der mit sechzehn Stücken bestückte Sampler. Es gibt experimentellen Americana, Dub, Drone, Boogie, Indie, Psychedelika, Psych-Folk, ein wenig Punk mit »Post« davor. Die Künstler:innen kommen von überall. Zeitgenössisch, schon länger dabei. Neue Aufnahmen. Songs aus dem Archiv. Die Berliner No-Age-Ban",
+    "site_id": "hhv_mag",
+    "crawl_status": "success",
+    "_site": "hhv_mag",
+    "type": "review",
     "total_score": 6
   },
   {
@@ -356,24 +723,7 @@
     "site_id": "igloo_magazine",
     "crawl_status": "success",
     "_site": "igloo_magazine",
-    "total_score": 6
-  },
-  {
-    "album": "Chambers EP",
-    "artist": "Ruben",
-    "score": null,
-    "url": "https://igloomag.com/reviews/ruben-chambers",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental electronic",
-      "ambient",
-      "electroacoustic"
-    ],
-    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around. It's the kind of release that sneaks up on you, not flashy, but it sticks.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success",
-    "_site": "igloo_magazine",
+    "type": "review",
     "total_score": 6
   },
   {
@@ -391,6 +741,7 @@
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
+    "type": "review",
     "total_score": 6
   },
   {
@@ -408,6 +759,26 @@
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "No Such Thing As Love For…",
+    "artist": "Silver Dove",
+    "score": 4,
+    "url": "https://www.musiquemachine.com/reviews/silver-dove-no-such-thing-as-love-for-1778600535709",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "No Such Thing As Love For… is a new around two hour release from Liverpool's Silver Dove. It offers up a blend/ mix of hazy guitar drone/ ambience, walled/ textured noise, and dreamy/ abstract sound making.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "type": "review",
     "total_score": 6
   },
   {
@@ -426,6 +797,7 @@
     "site_id": "musique_machine",
     "crawl_status": "success",
     "_site": "musique_machine",
+    "type": "review",
     "total_score": 6
   },
   {
@@ -446,6 +818,30 @@
     "reviewer": "Michael Stone",
     "label": "Segell Microscopi",
     "_site": "roots_world",
+    "type": "review",
+    "total_score": 6
+  },
+  {
+    "album": "Let X=X (Live)",
+    "artist": "Laurie Anderson with Sexmob",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/laurie-anderson-with-sexmob-let-xx-live-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-12T05:00:00+00:00",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "A live set from 2023 sees Laurie Anderson re-imagining her own songs – and, perhaps surprisingly, one from Lou Reed's album with Metallica.",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "_site": "the_quietus",
+    "type": "review",
     "total_score": 6
   }
 ]
