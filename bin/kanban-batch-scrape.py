@@ -213,8 +213,37 @@ def score_review(r):
     cdb = max(0, len(domains) - 1) if len(domains) > 1 else 0
     reg_kw = ["southeast asia","south america","africa","middle east","central asia","southeast asian"]
     reg = 2 if any(kw in " ".join(tags) for kw in reg_kw) else (1 if any(kw in excerpt.lower() for kw in ["asia","africa","latin"]) else 0)
+    
+    # mainstream_penalty: 纯流行/无实验主流惩罚
+    penalty_kw = ["pop","mainstream indie","indie pop","top 40","billboard"]
+    mp = 0
+    el_lower = excerpt.lower()
+    if all(k in el_lower for k in ["pop","mainstream"]):
+        mp = 3
+    elif "pop" in el_lower and "experimental" not in el_lower and "avant" not in el_lower:
+        mp = 2
+    elif "mainstream" in el_lower and "experimental" not in el_lower:
+        mp = 2 if "indie" in el_lower else 1
+    
+    # Synthwave / Retrowave / Dungeon Synth / Dark Ambient 额外降权
+    # 只有 aesthetic 没有实质创新 → 降权
+    dr = 0
+    if "synthwave" in tags_str or "retrowave" in tags_str:
+        # 检查是否只有怀旧 aesthetic 没有创新描述
+        has_novelty = any(k in el_lower for k in ["innovative","modern","experimental","composition","texture","design"])
+        if not has_novelty:
+            if all(k in el_lower for k in ["retro","nostalgic"]):
+                dr += 1
+            if "vibes" in el_lower and "sound" not in el_lower and "textur" not in el_lower:
+                dr += 1
+    if ("dungeon synth" in tags_str or "dark ambient" in tags_str):
+        # 检查是否只有低保真堆叠没有叙事/细节
+        has_detail = any(k in el_lower for k in ["texture","layer","narrative","worldbuilding","composition","ritual"])
+        if not has_detail and ("lo-fi" in el_lower or "noise" in el_lower):
+            dr += 1
+    
     pen = 1 if cq <= 1 else 0
-    return max(0, cq + tm + nov + cdb + reg - pen)
+    return max(0, cq + tm + nov + cdb + reg - mp - dr - pen)
 
 # ── 执行评分 ───────────────────────────────────────────────────
 for r in reviews:
