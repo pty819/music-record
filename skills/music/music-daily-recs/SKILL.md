@@ -47,9 +47,9 @@ Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/{YYYY-MM-DD}/`，即直接�
 
 共 46 个站点，其中 43 个活跃 + 3 个 skip：
 - **skip**（Boomkat / Syrphe / Textura）：已知无法访问，跳过。sites.json 中 `crawl_strategy: "skip"`
-- **RSS 优先组**（~21 站）：feedparser 直接解析，**只取 7 天内条目**，超期停止翻页
-- **Playwright 组**（~22 站）：browser_navigate headless + stealth，**只浏览列表页前 2 页**，筛选 7 天内文章，超期停止
-- **搜索降级组**：paywall/cloudflare 站降级到 web_search，同样限制 7 天
+- **RSS 优先组**（~21 站）：feedparser 直接解析，**只取 3 天内条目**，超期停止翻页
+- **Playwright 组**（~22 站）：browser_navigate headless + stealth，**只浏览列表页前 2 页**，筛选 3 天内文章，超期停止
+- **搜索降级组**：paywall/cloudflare 站降级到 web_search，同样限制 3 天
 
 ### ⚠️ Fluid Radio — 静态存档库
 

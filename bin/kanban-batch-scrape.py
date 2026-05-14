@@ -108,23 +108,23 @@ URL：{url}
 策略：{strategy}
 标签：{tags}
 
-⚠️ 重要约束 — 时间范围：只抓取**最近 7 天内**发布的文章。7 天之前的全部跳过。
+⚠️ 重要约束 — 时间范围：只抓取**最近 3 天内**发布的文章。3 天之前的全部跳过。
 
 任务：
-1. 判断站点是否有 RSS：优先用 curl + feedparser 解析 RSS，过滤出最近 7 天条目
-2. 如果没有 RSS：用 browser_navigate headless 访问 reviews_url，只浏览列表页前 2 页，筛选 7 天内的文章
+1. 判断站点是否有 RSS：优先用 curl + feedparser 解析 RSS，过滤出最近 3 天条目
+2. 如果没有 RSS：用 browser_navigate headless 访问 reviews_url，只浏览列表页前 2 页，筛选 3 天内的文章
 3. **Cookie 墙处理**（所有站点必须执行）：
    - browser_navigate 之后，检查页面是否有 cookie consent banner
    - 查找方式：找包含 "cookie" 的文本 + "agree" / "accept" / "I agree" 的按钮或链接
    - 如果找到任意 "Agree" / "Accept" / "I agree" 按钮，立即点击，等 1 秒让 banner 消失
    - 然后再继续提取内容
 4. 对每篇评论抓取：专辑名、艺人、评分、评论URL、发布日期、来源、摘要
-5. **时间判断**：pub_date 在 7 天内则抓取；超过 7 天则停止，不再继续翻页
-6. 如果该站**没有任何 7 天内的文章**：输出空数组 `[]`，不要报错，不要重试，直接结束
+5. **时间判断**：pub_date 在 3 天内则抓取；超过 3 天则停止，不再继续翻页
+6. 如果该站**没有任何 3 天内的文章**：输出空数组 `[]`，不要报错，不要重试，直接结束
 7. 遇到 paywall/cloudflare：标记 `"status": "paywalled"` 或 `"status": "blocked"`，返回空数组
 8. 输出：JSON 数组，写入 {out_file}
    每条格式：{{"album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "site_id", "crawl_status"}}
-9. kanban_complete(summary="scraped N reviews from {name} (last 7 days)", metadata={{"site": "{sid}", "count": N, "days_scanned": "7"}}"""
+9. kanban_complete(summary="scraped N reviews from {name} (last 3 days)", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}}"""
 
             tid = hermes_create(
                 title=title,
