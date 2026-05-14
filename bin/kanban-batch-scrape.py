@@ -124,7 +124,7 @@ URL：{url}
 7. 遇到 paywall/cloudflare：标记 `"status": "paywalled"` 或 `"status": "blocked"`，返回空数组
 8. 输出：JSON 数组，写入 {out_file}
    每条格式：{{"album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "site_id", "crawl_status"}}
-9. kanban_complete(summary="scraped N reviews from {name} (last 3 days)", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}}"""
+   10. kanban_complete(summary="scraped N reviews from {name} (last 3 days)", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}})"""
 
             tid = hermes_create(
                 title=title,
@@ -142,33 +142,34 @@ URL：{url}
         print(f"Batch {batch_num} done (parents={len(parents)}, this batch={len(task_ids)})")
 
     # ── Final aggregator ────────────────────────────────────────────────
-    agg_body = f"""读取所有 scraper 输出的 JSON 文件，合并去重，输出每日推荐。
+    # Use % formatting to avoid nested curly braces syntax error
+    agg_body = """读取所有 scraper 输出的 JSON 文件，合并去重，输出每日推荐。
 
 ⚠️ 重要：使用绝对路径，不要依赖 $HERMES_KANBAN_WORKSPACE。
 
-输入目录：{date_dir}（绝对路径）
-输入文件：{date_dir}/*_reviews.json（共 {len(all_task_ids)} 个）
+输入目录：%s（绝对路径）
+输入文件：%s/*_reviews.json（共 %d 个）
 输出文件（均使用绝对路径）：
-  - {date_dir}/aggregated.json   （当天所有去重后的评论，纯列表格式）
-  - {date_dir}/filtered.json     （当天评分 >= 6 的评论）
-  - /home/liyifan/music-record/recommend/{DATE}.md  （当天全量 markdown，直接作为唯一输出）
+  - %s/aggregated.json   （当天所有去重后的评论，纯列表格式）
+  - %s/filtered.json     （当天评分 >= 6 的评论）
+  - /home/liyifan/music-record/recommend/%s.md  （当天全量 markdown，直接作为唯一输出）
 
 步骤：
-1. cd {date_dir} && ls *_reviews.json 确认文件存在
-2. 遍历 {date_dir}/*_reviews.json（绝对路径）
+1. cd %s && ls *_reviews.json 确认文件存在
+2. 遍历 %s/*_reviews.json（绝对路径）
 3. 解析所有 JSON 数组合并
 4. 按 (album+artist) 去重，保留评分最高的来源
 5. 执行评分代码（见下方），输出 total_score
-6. 输出 aggregated.json（全量，纯列表）和 filtered.json（>=6分）到 {date_dir}/
-7. 生成全量 markdown（含 ★10/8/6 分级）→ 直接写入 /home/liyifan/music-record/recommend/{DATE}.md
+6. 输出 aggregated.json（全量，纯列表）和 filtered.json（>=6分）到 %s/
+7. 生成全量 markdown（含 ★10/8/6 分级）→ 直接写入 /home/liyifan/music-record/recommend/%s.md
 
 === 可执行代码（必须执行）===
 ```python
 import json, os
 from datetime import datetime
 
-DATE = "{DATE}"
-date_dir = "{date_dir}"
+DATE = "%s"
+date_dir = "%s"
 TODAY = datetime.now()
 
 # ── 读取所有 scraper JSON ──────────────────────────────────────
@@ -262,7 +263,7 @@ import json
 MINIMAX_API_KEY = os.environ.get("MINIMAX_API_KEY", "")
 MINIMAX_API_URL = "https://api.minimax.chat/v1/text/chatcompletion_v2"
 
-def summarize_cn(excerpt, artist_album):
+def summarize_cn(excerpt, artist_album, tags_raw_str=""):
     if not excerpt or excerpt.strip() == "":
         return "值得关注的前卫实验音乐作品。"
     
@@ -271,14 +272,18 @@ def summarize_cn(excerpt, artist_album):
     if len(text) > 1000:
         text = text[:1000] + "..."
     
-    prompt = f"""请将下面这篇英文乐评浓缩为**1-2句通顺的中文核心推荐**，讲清楚专辑的艺人、风格、主要亮点或背景，不要超过150字。
-
-专辑：{artist_album}
-
-英文原文：
-{text}
-
-中文总结（1-2句话，简洁核心）："""
+    # 拼接prompt，避免全角标点语法问题
+    prompt_lines = [
+        "请将下面这篇英文乐评浓缩为**1-2句通顺的中文核心推荐**，讲清楚专辑的艺人、风格、主要亮点或背景，不要超过150字。",
+        "",
+        "专辑: " + artist_album,
+        "",
+        "英文原文:",
+        text,
+        "",
+        "中文总结(1-2句话, 简洁核心): "
+    ]
+    prompt = "\n".join(prompt_lines)
     
     headers = {
         "Authorization": f"Bearer {MINIMAX_API_KEY}",
@@ -304,15 +309,16 @@ def summarize_cn(excerpt, artist_album):
             return result.strip()
         else:
             # fallback: 用原来的关键词方法
-            return gen_cn_fallback(excerpt, artist_album)
+            return gen_cn_fallback_v1(excerpt, artist_album, tags_raw_str)
     except Exception as e:
         print(f"Summarization API error: {e}, fallback to keywords")
-        return gen_cn_fallback(excerpt, artist_album)
+        return gen_cn_fallback_v1(excerpt, artist_album, tags_raw_str)
 
 # Fallback：关键词方法，如果API调用失败
-def gen_cn_fallback(r):
-    excerpt = r.get("excerpt","") or ""
-    tags_raw = r.get("tags","")
+def gen_cn_fallback_v1(excerpt_text, artist_album_str, tags_raw_str=""):
+    excerpt = excerpt_text or ""
+    artist_album = artist_album_str or ""
+    tags_raw = tags_raw_str or ""
     tags_str = tags_raw.lower() if isinstance(tags_raw,str) else " ".join(tags_raw).lower()
     parts = []
     el = excerpt.lower()
@@ -344,32 +350,32 @@ low = [r for r in scored if 6 <= r["total_score"] < 8]
 if top:
     lines.append("## ★10+ — Top Picks\n")
     for r in top:
-        artist_album = f"{r['album']} — {r['artist']}"
-        lines.append(f"**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}")
-        lines.append(f"[阅读原文 →]({r.get('url','#')})")
-        summary = summarize_cn(r.get('excerpt',''), artist_album)
-        lines.append(f"> 🔶 **中文总结**：{summary}\n")
-        lines.append(f"> {r.get('excerpt','')}")
+        artist_album = "{r['album']} — {r['artist']}".format(r=r)
+        lines.append("**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}".format(r=r))
+        lines.append("[阅读原文 →]({r.get('url','#')})".format(r=r))
+        summary = summarize_cn(r.get('excerpt',''), artist_album, r.get('tags',''))
+        lines.append("> 🔶 **中文总结**: {}\n".format(summary))
+        lines.append("> {}".format(r.get('excerpt','')))
         lines.append("")
 if mid:
     lines.append("## ★8-9 — Notable\n")
     for r in mid:
-        artist_album = f"{r['album']} — {r['artist']}"
-        lines.append(f"**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}")
-        lines.append(f"[阅读原文 →]({r.get('url','#')})")
-        summary = summarize_cn(r.get('excerpt',''), artist_album)
-        lines.append(f"> 🔶 **中文总结**：{summary}\n")
-        lines.append(f"> {r.get('excerpt','')}")
+        artist_album = "{r['album']} — {r['artist']}".format(r=r)
+        lines.append("**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}".format(r=r))
+        lines.append("[阅读原文 →]({r.get('url','#')})".format(r=r))
+        summary = summarize_cn(r.get('excerpt',''), artist_album, r.get('tags',''))
+        lines.append("> 🔶 **中文总结**: {}\n".format(summary))
+        lines.append("> {}".format(r.get('excerpt','')))
         lines.append("")
 if low:
     lines.append("## ★6-7 — 此外值得关注\n")
     for r in low:
-        artist_album = f"{r['album']} — {r['artist']}"
-        lines.append(f"**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}")
-        lines.append(f"[阅读原文 →]({r.get('url','#')})")
-        summary = summarize_cn(r.get('excerpt',''), artist_album)
-        lines.append(f"> 🔶 **中文总结**：{summary}\n")
-        lines.append(f"> {r.get('excerpt','')}")
+        artist_album = "{r['album']} — {r['artist']}".format(r=r)
+        lines.append("**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}".format(r=r))
+        lines.append("[阅读原文 →]({r.get('url','#')})".format(r=r))
+        summary = summarize_cn(r.get('excerpt',''), artist_album, r.get('tags',''))
+        lines.append("> 🔶 **中文总结**: {}\n".format(summary))
+        lines.append("> {}".format(r.get('excerpt','')))
         lines.append("")
 
 # ── 写文件 ────────────────────────────────────────────────────
@@ -397,12 +403,32 @@ print("Done")
 9. **GitHub 推送（结果 + skill + 脚本一起）**：
    ```bash
    cd /home/liyifan/music-record
-   git add 2026/{MONTH}/{DATE}/ recommend/{DATE}.md
+   git add 2026/%s/%s/ recommend/%s.md
    git add skills/music/music-daily-recs/SKILL.md bin/kanban-batch-scrape.py data/sites.json
-   git commit -m "Daily: {DATE} — N reviews, M passed filter"
+   git commit -m "Daily: %s — %d reviews, %d passed filter"
    git push
    ```
-10. kanban_complete(summary="aggregated N unique reviews, M passed filter, recommend written to recommend/", metadata={{"total": N, "passed": M}})"""
+   10. kanban_complete(summary="aggregated %d unique reviews, %d passed filter, recommend written to recommend/", metadata={"total": %d, "passed": %d})
+   ```
+"""
+
+    from datetime import datetime
+    date_obj = datetime.fromisoformat(DATE)
+    git_month = date_obj.strftime("%Y-%m")
+    N = len(all_task_ids)
+    # passed count is unknown at template creation time — aggregator computes it
+    passed_placeholder = 0
+    
+    agg_body = agg_body % (
+        date_dir, date_dir, len(all_task_ids),
+        date_dir, date_dir, DATE,
+        date_dir, date_dir, date_dir, DATE,
+        DATE, date_dir,
+        git_month, DATE, DATE,
+        DATE, len(all_task_ids), passed_placeholder,
+        len(all_task_ids), passed_placeholder,
+        len(all_task_ids), passed_placeholder
+    )
 
     agg_id = hermes_create(
         title="aggregate: all music reviews",
