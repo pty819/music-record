@@ -983,10 +983,10 @@
     {
       "id": "point_of_departure",
       "name": "Point of Departure",
-      "homepage": "https://www.pointofdeparture.org/",
-      "rss_url": "https://pointofdeparture.org/?feed=rss2",
-      "reviews_url": "https://www.pointofdeparture.org/journal/",
-      "has_rss": true,
+      "homepage": "https://pointofdeparture.org/",
+      "rss_url": null,
+      "reviews_url": "https://pointofdeparture.org/",
+      "has_rss": false,
       "tier": "A",
       "crawl_frequency": "every_2_days",
       "parser_hint": {
@@ -1000,9 +1000,10 @@
         "jazz",
         "essays"
       ],
-      "notes": "高质量长文和严肃讨论",
+      "notes": "前卫/实验/自由爵士，点击Current Issue进入本期内容列表抓取",
       "startUrls": [
-        "https://pointofdeparture.org/journal/"
+        "https://pointofdeparture.org/",
+        "https://pointofdeparture.org/Content.html"
       ],
       "allowUrlPatterns": [
         "/"
@@ -1969,9 +1970,9 @@
     {
       "id": "progressor",
       "name": "ProgressoR",
-      "homepage": "https://www.progressor.net/",
+      "homepage": "http://www.progressor.net/",
       "rss_url": null,
-      "reviews_url": "https://www.progressor.net/",
+      "reviews_url": "http://www.progressor.net/",
       "has_rss": false,
       "tier": "B",
       "crawl_frequency": "weekly",
@@ -1983,7 +1984,11 @@
         "prog",
         "jazz-fusion"
       ],
-      "notes": "冷门 prog/fusion 很有用"
+      "notes": "冷门 prog/fusion 很有用",
+      "startUrls": [
+        "http://www.progressor.net/"
+      ],
+      "crawl_strategy": "playwright_headless"
     },
     {
       "id": "prog_mistress",
