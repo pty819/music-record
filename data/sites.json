@@ -2070,9 +2070,10 @@
       "id": "sleeping_village_reviews",
       "name": "Sleeping Village Reviews",
       "homepage": "https://www.sleepingvillagereviews.com/",
-      "rss_url": "https://www.sleepingvillagereviews.com/feed/",
-      "reviews_url": "https://www.sleepingvillagereviews.com/reviews--premieres/",
-      "has_rss": true,
+      "rss_url": null,
+      "reviews_url": "https://www.sleepingvillagereviews.com/reviews--premieres/category/avant-garde/",
+      "has_rss": false,
+      "crawl_strategy": "playwright_headless",
       "tier": "B",
       "crawl_frequency": "daily",
       "parser_hint": {
@@ -2091,7 +2092,7 @@
         "rock",
         "electronic"
       ],
-      "notes": "专门的前卫/实验音乐评论站，有专门的avant-garde分类板块",
+      "notes": "专门的前卫/实验音乐评论站，有专门的avant-garde分类板块，RSS 404 禁用，改用Playwright",
       "startUrls": [
         "https://www.sleepingvillagereviews.com/reviews--premieres/category/avant-garde/"
       ],
@@ -2110,9 +2111,10 @@
       "id": "louder_than_war",
       "name": "Louder Than War",
       "homepage": "https://louderthanwar.com/",
-      "rss_url": "https://louderthanwar.com/category/music/reviews/album-reviews/feed/",
+      "rss_url": null,
       "reviews_url": "https://louderthanwar.com/music/reviews/album-reviews/",
-      "has_rss": true,
+      "has_rss": false,
+      "crawl_strategy": "playwright_headless",
       "tier": "B",
       "crawl_frequency": "daily",
       "parser_hint": {
@@ -2131,7 +2133,7 @@
         "jazz",
         "world"
       ],
-      "notes": "综合音乐站，专辑评论总板块，包含各类风格，覆盖大量实验/前卫音乐",
+      "notes": "综合音乐站，专辑评论总板块，包含各类风格，覆盖大量实验/前卫音乐，RSS 403 禁用，改用Playwright",
       "startUrls": [
         "https://louderthanwar.com/music/reviews/album-reviews/"
       ],
