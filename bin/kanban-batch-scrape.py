@@ -261,8 +261,19 @@ import sys
 import json
 
 # 调用 MiniMax API 做中文总结
-MINIMAX_API_KEY = os.environ.get("MINIMAX_API_KEY", "")
-MINIMAX_API_URL = "https://api.minimax.chat/v1/text/chatcompletion_v2"
+MINIMAX_CN_API_KEY = os.environ.get("MINIMAX_CN_API_KEY", "")
+# Also try reading from .env file directly
+if not MINIMAX_CN_API_KEY:
+    try:
+        with open("/home/liyifan/.hermes/.env") as _envf:
+            for _line in _envf:
+                _line = _line.strip()
+                if _line and not _line.startswith("#") and "MINIMAX_CN_API_KEY" in _line:
+                    MINIMAX_CN_API_KEY = _line.split("=", 1)[1].strip().strip("'"").strip()
+                    break
+    except:
+        pass
+MINIMAX_API_URL = "https://api.minimaxi.com/v1/chat/completions"
 
 def summarize_cn(excerpt, artist_album, tags_raw_str=""):
     if not excerpt or excerpt.strip() == "":
@@ -275,14 +286,14 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
     
     # 拼接prompt，避免全角标点语法问题
     prompt_lines = [
-        "请将下面这篇英文乐评浓缩为**1-2句通顺的中文核心推荐**，讲清楚专辑的艺人、风格、主要亮点或背景，不要超过150字。",
+        "你是一位专业华语乐评人。用1-2句简洁的中文总结这张专辑的核心特点：艺人是谁、什么声音风格、最亮眼之处。不要空话套话。",
         "",
         "专辑: " + artist_album,
         "",
         "英文原文:",
         text,
         "",
-        "中文总结(1-2句话, 简洁核心): "
+        "中文总结(1-2句): "
     ]
     prompt = "\n".join(prompt_lines)
     
@@ -292,7 +303,7 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
     }
     
     data = {
-        "model": "MiniMax-M2-7B",
+        "model": "MiniMax-M2.7",
         "messages": [
             {"role": "user", "content": prompt}
         ],
