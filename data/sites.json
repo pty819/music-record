@@ -304,9 +304,9 @@
       "id": "bandcamp_daily",
       "name": "Bandcamp Daily",
       "homepage": "https://daily.bandcamp.com/",
-      "rss_url": "https://daily.bandcamp.com/feed",
+      "rss_url": null,
       "reviews_url": "https://daily.bandcamp.com/",
-      "has_rss": true,
+      "has_rss": false,
       "tier": "S",
       "crawl_frequency": "daily",
       "parser_hint": {
