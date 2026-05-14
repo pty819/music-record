@@ -1,8 +1,36 @@
-{
-  "site": "jazztimes",
-  "crawl_status": "cloudflare",
-  "count": 0,
-  "articles": [],
-  "days_scanned": "3",
-  "note": "Main RSS feed accessible (3 recent items detected) but individual article pages behind Cloudflare challenge. Cannot extract album/artist/score/excerpt fields."
-}
+[
+  {
+    "album": "Three from the Third Stream: Unheralded Classical Works of Jazz Masters Gary Burton, Chick Corea and Keith Jarrett",
+    "artist": "Three from the Third Stream",
+    "score": null,
+    "url": "https://www.jazztimes.com/reviews/albums/three-from-the-third-stream-unheralded-classical-works-of-jazz-masters-gary-burton-chick-corea-and-keith-jarrett/",
+    "source": "Jazztimes",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "reviews",
+      "modern jazz"
+    ],
+    "excerpt": "If you ask someone for a list of indispensable albums by Gary Burton, Chick Corea and Keith Jarrett, they’re unlikely to respond with Seven Songs &#8230; Read More \"Three from the Third Stream: Unheralded Classical Works of Jazz Masters Gary Burton, Chick Corea and Keith Jarrett\" The post Three from the Third Stream: Unheralded Classical Works of Jazz Masters Gary Burton, Chick Corea and Keith Jarrett appeared first on JazzTimes.",
+    "site_id": "jazztimes",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Connecting the Dots: Choreographer Buddy Bradley and the Jazz of the Harlem Renaissance",
+    "artist": "Connecting the Dots",
+    "score": null,
+    "url": "https://www.jazztimes.com/reviews/books/connecting-the-dots-choreographer-buddy-bradley-and-the-jazz-of-the-harlem-renaissance/",
+    "source": "Jazztimes",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "reviews",
+      "modern jazz"
+    ],
+    "excerpt": "When jazz aficionados listen to the music of the Harlem Renaissance and breathe deep the sounds of Fats Waller, Duke Ellington, Louis Armstrong and Fletcher &#8230; Read More \"Connecting the Dots: Choreographer Buddy Bradley and the Jazz of the Harlem Renaissance\" The post Connecting the Dots: Choreographer Buddy Bradley and the Jazz of the Harlem Renaissance appeared first on JazzTimes.",
+    "site_id": "jazztimes",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]
