@@ -2067,6 +2067,46 @@
       "notes": "新加坡本地场景补充"
     },
     {
+      "id": "sleeping_village_reviews",
+      "name": "Sleeping Village Reviews",
+      "homepage": "https://www.sleepingvillagereviews.com/",
+      "rss_url": "https://www.sleepingvillagereviews.com/feed/",
+      "reviews_url": "https://www.sleepingvillagereviews.com/reviews--premieres/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "sleepingvillagereviews.com/\\d+/\\d+/",
+        "list_selector": ".post-title a",
+        "album_selector": "h1.entry-title",
+        "author_selector": ".author a",
+        "body_selector": ".entry-content p",
+        "genre_selector": ".category-link, .tag-link"
+      },
+      "tags": [
+        "experimental",
+        "avant-garde",
+        "punk",
+        "metal",
+        "rock",
+        "electronic"
+      ],
+      "notes": "专门的前卫/实验音乐评论站，有专门的avant-garde分类板块",
+      "startUrls": [
+        "https://www.sleepingvillagereviews.com/reviews--premieres/category/avant-garde/"
+      ],
+      "allowUrlPatterns": [
+        "/\\d+/\\d+/.*"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact",
+        "/advertise",
+        "/category/premieres/",
+        "/category/news/"
+      ]
+    },
+    {
       "id": "louder_than_war",
       "name": "Louder Than War",
       "homepage": "https://louderthanwar.com/",
@@ -2155,7 +2195,8 @@
       "wild_city",
       "bandwagon_asia",
       "hear65",
-      "louder_than_war"
+      "louder_than_war",
+      "sleeping_village_reviews"
     ]
   }
 }
