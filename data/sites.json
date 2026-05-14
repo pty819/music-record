@@ -10,7 +10,7 @@
       "id": "the_wire",
       "name": "The Wire",
       "homepage": "https://www.thewire.co.uk/",
-      "rss_url": "https://www.thewire.co.uk/rss",
+      "rss_url": "https://www.thewire.co.uk/home/rss",
       "reviews_url": "https://www.thewire.co.uk/in-writing",
       "has_rss": true,
       "tier": "S",
