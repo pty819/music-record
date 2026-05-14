@@ -1721,7 +1721,7 @@
       "name": "Musique Machine",
       "homepage": "https://www.musiquemachine.com/",
       "rss_url": null,
-      "reviews_url": "https://www.musiquemachine.com/",
+      "reviews_url": "https://www.musiquemachine.com/reviews/",
       "has_rss": false,
       "tier": "B",
       "crawl_frequency": "weekly",
@@ -2065,88 +2065,6 @@
         "reviews"
       ],
       "notes": "新加坡本地场景补充"
-    },
-    {
-      "id": "sleeping_village_reviews",
-      "name": "Sleeping Village Reviews",
-      "homepage": "https://www.sleepingvillagereviews.com/",
-      "rss_url": null,
-      "reviews_url": "https://www.sleepingvillagereviews.com/reviews--premieres/category/avant-garde/",
-      "has_rss": false,
-      "crawl_strategy": "playwright_headless",
-      "tier": "B",
-      "crawl_frequency": "daily",
-      "parser_hint": {
-        "article_url_pattern": "sleepingvillagereviews.com/\\d+/\\d+/",
-        "list_selector": ".post-title a",
-        "album_selector": "h1.entry-title",
-        "author_selector": ".author a",
-        "body_selector": ".entry-content p",
-        "genre_selector": ".category-link, .tag-link"
-      },
-      "tags": [
-        "experimental",
-        "avant-garde",
-        "punk",
-        "metal",
-        "rock",
-        "electronic"
-      ],
-      "notes": "专门的前卫/实验音乐评论站，有专门的avant-garde分类板块，RSS 404 禁用，改用Playwright",
-      "startUrls": [
-        "https://www.sleepingvillagereviews.com/reviews--premieres/category/avant-garde/"
-      ],
-      "allowUrlPatterns": [
-        "/\\d+/\\d+/.*"
-      ],
-      "denyUrlPatterns": [
-        "/about",
-        "/contact",
-        "/advertise",
-        "/category/premieres/",
-        "/category/news/"
-      ]
-    },
-    {
-      "id": "louder_than_war",
-      "name": "Louder Than War",
-      "homepage": "https://louderthanwar.com/",
-      "rss_url": null,
-      "reviews_url": "https://louderthanwar.com/music/reviews/album-reviews/",
-      "has_rss": false,
-      "crawl_strategy": "playwright_headless",
-      "tier": "B",
-      "crawl_frequency": "daily",
-      "parser_hint": {
-        "article_url_pattern": "louderthanwar.com/\\d+/\\d+/\\d+/",
-        "list_selector": ".post-title a",
-        "album_selector": "h1.entry-title",
-        "author_selector": ".author.vcard a",
-        "body_selector": ".entry-content p",
-        "genre_selector": ".cat-links a, .tags-links a"
-      },
-      "tags": [
-        "rock",
-        "experimental",
-        "avant-garde",
-        "electronic",
-        "jazz",
-        "world"
-      ],
-      "notes": "综合音乐站，专辑评论总板块，包含各类风格，覆盖大量实验/前卫音乐，RSS 403 禁用，改用Playwright",
-      "startUrls": [
-        "https://louderthanwar.com/music/reviews/album-reviews/"
-      ],
-      "allowUrlPatterns": [
-        "/\\d+/\\d+/\\d+/.*review/"
-      ],
-      "denyUrlPatterns": [
-        "/about",
-        "/advertise",
-        "/contact",
-        "/category/news/",
-        "/category/interviews/"
-      ]
     }
   ],
   "crawl_priority": {
@@ -2196,9 +2114,7 @@
       "prog_mistress",
       "wild_city",
       "bandwagon_asia",
-      "hear65",
-      "louder_than_war",
-      "sleeping_village_reviews"
+      "hear65"
     ]
   }
 }

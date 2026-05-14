@@ -122,7 +122,8 @@ URL：{url}
 5. **时间判断**：pub_date 在 3 天内则抓取；超过 3 天则停止，不再继续翻页
 6. 如果该站**没有任何 3 天内的文章**：输出空数组 `[]`，不要报错，不要重试，直接结束
 7. 遇到 paywall/cloudflare：标记 `"status": "paywalled"` 或 `"status": "blocked"`，返回空数组
-8. 输出：JSON 数组，写入 {out_file}
+   8. **非音乐过滤**：提取标题后，如果 artist 或 album 包含 (BLU-RAY、 (BLU RAY、 (UHD、 (VOD)、 (DVD 等关键词，说明这是电影/碟片评测，不是音乐，跳过该条目
+9. 输出：JSON 数组，写入 {out_file}
    每条格式：{{"album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "site_id", "crawl_status"}}
    10. kanban_complete(summary="scraped N reviews from {name} (last 3 days)", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}})"""
 
