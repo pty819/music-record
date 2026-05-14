@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "album": "Walkman",
+    "artist": "Speedy J",
+    "score": null,
+    "url": "https://igloomag.com/reviews/speedy-j-walkman-stoor",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": ["experimental electronic", "IDM", "ambient", "electroacoustic"],
+    "excerpt": "There's no dancefloor here, no need to lock into a groove or deliver a drop. Instead, Paap is chasing sound for sound's sake, pushing stereo dynamics, distorting drum loops until they fray, stretching reverbs until they fill entire rooms.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  },
+  {
+    "album": "OS ZA CR AA NC",
+    "artist": "Özcan Saraç",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ozcan-sarac-os-za-cr-aa-nc-evel",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": ["experimental electronic", "IDM", "glitch", "electroacoustic"],
+    "excerpt": "Constructing colossal sonic environments, OS ZA CR AA NC stretches across nearly five hours of fractured electronic immersion. Spanning 22 chapters, each passage drifts between disintegration and cohesion, where duration melts away and shadow seeps into every corner.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Exploraciones al Vacio",
+    "artist": "SKSSS",
+    "score": null,
+    "url": "https://igloomag.com/reviews/sksss-exploraciones-al-vacio-aerial-sound",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": ["experimental electronic", "ambient", "drone", "electroacoustic"],
+    "excerpt": "SKSSS is an Argentinian producer based in Buenos Aires who has been steadily building a catalog of experimental electronic music since the early 2020s. With releases on labels like Sufrimiento Records, Alta Costura, Sonido Atmosferico, and Vista Recordings.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  },
+  {
+    "album": "I Like Pretty Things",
+    "artist": "Half-Ass Astronaut",
+    "score": null,
+    "url": "https://igloomag.com/reviews/half-ass-astronaut-i-like-pretty-things-not-yet-remembered",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": ["experimental electronic", "IDM", "braindance", "electroacoustic"],
+    "excerpt": "What begins as mechanical sound manipulation gradually transforms into drum-heavy recollections from another era entirely. A surreal passage through decades of IDM evolution, overflowing with restless imagination and stylistic bliss.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Chambers EP",
+    "artist": "Ruben",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ruben-chambers",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": ["experimental electronic", "ambient", "electroacoustic"],
+    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around. It's the kind of release that sneaks up on you, not flashy, but it sticks.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Shadow Tactics EP",
+    "artist": "WONKS",
+    "score": null,
+    "url": "https://igloomag.com/reviews/wonks-shadow-tactics-zoitrax",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-11",
+    "tags": ["experimental electronic", "IDM", "glitch", "electroacoustic"],
+    "excerpt": "Shadow Tactics maintains a focus on structure and texture—beats splinter, surfaces scrape, and each element is placed with intent. It's a concise study in mechanical detail and broken rhythm, placing WONKS in conversation with artists like Richard Devine, Funckarma, Hecq, and Funkstörung.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Ailurophobia",
+    "artist": "Octavcat",
+    "score": null,
+    "url": "https://igloomag.com/reviews/octavcat-ailurophobia-vlsi",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-11",
+    "tags": ["experimental electronic", "IDM", "electro", "electroacoustic"],
+    "excerpt": "Octavat balances playful experimentation with precise execution, offering moments of introspection, energy, and pure groove. Ailurophobia is a fecund, joyous exploration of rhythm, texture, and mood—an electronic album that delights in detail, danceability, and inventive sound design.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success"
+  }
+]

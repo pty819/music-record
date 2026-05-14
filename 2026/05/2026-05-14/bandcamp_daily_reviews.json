@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "album": "Detached From The Rest Of You",
+    "artist": "Loraine James",
+    "score": null,
+    "url": "https://daily.bandcamp.com/album-of-the-day/loraine-james-detached-from-the-rest-of-you-review",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "electronic",
+      "IDM",
+      "experimental"
+    ],
+    "excerpt": "On her stunning latest LP, James instills IDM with palpable emotion. The review explores how she brings IDM back to its emotional core, blending ambient and rhythmic elements as a young, Black, queer woman.",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success"
+  },
+  {
+    "album": "CEREMONIAL",
+    "artist": "Black Milk",
+    "score": null,
+    "url": "https://daily.bandcamp.com/album-of-the-day/black-milk-ceremonial-review",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "hip-hop",
+      "rap",
+      "experimental"
+    ],
+    "excerpt": "The Detroit rapper expertly bridges the gap between the rap, soul, and dance music that raised him. A sharp album exploring creation, connection, and survival in Detroit.",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Towards An Expanse",
+    "artist": "Dumama",
+    "score": null,
+    "url": "https://daily.bandcamp.com/album-of-the-day/dumama-towards-an-expanse-review",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "world",
+      "ambient"
+    ],
+    "excerpt": "A warm, textured album blending double bass, saxophone, and uhadi, with collaborators including Shahzad Ismaily, Arooj Aftab, and Colin Stetson.",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success"
+  }
+]

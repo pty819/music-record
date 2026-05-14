@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "album": "A Reflection Distorts Over Water",
+    "artist": "Camila Nebbia (feat. Marilyn Crispell & Lesley Mok)",
+    "score": "",
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3016",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-12",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "With great cooperation between the Americas, two US improvisers — pianist Marilyn Crispell and drummer Lesley Mok — join with Argentinean tenor saxophonist Camila Nebbia for set of free-form improvisations. Without any preset ideas, the pianist, drummer, and saxophonist immediately clicked, propelling eight transformative tracks.",
+    "site_id": "squids_ear",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Collection Supranaturelle: Induction / Mutation",
+    "artist": "Eric La Casa / Francisco Lopez",
+    "score": "",
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3015",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-11",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "A two-disc release from La Casa and López that shares nothing overtly in common. La Casa has been, for a good quarter century now, one of the finer, most imaginative creators working with field recordings, often concentrating on urban environments, especially the quotidian sounds encountered routine",
+    "site_id": "squids_ear",
+    "crawl_status": "success"
+  }
+]

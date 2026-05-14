@@ -1,7 +1,56 @@
-{
-  "site_id": "jazz_trail",
-  "crawl_status": "pending_browser_navigate",
-  "reviews": [],
-  "count": 0,
-  "date_range": "2026-05-07 to 2026-05-14"
-}
+[
+  {
+    "album": "No Nation But Imagination",
+    "artist": "Alexander Hawkins",
+    "score": null,
+    "url": "https://jazztrail.net/blog/alexander-hawkins-no-nation-but-imagination-album-review",
+    "source": "JazzTrail",
+    "pub_date": "May 14, 2026",
+    "tags": [
+      "jazz",
+      "contemporary jazz",
+      "experimental jazz",
+      "modern creative"
+    ],
+    "excerpt": "With No Nation But Imagination, British pianist and composer Alexander Hawkins delivers a radical and fascinatingly complex work that may leave listeners wondering how its intertwining layers of piano, synths, harp, flute, drums, turntables, and samples fit together so naturally.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "label": "Intakt Records, 2026"
+  },
+  {
+    "album": "The Chaining Loops",
+    "artist": "Olivier Le Goas Ensemble Pulse",
+    "score": null,
+    "url": "https://jazztrail.net/blog/olivier-le-goas-the-chaining-loops-album-review",
+    "source": "JazzTrail",
+    "pub_date": "May 12, 2026",
+    "tags": [
+      "jazz",
+      "contemporary jazz",
+      "modern creative",
+      "avant garde jazz",
+      "odd meter"
+    ],
+    "excerpt": "Intrepid French drummer Olivier Le Goas reunites his Ensemble Pulse—a high-spirited septet formed during a creative residency in 2021—to perform five new original compositions. A devoted explorer of odd meters, animated rhythmic patterns, and kinetic grooves, Le Goas delivers exactly that on The Chaining Loops.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "label": "Double Moon Records, 2026"
+  },
+  {
+    "album": "Echoes",
+    "artist": "Harry Skoler",
+    "score": null,
+    "url": "https://jazztrail.net/blog/harry-skoler-echoes-album-review",
+    "source": "JazzTrail",
+    "pub_date": "May 11, 2026",
+    "tags": [
+      "jazz",
+      "post bop",
+      "avant garde jazz"
+    ],
+    "excerpt": "With a voice unmistakably his own, clarinetist and composer Harry Skoler traverses a variety of open-ended atmospheres, displaying an instinctive ability to merge traditional jazz language with contemporary sensibilities in ways that continue to shape his artistic identity.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "label": "Red Brick Hill, 2026"
+  }
+]

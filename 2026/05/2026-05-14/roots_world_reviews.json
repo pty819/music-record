@@ -1,7 +1,326 @@
-{
-  "site_id": "roots_world",
-  "crawl_status": "pending_browser_navigate",
-  "reviews": [],
-  "count": 0,
-  "date_range": "2026-05-07 to 2026-05-14"
-}
+[
+  {
+    "album": "Vanishment",
+    "artist": "Tiny Sun",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/tinysun-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Tiny Sun creates tiny songs that give off light and heat well out of proportion to their size. Composed, performed, and produced by Martina Sorbara, Jonathan Goldsmith, and Don Rooke, the record is vaguely Americana, with plucked guitars and ukuleles, chiming keyboards, and the lonesome slide of the guitar. Vanishment contains eighteen sparkling miniatures that take a scant 34 minutes to negotiate, notable for their economy of arrangement and the subtle directness of the lyrics.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "John Alan Urquhart",
+    "label": ""
+  },
+  {
+    "album": "Peter's Field",
+    "artist": "Sean Cooney",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/cooney-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "In August 1819, tens of thousands of working men and women gathered in St. Peter's Field in Manchester to hear the politician Henry Hunt speak. Sean Cooney revisits that day in a multimedia memorial to the Peterloo Massacre, with guitarist Sam Carter, fiddler/singer Eliza Carthy, multi-instrumentalist Ben Nicholls, and the industrial ballad singer Jennifer Reid, who doubles as narrator.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": "Hudson"
+  },
+  {
+    "album": "GuldGanger",
+    "artist": "GuldGanger",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/guldganger-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Here is the recording from the Danish trio GuldGanger, led by one of the folk scene's outstanding and experienced vocalists, Mia Guldhammer. Their self-titled EP offers five tracks, with Guldhammer, Morten Musicus and Christian Mohr Levisen bringing their own perspectives to mostly traditional music. There's a lovely ancient, creaky mood throughout.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": ""
+  },
+  {
+    "album": "Live at Rockpalast, 1999",
+    "artist": "Dr. John",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/drjohn-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Live at Rockpalast 1999 documents a command performance at the Loreley open-air amphitheater by Malcolm 'Mac' Rebennack Jr., aka Dr. John. Rockpalast is a live-music TV show broadcast since 1974 by Westdeutscher Rundfunk (WDR), the archival source for this CD-DVD package. The show was taped at the height of Dr. John's international popularity and features a setlist of some of his best loved songs.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Michael Stone",
+    "label": ""
+  },
+  {
+    "album": "Króta",
+    "artist": "Mats Edén & Tellef Kvifte",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/krota-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Króta features Swedish fiddler Mats Edén and Norwegians Tellef Kvifte on flutes, and drummer Knut Kvifte Nesheim. The trio offers a far from conventional take on the traditional tunes they have chosen. While dance tunes may be the source of most of the material here, this feels more akin to chamber music; not that it is remotely classical in style, but in the sense it conveys of three players engrossed in a musically intimate conversation.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Mike Adcock",
+    "label": ""
+  },
+  {
+    "album": "Sendas",
+    "artist": "Omar Sosa",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/sosa-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "True to a Monk-inspired commitment never to play the same thing twice, Cuban pianist and composer Omar Sosa's Sendas (Pathways), his latest solo offering, is the vivid invention of a pensive, restlessly creative, evolutionary artistry. An unscripted two-hour solo improvisation on a Fazioli grand in the empty concert hall provided the raw audio for Sendas, later flavored in the mix with voice clips, percussion, loops, field recordings, and found sounds.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Michael Stone",
+    "label": "Otá digital"
+  },
+  {
+    "album": "Brasiliano",
+    "artist": "Lucas Santtana",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/santtana-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "The newly released album from Lucas Santtana moves between Bahia and beyond, blending Brazilian rhythms with electronic and acoustic textures in his characteristically inventive style.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "John Alan Urquhart",
+    "label": ""
+  },
+  {
+    "album": "Genuine Negro Jig (15th Anniversary Edition)",
+    "artist": "Carolina Chocolate Drops",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/carolina-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "A little before the end of the last century, a revelatory compilation appeared: From Where I Stand: The Black Experience In Country Music opened a window on something so many didn't even know existed. Genuine Negro Jig was their third release. This expanded 15th anniversary edition marks a good time to look back at the band's mix of Piedmont string band and traditional music, nestling beside early 20th century blues, and a few original and modern pieces.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": ""
+  },
+  {
+    "album": "A Djinn and a Hunter Went Walking",
+    "artist": "Neba Solo and Benego Diakité",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/solo-diakite-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "The newly released album from Malian musicians Neba Solo and Benego Diakité is the outcome of a project which began in 2013 when Solo and Diakité, playing balafon and n'goni respectively, were recorded by a Bamako producer who played the result to record producer Nick Gold in the UK.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Mike Adcock",
+    "label": "Nonesuch"
+  },
+  {
+    "album": "Vida",
+    "artist": "Dani Jané",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/jane-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Vida, the third release by Dani Jané (Spanish guitar, loops, synthesizer, composition), is a lyrical, rhythmically driven title that combines elements of flamenco, Catalan folk, classical music, jazz, and Catalan and U.S. poetry.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Michael Stone",
+    "label": "Segell Microscopi"
+  },
+  {
+    "album": "Il Mito",
+    "artist": "Canzoniere Grecanico Salentino",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/cgs-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "How do you celebrate 50 years of music by a band that blazed trails for the charged, hypnotic pizzica sound, breaking it out of its homeland in southern Italy? Canzoniere Grecanico Salentino have reframed some of the pieces from those earlier decades through the lens of those playing and singing the songs now.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": "Ponderosa Music"
+  },
+  {
+    "album": "Tovi",
+    "artist": "Teija Niku",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/niku-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "It's been a lengthy wait for the fourth album from Finnish accordionist Teija Niku, but she's hardly been idle over the last few years. Between the pandemic, giving birth, and the death of her mother, her time has been filled. But the long pause makes this return all the sweeter, with its joyful exploration of the places where folk and jazz meet.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": "Artist release"
+  },
+  {
+    "album": "Songbooks Live",
+    "artist": "WÖR x Kongero",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/songbook-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "This collaboration between the five-piece Belgian instrumental group WÖR, whose members specialize in bringing the music of earlier centuries to life, and Kongero, the acclaimed Swedish female acapella folk quartet, offers an unusual chance to explore how their two cultures, ostensibly so different, can come together.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": "Nordic Notes"
+  },
+  {
+    "album": "Lyric",
+    "artist": "Stelios Petrakis",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/petrakis-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Crete's Stelios Petrakis is at the peak of players of his island's best-known traditional instrument, the Cretan lyra, a small pear-shaped fiddle held vertically on the knee. True to its title, Lyric is an album of his lyra with a panoply of other traditional instruments played by musicians of equal stature, in music of rich lyricism, in melody and texture.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Andrew Cronshaw",
+    "label": "Buda Musique"
+  },
+  {
+    "album": "Di Mashin",
+    "artist": "Maria Ka",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/ka-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Maria Ka's Di Mashin is a meditation on resilience and the connections between generations, blending Yiddish folk tradition with contemporary sounds, drawing on influences from Hildegard of Bingen to William Blake.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Lee Blackstone",
+    "label": "Artist release"
+  },
+  {
+    "album": "Echo",
+    "artist": "Emi Makabe",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/makabe-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Loss galvanizes, loss focuses, and musical artists turn loss into shared reflections. Emi Makabe has focused the passing of her father into a generous meditation on resilience and legacy with her second recording on Sunnyside Records, Echo.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "John Alan Urquhart",
+    "label": "Sunnyside"
+  },
+  {
+    "album": "sMiLes",
+    "artist": "Jowee Omicil",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/omicil-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Born in Montreal, Haitian-Canadian musician-composer Jowee Omicil plays a fabulous variety of saxophones, clarinets, trumpets, flutes, piano, and keyboards. He came of age in the choral milieu of his father's Montreal congregation, studied saxophone and music education at Berklee, and has gone on to work with some of the century's masters.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Michael Stone",
+    "label": "Bash Village - digital release"
+  },
+  {
+    "album": "The Visit",
+    "artist": "Cris Derksen",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/derksen-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "The Visit isn't an album built on compromises. The fourth release from Canadian artist Cris Derksen (North TallCree Reserve on her father's side, Mennonite lineage from her mother) pushes and cajoles her visions, with opening full-throated improvisation of 'White Gladis 1' truly announcing her arrival.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": "Artist release"
+  }
+]

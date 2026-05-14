@@ -1,1 +1,82 @@
-[]
+[
+  {
+    "album": "Symbols",
+    "artist": "Sergeant",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/sergeant-symbols-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-13T08:39:13+00:00",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "From Belgium, an experimental rock trio unafraid to slice up their own jams with a pair of garden shears and dance merrily amongst the shreds. Symbols is a wondrous, ghostly sound collages of post-punk guitars, naturalistic flutes, and polyrhythmic percussion.",
+    "site_id": "the_quietus",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Straight Hedge! Noel Gardner Reviews Punk & HC For May",
+    "artist": "Various (Punk/Hardcore Roundup)",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/punk/best-new-punk-hardcore-music-review-skintern-byford-dolphin-incident-bags-of-blood-mark-clayden/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-12T10:40:13+00:00",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "From bone-boiling Aussie racket to French powerpop crust via Cleveland, Bristol, Ross-on-Wye and more, Noel Gardner's guide to the best in brand new punk returns.",
+    "site_id": "the_quietus",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Let X=X (Live)",
+    "artist": "Laurie Anderson with Sexmob",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/laurie-anderson-with-sexmob-let-xx-live-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-12T05:00:00+00:00",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "A live set from 2023 sees Laurie Anderson re-imagining her own songs – and, perhaps surprisingly, one from Lou Reed's album with Metallica.",
+    "site_id": "the_quietus",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Detached From The Rest Of You",
+    "artist": "Loraine James",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/loraine-james-detached-from-the-rest-of-you-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-11T05:00:00+00:00",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "The Enfield-born producer's latest album may be full of complex rhythms, but the emotions are red raw and direct.",
+    "site_id": "the_quietus",
+    "crawl_status": "success"
+  }
+]

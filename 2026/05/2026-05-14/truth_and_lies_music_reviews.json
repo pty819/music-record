@@ -1,7 +1,18 @@
-{
-  "site_id": "truth_and_lies_music",
-  "crawl_status": "pending_browser_navigate",
-  "reviews": [],
-  "count": 0,
-  "date_range": "2026-05-07 to 2026-05-14"
-}
+[
+  {
+    "album": "Disco Chimi",
+    "artist": "Charlie Chimi",
+    "score": null,
+    "url": "https://www.truthandliesmusic.com/magazine/charlie-chimi-disco-chimi-club-coco-a-review",
+    "source": "Truth & Lies Music",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "free jazz",
+      "improvised music",
+      "adventurous jazz"
+    ],
+    "excerpt": "Afro-Cuban rhythms, no-wave garage punk edge, homemade funk and a fearless middle-fingered attitude towards generic straightforwardness. Fun, surreal, irreverent and ace.",
+    "site_id": "truth_and_lies_music",
+    "crawl_status": "success"
+  }
+]

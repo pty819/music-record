@@ -1,7 +1,99 @@
-{
-  "site_id": "hhv_mag",
-  "crawl_status": "success",
-  "reviews": [],
-  "count": 0,
-  "date_range": "2026-05-07 to 2026-05-14"
-}
+[
+  {
+    "album": "Ghosts Beneath The Brine",
+    "artist": "Wanderwelle",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/wanderwelle-ghosts-beneath-the-brine/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "Longplayer (LP)",
+      "Important Records",
+      "Wanderwelle"
+    ],
+    "excerpt": "Gespenster in der Tiefe: Das niederländische Duo Wanderwelle beschließt seine Trilogie von Alben über die ökologischen Auswirkungen des Klimawandels auf die Meere. Umweltzerstörung in Küstenregionen zu Lande und zu Wasser erkunden sie dabei mit elektroakustischen Mitteln, die sie für jede Platte spezifisch auswählen. Nach alten Kavallerie-Trompeten auf Black Clouds Above the Bows und einer durch einen Erdrutsch an der niederländischen Küste beschädigten Kirchenorgel auf All Hands Bury the Cliffs",
+    "site_id": "hhv_mag",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Toothpaste For Your Elephant",
+    "artist": "Various Artists",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/various-artists-toothpaste-for-your-elephant/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "Compilation",
+      "Ó Mhaidin"
+    ],
+    "excerpt": "Das Zusammenstellen einer stimmigen Kompilation mit diversen Stilen ist keine leichte Aufgabe. Dem Londoner Label Ó Mhaidin gelingt es gleich mit Katalognummer 01. Toothpaste For Your Elephant heißt der mit sechzehn Stücken bestückte Sampler. Es gibt experimentellen Americana, Dub, Drone, Boogie, Indie, Psychedelika, Psych-Folk, ein wenig Punk mit »Post« davor. Die Künstler:innen kommen von überall. Zeitgenössisch, schon länger dabei. Neue Aufnahmen. Songs aus dem Archiv. Die Berliner No-Age-Ban",
+    "site_id": "hhv_mag",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Music For Stillness",
+    "artist": "Harlan Silverman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/harlan-silverman-music-for-stillness/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Longplayer (LP)",
+      "Mississippi Records",
+      "Harlan Silverman"
+    ],
+    "excerpt": "Harlan Silverman ist Mitglied von The Cosmic Tones Research Trio aus Portland, Oregon. Und das steht seit zwei Jahren und zwei Platten für einen leicht esoterisch angehauchten Spiritual Jazz mit dezenten Folk- und Elektronik-Ornamentierungen. Für sein erstes Soloalbum hat sich Silverman zwar aus dem Baukasten seiner Band bedient, gewichtet die Bausteine aber unterschiedlich und setzt sie anders zusammen. Den Jazz hat er komplett gestrichen, und so klingt Music For Stillness mehr nach – Achtung! ",
+    "site_id": "hhv_mag",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Diana In The Autumn Wind",
+    "artist": "Gap Mangione",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/gap-mangione-diana-in-the-autumn-wind/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Gap Mangione",
+      "Longplayer (LP)",
+      "Reissue",
+      "Be With Records"
+    ],
+    "excerpt": "Wahlweise als Heiliger Gral oder als weißer Wal für Hip-Hop-Sample-Heads glorifiziert, ist nun die allererste Reissue überhaupt von Diana In The Autumn Wind erschienen. J Dilla- und Madlib-Fans können auf dem Album von 1968 lustig Sample-Bingo spielen, aber auch A Tribe Called Quest, Ghostface Killah, Kendrick Lamar, Talib Kweli und viele mehr haben sich hier bedient. Bibel hin, Moby Dick her – die eigentliche Frage ist doch: Ist dieses beinahe kultisch verehrte Gap-Mangione-Werk auch als kohäre",
+    "site_id": "hhv_mag",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Whoops Wrong Planet",
+    "artist": "Cloud Management & Vivien Goldman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/cloud-management-vivien-goldman-whoops-wrong-planet/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "Longplayer (LP)",
+      "Cloud Management",
+      "Altin Village & Mine Records",
+      "Vivien Goldman"
+    ],
+    "excerpt": "Was zunächst wie eine ungewöhnliche Begegnung zwischen Generationen, Szenen und geografischen Welten wirkt, entfaltet sich als überraschend stimmig und selbstverständlich. Mit Whoops Wrong Planet treffen Cloud Management, ein Projekt zwischen experimentellem Dub und elektronischer Clubmusik, und Vivien Goldman, New Yorker Autorin, Musikerin und prägende Stimme aus dem Post-Punk, aufeinander. Und diese Verbindung sitzt von Anfang an. Die drei Originaltracks – die B-Seite besteht ausschließlich au",
+    "site_id": "hhv_mag",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Dreams ’24 / ’25",
+    "artist": "Bill Wells",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/bill-wells-dreams-24-25/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "Karaoke Kalk",
+      "Longplayer (LP)",
+      "Bill Wells"
+    ],
+    "excerpt": "Bill Wells, Solitär aus Schottland, entwickelt im Schlaf offenbar eine ähnlich rege Fantasie wie in seinem breit aufgestellten Musikschaffen. Eine verspielte Verspultheit verbindet seine Bandprojekte wie das National Jazz Trio of Scotland mit kurzfristigeren Kollaborationen, etwa mit Musiker:innen wie Stefan Schneider, Aidan Moffat oder auch Isobel Campbell. Jetzt lässt er Fans seines eigenwilligen und doch zugänglichen Schaffens an Träumen teilhaben, die er nach dem Aufwachen eingefangen hat. K",
+    "site_id": "hhv_mag",
+    "crawl_status": "success"
+  }
+]

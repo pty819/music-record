@@ -1,7 +1,647 @@
-{
-  "site_id": "jazz_journal",
-  "crawl_status": "pending_browser_navigate",
-  "reviews": [],
-  "count": 0,
-  "date_range": "2026-05-07 to 2026-05-14"
-}
+[
+  {
+    "album": "Tribute to South Central",
+    "artist": "Doug MacDonald",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Doug MacDonald's newest recording, Tribute to South Central, features the prolific jazz guitarist at the head of a new quintet/sextet that includes trumpet, keyboards, bass, drums, and percussion. The colorful group performs three standards and five of MacDonald's inventive originals which contain plenty of subtle surprises. (Dmac Music, DM 29)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "The Myth We Choose",
+    "artist": "Nduduzo Makhathini",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Co-produced by his son Thingo Makhathini, the album moves between multiple influences and genres whilst holding onto Makhathini's distinctive sound and features bassist Dalisu Ndlazi, drummer Lukmil Perez as well as collaborations from Black Coffee, Shabaka, Omagugu, Thando Zide & Muneyi. (Blue Note Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Dialogue Vol. II",
+    "artist": "Albert Marquès / Rachel Therrien",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Catalonian pianist Albert Marquès and Grammy-nominated Canadian trumpeter Rachel Therrien release Dialogue Vol. II, the second installment in a two-part collaboration resulting from a decade-long musical friendship, sharing a playfulness and freeness over well-known standards. Bleeding authenticity – unfiltered and vulnerable, Dialogue Vol. II places the listener right inside the creative landscape of the studio. (Chronograph Records – CR-128)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Attunement",
+    "artist": "Heidi Martin",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Having completed two years of research at Rutgers University (2023-2024) which focused on the American jazz vocalist, songwriter, actress and civil rights activist Abbey Lincoln, Heidi Martin was subsequently awarded a Jazz Studies Dana Library Fellowship in 2024. During this time, Heidi reached out to bassist Michael Bowie and pianist Mark Cary, who both played with Abbey Lincoln for over a decade. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Alamar",
+    "artist": "Ana Carla Maza",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "With Alamar, Cuban cellist and singer Ana Carla Maza presents a personal and luminous musical work, in which memory, love and cultural transmission are transformed into a contemporary, universal language. The album, which is supported by a UK tour from the 24th April to 31st May, takes its name from Alamar, a seaside neighbourhood of Havana, Cuba. (Autre Distribution ACM83662026LP)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Katarahi",
+    "artist": "Myra Melford / Satoko Fujii",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Two of the most acclaimed pianists in creative music, Myra Melford and Satoko Fujii, come together for their first duet album since 2007. A deep and beautiful musical conversation, the album was recorded live at JazzFestival Lebnitz. (Rogue Art)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Windmills",
+    "artist": "Lubomyr Melnyk",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "In this remarkable 45 minute long piano epic, the composer has created a milestone in piano history, marking the highest levels of piano playing ever done before…. and that involve every aspect of his Continuous Music… from Static Position Pattern work to his glorious Bel-Canto Melodics, and even includes him playing at over 19 notes per second. Recorded live direct to analog tape. (Jersika Records, JRA029)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Arakatak",
+    "artist": "Metropole Orkest",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Metropole Orchestra presents Arakatak, a brand new collection of music to celebrate the monumental orchestra's 80th anniversary. Through 8 pieces by 8 different prominent composers, the group sheds light on the Metropole Orchestra of the past, present, and future. Conducted by Miho Hazama, also featuring Vince Mendoza, Donny McCaslin, Tineke Postma, Mark Guiliana, Shai Maestro, and Louis Cole. (V2 Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Twisted Summer",
+    "artist": "Liudas Mockūnas / Samuel Blaser / Marc Ducret",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Inspired by the sound of the legendary jazz clarinetist and saxophonist Jimmy Giuffre's trio, the Mockūnas – Blaser – Ducret trio creates their own music, original compositions composed by all three members. Recorded live direct to analog tape without any editing or overdubbing. (Jersika Records, JRA025)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "A Name I Knew",
+    "artist": "Pedro Molina",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "How does time sound as it dissolves, as forgetting lays waste to what was once certain? A Name I Knew moves through this landscape, centering on Alzheimer's: from jazz to pop/rock, from structure to the freedom of free improvisation. Each composition is a fragment of memory that fades. (Porta-Jazz, PJ123)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "The Incredible Jazz Guitar Of Wes Montgomery (Crystal Clear Vinyl)",
+    "artist": "Wes Montgomery",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Special limited edition of Wes Montgomery's classic album that became the inspiration for countless other guitarists, including Pat Metheny and John Scofield. Reissued as a special collectors' edition on crystal clear vinyl, 'The Incredible Jazz Guitar of Wes Montgomery (Riverside Records) was his third album as a leader and accompanied by Tommy Flanagan, Percy Heath and Albert 'Tootie' Heath. (Waxtime Crystal Clear 526034)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Take Twelve",
+    "artist": "Lee Morgan",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "'Take Twelve' showcases Lee Morgan's fiery hard-bop trumpet in a spirited, thoughtful set full of original compositions. (Jazz Wax Records JWR4647LP)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Global Prayer",
+    "artist": "Chase Morrin's IZE Trio",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The IZE Trio – featuring pianist Chase Morrin, cellist Nazeem Alatrash, and percussionist George Lernis, joined by special guests including bassist John Patitucci – melds jazz, classical, and maqam in a prayer for humanity. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Blue Side Vol. 1",
+    "artist": "Tobin Mueller / Tomás Martínez",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Pianist-composer Tobin Mueller teams up with saxophonist Tomás Martinez and others to create a fresh sound. The warmth and context of each piece brings to mind the great studios of the past. (ArtsForge 2112)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "No Need For A Driver's License",
+    "artist": "Nils Are Drønen / Inge Weatherhead Breistein",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Nils Are Drønen and Inge Weatherhead Breistein are both highly active musicians in the Bergen jazz community. As a duo, their focus is acoustic free jazz, pointing towards the 1960s and 1970s. Rooted in tradition, but also shaped by newer music. (scatterArchive)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Novos Londrinos",
+    "artist": "Novos Londrinos",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Bossa nova, samba, baiao, spiritual jazz and Cape Verdean rhythms form an enchanting mosaic on the debut EP from London-based Novos Londrinos. Brought together by a shared love of 60s/70s Brazilian music, the group combines sophisticated songwriting, tight grooves, exhilarating flute improvisations and emotive Portuguese-language vocals. (instagram.com/novos.londrinos)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Third Nature",
+    "artist": "Ocean Fanfare",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Celebrated Danish-Polish quartet Ocean Fanfare return with Third Nature, the final instalment in their long-form Nature Trilogy. Led by trumpeter Tomasz Dąbrowski and saxophonist Sven Dam Meinild, the group pushes further into structurally open, improvisation-led music. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "The Sorceress",
+    "artist": "Audrey Ochoa",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Juno Award-nominated powerhouse trombonist Canada's Audrey Ochoa releases a vibrant fusion of jazz, electronica, swing, and pop in a sonic portrait. Each track blends improvisation with infectious hooks and lush harmonies. The trombone takes centre stage as a voice of emotion and empowerment. (Chronograph Records – CR-119)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Takin' Off",
+    "artist": "Herbie Hancock",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Takin' Off was pianist Herbie Hancock's debut album as leader and one that produced his biggest hit 'Watermelon Man', which made it to the Top 100 on the pop charts. The tune would later become a jazz standard. Featuring a programme of all original compositions by Hancock, he's backed by an all-star ensemble featuring Dexter Gordon, Freddie Hubbard, Butch Warren, and Billy Higgins. (Waxtime Crystal Clear 526035)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "60 ans, Amazing Grace !!",
+    "artist": "Les Haricots Rouges",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "For 60 years, Les Haricots Rouges have been tireless ambassadors of à la française New Orleans jazz, celebrating their remarkable journey with undimmed camaraderie and youthful vitality. True living legends, they have spent six decades sharing their love of swing and joyful jazz with audiences worldwide. (Frémeaux & Associés FA8627)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "L'Adversaire",
+    "artist": "Hasard Noir",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Hasard Noir is a French jazz quartet from Lille — piano, bass, drums and saxophone. L'Adversaire is their third album and the first to feature saxophone. Built around themes of adversity and duality, it unfolds through nine original compositions by pianist Luis Galceran: melodic, collectively played, with a feel close to Nordic jazz. (La Cabane Music Works : LACABANE-001)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Terra",
+    "artist": "Phil Haynes",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "On the captivating new album 'Terra' veteran drummer/composer Phil Haynes is joined by the singular guitarist Ben Monder and inventive rising star tenor saxophonist Peyton Pleninger, for an hour-long group improvisation recorded live on the stage of Bucknell University's Natalie Davis-Rooke Recke Recital Hall. (Corner Store Jazz)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "A Love Supreme Revisited",
+    "artist": "Mathias Heise / Danish Radio Big Band",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "World champion chromatic harmonica player Mathias Heise joins the Danish Radio Big Band for a bold reimagining of John Coltrane's 1965 landmark album. Rather than presenting a tribute, Heise reconstructs the four-part suite from within, integrating key elements of Coltrane's original improvisations into newly conceived big band arrangements. (April Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Lady Sings The Blues",
+    "artist": "Billie Holiday",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The recordings included on the classic album Lady Sings the Blues come from two different studio dates, a complete session recorded in 1956, and four tunes from a 1954 date. The emphasis on both sessions is placed on Billie's singing. Although important musicians are present on both dates, little room is left for any instrumental improvisation. (Jazz Images 37196)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Everything Is Alive",
+    "artist": "Tetsuro Hoshii",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Brooklyn-based Japanese pianist Tetsuro Hoshii presents a solo piano album recorded on a Fazioli at Big Orange Sheep studio, Brooklyn. The music combines lyrical improvisation with elements of contemporary jazz and modern classical piano. Recorded by Chris Benham and mixed/mastered at Rainbow Studio, Oslo. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Vindespel",
+    "artist": "Hytta Trio",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The foundation Vindespel [Twining Tunes] lies in Anne Hytta's rich Hardanger fiddle tradition from Telemark. However, the trio also draws inspiration and ideas from other folk music traditions, while Skaansar and Ibsen Thorsrud's backgrounds in jazz and improvisational music add unique colours to the group's distinctive sound. (KretsKR31S03CD)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Uncharted Realms",
+    "artist": "Sean Imboden",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Indianapolis-based saxophonist and composer Sean Imboden leads his 17-piece modern jazz big band with this daring second album, featuring all original pieces. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Jazz Dreams",
+    "artist": "Kathy Ingraham",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Jazz singer & composer Kathy Ingraham is a wild mix of Blossom Dearie's intimacy with the intense passion of Nina Simone yet uniquely singular. Inspired by the 1944 Oscar winning Heavenly Music, which tells of a jazz composer trying to enter the heavenly Hall of Music before a committee of classical composers, Ingraham proves the film's theory that a great song can transcend the original genre. (Peirdon Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Chunk",
+    "artist": "Insufficient Funs",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The striking debut from Ireland/Belgian-based avant-jazz improvising duo Insufficient Funs. Featuring Matthew Jacobson (drums) and Sam Comerford (bass saxophone), the album explores texture, groove, and abstraction through fluid, conversational interplay. Minimal frameworks spark explosive, quasi-electronic effects achieved acoustically. Two reimagined standards reveal their inventive process. (Diatribe Records DIADI054)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Jazz Diary",
+    "artist": "Tomas Janzon",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Guitarist and composer Tomas Janzon announces new album Jazz Diary, a trio release shaped through a daily writing practice—a collection drawn from early-morning handwritten notation, with brief musical ideas developed into compositions and improvisational vehicles featuring bassist Nedra Wheeler with drummers Tony Austin and Chuck McPherson. (Changes Music, CM116)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Glissement du temps",
+    "artist": "Jazzlab Orchestra",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Montreal's Jazzlab Orchestra celebrates its 20th anniversary with Slip of Time (Glissement du Temps), an ambitious new album on Effendi Records. Featuring ten original compositions by members of the collective alongside François Bourassa, Gentiane MG, and Pierre de Bethmann, the recording blends polyrhythmic, polytonal, and impressionistic textures into a vivid contemporary large-ensemble sound. (FND176)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Jazz In The Key of Blue",
+    "artist": "Jimmy Cobb Quartet / Roy Hargrove / Russell Malone / John Webber",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "As a nod to Miles Davis' Kind of Blue, Jazz in the Key of Blue stands as a profound statement from the legendary drummer of that historic session. Joined by his quartet, Jimmy Cobb delivers an exquisite collection of quiet, moody, late-night ballads. (Chesky Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "A Blue Time",
+    "artist": "Joe Syrian Motor City Jazz Octet",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Tinkering with Classic songs can be a risky disposition. But for drummer Joe Syrian and his versatile Motor City Jazz Octet, it's just another day in the office. (Circle 9 Records, C90016)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Let's Go",
+    "artist": "Will Jutton",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "'Let's Go' is Will's debut full length album. It fuses his hardcore jazz influence with a more mainstream pop sensibility. With lush string arrangements, sizzling percussion and tight horn parts, the album and live show draw heavily from the chaotically entertaining performances of Talking Heads, Chic and Louis Cole. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Willingness",
+    "artist": "Paul Kahn",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Singer/songwriter Paul Kahn to release Willingness via CarlCat Records, produced by Catherine Russell, out on June 19, 2026. (EP CarlCat Records, CD CC 0126)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Dødehavet",
+    "artist": "Kronstad 23",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Kronstad 23 return with Dødehavet, the Norwegian quartet's third album and first release on London's Batov Records. Continuing their instinctive, analogue-led approach, the record sits between cinematic jazz and psychedelic rock, threaded with Scandinavian folk and wider global influences. Recorded live to tape with minimal preparation and no modern studio intervention. (Batov Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Point Nemo",
+    "artist": "Jonas Larsson Band",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Jonas Larsson Band is a high-energy jazz-fusion group drawing strong inspiration from 1970s and 1980s jazz, rock, and blues. Their music blends the era's powerful grooves – driven by pronounced guitar and keyboard riffs and heavy, dynamic bass lines – with complex, virtuosic improvised solos. (TBM 4402)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Eternal Gong Bath of the Sunbed Mind",
+    "artist": "Leverton Fox",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "An immersive experimental electronic release by improvisers Alex Bonney, Tim Giles, and Isambard Khroustaliov, foregrounding collective interplay over production. Guided by Derek Bailey's non-idiomatic ethos, they subvert instrumental roles to achieve a freer, fluid sound. (Not Applicable NOT084)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "The Unpredictability Of The Sea",
+    "artist": "Jed Levy / Phil Robson Quartet",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "New York saxophonist Jed Levy and guitarist Phil Robson met when Robson was living in New York in 2015 and quickly found a musical and personal chemistry that led to them playing New York clubs and crossing the Atlantic to perform across Europe. Featuring bassist Mark Hodgson and drummer Roberto Gatto, this first album balances tradition and modernity. (Livia Records, LRCD2601)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Formas al Desaparecer",
+    "artist": "Martina Liviero",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "On Formas al Desaparecer, Liviero expands the boundaries of Argentine songwriting, blending experimental South American folk with chamber music into a sonic universe that encourages the listener to engage deeply and intimately. FULL PROMO (Hilo Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "A Little Travelin' Music (20th Anniversary Edition)",
+    "artist": "Russ Lorenson",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "'A Little Travelin' Music' marks the 20th anniversary of my 2006 debut album. Rather than a simple remaster, the new edition revisits the recordings with fresh perspective, refining arrangements and sound to reflect my evolution from cabaret toward a jazz-centered approach. (RL Productions, RL-006)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Paramount Quartet",
+    "artist": "Joe Lovano",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The 'Paramount' in Joe Lovano's new quartet can be interpreted as a statement of intent. 'I feel like at this point I'm on the rise and those cats play with a real global awareness.' The 'cats' in question are guitarist Julian Lage, bassist Asante Santi Debriano and drummer Will Calhoun. Recorded in the south of France in February 2025. Produced by Manfred Eicher. (ECM602478517914 CD / 602478518119 LP)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Primal Heuristics",
+    "artist": "Joachim Lyche Trio",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The 27-year-old Norwegian guitarist Joachim Lyche will be a new name to many here in the UK, but this auspicious debut with his trio says a lot about his ability both as a player and composer. Featuring a programme of seven of his own compositions, plus John Coltrane's 'Lazy Bird' and Joe Henderson's 'Punjab'. (Losen Records LOS3222)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success"
+  }
+]

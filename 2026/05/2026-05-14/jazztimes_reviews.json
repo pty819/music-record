@@ -1,1 +1,8 @@
-[]
+{
+  "site": "jazztimes",
+  "crawl_status": "cloudflare",
+  "count": 0,
+  "articles": [],
+  "days_scanned": "3",
+  "note": "Main RSS feed accessible (3 recent items detected) but individual article pages behind Cloudflare challenge. Cannot extract album/artist/score/excerpt fields."
+}

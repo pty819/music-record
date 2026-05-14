@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "album": "Eté Large and Wallis Bird",
+    "artist": "Luise Volkmann's Été Large feat. Wallis Bird",
+    "score": null,
+    "url": "https://www.freejazzblog.org/2026/05/luise-volkmanns-ete-large-feat-wallis.html",
+    "source": "freejazzblog.org",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "free jazz",
+      "improvised music"
+    ],
+    "excerpt": "Two contrasting tracks of superb quality. Beautiful vocals and creative orchestration. Wallis Bird transitions from beautifully pitched melody to keening, emotive phrasing, backed by deep brass and woodwinds.",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success"
+  },
+  {
+    "album": "Keep Telling Yourself That",
+    "artist": "Goal Weight (Maggie Cox and Jennifer Gersten)",
+    "score": null,
+    "url": "https://www.freejazzblog.org/2026/05/goal-weight-maggie-cox-and-jennifer.html",
+    "source": "freejazzblog.org",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "free jazz",
+      "improvised music"
+    ],
+    "excerpt": "An absorbing series of stimulating improvised dialogues between bassist Maggie Cox and violinist Jennifer Gersten. This imaginative and thought-provoking album is a demonstration of virtuosity and brilliance.",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success"
+  },
+  {
+    "album": "2 Comp (2023)",
+    "artist": "Anthony Braxton",
+    "score": null,
+    "url": "https://www.freejazzblog.org/2026/05/anthony-braxton-2-comp-2023-schott.html",
+    "source": "freejazzblog.org",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "free jazz",
+      "avant-jazz"
+    ],
+    "excerpt": "Dense and dissonant chords overflow with subtle but edgy excitement. A stellar illustration of Braxton's creative music. His expert ability to juxtapose instrumental voicings to create elaborate structures is in full evidence.",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success"
+  }
+]
