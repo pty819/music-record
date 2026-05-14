@@ -1370,9 +1370,9 @@
       "id": "progarchives",
       "name": "ProgArchives",
       "homepage": "https://www.progarchives.com/",
-      "rss_url": null,
+      "rss_url": "https://feeds.feedburner.com/progarchives/reviews",
       "reviews_url": "https://www.progarchives.com/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "A",
       "crawl_frequency": "every_2_days",
       "parser_hint": {
@@ -1385,8 +1385,8 @@
         "art rock",
         "fusion"
       ],
-      "notes": "查盘/查子流派/查社区口碑",
-      "crawl_strategy": "playwright_headed",
+      "notes": "prog摇滚/前卫摇滚评论，RSS源由Feedburner提供",
+      "crawl_strategy": "http_get",
       "skip_reason": "Cloudflare JS挑战，headless无法通过，需xvfb-run headed模式",
       "startUrls": [
         "https://www.progarchives.com/"
