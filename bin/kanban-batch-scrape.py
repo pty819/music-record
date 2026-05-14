@@ -339,7 +339,7 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
     prompt = "\n".join(prompt_lines)
     
     headers = {
-        "Authorization": f"Bearer {MINIMAX_API_KEY}",
+        "Authorization": f"Bearer {MINIMAX_CN_API_KEY}",
         "Content-Type": "application/json"
     }
     
