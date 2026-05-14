@@ -1,1 +1,228 @@
-[]
+[
+  {
+    "album": "Neither Precious Nor Noble",
+    "artist": "Andrew Liles",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/andrew-liles-neither-precious-nor-noble-1778655405198",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Some of the world will look at the periodic table and see dull rows of squares and letters, but others will see inspiration, looking to pull some chaos from its well ordered matrix. Andrew Liles is one that wanted to tap into these elements and let them sing. In Neither Precious Nor Noble, he focuses on twenty different metals, turning them into sound sources, and working his magic on them to create a really cool and very listenable collection of tracks.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 9
+  },
+  {
+    "album": "Vents d'Aether",
+    "artist": "Jérôme Bouve & Delphine Dora",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/j-r-me-bouve-delphine-dora-vents-d-aether-1778485172664",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Jérôme Bouve & Delphine Dora present an album of thoughtfully yearning magickal drone, encircled with field recordings, for their first collaboration, this album entitled Vents d'aether, released on Hallow Ground. The album has a twenty-minute opening track, titled after the album, followed by a series of shorter pieces.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 8
+  },
+  {
+    "album": "Brute 1976 (VOD)",
+    "artist": "Brute 1976",
+    "score": 2,
+    "url": "https://www.musiquemachine.com/reviews/brute-1976-brute-1976-vod-1778665226871",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Despite its brutish and blunt name, this slasher directed by Marcel Walz is a stylishly photographed affair. As it opens emphatically on \"August 19, 1976,\" when we catch up with two young women trapped on a roadside who make the mistake of wandering down a mineshaft to an apparently sticky and flesh-ripping end….",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 7
+  },
+  {
+    "album": "The Ugly( Blu Ray)",
+    "artist": "The Ugly",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/the-ugly-the-ugly-blu-ray-1778571315488",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "The Ugly is a late 90's serial killer drama/ thriller from New Zealand. It regards a female psychologist going to assess a charming, but dangerous killer- who claims he's been haunted by the sprints of those he's murdered. The film has a decidedly jarring/ darting structure with some effective moments of building tension, shock, and a general unbalanced vibe.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 7
+  },
+  {
+    "album": "Innerspace (UHD/ Blu Ray)",
+    "artist": "Innerspace",
+    "score": 4,
+    "url": "https://www.musiquemachine.com/reviews/innerspace-innerspace-uhd-blu-ray-1778570594730",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "From the late 80's Innerspace is entertaining/ largely undated blend of sci-fi, physical comedy, romance and action. It regards a washed-up test pilot (Dennis Quiad), getting involved in a secret miniaturization experiment- but instead of been injected into the planned rabbit, he gets shot inside bumbling hypochondriac (Martin Short).",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 7
+  },
+  {
+    "album": "Music For Stillness",
+    "artist": "Harlan Silverman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/harlan-silverman-music-for-stillness/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Longplayer (LP)",
+      "Mississippi Records",
+      "Harlan Silverman"
+    ],
+    "excerpt": "Harlan Silverman ist Mitglied von The Cosmic Tones Research Trio aus Portland, Oregon. Und das steht seit zwei Jahren und zwei Platten für einen leicht esoterisch angehauchten Spiritual Jazz mit dezenten Folk- und Elektronik-Ornamentierungen. Für sein erstes Soloalbum hat sich Silverman zwar aus dem Baukasten seiner Band bedient, gewichtet die Bausteine aber unterschiedlich und setzt sie anders zusammen. Den Jazz hat er komplett gestrichen, und so klingt Music For Stillness mehr nach – Achtung! ",
+    "site_id": "hhv_mag",
+    "crawl_status": "success",
+    "_site": "hhv_mag",
+    "total_score": 6
+  },
+  {
+    "album": "Exploraciones al Vacio",
+    "artist": "SKSSS",
+    "score": null,
+    "url": "https://igloomag.com/reviews/sksss-exploraciones-al-vacio-aerial-sound",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "drone",
+      "electroacoustic"
+    ],
+    "excerpt": "SKSSS is an Argentinian producer based in Buenos Aires who has been steadily building a catalog of experimental electronic music since the early 2020s. With releases on labels like Sufrimiento Records, Alta Costura, Sonido Atmosferico, and Vista Recordings.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 6
+  },
+  {
+    "album": "The Ghost(UHD, Blu-Ray, & CD)",
+    "artist": "The Ghost",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/the-ghost-the-ghost-uhd-blu-ray-cd-1778668227207",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "From the early 1960's, The Ghost is a prime example of Italian Gothic horror. It features a creepy grand house and mausoleum, an eerily building atmosphere & amping it up melodrama. As well as, ghoulish & bloody effects, and last but hardly least, we have Barbara Steel, on top form.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 6
+  },
+  {
+    "album": "No Such Thing As Love For…",
+    "artist": "Silver Dove",
+    "score": 4,
+    "url": "https://www.musiquemachine.com/reviews/silver-dove-no-such-thing-as-love-for-1778600535709",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "No Such Thing As Love For… is a new around two hour release from Liverpool's Silver Dove. It offers up a blend/ mix of hazy guitar drone/ ambience, walled/ textured noise, and dreamy/ abstract sound making.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 6
+  },
+  {
+    "album": "Non-Stop Negative Enforcement",
+    "artist": "Damien De Coene",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/damien-de-coene-non-stop-negative-enforcement-1778599850849",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Non-Stop Negative Enforcement presents with two slabs of churning, grinding & weighty wall noise. If your familiar with the euro wall scene of say the 5 or so years, I'm sure you know Damien De Coene name- the Spanish based noise maker who has been behind such projects as, Charles Razeur, Verwelk, Renoffski, and more recently Dod Cathedral.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 6
+  },
+  {
+    "album": "A Reflection Distorts Over Water",
+    "artist": "Camila Nebbia (feat. Marilyn Crispell & Lesley Mok)",
+    "score": "",
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3016",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-12",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "With great cooperation between the Americas, two US improvisers — pianist Marilyn Crispell and drummer Lesley Mok — join with Argentinean tenor saxophonist Camila Nebbia for set of free-form improvisations. Without any preset ideas, the pianist, drummer, and saxophonist immediately clicked, propelling eight transformative tracks.",
+    "site_id": "squids_ear",
+    "crawl_status": "success",
+    "_site": "squids_ear",
+    "total_score": 6
+  },
+  {
+    "album": "Collection Supranaturelle: Induction / Mutation",
+    "artist": "Eric La Casa / Francisco Lopez",
+    "score": "",
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3015",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-11",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "A two-disc release from La Casa and López that shares nothing overtly in common. La Casa has been, for a good quarter century now, one of the finer, most imaginative creators working with field recordings, often concentrating on urban environments, especially the quotidian sounds encountered routine",
+    "site_id": "squids_ear",
+    "crawl_status": "success",
+    "_site": "squids_ear",
+    "total_score": 6
+  },
+  {
+    "album": "The Romantic Piano Concerto 1991-2007 Edition",
+    "artist": "Various (Hyperion)",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-the-hyperion-romantic-piano-concerto-edition-1991-2007/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "classical",
+      "contemporary"
+    ],
+    "excerpt": "Hyperion's Romantic Piano Concerto series stands as one of the most ambitious and comprehensive recording projects in the history of classical music. Launched in 1991 with the aim of reviving forgotten works, it developed into an encyclopedic exploration of the genre. Now, Hyperion has gathered the first era of this project into a single 50-CD box set, The Romantic Piano Concerto 1991-2007 Edition. For the serious piano aficionado, this box set is a valuable collection, offering a comprehensive overview of the virtuoso tradition.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success",
+    "_site": "the_classic_review",
+    "total_score": 6
+  }
+]
