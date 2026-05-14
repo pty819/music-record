@@ -28,7 +28,7 @@ Step 2  python3 kanban-batch-scrape.py --confirm
      ↓ (全部 done)
 T44  aggregator    收集所有 scraper 的输出 JSON，合并去重，评分，写 markdown
      ↓ (aggregator 自身完成 git push)
-Step 3  cron agent 推送 top 20 到 Telegram
+Step 3  cron agent 推送完整推荐 markdown 到 Telegram
 ```
 
 **⚠️ 不要照着 Step 2 的代码示例手动创建任务** — 那段代码绕过了 batching，会导致 43 个 scraper 同时启动，OOM。正确做法是用 `kanban-batch-scrape.py`，它内部实现 2-at-a-time 的 parent-gated batching。
@@ -257,7 +257,7 @@ skill 路径：`~/.hermes/skills/music/music-daily-recs/SKILL.md`
 脚本路径：`~/.local/bin/kanban-batch-scrape.py`
 Output 路径：
 - `~/music-record/2026/{MM}/{YYYY-MM-DD}/{YYYY-MM-DD}/` — 当天 scraper JSON + aggregated.json + filtered.json + markdown
-- `~/music-record/recommend/{YYYY-MM-DD}.md` — top 20 推荐总结（精简版）
+- `~/music-record/recommend/{YYYY-MM-DD}.md` — 完整推荐 markdown（直接推送 Telegram）
 - 两个文件一起 commit + push
 
 ### Step 2 — 运行 batch 脚本（正确方式）
