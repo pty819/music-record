@@ -15,7 +15,67 @@
     "site_id": "musique_machine",
     "crawl_status": "success",
     "_site": "musique_machine",
+    "total_score": 10
+  },
+  {
+    "album": "Oud for Palestine",
+    "artist": "Saied Silbak",
+    "score": null,
+    "url": "https://worldmusiccentral.org/saied-silbak-finds-beauty-tradition-and-resilience-in-oud-for-palestine/",
+    "source": "World Music Central",
+    "pub_date": "May 12, 2026",
+    "tags": [
+      "Arabic music",
+      "Gaza",
+      "oud",
+      "Palestine",
+      "Palestinian music",
+      "Saied Silbak",
+      "world fusion",
+      "world music"
+    ],
+    "excerpt": "Saied Silbak has emerged as a prominent London-based oud player and composer whose music is deeply influenced by Arabic, Turkish, Indian, jazz, and western classical traditions. On Oud for Palestine, he presents joyful Palestinian folk songs, elegantly crafted with a superb trio format that includes Nina Harries on double bass and Haneen Kiwan in Arabic percussion. The album balances Silbak's technical brilliance with expressive, enthralling melodies, immersive arrangements, and thrilling percussion.",
+    "site_id": "world_music_central",
+    "crawl_status": "success",
+    "_site": "world_music_central",
     "total_score": 9
+  },
+  {
+    "album": "Walkman",
+    "artist": "Speedy J",
+    "score": null,
+    "url": "https://igloomag.com/reviews/speedy-j-walkman-stoor",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "ambient",
+      "electroacoustic"
+    ],
+    "excerpt": "There's no dancefloor here, no need to lock into a groove or deliver a drop. Instead, Paap is chasing sound for sound's sake, pushing stereo dynamics, distorting drum loops until they fray, stretching reverbs until they fill entire rooms.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 8
+  },
+  {
+    "album": "Split",
+    "artist": "Graveyard Witchcraft & Desecration Altar",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/graveyard-witchcraft-desecration-altar-split-1778601276233",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Here's a wall noise split with a rather sacrilegious cover- featuring a perversely altered statue of the Virgin Mary. Featured are two thickly seared example of the wall form- one from Indiana-based Graveyard Witchcraft, and the other from South Carolina's Desecration Altar.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 8
   },
   {
     "album": "Vents d'Aether",
@@ -36,6 +96,26 @@
     "total_score": 8
   },
   {
+    "album": "Sendas",
+    "artist": "Omar Sosa",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/sosa-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "True to a Monk-inspired commitment never to play the same thing twice, Cuban pianist and composer Omar Sosa's Sendas (Pathways), his latest solo offering, is the vivid invention of a pensive, restlessly creative, evolutionary artistry. An unscripted two-hour solo improvisation on a Fazioli grand in the empty concert hall provided the raw audio for Sendas, later flavored in the mix with voice clips, percussion, loops, field recordings, and found sounds.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Michael Stone",
+    "label": "Otá digital",
+    "_site": "roots_world",
+    "total_score": 8
+  },
+  {
     "album": "Music For Stillness",
     "artist": "Harlan Silverman",
     "score": null,
@@ -51,7 +131,26 @@
     "site_id": "hhv_mag",
     "crawl_status": "success",
     "_site": "hhv_mag",
-    "total_score": 6
+    "total_score": 7
+  },
+  {
+    "album": "OS ZA CR AA NC",
+    "artist": "Özcan Saraç",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ozcan-sarac-os-za-cr-aa-nc-evel",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "glitch",
+      "electroacoustic"
+    ],
+    "excerpt": "Constructing colossal sonic environments, OS ZA CR AA NC stretches across nearly five hours of fractured electronic immersion. Spanning 22 chapters, each passage drifts between disintegration and cohesion, where duration melts away and shadow seeps into every corner.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 7
   },
   {
     "album": "Exploraciones al Vacio",
@@ -70,24 +169,245 @@
     "site_id": "igloo_magazine",
     "crawl_status": "success",
     "_site": "igloo_magazine",
+    "total_score": 7
+  },
+  {
+    "album": "Shadow Tactics EP",
+    "artist": "WONKS",
+    "score": null,
+    "url": "https://igloomag.com/reviews/wonks-shadow-tactics-zoitrax",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "glitch",
+      "electroacoustic"
+    ],
+    "excerpt": "Shadow Tactics maintains a focus on structure and texture—beats splinter, surfaces scrape, and each element is placed with intent. It's a concise study in mechanical detail and broken rhythm, placing WONKS in conversation with artists like Richard Devine, Funckarma, Hecq, and Funkstörung.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 7
+  },
+  {
+    "album": "Ailurophobia",
+    "artist": "Octavcat",
+    "score": null,
+    "url": "https://igloomag.com/reviews/octavcat-ailurophobia-vlsi",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "electro",
+      "electroacoustic"
+    ],
+    "excerpt": "Octavat balances playful experimentation with precise execution, offering moments of introspection, energy, and pure groove. Ailurophobia is a fecund, joyous exploration of rhythm, texture, and mood—an electronic album that delights in detail, danceability, and inventive sound design.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 7
+  },
+  {
+    "album": "No Nation But Imagination",
+    "artist": "Alexander Hawkins",
+    "score": null,
+    "url": "https://jazztrail.net/blog/alexander-hawkins-no-nation-but-imagination-album-review",
+    "source": "JazzTrail",
+    "pub_date": "May 14, 2026",
+    "tags": [
+      "jazz",
+      "contemporary jazz",
+      "experimental jazz",
+      "modern creative"
+    ],
+    "excerpt": "With No Nation But Imagination, British pianist and composer Alexander Hawkins delivers a radical and fascinatingly complex work that may leave listeners wondering how its intertwining layers of piano, synths, harp, flute, drums, turntables, and samples fit together so naturally.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "label": "Intakt Records, 2026",
+    "_site": "jazz_trail",
+    "total_score": 7
+  },
+  {
+    "album": "A Reflection Distorts Over Water",
+    "artist": "Camila Nebbia (feat. Marilyn Crispell & Lesley Mok)",
+    "score": "",
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3016",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-12",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "With great cooperation between the Americas, two US improvisers — pianist Marilyn Crispell and drummer Lesley Mok — join with Argentinean tenor saxophonist Camila Nebbia for set of free-form improvisations. Without any preset ideas, the pianist, drummer, and saxophonist immediately clicked, propelling eight transformative tracks.",
+    "site_id": "squids_ear",
+    "crawl_status": "success",
+    "_site": "squids_ear",
+    "total_score": 7
+  },
+  {
+    "album": "Collection Supranaturelle: Induction / Mutation",
+    "artist": "Eric La Casa / Francisco Lopez",
+    "score": "",
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3015",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-11",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "A two-disc release from La Casa and López that shares nothing overtly in common. La Casa has been, for a good quarter century now, one of the finer, most imaginative creators working with field recordings, often concentrating on urban environments, especially the quotidian sounds encountered routine",
+    "site_id": "squids_ear",
+    "crawl_status": "success",
+    "_site": "squids_ear",
+    "total_score": 7
+  },
+  {
+    "album": "Symbols",
+    "artist": "Sergeant",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/sergeant-symbols-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-13T08:39:13+00:00",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "From Belgium, an experimental rock trio unafraid to slice up their own jams with a pair of garden shears and dance merrily amongst the shreds. Symbols is a wondrous, ghostly sound collages of post-punk guitars, naturalistic flutes, and polyrhythmic percussion.",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "_site": "the_quietus",
+    "total_score": 7
+  },
+  {
+    "album": "Ranjha",
+    "artist": "Shye Ben Tzur, Jonny Greenwood & The Rajasthan Express",
+    "score": null,
+    "url": "https://worldmusiccentral.org/ranjha-a-window-into-a-phenomenal-desert-tradition/",
+    "source": "World Music Central",
+    "pub_date": "May 13, 2026",
+    "tags": [
+      "Indian music",
+      "Jonny Greenwood",
+      "Rajasthan Express",
+      "Rajasthani music",
+      "Shye Ben Tzur",
+      "world fusion",
+      "world music"
+    ],
+    "excerpt": "A decade after Junun, Ranjha is a recording with deeper confidence and sharper focus. The setting has shifted from the sandstone vastness of Mehrangarh Fort in Jodhpur (Rajasthan, India) to an Oxford studio in the UK. However, the album retains the same restless spirit: musicians pursue communion through irresistible rhythm, repetition and ecstatic release. Shye Ben Tzur's compositions include influences from Qawwali, Manganiar folk traditions and Sufi poetry, with reverence. Next, Jonny Greenwood threads wiry, inventive guitar lines and subtle harmonic turns through the ensemble. Lastly, The Rajasthan Express remains the engine of the record with their brass blasts, hand percussion and massed vocals summoning a fervent, high energy sound.",
+    "site_id": "world_music_central",
+    "crawl_status": "success",
+    "_site": "world_music_central",
+    "total_score": 7
+  },
+  {
+    "album": "Julius Eastman Vol. 5: Gay Guerrilla",
+    "artist": "Wild Up",
+    "score": null,
+    "url": "https://avantmusicnews.com/2026/05/11/amn-reviews-amn-reviews-wild-up-julius-eastman-vol-5-gay-guerrilla-2026-new-amsterdam-records/",
+    "source": "Avant Music News",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "Eastman's minimalist writing lends itself to reinterpretation and reorganization. Many of his pieces are constituted as overlapping patterns of cells to which lines can be added or from which they can be removed. The album takes the classical tradition's decorum and mutilates it into something furious and alive. Bravo.",
+    "site_id": "avant_music_news",
+    "crawl_status": "direct",
+    "_site": "avant_music_news",
     "total_score": 6
   },
   {
-    "album": "No Such Thing As Love For…",
-    "artist": "Silver Dove",
-    "score": 4,
-    "url": "https://www.musiquemachine.com/reviews/silver-dove-no-such-thing-as-love-for-1778600535709",
-    "source": "Musique Machine",
+    "album": "Alive Alone, Alive Together",
+    "artist": "Ava Mendoza",
+    "score": null,
+    "url": "https://avantmusicnews.com/2026/05/10/amn-reviews-ava-mendoza-alive-alone-alive-together-2026-burning-ambulance-music/",
+    "source": "Avant Music News",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "Ava Mendoza is simply one of the best guitarists around today. She has played with a murderer's row of improvisers and experimentalists over the last 20 years. These are matter-of-fact guitar heroics without any sense of ego. Or restraint.",
+    "site_id": "avant_music_news",
+    "crawl_status": "direct",
+    "_site": "avant_music_news",
+    "total_score": 6
+  },
+  {
+    "album": "I Like Pretty Things",
+    "artist": "Half-Ass Astronaut",
+    "score": null,
+    "url": "https://igloomag.com/reviews/half-ass-astronaut-i-like-pretty-things-not-yet-remembered",
+    "source": "Igloo Magazine",
     "pub_date": "2026-05-12",
     "tags": [
-      "dark ambient",
-      "industrial",
+      "experimental electronic",
+      "IDM",
+      "braindance",
       "electroacoustic"
     ],
-    "excerpt": "No Such Thing As Love For… is a new around two hour release from Liverpool's Silver Dove. It offers up a blend/ mix of hazy guitar drone/ ambience, walled/ textured noise, and dreamy/ abstract sound making.",
-    "site_id": "musique_machine",
+    "excerpt": "What begins as mechanical sound manipulation gradually transforms into drum-heavy recollections from another era entirely. A surreal passage through decades of IDM evolution, overflowing with restless imagination and stylistic bliss.",
+    "site_id": "igloo_magazine",
     "crawl_status": "success",
-    "_site": "musique_machine",
+    "_site": "igloo_magazine",
+    "total_score": 6
+  },
+  {
+    "album": "Chambers EP",
+    "artist": "Ruben",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ruben-chambers",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "electroacoustic"
+    ],
+    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around. It's the kind of release that sneaks up on you, not flashy, but it sticks.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 6
+  },
+  {
+    "album": "Jazz Dreams",
+    "artist": "Kathy Ingraham",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Jazz singer & composer Kathy Ingraham is a wild mix of Blossom Dearie's intimacy with the intense passion of Nina Simone yet uniquely singular. Inspired by the 1944 Oscar winning Heavenly Music, which tells of a jazz composer trying to enter the heavenly Hall of Music before a committee of classical composers, Ingraham proves the film's theory that a great song can transcend the original genre. (Peirdon Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 6
+  },
+  {
+    "album": "Formas al Desaparecer",
+    "artist": "Martina Liviero",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "On Formas al Desaparecer, Liviero expands the boundaries of Argentine songwriting, blending experimental South American folk with chamber music into a sonic universe that encourages the listener to engage deeply and intimately. FULL PROMO (Hilo Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
     "total_score": 6
   },
   {
@@ -109,48 +429,23 @@
     "total_score": 6
   },
   {
-    "album": "A Reflection Distorts Over Water",
-    "artist": "Camila Nebbia (feat. Marilyn Crispell & Lesley Mok)",
-    "score": "",
-    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3016",
-    "source": "The Squid's Ear",
-    "pub_date": "2026-05-12",
-    "tags": "improvisation, jazz, experimental, electroacoustic",
-    "excerpt": "With great cooperation between the Americas, two US improvisers — pianist Marilyn Crispell and drummer Lesley Mok — join with Argentinean tenor saxophonist Camila Nebbia for set of free-form improvisations. Without any preset ideas, the pianist, drummer, and saxophonist immediately clicked, propelling eight transformative tracks.",
-    "site_id": "squids_ear",
-    "crawl_status": "success",
-    "_site": "squids_ear",
-    "total_score": 6
-  },
-  {
-    "album": "Collection Supranaturelle: Induction / Mutation",
-    "artist": "Eric La Casa / Francisco Lopez",
-    "score": "",
-    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3015",
-    "source": "The Squid's Ear",
-    "pub_date": "2026-05-11",
-    "tags": "improvisation, jazz, experimental, electroacoustic",
-    "excerpt": "A two-disc release from La Casa and López that shares nothing overtly in common. La Casa has been, for a good quarter century now, one of the finer, most imaginative creators working with field recordings, often concentrating on urban environments, especially the quotidian sounds encountered routine",
-    "site_id": "squids_ear",
-    "crawl_status": "success",
-    "_site": "squids_ear",
-    "total_score": 6
-  },
-  {
-    "album": "The Romantic Piano Concerto 1991-2007 Edition",
-    "artist": "Various (Hyperion)",
+    "album": "Vida",
+    "artist": "Dani Jané",
     "score": null,
-    "url": "https://theclassicreview.com/album-reviews/review-the-hyperion-romantic-piano-concerto-edition-1991-2007/",
-    "source": "The Classic Review",
-    "pub_date": "2026-05-12",
+    "url": "https://rootsworld.com/reviews/jane-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
     "tags": [
-      "classical",
-      "contemporary"
+      "world music",
+      "roots",
+      "folk"
     ],
-    "excerpt": "Hyperion's Romantic Piano Concerto series stands as one of the most ambitious and comprehensive recording projects in the history of classical music. Launched in 1991 with the aim of reviving forgotten works, it developed into an encyclopedic exploration of the genre. Now, Hyperion has gathered the first era of this project into a single 50-CD box set, The Romantic Piano Concerto 1991-2007 Edition. For the serious piano aficionado, this box set is a valuable collection, offering a comprehensive overview of the virtuoso tradition.",
-    "site_id": "the_classic_review",
+    "excerpt": "Vida, the third release by Dani Jané (Spanish guitar, loops, synthesizer, composition), is a lyrical, rhythmically driven title that combines elements of flamenco, Catalan folk, classical music, jazz, and Catalan and U.S. poetry.",
+    "site_id": "roots_world",
     "crawl_status": "success",
-    "_site": "the_classic_review",
+    "reviewer": "Michael Stone",
+    "label": "Segell Microscopi",
+    "_site": "roots_world",
     "total_score": 6
   }
 ]

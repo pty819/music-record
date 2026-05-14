@@ -15,407 +15,7 @@
     "site_id": "musique_machine",
     "crawl_status": "success",
     "_site": "musique_machine",
-    "total_score": 9
-  },
-  {
-    "album": "Vents d'Aether",
-    "artist": "Jérôme Bouve & Delphine Dora",
-    "score": 3,
-    "url": "https://www.musiquemachine.com/reviews/j-r-me-bouve-delphine-dora-vents-d-aether-1778485172664",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "dark ambient",
-      "industrial",
-      "electroacoustic"
-    ],
-    "excerpt": "Jérôme Bouve & Delphine Dora present an album of thoughtfully yearning magickal drone, encircled with field recordings, for their first collaboration, this album entitled Vents d'aether, released on Hallow Ground. The album has a twenty-minute opening track, titled after the album, followed by a series of shorter pieces.",
-    "site_id": "musique_machine",
-    "crawl_status": "success",
-    "_site": "musique_machine",
-    "total_score": 8
-  },
-  {
-    "album": "Music For Stillness",
-    "artist": "Harlan Silverman",
-    "score": null,
-    "url": "https://www.hhv-mag.com/review/harlan-silverman-music-for-stillness/",
-    "source": "HHV Mag",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "Longplayer (LP)",
-      "Mississippi Records",
-      "Harlan Silverman"
-    ],
-    "excerpt": "Harlan Silverman ist Mitglied von The Cosmic Tones Research Trio aus Portland, Oregon. Und das steht seit zwei Jahren und zwei Platten für einen leicht esoterisch angehauchten Spiritual Jazz mit dezenten Folk- und Elektronik-Ornamentierungen. Für sein erstes Soloalbum hat sich Silverman zwar aus dem Baukasten seiner Band bedient, gewichtet die Bausteine aber unterschiedlich und setzt sie anders zusammen. Den Jazz hat er komplett gestrichen, und so klingt Music For Stillness mehr nach – Achtung! ",
-    "site_id": "hhv_mag",
-    "crawl_status": "success",
-    "_site": "hhv_mag",
-    "total_score": 6
-  },
-  {
-    "album": "Exploraciones al Vacio",
-    "artist": "SKSSS",
-    "score": null,
-    "url": "https://igloomag.com/reviews/sksss-exploraciones-al-vacio-aerial-sound",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental electronic",
-      "ambient",
-      "drone",
-      "electroacoustic"
-    ],
-    "excerpt": "SKSSS is an Argentinian producer based in Buenos Aires who has been steadily building a catalog of experimental electronic music since the early 2020s. With releases on labels like Sufrimiento Records, Alta Costura, Sonido Atmosferico, and Vista Recordings.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success",
-    "_site": "igloo_magazine",
-    "total_score": 6
-  },
-  {
-    "album": "No Such Thing As Love For…",
-    "artist": "Silver Dove",
-    "score": 4,
-    "url": "https://www.musiquemachine.com/reviews/silver-dove-no-such-thing-as-love-for-1778600535709",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "dark ambient",
-      "industrial",
-      "electroacoustic"
-    ],
-    "excerpt": "No Such Thing As Love For… is a new around two hour release from Liverpool's Silver Dove. It offers up a blend/ mix of hazy guitar drone/ ambience, walled/ textured noise, and dreamy/ abstract sound making.",
-    "site_id": "musique_machine",
-    "crawl_status": "success",
-    "_site": "musique_machine",
-    "total_score": 6
-  },
-  {
-    "album": "Non-Stop Negative Enforcement",
-    "artist": "Damien De Coene",
-    "score": 3,
-    "url": "https://www.musiquemachine.com/reviews/damien-de-coene-non-stop-negative-enforcement-1778599850849",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "dark ambient",
-      "industrial",
-      "electroacoustic"
-    ],
-    "excerpt": "Non-Stop Negative Enforcement presents with two slabs of churning, grinding & weighty wall noise. If your familiar with the euro wall scene of say the 5 or so years, I'm sure you know Damien De Coene name- the Spanish based noise maker who has been behind such projects as, Charles Razeur, Verwelk, Renoffski, and more recently Dod Cathedral.",
-    "site_id": "musique_machine",
-    "crawl_status": "success",
-    "_site": "musique_machine",
-    "total_score": 6
-  },
-  {
-    "album": "A Reflection Distorts Over Water",
-    "artist": "Camila Nebbia (feat. Marilyn Crispell & Lesley Mok)",
-    "score": "",
-    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3016",
-    "source": "The Squid's Ear",
-    "pub_date": "2026-05-12",
-    "tags": "improvisation, jazz, experimental, electroacoustic",
-    "excerpt": "With great cooperation between the Americas, two US improvisers — pianist Marilyn Crispell and drummer Lesley Mok — join with Argentinean tenor saxophonist Camila Nebbia for set of free-form improvisations. Without any preset ideas, the pianist, drummer, and saxophonist immediately clicked, propelling eight transformative tracks.",
-    "site_id": "squids_ear",
-    "crawl_status": "success",
-    "_site": "squids_ear",
-    "total_score": 6
-  },
-  {
-    "album": "Collection Supranaturelle: Induction / Mutation",
-    "artist": "Eric La Casa / Francisco Lopez",
-    "score": "",
-    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3015",
-    "source": "The Squid's Ear",
-    "pub_date": "2026-05-11",
-    "tags": "improvisation, jazz, experimental, electroacoustic",
-    "excerpt": "A two-disc release from La Casa and López that shares nothing overtly in common. La Casa has been, for a good quarter century now, one of the finer, most imaginative creators working with field recordings, often concentrating on urban environments, especially the quotidian sounds encountered routine",
-    "site_id": "squids_ear",
-    "crawl_status": "success",
-    "_site": "squids_ear",
-    "total_score": 6
-  },
-  {
-    "album": "The Romantic Piano Concerto 1991-2007 Edition",
-    "artist": "Various (Hyperion)",
-    "score": null,
-    "url": "https://theclassicreview.com/album-reviews/review-the-hyperion-romantic-piano-concerto-edition-1991-2007/",
-    "source": "The Classic Review",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "classical",
-      "contemporary"
-    ],
-    "excerpt": "Hyperion's Romantic Piano Concerto series stands as one of the most ambitious and comprehensive recording projects in the history of classical music. Launched in 1991 with the aim of reviving forgotten works, it developed into an encyclopedic exploration of the genre. Now, Hyperion has gathered the first era of this project into a single 50-CD box set, The Romantic Piano Concerto 1991-2007 Edition. For the serious piano aficionado, this box set is a valuable collection, offering a comprehensive overview of the virtuoso tradition.",
-    "site_id": "the_classic_review",
-    "crawl_status": "success",
-    "_site": "the_classic_review",
-    "total_score": 6
-  },
-  {
-    "album": "Julius Eastman Vol. 5: Gay Guerrilla",
-    "artist": "Wild Up",
-    "score": null,
-    "url": "https://avantmusicnews.com/2026/05/11/amn-reviews-amn-reviews-wild-up-julius-eastman-vol-5-gay-guerrilla-2026-new-amsterdam-records/",
-    "source": "Avant Music News",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Eastman's minimalist writing lends itself to reinterpretation and reorganization. Many of his pieces are constituted as overlapping patterns of cells to which lines can be added or from which they can be removed. The album takes the classical tradition's decorum and mutilates it into something furious and alive. Bravo.",
-    "site_id": "avant_music_news",
-    "crawl_status": "direct",
-    "_site": "avant_music_news",
-    "total_score": 5
-  },
-  {
-    "album": "Ghosts Beneath The Brine",
-    "artist": "Wanderwelle",
-    "score": null,
-    "url": "https://www.hhv-mag.com/review/wanderwelle-ghosts-beneath-the-brine/",
-    "source": "HHV Mag",
-    "pub_date": "2026-05-13",
-    "tags": [
-      "Longplayer (LP)",
-      "Important Records",
-      "Wanderwelle"
-    ],
-    "excerpt": "Gespenster in der Tiefe: Das niederländische Duo Wanderwelle beschließt seine Trilogie von Alben über die ökologischen Auswirkungen des Klimawandels auf die Meere. Umweltzerstörung in Küstenregionen zu Lande und zu Wasser erkunden sie dabei mit elektroakustischen Mitteln, die sie für jede Platte spezifisch auswählen. Nach alten Kavallerie-Trompeten auf Black Clouds Above the Bows und einer durch einen Erdrutsch an der niederländischen Küste beschädigten Kirchenorgel auf All Hands Bury the Cliffs",
-    "site_id": "hhv_mag",
-    "crawl_status": "success",
-    "_site": "hhv_mag",
-    "total_score": 5
-  },
-  {
-    "album": "Toothpaste For Your Elephant",
-    "artist": "Various Artists",
-    "score": null,
-    "url": "https://www.hhv-mag.com/review/various-artists-toothpaste-for-your-elephant/",
-    "source": "HHV Mag",
-    "pub_date": "2026-05-13",
-    "tags": [
-      "Compilation",
-      "Ó Mhaidin"
-    ],
-    "excerpt": "Das Zusammenstellen einer stimmigen Kompilation mit diversen Stilen ist keine leichte Aufgabe. Dem Londoner Label Ó Mhaidin gelingt es gleich mit Katalognummer 01. Toothpaste For Your Elephant heißt der mit sechzehn Stücken bestückte Sampler. Es gibt experimentellen Americana, Dub, Drone, Boogie, Indie, Psychedelika, Psych-Folk, ein wenig Punk mit »Post« davor. Die Künstler:innen kommen von überall. Zeitgenössisch, schon länger dabei. Neue Aufnahmen. Songs aus dem Archiv. Die Berliner No-Age-Ban",
-    "site_id": "hhv_mag",
-    "crawl_status": "success",
-    "_site": "hhv_mag",
-    "total_score": 5
-  },
-  {
-    "album": "Diana In The Autumn Wind",
-    "artist": "Gap Mangione",
-    "score": null,
-    "url": "https://www.hhv-mag.com/review/gap-mangione-diana-in-the-autumn-wind/",
-    "source": "HHV Mag",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "Gap Mangione",
-      "Longplayer (LP)",
-      "Reissue",
-      "Be With Records"
-    ],
-    "excerpt": "Wahlweise als Heiliger Gral oder als weißer Wal für Hip-Hop-Sample-Heads glorifiziert, ist nun die allererste Reissue überhaupt von Diana In The Autumn Wind erschienen. J Dilla- und Madlib-Fans können auf dem Album von 1968 lustig Sample-Bingo spielen, aber auch A Tribe Called Quest, Ghostface Killah, Kendrick Lamar, Talib Kweli und viele mehr haben sich hier bedient. Bibel hin, Moby Dick her – die eigentliche Frage ist doch: Ist dieses beinahe kultisch verehrte Gap-Mangione-Werk auch als kohäre",
-    "site_id": "hhv_mag",
-    "crawl_status": "success",
-    "_site": "hhv_mag",
-    "total_score": 5
-  },
-  {
-    "album": "Whoops Wrong Planet",
-    "artist": "Cloud Management & Vivien Goldman",
-    "score": null,
-    "url": "https://www.hhv-mag.com/review/cloud-management-vivien-goldman-whoops-wrong-planet/",
-    "source": "HHV Mag",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "Longplayer (LP)",
-      "Cloud Management",
-      "Altin Village & Mine Records",
-      "Vivien Goldman"
-    ],
-    "excerpt": "Was zunächst wie eine ungewöhnliche Begegnung zwischen Generationen, Szenen und geografischen Welten wirkt, entfaltet sich als überraschend stimmig und selbstverständlich. Mit Whoops Wrong Planet treffen Cloud Management, ein Projekt zwischen experimentellem Dub und elektronischer Clubmusik, und Vivien Goldman, New Yorker Autorin, Musikerin und prägende Stimme aus dem Post-Punk, aufeinander. Und diese Verbindung sitzt von Anfang an. Die drei Originaltracks – die B-Seite besteht ausschließlich au",
-    "site_id": "hhv_mag",
-    "crawl_status": "success",
-    "_site": "hhv_mag",
-    "total_score": 5
-  },
-  {
-    "album": "Dreams ’24 / ’25",
-    "artist": "Bill Wells",
-    "score": null,
-    "url": "https://www.hhv-mag.com/review/bill-wells-dreams-24-25/",
-    "source": "HHV Mag",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "Karaoke Kalk",
-      "Longplayer (LP)",
-      "Bill Wells"
-    ],
-    "excerpt": "Bill Wells, Solitär aus Schottland, entwickelt im Schlaf offenbar eine ähnlich rege Fantasie wie in seinem breit aufgestellten Musikschaffen. Eine verspielte Verspultheit verbindet seine Bandprojekte wie das National Jazz Trio of Scotland mit kurzfristigeren Kollaborationen, etwa mit Musiker:innen wie Stefan Schneider, Aidan Moffat oder auch Isobel Campbell. Jetzt lässt er Fans seines eigenwilligen und doch zugänglichen Schaffens an Träumen teilhaben, die er nach dem Aufwachen eingefangen hat. K",
-    "site_id": "hhv_mag",
-    "crawl_status": "success",
-    "_site": "hhv_mag",
-    "total_score": 5
-  },
-  {
-    "album": "Walkman",
-    "artist": "Speedy J",
-    "score": null,
-    "url": "https://igloomag.com/reviews/speedy-j-walkman-stoor",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental electronic",
-      "IDM",
-      "ambient",
-      "electroacoustic"
-    ],
-    "excerpt": "There's no dancefloor here, no need to lock into a groove or deliver a drop. Instead, Paap is chasing sound for sound's sake, pushing stereo dynamics, distorting drum loops until they fray, stretching reverbs until they fill entire rooms.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success",
-    "_site": "igloo_magazine",
-    "total_score": 5
-  },
-  {
-    "album": "OS ZA CR AA NC",
-    "artist": "Özcan Saraç",
-    "score": null,
-    "url": "https://igloomag.com/reviews/ozcan-sarac-os-za-cr-aa-nc-evel",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental electronic",
-      "IDM",
-      "glitch",
-      "electroacoustic"
-    ],
-    "excerpt": "Constructing colossal sonic environments, OS ZA CR AA NC stretches across nearly five hours of fractured electronic immersion. Spanning 22 chapters, each passage drifts between disintegration and cohesion, where duration melts away and shadow seeps into every corner.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success",
-    "_site": "igloo_magazine",
-    "total_score": 5
-  },
-  {
-    "album": "Chambers EP",
-    "artist": "Ruben",
-    "score": null,
-    "url": "https://igloomag.com/reviews/ruben-chambers",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental electronic",
-      "ambient",
-      "electroacoustic"
-    ],
-    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around. It's the kind of release that sneaks up on you, not flashy, but it sticks.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success",
-    "_site": "igloo_magazine",
-    "total_score": 5
-  },
-  {
-    "album": "Shadow Tactics EP",
-    "artist": "WONKS",
-    "score": null,
-    "url": "https://igloomag.com/reviews/wonks-shadow-tactics-zoitrax",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental electronic",
-      "IDM",
-      "glitch",
-      "electroacoustic"
-    ],
-    "excerpt": "Shadow Tactics maintains a focus on structure and texture—beats splinter, surfaces scrape, and each element is placed with intent. It's a concise study in mechanical detail and broken rhythm, placing WONKS in conversation with artists like Richard Devine, Funckarma, Hecq, and Funkstörung.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success",
-    "_site": "igloo_magazine",
-    "total_score": 5
-  },
-  {
-    "album": "Jazz Dreams",
-    "artist": "Kathy Ingraham",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "Jazz singer & composer Kathy Ingraham is a wild mix of Blossom Dearie's intimacy with the intense passion of Nina Simone yet uniquely singular. Inspired by the 1944 Oscar winning Heavenly Music, which tells of a jazz composer trying to enter the heavenly Hall of Music before a committee of classical composers, Ingraham proves the film's theory that a great song can transcend the original genre. (Peirdon Records)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 5
-  },
-  {
-    "album": "Split",
-    "artist": "Graveyard Witchcraft & Desecration Altar",
-    "score": 3,
-    "url": "https://www.musiquemachine.com/reviews/graveyard-witchcraft-desecration-altar-split-1778601276233",
-    "source": "Musique Machine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "dark ambient",
-      "industrial",
-      "electroacoustic"
-    ],
-    "excerpt": "Here's a wall noise split with a rather sacrilegious cover- featuring a perversely altered statue of the Virgin Mary. Featured are two thickly seared example of the wall form- one from Indiana-based Graveyard Witchcraft, and the other from South Carolina's Desecration Altar.",
-    "site_id": "musique_machine",
-    "crawl_status": "success",
-    "_site": "musique_machine",
-    "total_score": 5
-  },
-  {
-    "album": "Symbols",
-    "artist": "Sergeant",
-    "score": null,
-    "url": "https://thequietus.com/quietus-reviews/sergeant-symbols-review/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-13T08:39:13+00:00",
-    "tags": [
-      "experimental",
-      "electronic",
-      "jazz",
-      "world",
-      "psych",
-      "prog",
-      "free-improv"
-    ],
-    "excerpt": "From Belgium, an experimental rock trio unafraid to slice up their own jams with a pair of garden shears and dance merrily amongst the shreds. Symbols is a wondrous, ghostly sound collages of post-punk guitars, naturalistic flutes, and polyrhythmic percussion.",
-    "site_id": "the_quietus",
-    "crawl_status": "success",
-    "_site": "the_quietus",
-    "total_score": 5
-  },
-  {
-    "album": "Ranjha",
-    "artist": "Shye Ben Tzur, Jonny Greenwood & The Rajasthan Express",
-    "score": null,
-    "url": "https://worldmusiccentral.org/ranjha-a-window-into-a-phenomenal-desert-tradition/",
-    "source": "World Music Central",
-    "pub_date": "May 13, 2026",
-    "tags": [
-      "Indian music",
-      "Jonny Greenwood",
-      "Rajasthan Express",
-      "Rajasthani music",
-      "Shye Ben Tzur",
-      "world fusion",
-      "world music"
-    ],
-    "excerpt": "A decade after Junun, Ranjha is a recording with deeper confidence and sharper focus. The setting has shifted from the sandstone vastness of Mehrangarh Fort in Jodhpur (Rajasthan, India) to an Oxford studio in the UK. However, the album retains the same restless spirit: musicians pursue communion through irresistible rhythm, repetition and ecstatic release. Shye Ben Tzur's compositions include influences from Qawwali, Manganiar folk traditions and Sufi poetry, with reverence. Next, Jonny Greenwood threads wiry, inventive guitar lines and subtle harmonic turns through the ensemble. Lastly, The Rajasthan Express remains the engine of the record with their brass blasts, hand percussion and massed vocals summoning a fervent, high energy sound.",
-    "site_id": "world_music_central",
-    "crawl_status": "success",
-    "_site": "world_music_central",
-    "total_score": 5
+    "total_score": 10
   },
   {
     "album": "Oud for Palestine",
@@ -438,6 +38,579 @@
     "site_id": "world_music_central",
     "crawl_status": "success",
     "_site": "world_music_central",
+    "total_score": 9
+  },
+  {
+    "album": "Walkman",
+    "artist": "Speedy J",
+    "score": null,
+    "url": "https://igloomag.com/reviews/speedy-j-walkman-stoor",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "ambient",
+      "electroacoustic"
+    ],
+    "excerpt": "There's no dancefloor here, no need to lock into a groove or deliver a drop. Instead, Paap is chasing sound for sound's sake, pushing stereo dynamics, distorting drum loops until they fray, stretching reverbs until they fill entire rooms.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 8
+  },
+  {
+    "album": "Split",
+    "artist": "Graveyard Witchcraft & Desecration Altar",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/graveyard-witchcraft-desecration-altar-split-1778601276233",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Here's a wall noise split with a rather sacrilegious cover- featuring a perversely altered statue of the Virgin Mary. Featured are two thickly seared example of the wall form- one from Indiana-based Graveyard Witchcraft, and the other from South Carolina's Desecration Altar.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 8
+  },
+  {
+    "album": "Vents d'Aether",
+    "artist": "Jérôme Bouve & Delphine Dora",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/j-r-me-bouve-delphine-dora-vents-d-aether-1778485172664",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Jérôme Bouve & Delphine Dora present an album of thoughtfully yearning magickal drone, encircled with field recordings, for their first collaboration, this album entitled Vents d'aether, released on Hallow Ground. The album has a twenty-minute opening track, titled after the album, followed by a series of shorter pieces.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 8
+  },
+  {
+    "album": "Sendas",
+    "artist": "Omar Sosa",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/sosa-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "True to a Monk-inspired commitment never to play the same thing twice, Cuban pianist and composer Omar Sosa's Sendas (Pathways), his latest solo offering, is the vivid invention of a pensive, restlessly creative, evolutionary artistry. An unscripted two-hour solo improvisation on a Fazioli grand in the empty concert hall provided the raw audio for Sendas, later flavored in the mix with voice clips, percussion, loops, field recordings, and found sounds.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Michael Stone",
+    "label": "Otá digital",
+    "_site": "roots_world",
+    "total_score": 8
+  },
+  {
+    "album": "Music For Stillness",
+    "artist": "Harlan Silverman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/harlan-silverman-music-for-stillness/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Longplayer (LP)",
+      "Mississippi Records",
+      "Harlan Silverman"
+    ],
+    "excerpt": "Harlan Silverman ist Mitglied von The Cosmic Tones Research Trio aus Portland, Oregon. Und das steht seit zwei Jahren und zwei Platten für einen leicht esoterisch angehauchten Spiritual Jazz mit dezenten Folk- und Elektronik-Ornamentierungen. Für sein erstes Soloalbum hat sich Silverman zwar aus dem Baukasten seiner Band bedient, gewichtet die Bausteine aber unterschiedlich und setzt sie anders zusammen. Den Jazz hat er komplett gestrichen, und so klingt Music For Stillness mehr nach – Achtung! ",
+    "site_id": "hhv_mag",
+    "crawl_status": "success",
+    "_site": "hhv_mag",
+    "total_score": 7
+  },
+  {
+    "album": "OS ZA CR AA NC",
+    "artist": "Özcan Saraç",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ozcan-sarac-os-za-cr-aa-nc-evel",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "glitch",
+      "electroacoustic"
+    ],
+    "excerpt": "Constructing colossal sonic environments, OS ZA CR AA NC stretches across nearly five hours of fractured electronic immersion. Spanning 22 chapters, each passage drifts between disintegration and cohesion, where duration melts away and shadow seeps into every corner.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 7
+  },
+  {
+    "album": "Exploraciones al Vacio",
+    "artist": "SKSSS",
+    "score": null,
+    "url": "https://igloomag.com/reviews/sksss-exploraciones-al-vacio-aerial-sound",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "drone",
+      "electroacoustic"
+    ],
+    "excerpt": "SKSSS is an Argentinian producer based in Buenos Aires who has been steadily building a catalog of experimental electronic music since the early 2020s. With releases on labels like Sufrimiento Records, Alta Costura, Sonido Atmosferico, and Vista Recordings.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 7
+  },
+  {
+    "album": "Shadow Tactics EP",
+    "artist": "WONKS",
+    "score": null,
+    "url": "https://igloomag.com/reviews/wonks-shadow-tactics-zoitrax",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "glitch",
+      "electroacoustic"
+    ],
+    "excerpt": "Shadow Tactics maintains a focus on structure and texture—beats splinter, surfaces scrape, and each element is placed with intent. It's a concise study in mechanical detail and broken rhythm, placing WONKS in conversation with artists like Richard Devine, Funckarma, Hecq, and Funkstörung.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 7
+  },
+  {
+    "album": "Ailurophobia",
+    "artist": "Octavcat",
+    "score": null,
+    "url": "https://igloomag.com/reviews/octavcat-ailurophobia-vlsi",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "electro",
+      "electroacoustic"
+    ],
+    "excerpt": "Octavat balances playful experimentation with precise execution, offering moments of introspection, energy, and pure groove. Ailurophobia is a fecund, joyous exploration of rhythm, texture, and mood—an electronic album that delights in detail, danceability, and inventive sound design.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 7
+  },
+  {
+    "album": "No Nation But Imagination",
+    "artist": "Alexander Hawkins",
+    "score": null,
+    "url": "https://jazztrail.net/blog/alexander-hawkins-no-nation-but-imagination-album-review",
+    "source": "JazzTrail",
+    "pub_date": "May 14, 2026",
+    "tags": [
+      "jazz",
+      "contemporary jazz",
+      "experimental jazz",
+      "modern creative"
+    ],
+    "excerpt": "With No Nation But Imagination, British pianist and composer Alexander Hawkins delivers a radical and fascinatingly complex work that may leave listeners wondering how its intertwining layers of piano, synths, harp, flute, drums, turntables, and samples fit together so naturally.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "label": "Intakt Records, 2026",
+    "_site": "jazz_trail",
+    "total_score": 7
+  },
+  {
+    "album": "A Reflection Distorts Over Water",
+    "artist": "Camila Nebbia (feat. Marilyn Crispell & Lesley Mok)",
+    "score": "",
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3016",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-12",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "With great cooperation between the Americas, two US improvisers — pianist Marilyn Crispell and drummer Lesley Mok — join with Argentinean tenor saxophonist Camila Nebbia for set of free-form improvisations. Without any preset ideas, the pianist, drummer, and saxophonist immediately clicked, propelling eight transformative tracks.",
+    "site_id": "squids_ear",
+    "crawl_status": "success",
+    "_site": "squids_ear",
+    "total_score": 7
+  },
+  {
+    "album": "Collection Supranaturelle: Induction / Mutation",
+    "artist": "Eric La Casa / Francisco Lopez",
+    "score": "",
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3015",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-11",
+    "tags": "improvisation, jazz, experimental, electroacoustic",
+    "excerpt": "A two-disc release from La Casa and López that shares nothing overtly in common. La Casa has been, for a good quarter century now, one of the finer, most imaginative creators working with field recordings, often concentrating on urban environments, especially the quotidian sounds encountered routine",
+    "site_id": "squids_ear",
+    "crawl_status": "success",
+    "_site": "squids_ear",
+    "total_score": 7
+  },
+  {
+    "album": "Symbols",
+    "artist": "Sergeant",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/sergeant-symbols-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-13T08:39:13+00:00",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "From Belgium, an experimental rock trio unafraid to slice up their own jams with a pair of garden shears and dance merrily amongst the shreds. Symbols is a wondrous, ghostly sound collages of post-punk guitars, naturalistic flutes, and polyrhythmic percussion.",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "_site": "the_quietus",
+    "total_score": 7
+  },
+  {
+    "album": "Ranjha",
+    "artist": "Shye Ben Tzur, Jonny Greenwood & The Rajasthan Express",
+    "score": null,
+    "url": "https://worldmusiccentral.org/ranjha-a-window-into-a-phenomenal-desert-tradition/",
+    "source": "World Music Central",
+    "pub_date": "May 13, 2026",
+    "tags": [
+      "Indian music",
+      "Jonny Greenwood",
+      "Rajasthan Express",
+      "Rajasthani music",
+      "Shye Ben Tzur",
+      "world fusion",
+      "world music"
+    ],
+    "excerpt": "A decade after Junun, Ranjha is a recording with deeper confidence and sharper focus. The setting has shifted from the sandstone vastness of Mehrangarh Fort in Jodhpur (Rajasthan, India) to an Oxford studio in the UK. However, the album retains the same restless spirit: musicians pursue communion through irresistible rhythm, repetition and ecstatic release. Shye Ben Tzur's compositions include influences from Qawwali, Manganiar folk traditions and Sufi poetry, with reverence. Next, Jonny Greenwood threads wiry, inventive guitar lines and subtle harmonic turns through the ensemble. Lastly, The Rajasthan Express remains the engine of the record with their brass blasts, hand percussion and massed vocals summoning a fervent, high energy sound.",
+    "site_id": "world_music_central",
+    "crawl_status": "success",
+    "_site": "world_music_central",
+    "total_score": 7
+  },
+  {
+    "album": "Julius Eastman Vol. 5: Gay Guerrilla",
+    "artist": "Wild Up",
+    "score": null,
+    "url": "https://avantmusicnews.com/2026/05/11/amn-reviews-amn-reviews-wild-up-julius-eastman-vol-5-gay-guerrilla-2026-new-amsterdam-records/",
+    "source": "Avant Music News",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "Eastman's minimalist writing lends itself to reinterpretation and reorganization. Many of his pieces are constituted as overlapping patterns of cells to which lines can be added or from which they can be removed. The album takes the classical tradition's decorum and mutilates it into something furious and alive. Bravo.",
+    "site_id": "avant_music_news",
+    "crawl_status": "direct",
+    "_site": "avant_music_news",
+    "total_score": 6
+  },
+  {
+    "album": "Alive Alone, Alive Together",
+    "artist": "Ava Mendoza",
+    "score": null,
+    "url": "https://avantmusicnews.com/2026/05/10/amn-reviews-ava-mendoza-alive-alone-alive-together-2026-burning-ambulance-music/",
+    "source": "Avant Music News",
+    "pub_date": "2026-05-10",
+    "tags": [
+      "experimental",
+      "weird",
+      "progressive",
+      "avant-garde"
+    ],
+    "excerpt": "Ava Mendoza is simply one of the best guitarists around today. She has played with a murderer's row of improvisers and experimentalists over the last 20 years. These are matter-of-fact guitar heroics without any sense of ego. Or restraint.",
+    "site_id": "avant_music_news",
+    "crawl_status": "direct",
+    "_site": "avant_music_news",
+    "total_score": 6
+  },
+  {
+    "album": "I Like Pretty Things",
+    "artist": "Half-Ass Astronaut",
+    "score": null,
+    "url": "https://igloomag.com/reviews/half-ass-astronaut-i-like-pretty-things-not-yet-remembered",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "IDM",
+      "braindance",
+      "electroacoustic"
+    ],
+    "excerpt": "What begins as mechanical sound manipulation gradually transforms into drum-heavy recollections from another era entirely. A surreal passage through decades of IDM evolution, overflowing with restless imagination and stylistic bliss.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 6
+  },
+  {
+    "album": "Chambers EP",
+    "artist": "Ruben",
+    "score": null,
+    "url": "https://igloomag.com/reviews/ruben-chambers",
+    "source": "Igloo Magazine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "experimental electronic",
+      "ambient",
+      "electroacoustic"
+    ],
+    "excerpt": "What makes Chambers work is that it doesn't feel like an experiment for the sake of it. The processing serves the music, not the other way around. It's the kind of release that sneaks up on you, not flashy, but it sticks.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "_site": "igloo_magazine",
+    "total_score": 6
+  },
+  {
+    "album": "Jazz Dreams",
+    "artist": "Kathy Ingraham",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Jazz singer & composer Kathy Ingraham is a wild mix of Blossom Dearie's intimacy with the intense passion of Nina Simone yet uniquely singular. Inspired by the 1944 Oscar winning Heavenly Music, which tells of a jazz composer trying to enter the heavenly Hall of Music before a committee of classical composers, Ingraham proves the film's theory that a great song can transcend the original genre. (Peirdon Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 6
+  },
+  {
+    "album": "Formas al Desaparecer",
+    "artist": "Martina Liviero",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "On Formas al Desaparecer, Liviero expands the boundaries of Argentine songwriting, blending experimental South American folk with chamber music into a sonic universe that encourages the listener to engage deeply and intimately. FULL PROMO (Hilo Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 6
+  },
+  {
+    "album": "Non-Stop Negative Enforcement",
+    "artist": "Damien De Coene",
+    "score": 3,
+    "url": "https://www.musiquemachine.com/reviews/damien-de-coene-non-stop-negative-enforcement-1778599850849",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Non-Stop Negative Enforcement presents with two slabs of churning, grinding & weighty wall noise. If your familiar with the euro wall scene of say the 5 or so years, I'm sure you know Damien De Coene name- the Spanish based noise maker who has been behind such projects as, Charles Razeur, Verwelk, Renoffski, and more recently Dod Cathedral.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 6
+  },
+  {
+    "album": "Vida",
+    "artist": "Dani Jané",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/jane-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Vida, the third release by Dani Jané (Spanish guitar, loops, synthesizer, composition), is a lyrical, rhythmically driven title that combines elements of flamenco, Catalan folk, classical music, jazz, and Catalan and U.S. poetry.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Michael Stone",
+    "label": "Segell Microscopi",
+    "_site": "roots_world",
+    "total_score": 6
+  },
+  {
+    "album": "Keep Telling Yourself That",
+    "artist": "Goal Weight (Maggie Cox and Jennifer Gersten)",
+    "score": null,
+    "url": "https://www.freejazzblog.org/2026/05/goal-weight-maggie-cox-and-jennifer.html",
+    "source": "freejazzblog.org",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "free jazz",
+      "improvised music"
+    ],
+    "excerpt": "An absorbing series of stimulating improvised dialogues between bassist Maggie Cox and violinist Jennifer Gersten. This imaginative and thought-provoking album is a demonstration of virtuosity and brilliance.",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "_site": "free_jazz_blog",
+    "total_score": 5
+  },
+  {
+    "album": "2 Comp (2023)",
+    "artist": "Anthony Braxton",
+    "score": null,
+    "url": "https://www.freejazzblog.org/2026/05/anthony-braxton-2-comp-2023-schott.html",
+    "source": "freejazzblog.org",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "free jazz",
+      "avant-jazz"
+    ],
+    "excerpt": "Dense and dissonant chords overflow with subtle but edgy excitement. A stellar illustration of Braxton's creative music. His expert ability to juxtapose instrumental voicings to create elaborate structures is in full evidence.",
+    "site_id": "free_jazz_blog",
+    "crawl_status": "success",
+    "_site": "free_jazz_blog",
+    "total_score": 5
+  },
+  {
+    "album": "Toothpaste For Your Elephant",
+    "artist": "Various Artists",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/various-artists-toothpaste-for-your-elephant/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "Compilation",
+      "Ó Mhaidin"
+    ],
+    "excerpt": "Das Zusammenstellen einer stimmigen Kompilation mit diversen Stilen ist keine leichte Aufgabe. Dem Londoner Label Ó Mhaidin gelingt es gleich mit Katalognummer 01. Toothpaste For Your Elephant heißt der mit sechzehn Stücken bestückte Sampler. Es gibt experimentellen Americana, Dub, Drone, Boogie, Indie, Psychedelika, Psych-Folk, ein wenig Punk mit »Post« davor. Die Künstler:innen kommen von überall. Zeitgenössisch, schon länger dabei. Neue Aufnahmen. Songs aus dem Archiv. Die Berliner No-Age-Ban",
+    "site_id": "hhv_mag",
+    "crawl_status": "success",
+    "_site": "hhv_mag",
+    "total_score": 5
+  },
+  {
+    "album": "Dødehavet",
+    "artist": "Kronstad 23",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Kronstad 23 return with Dødehavet, the Norwegian quartet's third album and first release on London's Batov Records. Continuing their instinctive, analogue-led approach, the record sits between cinematic jazz and psychedelic rock, threaded with Scandinavian folk and wider global influences. Recorded live to tape with minimal preparation and no modern studio intervention. (Batov Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 5
+  },
+  {
+    "album": "No Such Thing As Love For…",
+    "artist": "Silver Dove",
+    "score": 4,
+    "url": "https://www.musiquemachine.com/reviews/silver-dove-no-such-thing-as-love-for-1778600535709",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "No Such Thing As Love For… is a new around two hour release from Liverpool's Silver Dove. It offers up a blend/ mix of hazy guitar drone/ ambience, walled/ textured noise, and dreamy/ abstract sound making.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "_site": "musique_machine",
+    "total_score": 5
+  },
+  {
+    "album": "Króta",
+    "artist": "Mats Edén & Tellef Kvifte",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/krota-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Króta features Swedish fiddler Mats Edén and Norwegians Tellef Kvifte on flutes, and drummer Knut Kvifte Nesheim. The trio offers a far from conventional take on the traditional tunes they have chosen. While dance tunes may be the source of most of the material here, this feels more akin to chamber music; not that it is remotely classical in style, but in the sense it conveys of three players engrossed in a musically intimate conversation.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Mike Adcock",
+    "label": "",
+    "_site": "roots_world",
+    "total_score": 5
+  },
+  {
+    "album": "Tovi",
+    "artist": "Teija Niku",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/niku-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "It's been a lengthy wait for the fourth album from Finnish accordionist Teija Niku, but she's hardly been idle over the last few years. Between the pandemic, giving birth, and the death of her mother, her time has been filled. But the long pause makes this return all the sweeter, with its joyful exploration of the places where folk and jazz meet.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": "Artist release",
+    "_site": "roots_world",
+    "total_score": 5
+  },
+  {
+    "album": "The Romantic Piano Concerto 1991-2007 Edition",
+    "artist": "Various (Hyperion)",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-the-hyperion-romantic-piano-concerto-edition-1991-2007/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "classical",
+      "contemporary"
+    ],
+    "excerpt": "Hyperion's Romantic Piano Concerto series stands as one of the most ambitious and comprehensive recording projects in the history of classical music. Launched in 1991 with the aim of reviving forgotten works, it developed into an encyclopedic exploration of the genre. Now, Hyperion has gathered the first era of this project into a single 50-CD box set, The Romantic Piano Concerto 1991-2007 Edition. For the serious piano aficionado, this box set is a valuable collection, offering a comprehensive overview of the virtuoso tradition.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success",
+    "_site": "the_classic_review",
+    "total_score": 5
+  },
+  {
+    "album": "Let X=X (Live)",
+    "artist": "Laurie Anderson with Sexmob",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/laurie-anderson-with-sexmob-let-xx-live-review/",
+    "source": "The Quietus",
+    "pub_date": "2026-05-12T05:00:00+00:00",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "A live set from 2023 sees Laurie Anderson re-imagining her own songs – and, perhaps surprisingly, one from Lou Reed's album with Metallica.",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "_site": "the_quietus",
     "total_score": 5
   },
   {
@@ -482,82 +655,100 @@
     "total_score": 4
   },
   {
-    "album": "Alive Alone, Alive Together",
-    "artist": "Ava Mendoza",
+    "album": "Towards An Expanse",
+    "artist": "Dumama",
     "score": null,
-    "url": "https://avantmusicnews.com/2026/05/10/amn-reviews-ava-mendoza-alive-alone-alive-together-2026-burning-ambulance-music/",
-    "source": "Avant Music News",
-    "pub_date": "2026-05-10",
-    "tags": [
-      "experimental",
-      "weird",
-      "progressive",
-      "avant-garde"
-    ],
-    "excerpt": "Ava Mendoza is simply one of the best guitarists around today. She has played with a murderer's row of improvisers and experimentalists over the last 20 years. These are matter-of-fact guitar heroics without any sense of ego. Or restraint.",
-    "site_id": "avant_music_news",
-    "crawl_status": "direct",
-    "_site": "avant_music_news",
-    "total_score": 4
-  },
-  {
-    "album": "Keep Telling Yourself That",
-    "artist": "Goal Weight (Maggie Cox and Jennifer Gersten)",
-    "score": null,
-    "url": "https://www.freejazzblog.org/2026/05/goal-weight-maggie-cox-and-jennifer.html",
-    "source": "freejazzblog.org",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "free jazz",
-      "improvised music"
-    ],
-    "excerpt": "An absorbing series of stimulating improvised dialogues between bassist Maggie Cox and violinist Jennifer Gersten. This imaginative and thought-provoking album is a demonstration of virtuosity and brilliance.",
-    "site_id": "free_jazz_blog",
-    "crawl_status": "success",
-    "_site": "free_jazz_blog",
-    "total_score": 4
-  },
-  {
-    "album": "I Like Pretty Things",
-    "artist": "Half-Ass Astronaut",
-    "score": null,
-    "url": "https://igloomag.com/reviews/half-ass-astronaut-i-like-pretty-things-not-yet-remembered",
-    "source": "Igloo Magazine",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "experimental electronic",
-      "IDM",
-      "braindance",
-      "electroacoustic"
-    ],
-    "excerpt": "What begins as mechanical sound manipulation gradually transforms into drum-heavy recollections from another era entirely. A surreal passage through decades of IDM evolution, overflowing with restless imagination and stylistic bliss.",
-    "site_id": "igloo_magazine",
-    "crawl_status": "success",
-    "_site": "igloo_magazine",
-    "total_score": 4
-  },
-  {
-    "album": "Ailurophobia",
-    "artist": "Octavcat",
-    "score": null,
-    "url": "https://igloomag.com/reviews/octavcat-ailurophobia-vlsi",
-    "source": "Igloo Magazine",
+    "url": "https://daily.bandcamp.com/album-of-the-day/dumama-towards-an-expanse-review",
+    "source": "bandcamp_daily",
     "pub_date": "2026-05-11",
     "tags": [
-      "experimental electronic",
-      "IDM",
-      "electro",
-      "electroacoustic"
+      "experimental",
+      "world",
+      "ambient"
     ],
-    "excerpt": "Octavat balances playful experimentation with precise execution, offering moments of introspection, energy, and pure groove. Ailurophobia is a fecund, joyous exploration of rhythm, texture, and mood—an electronic album that delights in detail, danceability, and inventive sound design.",
-    "site_id": "igloo_magazine",
+    "excerpt": "A warm, textured album blending double bass, saxophone, and uhadi, with collaborators including Shahzad Ismaily, Arooj Aftab, and Colin Stetson.",
+    "site_id": "bandcamp_daily",
     "crawl_status": "success",
-    "_site": "igloo_magazine",
+    "_site": "bandcamp_daily",
     "total_score": 4
   },
   {
-    "album": "Dialogue Vol. II",
-    "artist": "Albert Marquès / Rachel Therrien",
+    "album": "Ghosts Beneath The Brine",
+    "artist": "Wanderwelle",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/wanderwelle-ghosts-beneath-the-brine/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "Longplayer (LP)",
+      "Important Records",
+      "Wanderwelle"
+    ],
+    "excerpt": "Gespenster in der Tiefe: Das niederländische Duo Wanderwelle beschließt seine Trilogie von Alben über die ökologischen Auswirkungen des Klimawandels auf die Meere. Umweltzerstörung in Küstenregionen zu Lande und zu Wasser erkunden sie dabei mit elektroakustischen Mitteln, die sie für jede Platte spezifisch auswählen. Nach alten Kavallerie-Trompeten auf Black Clouds Above the Bows und einer durch einen Erdrutsch an der niederländischen Küste beschädigten Kirchenorgel auf All Hands Bury the Cliffs",
+    "site_id": "hhv_mag",
+    "crawl_status": "success",
+    "_site": "hhv_mag",
+    "total_score": 4
+  },
+  {
+    "album": "Diana In The Autumn Wind",
+    "artist": "Gap Mangione",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/gap-mangione-diana-in-the-autumn-wind/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "Gap Mangione",
+      "Longplayer (LP)",
+      "Reissue",
+      "Be With Records"
+    ],
+    "excerpt": "Wahlweise als Heiliger Gral oder als weißer Wal für Hip-Hop-Sample-Heads glorifiziert, ist nun die allererste Reissue überhaupt von Diana In The Autumn Wind erschienen. J Dilla- und Madlib-Fans können auf dem Album von 1968 lustig Sample-Bingo spielen, aber auch A Tribe Called Quest, Ghostface Killah, Kendrick Lamar, Talib Kweli und viele mehr haben sich hier bedient. Bibel hin, Moby Dick her – die eigentliche Frage ist doch: Ist dieses beinahe kultisch verehrte Gap-Mangione-Werk auch als kohäre",
+    "site_id": "hhv_mag",
+    "crawl_status": "success",
+    "_site": "hhv_mag",
+    "total_score": 4
+  },
+  {
+    "album": "Whoops Wrong Planet",
+    "artist": "Cloud Management & Vivien Goldman",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/cloud-management-vivien-goldman-whoops-wrong-planet/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "Longplayer (LP)",
+      "Cloud Management",
+      "Altin Village & Mine Records",
+      "Vivien Goldman"
+    ],
+    "excerpt": "Was zunächst wie eine ungewöhnliche Begegnung zwischen Generationen, Szenen und geografischen Welten wirkt, entfaltet sich als überraschend stimmig und selbstverständlich. Mit Whoops Wrong Planet treffen Cloud Management, ein Projekt zwischen experimentellem Dub und elektronischer Clubmusik, und Vivien Goldman, New Yorker Autorin, Musikerin und prägende Stimme aus dem Post-Punk, aufeinander. Und diese Verbindung sitzt von Anfang an. Die drei Originaltracks – die B-Seite besteht ausschließlich au",
+    "site_id": "hhv_mag",
+    "crawl_status": "success",
+    "_site": "hhv_mag",
+    "total_score": 4
+  },
+  {
+    "album": "Dreams ’24 / ’25",
+    "artist": "Bill Wells",
+    "score": null,
+    "url": "https://www.hhv-mag.com/review/bill-wells-dreams-24-25/",
+    "source": "HHV Mag",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "Karaoke Kalk",
+      "Longplayer (LP)",
+      "Bill Wells"
+    ],
+    "excerpt": "Bill Wells, Solitär aus Schottland, entwickelt im Schlaf offenbar eine ähnlich rege Fantasie wie in seinem breit aufgestellten Musikschaffen. Eine verspielte Verspultheit verbindet seine Bandprojekte wie das National Jazz Trio of Scotland mit kurzfristigeren Kollaborationen, etwa mit Musiker:innen wie Stefan Schneider, Aidan Moffat oder auch Isobel Campbell. Jetzt lässt er Fans seines eigenwilligen und doch zugänglichen Schaffens an Träumen teilhaben, die er nach dem Aufwachen eingefangen hat. K",
+    "site_id": "hhv_mag",
+    "crawl_status": "success",
+    "_site": "hhv_mag",
+    "total_score": 4
+  },
+  {
+    "album": "Alamar",
+    "artist": "Ana Carla Maza",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
     "source": "Jazz Journal",
@@ -566,24 +757,7 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Catalonian pianist Albert Marquès and Grammy-nominated Canadian trumpeter Rachel Therrien release Dialogue Vol. II, the second installment in a two-part collaboration resulting from a decade-long musical friendship, sharing a playfulness and freeness over well-known standards. Bleeding authenticity – unfiltered and vulnerable, Dialogue Vol. II places the listener right inside the creative landscape of the studio. (Chronograph Records – CR-128)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 4
-  },
-  {
-    "album": "Attunement",
-    "artist": "Heidi Martin",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "Having completed two years of research at Rutgers University (2023-2024) which focused on the American jazz vocalist, songwriter, actress and civil rights activist Abbey Lincoln, Heidi Martin was subsequently awarded a Jazz Studies Dana Library Fellowship in 2024. During this time, Heidi reached out to bassist Michael Bowie and pianist Mark Cary, who both played with Abbey Lincoln for over a decade. (Independent)",
+    "excerpt": "With Alamar, Cuban cellist and singer Ana Carla Maza presents a personal and luminous musical work, in which memory, love and cultural transmission are transformed into a contemporary, universal language. The album, which is supported by a UK tour from the 24th April to 31st May, takes its name from Alamar, a seaside neighbourhood of Havana, Cuba. (Autre Distribution ACM83662026LP)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
@@ -601,40 +775,6 @@
       "reviews"
     ],
     "excerpt": "In this remarkable 45 minute long piano epic, the composer has created a milestone in piano history, marking the highest levels of piano playing ever done before…. and that involve every aspect of his Continuous Music… from Static Position Pattern work to his glorious Bel-Canto Melodics, and even includes him playing at over 19 notes per second. Recorded live direct to analog tape. (Jersika Records, JRA029)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 4
-  },
-  {
-    "album": "Arakatak",
-    "artist": "Metropole Orkest",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "Metropole Orchestra presents Arakatak, a brand new collection of music to celebrate the monumental orchestra's 80th anniversary. Through 8 pieces by 8 different prominent composers, the group sheds light on the Metropole Orchestra of the past, present, and future. Conducted by Miho Hazama, also featuring Vince Mendoza, Donny McCaslin, Tineke Postma, Mark Guiliana, Shai Maestro, and Louis Cole. (V2 Records)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 4
-  },
-  {
-    "album": "The Incredible Jazz Guitar Of Wes Montgomery (Crystal Clear Vinyl)",
-    "artist": "Wes Montgomery",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "Special limited edition of Wes Montgomery's classic album that became the inspiration for countless other guitarists, including Pat Metheny and John Scofield. Reissued as a special collectors' edition on crystal clear vinyl, 'The Incredible Jazz Guitar of Wes Montgomery (Riverside Records) was his third album as a leader and accompanied by Tommy Flanagan, Percy Heath and Albert 'Tootie' Heath. (Waxtime Crystal Clear 526034)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
@@ -709,6 +849,23 @@
     "total_score": 4
   },
   {
+    "album": "Everything Is Alive",
+    "artist": "Tetsuro Hoshii",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Brooklyn-based Japanese pianist Tetsuro Hoshii presents a solo piano album recorded on a Fazioli at Big Orange Sheep studio, Brooklyn. The music combines lyrical improvisation with elements of contemporary jazz and modern classical piano. Recorded by Chris Benham and mixed/mastered at Rainbow Studio, Oslo. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 4
+  },
+  {
     "album": "Vindespel",
     "artist": "Hytta Trio",
     "score": null,
@@ -743,8 +900,8 @@
     "total_score": 4
   },
   {
-    "album": "Glissement du temps",
-    "artist": "Jazzlab Orchestra",
+    "album": "Point Nemo",
+    "artist": "Jonas Larsson Band",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
     "source": "Jazz Journal",
@@ -753,24 +910,7 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Montreal's Jazzlab Orchestra celebrates its 20th anniversary with Slip of Time (Glissement du Temps), an ambitious new album on Effendi Records. Featuring ten original compositions by members of the collective alongside François Bourassa, Gentiane MG, and Pierre de Bethmann, the recording blends polyrhythmic, polytonal, and impressionistic textures into a vivid contemporary large-ensemble sound. (FND176)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 4
-  },
-  {
-    "album": "Dødehavet",
-    "artist": "Kronstad 23",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "Kronstad 23 return with Dødehavet, the Norwegian quartet's third album and first release on London's Batov Records. Continuing their instinctive, analogue-led approach, the record sits between cinematic jazz and psychedelic rock, threaded with Scandinavian folk and wider global influences. Recorded live to tape with minimal preparation and no modern studio intervention. (Batov Records)",
+    "excerpt": "Jonas Larsson Band is a high-energy jazz-fusion group drawing strong inspiration from 1970s and 1980s jazz, rock, and blues. Their music blends the era's powerful grooves – driven by pronounced guitar and keyboard riffs and heavy, dynamic bass lines – with complex, virtuosic improvised solos. (TBM 4402)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
@@ -794,20 +934,43 @@
     "total_score": 4
   },
   {
-    "album": "Paramount Quartet",
-    "artist": "Joe Lovano",
+    "album": "The Chaining Loops",
+    "artist": "Olivier Le Goas Ensemble Pulse",
     "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-11",
+    "url": "https://jazztrail.net/blog/olivier-le-goas-the-chaining-loops-album-review",
+    "source": "JazzTrail",
+    "pub_date": "May 12, 2026",
     "tags": [
       "jazz",
-      "reviews"
+      "contemporary jazz",
+      "modern creative",
+      "avant garde jazz",
+      "odd meter"
     ],
-    "excerpt": "The 'Paramount' in Joe Lovano's new quartet can be interpreted as a statement of intent. 'I feel like at this point I'm on the rise and those cats play with a real global awareness.' The 'cats' in question are guitarist Julian Lage, bassist Asante Santi Debriano and drummer Will Calhoun. Recorded in the south of France in February 2025. Produced by Manfred Eicher. (ECM602478517914 CD / 602478518119 LP)",
-    "site_id": "jazzjournal",
+    "excerpt": "Intrepid French drummer Olivier Le Goas reunites his Ensemble Pulse—a high-spirited septet formed during a creative residency in 2021—to perform five new original compositions. A devoted explorer of odd meters, animated rhythmic patterns, and kinetic grooves, Le Goas delivers exactly that on The Chaining Loops.",
+    "site_id": "jazz_trail",
     "crawl_status": "success",
-    "_site": "jazz_journal",
+    "label": "Double Moon Records, 2026",
+    "_site": "jazz_trail",
+    "total_score": 4
+  },
+  {
+    "album": "Echoes",
+    "artist": "Harry Skoler",
+    "score": null,
+    "url": "https://jazztrail.net/blog/harry-skoler-echoes-album-review",
+    "source": "JazzTrail",
+    "pub_date": "May 11, 2026",
+    "tags": [
+      "jazz",
+      "post bop",
+      "avant garde jazz"
+    ],
+    "excerpt": "With a voice unmistakably his own, clarinetist and composer Harry Skoler traverses a variety of open-ended atmospheres, displaying an instinctive ability to merge traditional jazz language with contemporary sensibilities in ways that continue to shape his artistic identity.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "label": "Red Brick Hill, 2026",
+    "_site": "jazz_trail",
     "total_score": 4
   },
   {
@@ -831,10 +994,10 @@
     "total_score": 4
   },
   {
-    "album": "Króta",
-    "artist": "Mats Edén & Tellef Kvifte",
+    "album": "Peter's Field",
+    "artist": "Sean Cooney",
     "score": null,
-    "url": "https://rootsworld.com/reviews/krota-26.shtml",
+    "url": "https://rootsworld.com/reviews/cooney-26.shtml",
     "source": "rootsworld.com",
     "pub_date": null,
     "tags": [
@@ -842,31 +1005,11 @@
       "roots",
       "folk"
     ],
-    "excerpt": "Króta features Swedish fiddler Mats Edén and Norwegians Tellef Kvifte on flutes, and drummer Knut Kvifte Nesheim. The trio offers a far from conventional take on the traditional tunes they have chosen. While dance tunes may be the source of most of the material here, this feels more akin to chamber music; not that it is remotely classical in style, but in the sense it conveys of three players engrossed in a musically intimate conversation.",
+    "excerpt": "In August 1819, tens of thousands of working men and women gathered in St. Peter's Field in Manchester to hear the politician Henry Hunt speak. Sean Cooney revisits that day in a multimedia memorial to the Peterloo Massacre, with guitarist Sam Carter, fiddler/singer Eliza Carthy, multi-instrumentalist Ben Nicholls, and the industrial ballad singer Jennifer Reid, who doubles as narrator.",
     "site_id": "roots_world",
     "crawl_status": "success",
-    "reviewer": "Mike Adcock",
-    "label": "",
-    "_site": "roots_world",
-    "total_score": 4
-  },
-  {
-    "album": "Sendas",
-    "artist": "Omar Sosa",
-    "score": null,
-    "url": "https://rootsworld.com/reviews/sosa-26.shtml",
-    "source": "rootsworld.com",
-    "pub_date": null,
-    "tags": [
-      "world music",
-      "roots",
-      "folk"
-    ],
-    "excerpt": "True to a Monk-inspired commitment never to play the same thing twice, Cuban pianist and composer Omar Sosa's Sendas (Pathways), his latest solo offering, is the vivid invention of a pensive, restlessly creative, evolutionary artistry. An unscripted two-hour solo improvisation on a Fazioli grand in the empty concert hall provided the raw audio for Sendas, later flavored in the mix with voice clips, percussion, loops, field recordings, and found sounds.",
-    "site_id": "roots_world",
-    "crawl_status": "success",
-    "reviewer": "Michael Stone",
-    "label": "Otá digital",
+    "reviewer": "Chris Nickson",
+    "label": "Hudson",
     "_site": "roots_world",
     "total_score": 4
   },
@@ -891,6 +1034,26 @@
     "total_score": 4
   },
   {
+    "album": "A Djinn and a Hunter Went Walking",
+    "artist": "Neba Solo and Benego Diakité",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/solo-diakite-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "The newly released album from Malian musicians Neba Solo and Benego Diakité is the outcome of a project which began in 2013 when Solo and Diakité, playing balafon and n'goni respectively, were recorded by a Bamako producer who played the result to record producer Nick Gold in the UK.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Mike Adcock",
+    "label": "Nonesuch",
+    "_site": "roots_world",
+    "total_score": 4
+  },
+  {
     "album": "Songbooks Live",
     "artist": "WÖR x Kongero",
     "score": null,
@@ -911,6 +1074,46 @@
     "total_score": 4
   },
   {
+    "album": "sMiLes",
+    "artist": "Jowee Omicil",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/omicil-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "Born in Montreal, Haitian-Canadian musician-composer Jowee Omicil plays a fabulous variety of saxophones, clarinets, trumpets, flutes, piano, and keyboards. He came of age in the choral milieu of his father's Montreal congregation, studied saxophone and music education at Berklee, and has gone on to work with some of the century's masters.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Michael Stone",
+    "label": "Bash Village - digital release",
+    "_site": "roots_world",
+    "total_score": 4
+  },
+  {
+    "album": "The Visit",
+    "artist": "Cris Derksen",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/derksen-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "The Visit isn't an album built on compromises. The fourth release from Canadian artist Cris Derksen (North TallCree Reserve on her father's side, Mennonite lineage from her mother) pushes and cajoles her visions, with opening full-throated improvisation of 'White Gladis 1' truly announcing her arrival.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "Chris Nickson",
+    "label": "Artist release",
+    "_site": "roots_world",
+    "total_score": 4
+  },
+  {
     "album": "Detached From The Rest Of You",
     "artist": "Loraine James",
     "score": null,
@@ -923,24 +1126,6 @@
       "experimental"
     ],
     "excerpt": "On her stunning latest LP, James instills IDM with palpable emotion. The review explores how she brings IDM back to its emotional core, blending ambient and rhythmic elements as a young, Black, queer woman.",
-    "site_id": "bandcamp_daily",
-    "crawl_status": "success",
-    "_site": "bandcamp_daily",
-    "total_score": 3
-  },
-  {
-    "album": "Towards An Expanse",
-    "artist": "Dumama",
-    "score": null,
-    "url": "https://daily.bandcamp.com/album-of-the-day/dumama-towards-an-expanse-review",
-    "source": "bandcamp_daily",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "experimental",
-      "world",
-      "ambient"
-    ],
-    "excerpt": "A warm, textured album blending double bass, saxophone, and uhadi, with collaborators including Shahzad Ismaily, Arooj Aftab, and Colin Stetson.",
     "site_id": "bandcamp_daily",
     "crawl_status": "success",
     "_site": "bandcamp_daily",
@@ -964,25 +1149,8 @@
     "total_score": 3
   },
   {
-    "album": "2 Comp (2023)",
-    "artist": "Anthony Braxton",
-    "score": null,
-    "url": "https://www.freejazzblog.org/2026/05/anthony-braxton-2-comp-2023-schott.html",
-    "source": "freejazzblog.org",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "free jazz",
-      "avant-jazz"
-    ],
-    "excerpt": "Dense and dissonant chords overflow with subtle but edgy excitement. A stellar illustration of Braxton's creative music. His expert ability to juxtapose instrumental voicings to create elaborate structures is in full evidence.",
-    "site_id": "free_jazz_blog",
-    "crawl_status": "success",
-    "_site": "free_jazz_blog",
-    "total_score": 3
-  },
-  {
-    "album": "Tribute to South Central",
-    "artist": "Doug MacDonald",
+    "album": "Dialogue Vol. II",
+    "artist": "Albert Marquès / Rachel Therrien",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
     "source": "Jazz Journal",
@@ -991,15 +1159,15 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Doug MacDonald's newest recording, Tribute to South Central, features the prolific jazz guitarist at the head of a new quintet/sextet that includes trumpet, keyboards, bass, drums, and percussion. The colorful group performs three standards and five of MacDonald's inventive originals which contain plenty of subtle surprises. (Dmac Music, DM 29)",
+    "excerpt": "Catalonian pianist Albert Marquès and Grammy-nominated Canadian trumpeter Rachel Therrien release Dialogue Vol. II, the second installment in a two-part collaboration resulting from a decade-long musical friendship, sharing a playfulness and freeness over well-known standards. Bleeding authenticity – unfiltered and vulnerable, Dialogue Vol. II places the listener right inside the creative landscape of the studio. (Chronograph Records – CR-128)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
     "total_score": 3
   },
   {
-    "album": "The Myth We Choose",
-    "artist": "Nduduzo Makhathini",
+    "album": "Attunement",
+    "artist": "Heidi Martin",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
     "source": "Jazz Journal",
@@ -1008,24 +1176,7 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Co-produced by his son Thingo Makhathini, the album moves between multiple influences and genres whilst holding onto Makhathini's distinctive sound and features bassist Dalisu Ndlazi, drummer Lukmil Perez as well as collaborations from Black Coffee, Shabaka, Omagugu, Thando Zide & Muneyi. (Blue Note Records)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 3
-  },
-  {
-    "album": "Alamar",
-    "artist": "Ana Carla Maza",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "With Alamar, Cuban cellist and singer Ana Carla Maza presents a personal and luminous musical work, in which memory, love and cultural transmission are transformed into a contemporary, universal language. The album, which is supported by a UK tour from the 24th April to 31st May, takes its name from Alamar, a seaside neighbourhood of Havana, Cuba. (Autre Distribution ACM83662026LP)",
+    "excerpt": "Having completed two years of research at Rutgers University (2023-2024) which focused on the American jazz vocalist, songwriter, actress and civil rights activist Abbey Lincoln, Heidi Martin was subsequently awarded a Jazz Studies Dana Library Fellowship in 2024. During this time, Heidi reached out to bassist Michael Bowie and pianist Mark Cary, who both played with Abbey Lincoln for over a decade. (Independent)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
@@ -1049,8 +1200,8 @@
     "total_score": 3
   },
   {
-    "album": "Twisted Summer",
-    "artist": "Liudas Mockūnas / Samuel Blaser / Marc Ducret",
+    "album": "Arakatak",
+    "artist": "Metropole Orkest",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
     "source": "Jazz Journal",
@@ -1059,7 +1210,58 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Inspired by the sound of the legendary jazz clarinetist and saxophonist Jimmy Giuffre's trio, the Mockūnas – Blaser – Ducret trio creates their own music, original compositions composed by all three members. Recorded live direct to analog tape without any editing or overdubbing. (Jersika Records, JRA025)",
+    "excerpt": "Metropole Orchestra presents Arakatak, a brand new collection of music to celebrate the monumental orchestra's 80th anniversary. Through 8 pieces by 8 different prominent composers, the group sheds light on the Metropole Orchestra of the past, present, and future. Conducted by Miho Hazama, also featuring Vince Mendoza, Donny McCaslin, Tineke Postma, Mark Guiliana, Shai Maestro, and Louis Cole. (V2 Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 3
+  },
+  {
+    "album": "The Incredible Jazz Guitar Of Wes Montgomery (Crystal Clear Vinyl)",
+    "artist": "Wes Montgomery",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Special limited edition of Wes Montgomery's classic album that became the inspiration for countless other guitarists, including Pat Metheny and John Scofield. Reissued as a special collectors' edition on crystal clear vinyl, 'The Incredible Jazz Guitar of Wes Montgomery (Riverside Records) was his third album as a leader and accompanied by Tommy Flanagan, Percy Heath and Albert 'Tootie' Heath. (Waxtime Crystal Clear 526034)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 3
+  },
+  {
+    "album": "Global Prayer",
+    "artist": "Chase Morrin's IZE Trio",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "The IZE Trio – featuring pianist Chase Morrin, cellist Nazeem Alatrash, and percussionist George Lernis, joined by special guests including bassist John Patitucci – melds jazz, classical, and maqam in a prayer for humanity. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 3
+  },
+  {
+    "album": "The Sorceress",
+    "artist": "Audrey Ochoa",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Juno Award-nominated powerhouse trombonist Canada's Audrey Ochoa releases a vibrant fusion of jazz, electronica, swing, and pop in a sonic portrait. Each track blends improvisation with infectious hooks and lush harmonies. The trombone takes centre stage as a voice of emotion and empowerment. (Chronograph Records – CR-119)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
@@ -1083,8 +1285,8 @@
     "total_score": 3
   },
   {
-    "album": "Lady Sings The Blues",
-    "artist": "Billie Holiday",
+    "album": "Glissement du temps",
+    "artist": "Jazzlab Orchestra",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
     "source": "Jazz Journal",
@@ -1093,15 +1295,15 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "The recordings included on the classic album Lady Sings the Blues come from two different studio dates, a complete session recorded in 1956, and four tunes from a 1954 date. The emphasis on both sessions is placed on Billie's singing. Although important musicians are present on both dates, little room is left for any instrumental improvisation. (Jazz Images 37196)",
+    "excerpt": "Montreal's Jazzlab Orchestra celebrates its 20th anniversary with Slip of Time (Glissement du Temps), an ambitious new album on Effendi Records. Featuring ten original compositions by members of the collective alongside François Bourassa, Gentiane MG, and Pierre de Bethmann, the recording blends polyrhythmic, polytonal, and impressionistic textures into a vivid contemporary large-ensemble sound. (FND176)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
     "total_score": 3
   },
   {
-    "album": "Everything Is Alive",
-    "artist": "Tetsuro Hoshii",
+    "album": "Eternal Gong Bath of the Sunbed Mind",
+    "artist": "Leverton Fox",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
     "source": "Jazz Journal",
@@ -1110,15 +1312,15 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Brooklyn-based Japanese pianist Tetsuro Hoshii presents a solo piano album recorded on a Fazioli at Big Orange Sheep studio, Brooklyn. The music combines lyrical improvisation with elements of contemporary jazz and modern classical piano. Recorded by Chris Benham and mixed/mastered at Rainbow Studio, Oslo. (Independent)",
+    "excerpt": "An immersive experimental electronic release by improvisers Alex Bonney, Tim Giles, and Isambard Khroustaliov, foregrounding collective interplay over production. Guided by Derek Bailey's non-idiomatic ethos, they subvert instrumental roles to achieve a freer, fluid sound. (Not Applicable NOT084)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
     "total_score": 3
   },
   {
-    "album": "Jazz Diary",
-    "artist": "Tomas Janzon",
+    "album": "Paramount Quartet",
+    "artist": "Joe Lovano",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
     "source": "Jazz Journal",
@@ -1127,105 +1329,10 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Guitarist and composer Tomas Janzon announces new album Jazz Diary, a trio release shaped through a daily writing practice—a collection drawn from early-morning handwritten notation, with brief musical ideas developed into compositions and improvisational vehicles featuring bassist Nedra Wheeler with drummers Tony Austin and Chuck McPherson. (Changes Music, CM116)",
+    "excerpt": "The 'Paramount' in Joe Lovano's new quartet can be interpreted as a statement of intent. 'I feel like at this point I'm on the rise and those cats play with a real global awareness.' The 'cats' in question are guitarist Julian Lage, bassist Asante Santi Debriano and drummer Will Calhoun. Recorded in the south of France in February 2025. Produced by Manfred Eicher. (ECM602478517914 CD / 602478518119 LP)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
-    "total_score": 3
-  },
-  {
-    "album": "Point Nemo",
-    "artist": "Jonas Larsson Band",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "Jonas Larsson Band is a high-energy jazz-fusion group drawing strong inspiration from 1970s and 1980s jazz, rock, and blues. Their music blends the era's powerful grooves – driven by pronounced guitar and keyboard riffs and heavy, dynamic bass lines – with complex, virtuosic improvised solos. (TBM 4402)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 3
-  },
-  {
-    "album": "Primal Heuristics",
-    "artist": "Joachim Lyche Trio",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "The 27-year-old Norwegian guitarist Joachim Lyche will be a new name to many here in the UK, but this auspicious debut with his trio says a lot about his ability both as a player and composer. Featuring a programme of seven of his own compositions, plus John Coltrane's 'Lazy Bird' and Joe Henderson's 'Punjab'. (Losen Records LOS3222)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 3
-  },
-  {
-    "album": "No Nation But Imagination",
-    "artist": "Alexander Hawkins",
-    "score": null,
-    "url": "https://jazztrail.net/blog/alexander-hawkins-no-nation-but-imagination-album-review",
-    "source": "JazzTrail",
-    "pub_date": "May 14, 2026",
-    "tags": [
-      "jazz",
-      "contemporary jazz",
-      "experimental jazz",
-      "modern creative"
-    ],
-    "excerpt": "With No Nation But Imagination, British pianist and composer Alexander Hawkins delivers a radical and fascinatingly complex work that may leave listeners wondering how its intertwining layers of piano, synths, harp, flute, drums, turntables, and samples fit together so naturally.",
-    "site_id": "jazz_trail",
-    "crawl_status": "success",
-    "label": "Intakt Records, 2026",
-    "_site": "jazz_trail",
-    "total_score": 3
-  },
-  {
-    "album": "The Chaining Loops",
-    "artist": "Olivier Le Goas Ensemble Pulse",
-    "score": null,
-    "url": "https://jazztrail.net/blog/olivier-le-goas-the-chaining-loops-album-review",
-    "source": "JazzTrail",
-    "pub_date": "May 12, 2026",
-    "tags": [
-      "jazz",
-      "contemporary jazz",
-      "modern creative",
-      "avant garde jazz",
-      "odd meter"
-    ],
-    "excerpt": "Intrepid French drummer Olivier Le Goas reunites his Ensemble Pulse—a high-spirited septet formed during a creative residency in 2021—to perform five new original compositions. A devoted explorer of odd meters, animated rhythmic patterns, and kinetic grooves, Le Goas delivers exactly that on The Chaining Loops.",
-    "site_id": "jazz_trail",
-    "crawl_status": "success",
-    "label": "Double Moon Records, 2026",
-    "_site": "jazz_trail",
-    "total_score": 3
-  },
-  {
-    "album": "Peter's Field",
-    "artist": "Sean Cooney",
-    "score": null,
-    "url": "https://rootsworld.com/reviews/cooney-26.shtml",
-    "source": "rootsworld.com",
-    "pub_date": null,
-    "tags": [
-      "world music",
-      "roots",
-      "folk"
-    ],
-    "excerpt": "In August 1819, tens of thousands of working men and women gathered in St. Peter's Field in Manchester to hear the politician Henry Hunt speak. Sean Cooney revisits that day in a multimedia memorial to the Peterloo Massacre, with guitarist Sam Carter, fiddler/singer Eliza Carthy, multi-instrumentalist Ben Nicholls, and the industrial ballad singer Jennifer Reid, who doubles as narrator.",
-    "site_id": "roots_world",
-    "crawl_status": "success",
-    "reviewer": "Chris Nickson",
-    "label": "Hudson",
-    "_site": "roots_world",
     "total_score": 3
   },
   {
@@ -1244,6 +1351,26 @@
     "site_id": "roots_world",
     "crawl_status": "success",
     "reviewer": "Chris Nickson",
+    "label": "",
+    "_site": "roots_world",
+    "total_score": 3
+  },
+  {
+    "album": "Brasiliano",
+    "artist": "Lucas Santtana",
+    "score": null,
+    "url": "https://rootsworld.com/reviews/santtana-26.shtml",
+    "source": "rootsworld.com",
+    "pub_date": null,
+    "tags": [
+      "world music",
+      "roots",
+      "folk"
+    ],
+    "excerpt": "The newly released album from Lucas Santtana moves between Bahia and beyond, blending Brazilian rhythms with electronic and acoustic textures in his characteristically inventive style.",
+    "site_id": "roots_world",
+    "crawl_status": "success",
+    "reviewer": "John Alan Urquhart",
     "label": "",
     "_site": "roots_world",
     "total_score": 3
@@ -1269,26 +1396,6 @@
     "total_score": 3
   },
   {
-    "album": "Tovi",
-    "artist": "Teija Niku",
-    "score": null,
-    "url": "https://rootsworld.com/reviews/niku-26.shtml",
-    "source": "rootsworld.com",
-    "pub_date": null,
-    "tags": [
-      "world music",
-      "roots",
-      "folk"
-    ],
-    "excerpt": "It's been a lengthy wait for the fourth album from Finnish accordionist Teija Niku, but she's hardly been idle over the last few years. Between the pandemic, giving birth, and the death of her mother, her time has been filled. But the long pause makes this return all the sweeter, with its joyful exploration of the places where folk and jazz meet.",
-    "site_id": "roots_world",
-    "crawl_status": "success",
-    "reviewer": "Chris Nickson",
-    "label": "Artist release",
-    "_site": "roots_world",
-    "total_score": 3
-  },
-  {
     "album": "Lyric",
     "artist": "Stelios Petrakis",
     "score": null,
@@ -1309,10 +1416,10 @@
     "total_score": 3
   },
   {
-    "album": "sMiLes",
-    "artist": "Jowee Omicil",
+    "album": "Echo",
+    "artist": "Emi Makabe",
     "score": null,
-    "url": "https://rootsworld.com/reviews/omicil-26.shtml",
+    "url": "https://rootsworld.com/reviews/makabe-26.shtml",
     "source": "rootsworld.com",
     "pub_date": null,
     "tags": [
@@ -1320,58 +1427,21 @@
       "roots",
       "folk"
     ],
-    "excerpt": "Born in Montreal, Haitian-Canadian musician-composer Jowee Omicil plays a fabulous variety of saxophones, clarinets, trumpets, flutes, piano, and keyboards. He came of age in the choral milieu of his father's Montreal congregation, studied saxophone and music education at Berklee, and has gone on to work with some of the century's masters.",
+    "excerpt": "Loss galvanizes, loss focuses, and musical artists turn loss into shared reflections. Emi Makabe has focused the passing of her father into a generous meditation on resilience and legacy with her second recording on Sunnyside Records, Echo.",
     "site_id": "roots_world",
     "crawl_status": "success",
-    "reviewer": "Michael Stone",
-    "label": "Bash Village - digital release",
+    "reviewer": "John Alan Urquhart",
+    "label": "Sunnyside",
     "_site": "roots_world",
     "total_score": 3
   },
   {
-    "album": "The Visit",
-    "artist": "Cris Derksen",
+    "album": "Straight Hedge! Noel Gardner Reviews Punk & HC For May",
+    "artist": "Various (Punk/Hardcore Roundup)",
     "score": null,
-    "url": "https://rootsworld.com/reviews/derksen-26.shtml",
-    "source": "rootsworld.com",
-    "pub_date": null,
-    "tags": [
-      "world music",
-      "roots",
-      "folk"
-    ],
-    "excerpt": "The Visit isn't an album built on compromises. The fourth release from Canadian artist Cris Derksen (North TallCree Reserve on her father's side, Mennonite lineage from her mother) pushes and cajoles her visions, with opening full-throated improvisation of 'White Gladis 1' truly announcing her arrival.",
-    "site_id": "roots_world",
-    "crawl_status": "success",
-    "reviewer": "Chris Nickson",
-    "label": "Artist release",
-    "_site": "roots_world",
-    "total_score": 3
-  },
-  {
-    "album": "Arcadi Volodos Plays Schubert and Schumann",
-    "artist": "Arcadi Volodos",
-    "score": null,
-    "url": "https://theclassicreview.com/album-reviews/arcadi-volodos-schubert-schumann/",
-    "source": "The Classic Review",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "classical",
-      "contemporary"
-    ],
-    "excerpt": "Arcadi Volodos pairs Schubert's Piano Sonata in D major, D. 850 (Gasteiner) with Schumann's Kinderszenen, Op. 15 in a live recital recorded at the Fondation Louis Vuitton. There are enjoyable aspects to this live concert, and the conscientious effort behind it is clear throughout. These readings do not, however, displace any primary recommendations in either work.",
-    "site_id": "the_classic_review",
-    "crawl_status": "success",
-    "_site": "the_classic_review",
-    "total_score": 3
-  },
-  {
-    "album": "Let X=X (Live)",
-    "artist": "Laurie Anderson with Sexmob",
-    "score": null,
-    "url": "https://thequietus.com/quietus-reviews/laurie-anderson-with-sexmob-let-xx-live-review/",
+    "url": "https://thequietus.com/quietus-reviews/punk/best-new-punk-hardcore-music-review-skintern-byford-dolphin-incident-bags-of-blood-mark-clayden/",
     "source": "The Quietus",
-    "pub_date": "2026-05-12T05:00:00+00:00",
+    "pub_date": "2026-05-12T10:40:13+00:00",
     "tags": [
       "experimental",
       "electronic",
@@ -1381,15 +1451,33 @@
       "prog",
       "free-improv"
     ],
-    "excerpt": "A live set from 2023 sees Laurie Anderson re-imagining her own songs – and, perhaps surprisingly, one from Lou Reed's album with Metallica.",
+    "excerpt": "From bone-boiling Aussie racket to French powerpop crust via Cleveland, Bristol, Ross-on-Wye and more, Noel Gardner's guide to the best in brand new punk returns.",
     "site_id": "the_quietus",
     "crawl_status": "success",
     "_site": "the_quietus",
     "total_score": 3
   },
   {
-    "album": "Global Prayer",
-    "artist": "Chase Morrin's IZE Trio",
+    "album": "CEREMONIAL",
+    "artist": "Black Milk",
+    "score": null,
+    "url": "https://daily.bandcamp.com/album-of-the-day/black-milk-ceremonial-review",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "hip-hop",
+      "rap",
+      "experimental"
+    ],
+    "excerpt": "The Detroit rapper expertly bridges the gap between the rap, soul, and dance music that raised him. A sharp album exploring creation, connection, and survival in Detroit.",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "_site": "bandcamp_daily",
+    "total_score": 2
+  },
+  {
+    "album": "Tribute to South Central",
+    "artist": "Doug MacDonald",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
     "source": "Jazz Journal",
@@ -1398,15 +1486,15 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "The IZE Trio – featuring pianist Chase Morrin, cellist Nazeem Alatrash, and percussionist George Lernis, joined by special guests including bassist John Patitucci – melds jazz, classical, and maqam in a prayer for humanity. (Independent)",
+    "excerpt": "Doug MacDonald's newest recording, Tribute to South Central, features the prolific jazz guitarist at the head of a new quintet/sextet that includes trumpet, keyboards, bass, drums, and percussion. The colorful group performs three standards and five of MacDonald's inventive originals which contain plenty of subtle surprises. (Dmac Music, DM 29)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
     "total_score": 2
   },
   {
-    "album": "Blue Side Vol. 1",
-    "artist": "Tobin Mueller / Tomás Martínez",
+    "album": "The Myth We Choose",
+    "artist": "Nduduzo Makhathini",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
     "source": "Jazz Journal",
@@ -1415,7 +1503,24 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Pianist-composer Tobin Mueller teams up with saxophonist Tomás Martinez and others to create a fresh sound. The warmth and context of each piece brings to mind the great studios of the past. (ArtsForge 2112)",
+    "excerpt": "Co-produced by his son Thingo Makhathini, the album moves between multiple influences and genres whilst holding onto Makhathini's distinctive sound and features bassist Dalisu Ndlazi, drummer Lukmil Perez as well as collaborations from Black Coffee, Shabaka, Omagugu, Thando Zide & Muneyi. (Blue Note Records)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 2
+  },
+  {
+    "album": "Twisted Summer",
+    "artist": "Liudas Mockūnas / Samuel Blaser / Marc Ducret",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Inspired by the sound of the legendary jazz clarinetist and saxophonist Jimmy Giuffre's trio, the Mockūnas – Blaser – Ducret trio creates their own music, original compositions composed by all three members. Recorded live direct to analog tape without any editing or overdubbing. (Jersika Records, JRA025)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
@@ -1456,8 +1561,8 @@
     "total_score": 2
   },
   {
-    "album": "Takin' Off",
-    "artist": "Herbie Hancock",
+    "album": "Lady Sings The Blues",
+    "artist": "Billie Holiday",
     "score": null,
     "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
     "source": "Jazz Journal",
@@ -1466,7 +1571,41 @@
       "jazz",
       "reviews"
     ],
-    "excerpt": "Takin' Off was pianist Herbie Hancock's debut album as leader and one that produced his biggest hit 'Watermelon Man', which made it to the Top 100 on the pop charts. The tune would later become a jazz standard. Featuring a programme of all original compositions by Hancock, he's backed by an all-star ensemble featuring Dexter Gordon, Freddie Hubbard, Butch Warren, and Billy Higgins. (Waxtime Crystal Clear 526035)",
+    "excerpt": "The recordings included on the classic album Lady Sings the Blues come from two different studio dates, a complete session recorded in 1956, and four tunes from a 1954 date. The emphasis on both sessions is placed on Billie's singing. Although important musicians are present on both dates, little room is left for any instrumental improvisation. (Jazz Images 37196)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 2
+  },
+  {
+    "album": "Uncharted Realms",
+    "artist": "Sean Imboden",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Indianapolis-based saxophonist and composer Sean Imboden leads his 17-piece modern jazz big band with this daring second album, featuring all original pieces. (Independent)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 2
+  },
+  {
+    "album": "Jazz Diary",
+    "artist": "Tomas Janzon",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Guitarist and composer Tomas Janzon announces new album Jazz Diary, a trio release shaped through a daily writing practice—a collection drawn from early-morning handwritten notation, with brief musical ideas developed into compositions and improvisational vehicles featuring bassist Nedra Wheeler with drummers Tony Austin and Chuck McPherson. (Changes Music, CM116)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
@@ -1490,40 +1629,6 @@
     "total_score": 2
   },
   {
-    "album": "Eternal Gong Bath of the Sunbed Mind",
-    "artist": "Leverton Fox",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "An immersive experimental electronic release by improvisers Alex Bonney, Tim Giles, and Isambard Khroustaliov, foregrounding collective interplay over production. Guided by Derek Bailey's non-idiomatic ethos, they subvert instrumental roles to achieve a freer, fluid sound. (Not Applicable NOT084)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 2
-  },
-  {
-    "album": "Formas al Desaparecer",
-    "artist": "Martina Liviero",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "On Formas al Desaparecer, Liviero expands the boundaries of Argentine songwriting, blending experimental South American folk with chamber music into a sonic universe that encourages the listener to engage deeply and intimately. FULL PROMO (Hilo Records)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 2
-  },
-  {
     "album": "A Little Travelin' Music (20th Anniversary Edition)",
     "artist": "Russ Lorenson",
     "score": null,
@@ -1541,22 +1646,20 @@
     "total_score": 2
   },
   {
-    "album": "Echoes",
-    "artist": "Harry Skoler",
+    "album": "Primal Heuristics",
+    "artist": "Joachim Lyche Trio",
     "score": null,
-    "url": "https://jazztrail.net/blog/harry-skoler-echoes-album-review",
-    "source": "JazzTrail",
-    "pub_date": "May 11, 2026",
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
     "tags": [
       "jazz",
-      "post bop",
-      "avant garde jazz"
+      "reviews"
     ],
-    "excerpt": "With a voice unmistakably his own, clarinetist and composer Harry Skoler traverses a variety of open-ended atmospheres, displaying an instinctive ability to merge traditional jazz language with contemporary sensibilities in ways that continue to shape his artistic identity.",
-    "site_id": "jazz_trail",
+    "excerpt": "The 27-year-old Norwegian guitarist Joachim Lyche will be a new name to many here in the UK, but this auspicious debut with his trio says a lot about his ability both as a player and composer. Featuring a programme of seven of his own compositions, plus John Coltrane's 'Lazy Bird' and Joe Henderson's 'Punjab'. (Losen Records LOS3222)",
+    "site_id": "jazzjournal",
     "crawl_status": "success",
-    "label": "Red Brick Hill, 2026",
-    "_site": "jazz_trail",
+    "_site": "jazz_journal",
     "total_score": 2
   },
   {
@@ -1580,44 +1683,265 @@
     "total_score": 2
   },
   {
-    "album": "A Djinn and a Hunter Went Walking",
-    "artist": "Neba Solo and Benego Diakité",
+    "album": "Arcadi Volodos Plays Schubert and Schumann",
+    "artist": "Arcadi Volodos",
     "score": null,
-    "url": "https://rootsworld.com/reviews/solo-diakite-26.shtml",
-    "source": "rootsworld.com",
-    "pub_date": null,
+    "url": "https://theclassicreview.com/album-reviews/arcadi-volodos-schubert-schumann/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-11",
     "tags": [
-      "world music",
-      "roots",
-      "folk"
+      "classical",
+      "contemporary"
     ],
-    "excerpt": "The newly released album from Malian musicians Neba Solo and Benego Diakité is the outcome of a project which began in 2013 when Solo and Diakité, playing balafon and n'goni respectively, were recorded by a Bamako producer who played the result to record producer Nick Gold in the UK.",
-    "site_id": "roots_world",
+    "excerpt": "Arcadi Volodos pairs Schubert's Piano Sonata in D major, D. 850 (Gasteiner) with Schumann's Kinderszenen, Op. 15 in a live recital recorded at the Fondation Louis Vuitton. There are enjoyable aspects to this live concert, and the conscientious effort behind it is clear throughout. These readings do not, however, displace any primary recommendations in either work.",
+    "site_id": "the_classic_review",
     "crawl_status": "success",
-    "reviewer": "Mike Adcock",
-    "label": "Nonesuch",
-    "_site": "roots_world",
+    "_site": "the_classic_review",
     "total_score": 2
   },
   {
-    "album": "Vida",
-    "artist": "Dani Jané",
+    "album": "Disco Chimi",
+    "artist": "Charlie Chimi",
     "score": null,
-    "url": "https://rootsworld.com/reviews/jane-26.shtml",
-    "source": "rootsworld.com",
-    "pub_date": null,
+    "url": "https://www.truthandliesmusic.com/magazine/charlie-chimi-disco-chimi-club-coco-a-review",
+    "source": "Truth & Lies Music",
+    "pub_date": "2026-05-13",
     "tags": [
-      "world music",
-      "roots",
-      "folk"
+      "free jazz",
+      "improvised music",
+      "adventurous jazz"
     ],
-    "excerpt": "Vida, the third release by Dani Jané (Spanish guitar, loops, synthesizer, composition), is a lyrical, rhythmically driven title that combines elements of flamenco, Catalan folk, classical music, jazz, and Catalan and U.S. poetry.",
-    "site_id": "roots_world",
+    "excerpt": "Afro-Cuban rhythms, no-wave garage punk edge, homemade funk and a fearless middle-fingered attitude towards generic straightforwardness. Fun, surreal, irreverent and ace.",
+    "site_id": "truth_and_lies_music",
     "crawl_status": "success",
-    "reviewer": "Michael Stone",
-    "label": "Segell Microscopi",
-    "_site": "roots_world",
+    "_site": "truth_and_lies_music",
     "total_score": 2
+  },
+  {
+    "album": "Many Worlds",
+    "artist": "Andrew MacKelvie",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/many-worlds",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Hangin' In",
+    "artist": "Joan Fort",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/hangin-in",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "The Oscar Peterson Trio at Baker's Keyboard Lounge",
+    "artist": "Oscar Peterson",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/the-oscar-peterson-trio-at-bakers-keyboard-lounge",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Boundless Species",
+    "artist": "Jamile & Vinicius Gomes, feat. Joe Martin",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/boundless-species",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Alight Upon the Lake: Live at the Jazz Showcase",
+    "artist": "Yusef Lateef",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/alight-upon-the-lake-live-at-the-jazz-showcase",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Live at Merrimans' Playhouse: Oscar Peterson Tribute",
+    "artist": "Scott Routenberg Trio",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/live-at-merrimans-playhouse-oscar-peterson-tribute",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Shapeshifter",
+    "artist": "Jon Henriksson",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/shapeshifter",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Fragments: The Complete 1969 Salle Pleyel Concerts",
+    "artist": "Cecil Taylor",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/fragments-the-complete-1969-salle-pleyel-concerts",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Thank You Notes--The Music of Gregg Hill",
+    "artist": "The Paul Keller Orchestra",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/thank-you-notes-the-music-of-gregg-hill",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Move Fast And Mend Things",
+    "artist": "Hi Res Heart",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/move-fast-and-mend-things",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "No Goats",
+    "artist": "Finely Tuned Elephant",
+    "score": null,
+    "url": "https://www.allaboutjazz.com/review/no-goats",
+    "source": "All About Jazz",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "fusion",
+      "avant-jazz",
+      "world-jazz"
+    ],
+    "excerpt": "",
+    "site_id": "all_about_jazz",
+    "crawl_status": "success",
+    "_site": "all_about_jazz",
+    "total_score": 1
+  },
+  {
+    "album": "Takin' Off",
+    "artist": "Herbie Hancock",
+    "score": null,
+    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "source": "Jazz Journal",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "reviews"
+    ],
+    "excerpt": "Takin' Off was pianist Herbie Hancock's debut album as leader and one that produced his biggest hit 'Watermelon Man', which made it to the Top 100 on the pop charts. The tune would later become a jazz standard. Featuring a programme of all original compositions by Hancock, he's backed by an all-star ensemble featuring Dexter Gordon, Freddie Hubbard, Butch Warren, and Billy Higgins. (Waxtime Crystal Clear 526035)",
+    "site_id": "jazzjournal",
+    "crawl_status": "success",
+    "_site": "jazz_journal",
+    "total_score": 1
   },
   {
     "album": "Di Mashin",
@@ -1637,44 +1961,6 @@
     "reviewer": "Lee Blackstone",
     "label": "Artist release",
     "_site": "roots_world",
-    "total_score": 2
-  },
-  {
-    "album": "Echo",
-    "artist": "Emi Makabe",
-    "score": null,
-    "url": "https://rootsworld.com/reviews/makabe-26.shtml",
-    "source": "rootsworld.com",
-    "pub_date": null,
-    "tags": [
-      "world music",
-      "roots",
-      "folk"
-    ],
-    "excerpt": "Loss galvanizes, loss focuses, and musical artists turn loss into shared reflections. Emi Makabe has focused the passing of her father into a generous meditation on resilience and legacy with her second recording on Sunnyside Records, Echo.",
-    "site_id": "roots_world",
-    "crawl_status": "success",
-    "reviewer": "John Alan Urquhart",
-    "label": "Sunnyside",
-    "_site": "roots_world",
-    "total_score": 2
-  },
-  {
-    "album": "CEREMONIAL",
-    "artist": "Black Milk",
-    "score": null,
-    "url": "https://daily.bandcamp.com/album-of-the-day/black-milk-ceremonial-review",
-    "source": "bandcamp_daily",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "hip-hop",
-      "rap",
-      "experimental"
-    ],
-    "excerpt": "The Detroit rapper expertly bridges the gap between the rap, soul, and dance music that raised him. A sharp album exploring creation, connection, and survival in Detroit.",
-    "site_id": "bandcamp_daily",
-    "crawl_status": "success",
-    "_site": "bandcamp_daily",
     "total_score": 1
   },
   {
@@ -1692,272 +1978,6 @@
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
-    "total_score": 1
-  },
-  {
-    "album": "The Sorceress",
-    "artist": "Audrey Ochoa",
-    "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
-    "source": "Jazz Journal",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "reviews"
-    ],
-    "excerpt": "Juno Award-nominated powerhouse trombonist Canada's Audrey Ochoa releases a vibrant fusion of jazz, electronica, swing, and pop in a sonic portrait. Each track blends improvisation with infectious hooks and lush harmonies. The trombone takes centre stage as a voice of emotion and empowerment. (Chronograph Records – CR-119)",
-    "site_id": "jazzjournal",
-    "crawl_status": "success",
-    "_site": "jazz_journal",
-    "total_score": 1
-  },
-  {
-    "album": "Straight Hedge! Noel Gardner Reviews Punk & HC For May",
-    "artist": "Various (Punk/Hardcore Roundup)",
-    "score": null,
-    "url": "https://thequietus.com/quietus-reviews/punk/best-new-punk-hardcore-music-review-skintern-byford-dolphin-incident-bags-of-blood-mark-clayden/",
-    "source": "The Quietus",
-    "pub_date": "2026-05-12T10:40:13+00:00",
-    "tags": [
-      "experimental",
-      "electronic",
-      "jazz",
-      "world",
-      "psych",
-      "prog",
-      "free-improv"
-    ],
-    "excerpt": "From bone-boiling Aussie racket to French powerpop crust via Cleveland, Bristol, Ross-on-Wye and more, Noel Gardner's guide to the best in brand new punk returns.",
-    "site_id": "the_quietus",
-    "crawl_status": "success",
-    "_site": "the_quietus",
-    "total_score": 1
-  },
-  {
-    "album": "Disco Chimi",
-    "artist": "Charlie Chimi",
-    "score": null,
-    "url": "https://www.truthandliesmusic.com/magazine/charlie-chimi-disco-chimi-club-coco-a-review",
-    "source": "Truth & Lies Music",
-    "pub_date": "2026-05-13",
-    "tags": [
-      "free jazz",
-      "improvised music",
-      "adventurous jazz"
-    ],
-    "excerpt": "Afro-Cuban rhythms, no-wave garage punk edge, homemade funk and a fearless middle-fingered attitude towards generic straightforwardness. Fun, surreal, irreverent and ace.",
-    "site_id": "truth_and_lies_music",
-    "crawl_status": "success",
-    "_site": "truth_and_lies_music",
-    "total_score": 1
-  },
-  {
-    "album": "Many Worlds",
-    "artist": "Andrew MacKelvie",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/many-worlds",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-13",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "Hangin' In",
-    "artist": "Joan Fort",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/hangin-in",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-13",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "The Oscar Peterson Trio at Baker's Keyboard Lounge",
-    "artist": "Oscar Peterson",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/the-oscar-peterson-trio-at-bakers-keyboard-lounge",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-13",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "Boundless Species",
-    "artist": "Jamile & Vinicius Gomes, feat. Joe Martin",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/boundless-species",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-13",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "Alight Upon the Lake: Live at the Jazz Showcase",
-    "artist": "Yusef Lateef",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/alight-upon-the-lake-live-at-the-jazz-showcase",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "Live at Merrimans' Playhouse: Oscar Peterson Tribute",
-    "artist": "Scott Routenberg Trio",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/live-at-merrimans-playhouse-oscar-peterson-tribute",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "Shapeshifter",
-    "artist": "Jon Henriksson",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/shapeshifter",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "Fragments: The Complete 1969 Salle Pleyel Concerts",
-    "artist": "Cecil Taylor",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/fragments-the-complete-1969-salle-pleyel-concerts",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-12",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "Thank You Notes--The Music of Gregg Hill",
-    "artist": "The Paul Keller Orchestra",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/thank-you-notes-the-music-of-gregg-hill",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "Move Fast And Mend Things",
-    "artist": "Hi Res Heart",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/move-fast-and-mend-things",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
-    "total_score": 0
-  },
-  {
-    "album": "No Goats",
-    "artist": "Finely Tuned Elephant",
-    "score": null,
-    "url": "https://www.allaboutjazz.com/review/no-goats",
-    "source": "All About Jazz",
-    "pub_date": "2026-05-11",
-    "tags": [
-      "jazz",
-      "fusion",
-      "avant-jazz",
-      "world-jazz"
-    ],
-    "excerpt": "",
-    "site_id": "all_about_jazz",
-    "crawl_status": "success",
-    "_site": "all_about_jazz",
     "total_score": 0
   },
   {
@@ -1978,17 +1998,17 @@
     "total_score": 0
   },
   {
-    "album": "Uncharted Realms",
-    "artist": "Sean Imboden",
+    "album": "Blue Side Vol. 1",
+    "artist": "Tobin Mueller / Tomás Martínez",
     "score": null,
-    "url": "https://jazzjournal.co.uk/2026/05/11/new-releases-april-may-2026-h-l/",
+    "url": "https://jazzjournal.co.uk/2026/05/12/new-releases-april-may-2026-m-o/",
     "source": "Jazz Journal",
-    "pub_date": "2026-05-11",
+    "pub_date": "2026-05-12",
     "tags": [
       "jazz",
       "reviews"
     ],
-    "excerpt": "Indianapolis-based saxophonist and composer Sean Imboden leads his 17-piece modern jazz big band with this daring second album, featuring all original pieces. (Independent)",
+    "excerpt": "Pianist-composer Tobin Mueller teams up with saxophonist Tomás Martinez and others to create a fresh sound. The warmth and context of each piece brings to mind the great studios of the past. (ArtsForge 2112)",
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
@@ -2043,26 +2063,6 @@
     "site_id": "jazzjournal",
     "crawl_status": "success",
     "_site": "jazz_journal",
-    "total_score": 0
-  },
-  {
-    "album": "Brasiliano",
-    "artist": "Lucas Santtana",
-    "score": null,
-    "url": "https://rootsworld.com/reviews/santtana-26.shtml",
-    "source": "rootsworld.com",
-    "pub_date": null,
-    "tags": [
-      "world music",
-      "roots",
-      "folk"
-    ],
-    "excerpt": "The newly released album from Lucas Santtana moves between Bahia and beyond, blending Brazilian rhythms with electronic and acoustic textures in his characteristically inventive style.",
-    "site_id": "roots_world",
-    "crawl_status": "success",
-    "reviewer": "John Alan Urquhart",
-    "label": "",
-    "_site": "roots_world",
     "total_score": 0
   }
 ]

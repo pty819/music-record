@@ -192,64 +192,100 @@ for r in reviews:
 reviews = list(seen.values())
 print(f"Deduplicated: {{len(reviews)}} unique")
 
-# ── 评分函数（与 skill/SKILL.md 一致）────────────────────────────
-def score_review(r):
-    excerpt = r.get("excerpt","") or ""
-    tags_raw = r.get("tags","")
-    tags = [t.lower().strip() for t in tags_raw.split(",")] if isinstance(tags_raw,str) else tags_raw
+# ── 评分函数 v2（内容驱动 + 站点基线）───────────────────────────
+# Site-level taste baseline from sites.json tags
+SITE_TAGS = {
+    "musique_machine": ["dark ambient","industrial","electroacoustic","experimental","noise"],
+    "squids_ear": ["experimental","electronic","sound art","avant-garde","improvisation"],
+    "igloo_magazine": ["experimental electronic","idm","ambient","glitch","electroacoustic"],
+    "hhv_mag": ["electronic","vinyl culture","electroacoustic","experimental"],
+    "a_closer_listen": ["instrumental","experimental","ambient","drone","field recording"],
+    "roots_world": ["world music","roots","folk","traditional"],
+    "world_music_central": ["world music","traditional music","world fusion","experimental"],
+    "free_jazz_blog": ["free jazz","avant-jazz","improvised music"],
+    "the_quietus": ["experimental","electronic","jazz","world","avant-garde"],
+    "jazz_trail": ["avant-garde jazz","experimental","improvisation"],
+    "avant_music_news": ["experimental","weird","progressive","avant-garde"],
+}
+
+def get_site_taste_baseline(site_id):
+    st = SITE_TAGS.get(site_id, [])
+    st_str = " ".join(st)
+    score = 0
+    if any(k in st_str for k in ["experimental","avant-garde","free jazz","electroacoustic","drone","ambient","idm","glitch","industrial","noise","improvisation","sound art","field recording"]):
+        score += 2
+    if any(k in st_str for k in ["world","folk","electronic","minimalist","ritual","weird"]):
+        score += 1
+    return min(2, score)
+
+def score_review(r, site_id="musique_machine"):
+    excerpt = r.get("excerpt","") or r.get("summary","") or ""
+    tags_raw = r.get("tags","") or r.get("genre","") or ""
+    tags = [t.lower().strip() for t in tags_raw.split(",")] if isinstance(tags_raw,str) else (tags_raw or [])
+    tags_str = tags_raw.lower() if isinstance(tags_raw,str) else " ".join(t.lower() for t in tags_raw).lower()
+    el = excerpt.lower()
     elen = len(excerpt)
-    cq = min(5, elen // 100) if elen > 0 else 0
-    avant_kw = ["experimental","avant-garde","free jazz","electroacoustic","drone",
-                "ambient","idm","glitch","industrial","sound art","modern composition",
-                "field recording","improvisation","noise","ritual","dark ambient",
-                "dungeon synth","darksynth","synthwave"]
-    tm = min(5, sum(1 for t in tags for k in avant_kw if k in t))
-    novelty_kw = ["unique","rare","first","unusual","innovative","cross-cultural","world","ritual"]
-    nov = min(3, sum(1 for kw in novelty_kw if kw.lower() in excerpt.lower()))
+    
+    # CQ: logarithmic, capped at 3 (reduced from 5)
+    cq = min(3, elen // 150 + (1 if elen % 150 > 75 else 0)) if elen > 0 else 0
+    
+    # TM: 3-layer - site baseline + entry tags + excerpt scan
+    site_base = get_site_taste_baseline(site_id)
+    avant_kw = ["experimental","avant-garde","free jazz","electroacoustic","drone","ambient","idm","glitch","industrial",
+                "sound art","modern composition","field recording","improvisation","noise","ritual","dark ambient",
+                "dungeon synth","darksynth","synthwave","world fusion","fusion"]
+    entry_tag_match = min(3, sum(1 for t in tags for k in avant_kw if k in t))
+    excerpt_match = 0
+    if entry_tag_match < 2:
+        excerpt_kw = ["experimental","avant-garde","free jazz","electroacoustic","drone","ambient","idm","glitch","industrial","noise","field recording","improvisation","fusion"]
+        match_count = sum(1 for k in excerpt_kw if k in el)
+        if match_count >= 2: excerpt_match = 1
+    tm = min(5, site_base + entry_tag_match + excerpt_match)
+    
+    # NOV: expanded keyword list
+    nov_kw = ["unique","rare","first","unusual","innovative","cross-cultural","world","ritual","exploration","boundary","genre-defying","groundbreaking","fusion","breakthrough","singular","unconventional","pushing"]
+    nov = min(3, sum(1 for kw in nov_kw if kw in el))
+    
+    # CDB: scan excerpt too for domain keywords
     domains = set()
+    domain_map = {"jazz":["jazz","improvisation"],"electronic":["electronic","idm","glitch","ambient","drone","synth"],"world":["world","african","asian","latin","folk","india","oriental"],"classical":["classical","chamber","minimalist","orchestral","solo","piano"]}
     for t in tags:
-        if any(k in t for k in ["jazz","improvisation"]): domains.add("jazz")
-        if any(k in t for k in ["electronic","idm","glitch","ambient","drone"]): domains.add("electronic")
-        if any(k in t for k in ["world","african","asian","latin","folk"]): domains.add("world")
-        if any(k in t for k in ["classical","chamber","minimalist"]): domains.add("classical")
+        for d, kws in domain_map.items():
+            if any(k in t for k in kws): domains.add(d)
+    if len(domains) < 2:
+        for d, kws in domain_map.items():
+            if any(k in el for k in kws): domains.add(d)
     cdb = max(0, len(domains) - 1) if len(domains) > 1 else 0
-    reg_kw = ["southeast asia","south america","africa","middle east","central asia","southeast asian"]
-    reg = 2 if any(kw in " ".join(tags) for kw in reg_kw) else (1 if any(kw in excerpt.lower() for kw in ["asia","africa","latin"]) else 0)
     
-    # mainstream_penalty: 纯流行/无实验主流惩罚
-    penalty_kw = ["pop","mainstream indie","indie pop","top 40","billboard"]
+    # REG: scan excerpt for location names, not just tags
+    combined_text = ",".join(tags) + " " + el + " " + (r.get("artist","") or "").lower()
+    reg_kw_high = ["southeast asia","south america","middle east","central asia"]
+    reg_kw_low = ["africa","latin","argentina","brazil","india","palestine","turkey","iran","japan","korea","thailand","mexico","cuba","morocco","egypt","chile","colombia","indonesia","china"]
+    reg = 2 if any(kw in combined_text for kw in reg_kw_high) else (1 if any(kw in combined_text for kw in reg_kw_low) else 0)
+    
+    # MP: mainstream penalty (unchanged)
     mp = 0
-    el_lower = excerpt.lower()
-    if all(k in el_lower for k in ["pop","mainstream"]):
-        mp = 3
-    elif "pop" in el_lower and "experimental" not in el_lower and "avant" not in el_lower:
-        mp = 2
-    elif "mainstream" in el_lower and "experimental" not in el_lower:
-        mp = 2 if "indie" in el_lower else 1
+    if all(k in el for k in ["pop","mainstream"]): mp = 3
+    elif "pop" in el and "experimental" not in el and "avant" not in el: mp = 2
+    elif "mainstream" in el and "experimental" not in el: mp = 2 if "indie" in el else 1
     
-    # Synthwave / Retrowave / Dungeon Synth / Dark Ambient 额外降权
-    # 只有 aesthetic 没有实质创新 → 降权
+    # DR: synth/dungeon downgrade (unchanged)
     dr = 0
     if "synthwave" in tags_str or "retrowave" in tags_str:
-        # 检查是否只有怀旧 aesthetic 没有创新描述
-        has_novelty = any(k in el_lower for k in ["innovative","modern","experimental","composition","texture","design"])
+        has_novelty = any(k in el for k in ["innovative","modern","experimental","composition","texture","design"])
         if not has_novelty:
-            if all(k in el_lower for k in ["retro","nostalgic"]):
-                dr += 1
-            if "vibes" in el_lower and "sound" not in el_lower and "textur" not in el_lower:
-                dr += 1
-    if ("dungeon synth" in tags_str or "dark ambient" in tags_str):
-        # 检查是否只有低保真堆叠没有叙事/细节
-        has_detail = any(k in el_lower for k in ["texture","layer","narrative","worldbuilding","composition","ritual"])
-        if not has_detail and ("lo-fi" in el_lower or "noise" in el_lower):
-            dr += 1
+            if all(k in el for k in ["retro","nostalgic"]): dr += 1
+            if "vibes" in el and "sound" not in el and "textur" not in el: dr += 1
+    if "dungeon synth" in tags_str or "dark ambient" in tags_str:
+        has_detail = any(k in el for k in ["texture","layer","narrative","worldbuilding","composition","ritual"])
+        if not has_detail and ("lo-fi" in el or "noise" in el): dr += 1
     
     pen = 1 if cq <= 1 else 0
     return max(0, cq + tm + nov + cdb + reg - mp - dr - pen)
 
 # ── 执行评分 ───────────────────────────────────────────────────
 for r in reviews:
-    r["total_score"] = score_review(r)
+    r["total_score"] = score_review(r, r.get("_site", "unknown"))
 
 scored = sorted(reviews, key=lambda x: x["total_score"], reverse=True)
 passed = [r for r in scored if r["total_score"] >= 6]
