@@ -868,9 +868,9 @@
       "id": "resident_advisor",
       "name": "Resident Advisor",
       "homepage": "https://ra.co/",
-      "rss_url": "https://ra.co/feed/news",
+      "rss_url": null,
       "reviews_url": "https://ra.co/reviews",
-      "has_rss": true,
+      "has_rss": false,
       "tier": "S",
       "crawl_frequency": "daily",
       "parser_hint": {
@@ -884,7 +884,7 @@
         "experimental",
         "scene reports"
       ],
-      "notes": "experimental club / 亚洲电子场景，适合 Regional Electronic",
+      "notes": "电子/舞曲/实验电子评论，无RSS，从reviews列表页抓取",
       "startUrls": [
         "https://ra.co/reviews"
       ],
