@@ -1,0 +1,63 @@
+[
+  {
+    "album": "The Symphonies",
+    "artist": "Bamberger Symphoniker, Jakub Hrůša",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-martinu-the-symphonies-bamberger-symphoniker-jakub-hrusa/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "classical",
+      "contemporary",
+      "Orchestral",
+      "Symphony",
+      "Czech",
+      "Twentieth Century"
+    ],
+    "excerpt": "Bohuslav Martinů's symphonies are some of the finest written in the last century. All were composed during his time in America and date from his mature period (the first was written when he was 51). They show his gift for building melody and structure from minimal material, and his tonal harmony, vital rhythm, and luminous orchestration reveal a generally optimistic outlook. The playing has an energy and animation that suggest the players themselves are having the best time, and that comes across in the vividness of these readings. Hrůša's interpretation is just as fine, and the Bamberg players cover themselves in glory, with playing of refinement and sophistication that often surpasses what one hears from the BBC. For me, it is the new benchmark recording of these works, and it is urgently recommended.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Requiem",
+    "artist": "Gabriel Fauré",
+    "score": null,
+    "url": "https://theclassicreview.com/best-of/top-five-faure-requiem-the-best-recordings/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "classical",
+      "contemporary",
+      "Choral",
+      "French",
+      "Best-Of",
+      "Period Instruments"
+    ],
+    "excerpt": "Gabriel Fauré composed his Requiem in stages between 1887 and 1890, during his years as choirmaster at the Madeleine in Paris. The first version was heard at the church on 16 January 1888, when the composer was forty-two. Often called 'a lullaby of death,' the work has been valued ever since not as a dramatic confrontation with judgement, but as a meditation on consolation. The Requiem is cast in seven movements and famously omits the Dies irae, moving from the Introit et Kyrie through the Pie Jesu and Agnus Dei to the closing In paradisum.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "The Romantic Piano Concerto Edition – 1991-2007",
+    "artist": "Hyperion",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-the-hyperion-romantic-piano-concerto-edition-1991-2007/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "classical",
+      "contemporary",
+      "Box Set",
+      "Piano",
+      "Concerto",
+      "Romantic",
+      "Orchestral"
+    ],
+    "excerpt": "Hyperion's Romantic Piano Concerto series stands as one of the most ambitious and comprehensive recording projects in the history of classical music. Launched in 1991 with the aim of reviving forgotten works, it developed into an encyclopedic exploration of the genre. Now, Hyperion has gathered the first era of this project into a single 50-CD box set, The Romantic Piano Concerto 1991-2007 Edition. The sheer scale of this collection is impressive: 130 works by 59 composers, performed by 19 pianists, 21 conductors, and 14 orchestras. For the serious piano aficionado, this box set is a valuable collection.",
+    "site_id": "the_classic_review",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

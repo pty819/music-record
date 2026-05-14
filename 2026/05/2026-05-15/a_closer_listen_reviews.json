@@ -1,0 +1,62 @@
+[
+  {
+    "album": "Le Révélateur",
+    "artist": "Réka Csiszér & Radwan Ghazi Moumneh",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/14/reka-csiszer-radwan-ghazi-moumneh-le-revelateur/",
+    "source": "a_closer_listen",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "instrumental",
+      "experimental",
+      "ambient",
+      "drone",
+      "field recording",
+      "modern composition"
+    ],
+    "excerpt": "Originally conceived as a silent visual poem by Philippe Garrel in 1968, Le Révélateur emerged in the aftermath of the May '68 student uprisings, carrying their disillusionment in a stark, non-verbal form. Rather than filling the film's silence, Csiszér and Moumneh orbit around it, constructing a parallel sonic field that mirrors the film's sense of displacement and quiet disarray.",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "The Days Pass Quickly Immersed in the Shadow of Eternity",
+    "artist": "Lea Bertucci",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/13/the-imaginations-of-our-ancestors-an-interview-with-lea-bertucci/",
+    "source": "a_closer_listen",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "instrumental",
+      "experimental",
+      "ambient",
+      "drone",
+      "field recording",
+      "modern composition"
+    ],
+    "excerpt": "Lea Bertucci is a mainstay of the US experimental music scene, bridging ideas from sound art into recorded music and viceversa. The new album, entitled The Days Pass Quickly Immersed in the Shadow of Eternity, is rooted within the deep and ancient tradition of human musicking, tapping into the imaginations of our ancestors.",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Fathom Tides",
+    "artist": "Lawrence English / Werner Dafeldecker",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/12/lawrence-english-werner-dafeldecker-fathom-tides/",
+    "source": "a_closer_listen",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "instrumental",
+      "experimental",
+      "ambient",
+      "drone",
+      "field recording",
+      "modern composition"
+    ],
+    "excerpt": "Fathom Tides is an LP of incremental change. Best heard as a single, slowly-developing piece, the album reflects the pace of nature over that of humanity. Lawrence English's coastal field recordings lie at the heart of the LP. When passed to Werner Dafeldecker for treatments, they became something larger than a reflection. (Richard Allen)",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]

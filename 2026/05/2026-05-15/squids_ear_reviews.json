@@ -1,0 +1,38 @@
+[
+  {
+    "album": "Peace And Happiness",
+    "artist": "Paul Rogers",
+    "score": null,
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3017",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "improvisation",
+      "jazz",
+      "experimental",
+      "electroacoustic"
+    ],
+    "excerpt": "",
+    "site_id": "squids_ear",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "A Reflection Distorts Over Water",
+    "artist": "Camila Nebbia (feat. Marilyn Crispell & Lesley Mok)",
+    "score": null,
+    "url": "https://www.squidco.com/cgi-bin/news/newsView.cgi?newsID=3016",
+    "source": "The Squid's Ear",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "improvisation",
+      "jazz",
+      "experimental",
+      "electroacoustic"
+    ],
+    "excerpt": "",
+    "site_id": "squids_ear",
+    "crawl_status": "ok",
+    "type": "review"
+  }
+]

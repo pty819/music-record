@@ -1,0 +1,28 @@
+[
+  {
+    "album": "Automation Studies vol.1",
+    "artist": "Stefan Goldmann",
+    "score": 5.0,
+    "url": "https://www.chaindlk.com/reviews/13528",
+    "source": "Chain D.L.K.",
+    "pub_date": "2026-05-14",
+    "tags": ["ambient", "electronica", "experimental"],
+    "excerpt": "There is something wonderfully stubborn about Automation Studies Vol. 1. In an era where software updates expire faster than political promises and entire musical aesthetics are discarded every six months by exhausted algorithms, Stefan Goldmann has chosen to excavate his earliest electroacoustic experiments from the turn of the millennium and present them not as nostalgic artifacts, but as living systems still capable of mutating in real time. Released through Macro Recordings, this sprawling triple-CD set documents compositions originally created between 1999 and 2001 using the internal synthesis and effects architecture of the TC Fireworx processor.",
+    "site_id": "chain_dlk",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "The West",
+    "artist": "微風ゾーン Bifuu_ZONE",
+    "score": 5.0,
+    "url": "https://www.chaindlk.com/reviews/13527",
+    "source": "Chain D.L.K.",
+    "pub_date": "2026-05-12",
+    "tags": ["ambient", "experimental", "new music"],
+    "excerpt": "Spatial ambient music inspired by locations west of Osaka, created by Tsudio Studio. The music slows internal time. Architectural references dissolve into emotional resonance. Places become atmospheres rather than coordinates. In a cultural moment obsessed with acceleration, constant visibility, and emotional over-articulation, Bifuu_ZONE creates music that trusts quiet perception. The project name translates to a zone of gentle breeze.",
+    "site_id": "chain_dlk",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

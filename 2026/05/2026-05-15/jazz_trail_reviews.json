@@ -1,0 +1,52 @@
+[
+  {
+    "album": "No Nation But Imagination",
+    "artist": "Alexander Hawkins",
+    "score": 4.5,
+    "url": "https://jazztrail.net/blog/alexander-hawkins-no-nation-but-imagination-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "jazz",
+      "contemporary jazz",
+      "experimental jazz",
+      "modern creative"
+    ],
+    "excerpt": "British pianist and composer Alexander Hawkins delivers a radical and fascinatingly complex work that may leave listeners wondering how its intertwining layers of piano, synths, harp, flute, drums, turntables, and samples fit together so naturally. With advanced technique and fearless creativity yielding music both intellectually challenging and deeply substantive.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Pulse - The Chaining Loops",
+    "artist": "Olivier Le Goas Ensemble",
+    "score": null,
+    "url": "https://jazztrail.net/blog/olivier-le-goas-the-chaining-loops-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-12",
+    "tags": [
+      "jazz"
+    ],
+    "excerpt": "Le Goas is the kind of musician who is constantly shifting gears rhythmically and texturally. His hyperactive pulse not only supports the soloists but also fuels consistently engaging interplay. Dense and flamboyant at times, yet it remains a stimulating album to explore.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Echoes",
+    "artist": "Harry Skoler",
+    "score": null,
+    "url": "https://jazztrail.net/blog/harry-skoler-echoes-album-review",
+    "source": "JazzTrail",
+    "pub_date": "2026-05-11",
+    "tags": [
+      "jazz",
+      "post bop",
+      "avant garde jazz"
+    ],
+    "excerpt": "Clarinetist and composer Harry Skoler traverses a variety of open-ended atmospheres, displaying an instinctive ability to merge traditional jazz language with contemporary sensibilities. The quartet has developed a genuine musical empathy that radiates throughout the recording, making Echoes an album that rewards repeated listening.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]
