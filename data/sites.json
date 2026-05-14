@@ -1256,12 +1256,12 @@
       "crawl_strategy": "playwright_headless"
     },
     {
-      "id": "world_music_central",
-      "name": "World Music Central",
-      "homepage": "https://worldmusiccentral.org/",
-      "rss_url": "https://worldmusiccentral.org/feed/",
-      "reviews_url": "https://worldmusiccentral.org/",
-      "has_rss": true,
+  "id": "world_music_central",
+  "name": "World Music Central",
+  "homepage": "https://worldmusiccentral.org/",
+  "rss_url": "https://worldmusiccentral.org/feed/",
+  "reviews_url": "https://worldmusiccentral.org/",
+  "has_rss": false,
       "tier": "A",
       "crawl_frequency": "every_2_days",
       "parser_hint": {
