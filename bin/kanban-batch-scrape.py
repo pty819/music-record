@@ -253,8 +253,64 @@ scored = sorted(reviews, key=lambda x: x["total_score"], reverse=True)
 passed = [r for r in scored if r["total_score"] >= 6]
 print(f"Passed (>=6): {{len(passed)}}")
 
-# ── 中文推荐理由生成函数 ───────────────────────────────────────
-def gen_cn(r):
+# ── 中文推荐总结：将英文原文浓缩为1-2句中文核心推荐 ──────────────────────────
+import os
+import sys
+import json
+
+# 调用 MiniMax API 做中文总结
+MINIMAX_API_KEY = os.environ.get("MINIMAX_API_KEY", "")
+MINIMAX_API_URL = "https://api.minimax.chat/v1/text/chatcompletion_v2"
+
+def summarize_cn(excerpt, artist_album):
+    if not excerpt or excerpt.strip() == "":
+        return "值得关注的前卫实验音乐作品。"
+    
+    # 截断太长的 excerpt
+    text = excerpt.strip()
+    if len(text) > 1000:
+        text = text[:1000] + "..."
+    
+    prompt = f"""请将下面这篇英文乐评浓缩为**1-2句通顺的中文核心推荐**，讲清楚专辑的艺人、风格、主要亮点或背景，不要超过150字。
+
+专辑：{artist_album}
+
+英文原文：
+{text}
+
+中文总结（1-2句话，简洁核心）："""
+    
+    headers = {
+        "Authorization": f"Bearer {MINIMAX_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    
+    data = {
+        "model": "MiniMax-M2-7B",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.7,
+        "max_tokens": 200
+    }
+    
+    try:
+        import urllib.request
+        req = urllib.request.Request(MINIMAX_API_URL, json.dumps(data).encode('utf-8'), headers)
+        with urllib.request.urlopen(req, timeout=30) as f:
+            resp = json.load(f)
+        result = resp.get("choices", [{}])[0].get("message", {}).get("content", "")
+        if result:
+            return result.strip()
+        else:
+            # fallback: 用原来的关键词方法
+            return gen_cn_fallback(excerpt, artist_album)
+    except Exception as e:
+        print(f"Summarization API error: {e}, fallback to keywords")
+        return gen_cn_fallback(excerpt, artist_album)
+
+# Fallback：关键词方法，如果API调用失败
+def gen_cn_fallback(r):
     excerpt = r.get("excerpt","") or ""
     tags_raw = r.get("tags","")
     tags_str = tags_raw.lower() if isinstance(tags_raw,str) else " ".join(tags_raw).lower()
@@ -266,20 +322,16 @@ def gen_cn(r):
     if any(k in tags_str for k in ["experimental","avant-garde"]): parts.append("前卫实验与解构手法")
     if any(k in tags_str for k in ["jazz","improvisation"]): parts.append("即兴爵士语汇")
     if any(k in tags_str for k in ["noise","industrial"]): parts.append("噪音/工业粗粝质感")
-    if any(k in tags_str for k in ["classical","minimalist","chamber"]): parts.append("古典极简主义与室内乐语")
+    if any(k in tags_str for k in ["classical","minimalist","chamber"]): parts.append("古典极简主义与室内乐语汇")
     if any(k in tags_str for k in ["world","african","asian","latin"]): parts.append("世界音乐元素")
     if any(k in tags_str for k in ["dark ambient","dungeon synth","darksynth"]): parts.append("暗黑氛围与仪式性声响")
     if "ritual" in el: parts.append("仪式性的声音进程")
     if "layer" in el or "texture" in el: parts.append("多层纹理堆叠")
     if "dark" in el or "horror" in el: parts.append("暗黑声景与心理张力")
     if "improvis" in el: parts.append("即兴演奏的现场能量")
-    if "ukraine" in el or "war" in el: parts.append("战争创伤与声音记忆")
-    if "korean" in el: parts.append("韩国传统音乐与当代电子的解构重构")
-    if "geography" in el or "geological" in el: parts.append("地理/地景声景与文化根系")
-    if "synthwave" in tags_str or "retrowave" in tags_str: parts.append("合成器复古美学")
     if "dungeon synth" in tags_str: parts.append("地下迷宫氛围与幻想叙事")
     if not parts: parts = ["值得关注的前卫实验声响"]
-    return "；".join(parts[:4])
+    return "；".join(parts[:3])
 
 # ── 生成 markdown ─────────────────────────────────────────────
 lines = [
@@ -290,28 +342,34 @@ top = [r for r in scored if r["total_score"] >= 11]
 mid = [r for r in scored if 8 <= r["total_score"] <= 10]
 low = [r for r in scored if 6 <= r["total_score"] < 8]
 if top:
-    lines.append("## ★10 — Top Picks\n")
+    lines.append("## ★10+ — Top Picks\n")
     for r in top:
-        lines.append(f"**{{r['album']}} — {{r['artist']}}** [★{{r['total_score']}}], {{r.get('source','unknown')}}")
-        lines.append(f"[阅读原文 →]({{r.get('url','#')}})")
-        lines.append(f"> 🔶 *{{gen_cn(r)}}*\n")
-        lines.append(f"> {{r.get('excerpt','')}}")
+        artist_album = f"{r['album']} — {r['artist']}"
+        lines.append(f"**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}")
+        lines.append(f"[阅读原文 →]({r.get('url','#')})")
+        summary = summarize_cn(r.get('excerpt',''), artist_album)
+        lines.append(f"> 🔶 **中文总结**：{summary}\n")
+        lines.append(f"> {r.get('excerpt','')}")
         lines.append("")
 if mid:
     lines.append("## ★8-9 — Notable\n")
     for r in mid:
-        lines.append(f"**{{r['album']}} — {{r['artist']}}** [★{{r['total_score']}}], {{r.get('source','unknown')}}")
-        lines.append(f"[阅读原文 →]({{r.get('url','#')}})")
-        lines.append(f"> 🔶 *{{gen_cn(r)}}*\n")
-        lines.append(f"> {{r.get('excerpt','')}}")
+        artist_album = f"{r['album']} — {r['artist']}"
+        lines.append(f"**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}")
+        lines.append(f"[阅读原文 →]({r.get('url','#')})")
+        summary = summarize_cn(r.get('excerpt',''), artist_album)
+        lines.append(f"> 🔶 **中文总结**：{summary}\n")
+        lines.append(f"> {r.get('excerpt','')}")
         lines.append("")
 if low:
-    lines.append("## ★6-8 — 此外值得关注\n")
+    lines.append("## ★6-7 — 此外值得关注\n")
     for r in low:
-        lines.append(f"**{{r['album']}} — {{r['artist']}}** [★{{r['total_score']}}], {{r.get('source','unknown')}}")
-        lines.append(f"[阅读原文 →]({{r.get('url','#')}})")
-        lines.append(f"> 🔶 *{{gen_cn(r)}}*\n")
-        lines.append(f"> {{r.get('excerpt','')}}")
+        artist_album = f"{r['album']} — {r['artist']}"
+        lines.append(f"**{r['album']} — {r['artist']}** [★{r['total_score']}], {r.get('source','unknown')}")
+        lines.append(f"[阅读原文 →]({r.get('url','#')})")
+        summary = summarize_cn(r.get('excerpt',''), artist_album)
+        lines.append(f"> 🔶 **中文总结**：{summary}\n")
+        lines.append(f"> {r.get('excerpt','')}")
         lines.append("")
 
 # ── 写文件 ────────────────────────────────────────────────────
