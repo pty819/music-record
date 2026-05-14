@@ -1040,9 +1040,9 @@
       "id": "squids_ear",
       "name": "The Squid's Ear",
       "homepage": "https://www.squidco.com/ear/",
-      "rss_url": "https://www.squidco.com/ear/feed/",
+      "rss_url": null,
       "reviews_url": "https://www.squidco.com/ear/",
-      "has_rss": true,
+      "has_rss": false,
       "tier": "A",
       "crawl_frequency": "every_2_days",
       "parser_hint": {
@@ -1056,7 +1056,7 @@
         "experimental",
         "electroacoustic"
       ],
-      "notes": "正好覆盖你关心的交叉带",
+      "notes": "前卫/实验/自由爵士评论，网站迁移，从新主页抓取",
       "startUrls": [
         "https://www.squidco.com/ear/"
       ],
