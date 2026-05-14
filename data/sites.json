@@ -2065,6 +2065,46 @@
         "reviews"
       ],
       "notes": "新加坡本地场景补充"
+    },
+    {
+      "id": "louder_than_war",
+      "name": "Louder Than War",
+      "homepage": "https://louderthanwar.com/",
+      "rss_url": "https://louderthanwar.com/category/music/reviews/album-reviews/feed/",
+      "reviews_url": "https://louderthanwar.com/music/reviews/album-reviews/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "louderthanwar.com/\\d+/\\d+/\\d+/",
+        "list_selector": ".post-title a",
+        "album_selector": "h1.entry-title",
+        "author_selector": ".author.vcard a",
+        "body_selector": ".entry-content p",
+        "genre_selector": ".cat-links a, .tags-links a"
+      },
+      "tags": [
+        "rock",
+        "experimental",
+        "avant-garde",
+        "electronic",
+        "jazz",
+        "world"
+      ],
+      "notes": "综合音乐站，专辑评论总板块，包含各类风格，覆盖大量实验/前卫音乐",
+      "startUrls": [
+        "https://louderthanwar.com/music/reviews/album-reviews/"
+      ],
+      "allowUrlPatterns": [
+        "/\\d+/\\d+/\\d+/.*review/"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/advertise",
+        "/contact",
+        "/category/news/",
+        "/category/interviews/"
+      ]
     }
   ],
   "crawl_priority": {
@@ -2114,7 +2154,8 @@
       "prog_mistress",
       "wild_city",
       "bandwagon_asia",
-      "hear65"
+      "hear65",
+      "louder_than_war"
     ]
   }
 }
