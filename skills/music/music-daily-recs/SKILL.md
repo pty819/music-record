@@ -5,9 +5,9 @@ cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git pu
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, kanban, fan-out]
 author: hermes-agent
-version: 2.2
+version: 2.3
 created: 2026-05-07
-updated: 2026-05-13
+updated: 2026-05-14
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
 ---
 
@@ -660,7 +660,7 @@ hermes kanban show <aggregator_id> | grep parents
 | `skills/music/music-daily-recs/SKILL.md` | skill 最新副本 | 同上 |
 | `data/sites.json` | 站点配置 | 从 music-record 同步到 ~/.minimax/music-sites/ |
 | `2026/{MM}/{DD}/{YYYY-MM-DD}/` | 当天乐评原始数据 | scraper JSON + aggregated + filtered + markdown |
-| `recommend/YYYY-MM-DD.md` | 每日推荐总结 | top 20 精简版，放在仓库根目录 `recommend/` 下 |
+| `recommend/YYYY-MM-DD.md` | 每日推荐总结 | **完整全量推荐**，放在仓库根目录 `recommend/` 下 |
 
 > ⚠️ **五部分必须一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit。
 
@@ -696,7 +696,7 @@ music-record/
 cd ~/music-record
 cp ~/.local/bin/kanban-batch-scrape.py bin/
 cp ~/.hermes/skills/music/music-daily-recs/SKILL.md skills/music/music-daily-recs/
-git add bin/ SKILL.md
+git add bin/ skills/music/music-daily-recs/SKILL.md data/sites.json
 git commit -m "Fix: <what you fixed>"
 git push
 ```
@@ -713,11 +713,11 @@ Pipeline 完成后的 git push 和 skill 文件管理通过 `~/music-record/` �
 ~/music-record/
 ├── bin/kanban-batch-scrape.py     ← batch 脚本
 ├── skills/music/music-daily-recs/  ← skill 文档（含 references/）
-├── sites.json                      ← 站点配置
-├── 2026/{MM}/{DD}/{YYYY-MM-DD}/   ← 当天 scraper JSON + aggregated + filtered + markdown
-└── recommend/{YYYY-MM-DD}.md       ← top 20 推荐总结（精简版）
-```
+├── data/sites.json                ← 站点配置
+├── 2026/{MM}/{DD}/{YYYY-MM-DD}/   ← 当天 scraper JSON + aggregated + filtered
+└── recommend/{YYYY-MM-DD}.md       ← **完整全量推荐总结**
 
+> ⚠️ **五部分必须一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit，不可只更新其中某一部分。
 > ⚠️ **四部分必须一起 push**：`bin/`、`skills/`、`2026/`、`recommend/` 四个目录每次必须同时 commit，不可只更新其中某一部分。
 
 脚本同步通过 Step 1 的 `cp` 命令完成（不是 hard link）。skill 和脚本修复后必须立即 commit 到 music-record，下次 cron 才能拉到正确版本。
@@ -739,7 +739,7 @@ git push
 
 这条命令已内置在 cron job `music-daily-recs`（ID: `6fd93b4a4c4c`）里，凌晨 04:00 自动执行。
 
-**四部分一起 push**：`bin/`、`skills/`、`2026/`、`recommend/` 四个目录每次必须同时 commit，不可只更新其中某一部分。
+**五部分一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit，不可只更新其中某一部分。
 
 ## 参考文件
 
