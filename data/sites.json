@@ -1256,12 +1256,12 @@
       "crawl_strategy": "playwright_headless"
     },
     {
-  "id": "world_music_central",
-  "name": "World Music Central",
-  "homepage": "https://worldmusiccentral.org/",
-  "rss_url": "https://worldmusiccentral.org/feed/",
-  "reviews_url": "https://worldmusiccentral.org/",
-  "has_rss": false,
+      "id": "world_music_central",
+      "name": "World Music Central",
+      "homepage": "https://worldmusiccentral.org/",
+      "rss_url": "https://worldmusiccentral.org/feed/",
+      "reviews_url": "https://worldmusiccentral.org/",
+      "has_rss": false,
       "tier": "A",
       "crawl_frequency": "every_2_days",
       "parser_hint": {
@@ -1925,9 +1925,9 @@
     {
       "id": "roots_world",
       "name": "RootsWorld",
-      "homepage": "https://www.rootsworld.com/",
+      "homepage": "https://rootsworld.com/rw/",
       "rss_url": null,
-      "reviews_url": "https://www.rootsworld.com/",
+      "reviews_url": "https://rootsworld.com/rw/",
       "has_rss": false,
       "tier": "B",
       "crawl_frequency": "weekly",
@@ -1940,7 +1940,30 @@
         "roots",
         "folk"
       ],
-      "notes": "查 roots/folk/world 脉络"
+      "notes": "世界音乐/roots 评论，主页已迁移到 /rw/",
+      "startUrls": [
+        "https://rootsworld.com/rw/"
+      ],
+      "crawl_strategy": "playwright_headless",
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".entry-content",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1.entry-title",
+          "h1"
+        ],
+        "dateSelectors": [
+          "time.entry-date",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          ".entry-title a",
+          "article h2 a"
+        ]
+      }
     },
     {
       "id": "progressor",
