@@ -232,7 +232,7 @@ def score_review(r, site_id="musique_machine"):
     elen = len(excerpt)
     
     # CQ: logarithmic, capped at 3 (reduced from 5)
-    cq = min(3, elen // 150 + (1 if elen % 150 > 75 else 0)) if elen > 0 else 0
+    cq = min(3, elen // 150 + (1 if elen %% 150 > 75 else 0)) if elen > 0 else 0
     
     # TM: 3-layer - site baseline + entry tags + excerpt scan
     site_base = get_site_taste_baseline(site_id)
