@@ -1,0 +1,74 @@
+[
+  {
+    "album": "Spiti/Home",
+    "artist": "Trondheim Jazz Orchestra & Marianna Sangita Angeletaki Røe",
+    "score": null,
+    "url": "https://www.chaindlk.com/reviews/13531",
+    "source": "Chain D.L.K.",
+    "pub_date": "2026-05-15",
+    "tags": [
+      "industrial",
+      "dark ambient",
+      "glitch",
+      "avant-garde"
+    ],
+    "excerpt": "The word \"fusion\" has suffered a long and difficult life. Somewhere along the way it became associated with overly polished virtuosity, airport-jazz catastrophes, or musicians aggressively demonstrating that they attended conservatory while nobody asked. Thankfully, Spiti/Home avoids nearly all those traps by remembering something essential: cultural convergence only becomes meaningful when it carries emotional necessity rather than curatorial ambition.",
+    "site_id": "chain_dlk",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Neural Network",
+    "artist": "idiiom",
+    "score": 5.0,
+    "url": "https://www.chaindlk.com/reviews/13530",
+    "source": "Chain D.L.K.",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "industrial",
+      "dark ambient",
+      "glitch",
+      "avant-garde"
+    ],
+    "excerpt": "Neural Network is the debut solo album from Leslie Lowder, released through Audiobulb. The record is built entirely from improvised voice manipulated through effects and looping—no pre-composition or post-performance editing beyond mixing and mastering. The record transforms vocalization into shifting architecture without ever severing its emotional core.",
+    "site_id": "chain_dlk",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Transcoastal Night Drive",
+    "artist": "Personal System 個人システム",
+    "score": 5.0,
+    "url": "https://www.chaindlk.com/reviews/13529",
+    "source": "Chain D.L.K.",
+    "pub_date": "2026-05-13",
+    "tags": [
+      "industrial",
+      "dark ambient",
+      "glitch",
+      "avant-garde"
+    ],
+    "excerpt": "Personal System understands that nostalgia functions most powerfully when incomplete. Too much detail kills the dream. The real version: empty highways, sodium-vapor lights, distant radio static, the strange loneliness that arrives around 2 a.m. when gas stations begin resembling temporary shelters from existence itself.",
+    "site_id": "chain_dlk",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Automation Studies vol.1",
+    "artist": "Stefan Goldmann",
+    "score": 5.0,
+    "url": "https://www.chaindlk.com/reviews/13528",
+    "source": "Chain D.L.K.",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "industrial",
+      "dark ambient",
+      "glitch",
+      "avant-garde"
+    ],
+    "excerpt": "In an era where software updates expire faster than political promises and entire musical aesthetics are discarded every six months by exhausted algorithms, Stefan Goldmann has chosen to excavate his earliest electroacoustic experiments from the turn of the millennium and present them not as nostalgic artifacts, but as living systems still capable of mutating in real time.",
+    "site_id": "chain_dlk",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

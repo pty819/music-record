@@ -1,0 +1,80 @@
+[
+  {
+    "album": "Escape From New York: The Hudson Valley Scene",
+    "artist": "Scene Report",
+    "score": null,
+    "url": "https://daily.bandcamp.com/scene-report/the-hudson-valley-scene-report",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-15",
+    "tags": "Scene Report",
+    "excerpt": "Here are some selected sounds from the contemporary Hudson Valley scene on Bandcamp. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "π. Διονύσιος Ταμπάκης, “Paradise Metal”",
+    "artist": "J. Bennett",
+    "score": null,
+    "url": "https://daily.bandcamp.com/album-of-the-day/dionysios-tabakis-paradise-metal-review",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-15",
+    "tags": "Album of the Day",
+    "excerpt": "It's not metal per se—it's something else, and that something is fascinating. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Essential Releases, May 15, 2026",
+    "artist": "Essential Releases",
+    "score": null,
+    "url": "https://daily.bandcamp.com/essential-releases/essential-releases-may-15-2026",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-15",
+    "tags": "Essential Releases",
+    "excerpt": "Jazztronica, art pop, grindcore, and more. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Fifteen Years of Hands In The Dark’s Beautiful Lucid Dreaming",
+    "artist": "Label Profile",
+    "score": null,
+    "url": "https://daily.bandcamp.com/label-profile/hands-in-the-dark-label-profile",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-14",
+    "tags": "Label Profile",
+    "excerpt": "The French label’s catalog blurs memory, texture, and experimentation into something deeply transportive. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Lost in the Signal: Radio as Instrument",
+    "artist": "Lists",
+    "score": null,
+    "url": "https://daily.bandcamp.com/lists/radio-as-instrument-album-guide",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-14",
+    "tags": "Lists",
+    "excerpt": "Don't touch that dial. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Soltera & Sonido Sex, “Soltera y Su Sonido Sexual”",
+    "artist": "Richard Villegas",
+    "score": null,
+    "url": "https://daily.bandcamp.com/album-of-the-day/soltera-sonido-sex-soltera-y-su-sonido-sexual-review",
+    "source": "bandcamp_daily",
+    "pub_date": "2026-05-14",
+    "tags": "Album of the Day",
+    "excerpt": "A convulsive dancefloor catharsis built from pummeling punk, techno, and drum & bass. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

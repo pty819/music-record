@@ -1,0 +1,62 @@
+[
+  {
+    "album": "Personal History and Holy Existence in Joe Lovano's Paramount Quartet",
+    "artist": "Joe Lovano",
+    "score": null,
+    "url": "https://www.jazztimes.com/features/profiles/personal-history-and-holy-existence-in-joe-lovanos-paramount-quartet/",
+    "source": "jazztimes.com",
+    "pub_date": "2026-05-15T22:30:35+00:00",
+    "tags": [
+      "jazz",
+      "reviews",
+      "modern jazz",
+      "profile",
+      "ECM",
+      "Joe Lovano"
+    ],
+    "excerpt": "Tenor saxophonist Joe Lovano discusses his transition to ECM Records, the formation of his Paramount Quartet featuring Julian Lage, Asante Santi Debriano, and Will Calhoun, spiritual themes in his music, his deep connection to the Village Vanguard, and his family legacy in jazz.",
+    "site_id": "jazztimes",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "The Next Chapter of JazzTimes — and How You Can Be Part of It",
+    "artist": "JazzTimes",
+    "score": null,
+    "url": "https://www.jazztimes.com/blog/the-next-chapter-of-jazztimes-and-how-you-can-be-part-of-it/",
+    "source": "jazztimes.com",
+    "pub_date": "2026-05-14T22:59:58+00:00",
+    "tags": [
+      "jazz",
+      "reviews",
+      "modern jazz",
+      "JazzTimes"
+    ],
+    "excerpt": "JazzTimes is positioning itself as independent, ambitious, and answerable only to the music and its readers. The publication is seeking membership support to continue long-form interviews, historical perspective, and rigorous criticism.",
+    "site_id": "jazztimes",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Three from the Third Stream: Unheralded Classical Works of Jazz Masters Gary Burton, Chick Corea and Keith Jarrett",
+    "artist": "Gary Burton, Chick Corea, Keith Jarrett",
+    "score": null,
+    "url": "https://www.jazztimes.com/reviews/albums/three-from-the-third-stream-unheralded-classical-works-of-jazz-masters-gary-burton-chick-corea-and-keith-jarrett/",
+    "source": "jazztimes.com",
+    "pub_date": "2026-05-13T23:53:11+00:00",
+    "tags": [
+      "jazz",
+      "reviews",
+      "modern jazz",
+      "ECM",
+      "Third Stream",
+      "Gary Burton",
+      "Chick Corea",
+      "Keith Jarrett"
+    ],
+    "excerpt": "Three underappreciated ECM recordings representing the Third Stream tradition: Gary Burton's Seven Songs for Quartet and Chamber Orchestra, Chick Corea & Gary Burton's Lyric Suite for Sextet, and Keith Jarrett's In the Light. These albums form a lovely and intriguing Third Stream triptych, worth discussing as a unit.",
+    "site_id": "jazztimes",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

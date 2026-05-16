@@ -1,0 +1,34 @@
+[
+  {
+    "album": "Martinů",
+    "artist": "The Symphonies – Bamberger Symphoniker, Jakub Hrůša",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-martinu-the-symphonies-bamberger-symphoniker-jakub-hrusa/",
+    "source": "The Classic Review",
+    "pub_date": "Thu, 14 May 2026 07:22:30 +0000",
+    "tags": [
+      "classical",
+      "contemporary"
+    ],
+    "excerpt": "Jakub Hrůša and the Bamberger Symphoniker play Bohuslav Martinů's six symphonies. The post Review: Martinů – The Symphonies – Bamberger Symphoniker, Jakub Hrůša first appeared on The Classic Review .",
+    "site_id": "theclassicreview",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Top Five – Fauré – Requiem – The Best Recordings",
+    "artist": "",
+    "score": null,
+    "url": "https://theclassicreview.com/best-of/top-five-faure-requiem-the-best-recordings/",
+    "source": "The Classic Review",
+    "pub_date": "Wed, 13 May 2026 08:22:40 +0000",
+    "tags": [
+      "classical",
+      "contemporary"
+    ],
+    "excerpt": "The Classic Review editorial team's recommendations for the best recordings of Fauré's Requiem. The post Top Five – Fauré – Requiem – The Best Recordings first appeared on The Classic Review .",
+    "site_id": "theclassicreview",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]
