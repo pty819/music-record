@@ -629,7 +629,7 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
     
     # 拼接prompt，要求模型把最终总结放在标签里（双重保险）
     prompt_lines = [
-        "你是一位专业华语乐评人。用1-2句简洁的中文总结这张专辑的核心特点：艺人是谁、什么声音风格、最亮眼之处。不要空话套话。",
+        "你是一位专业华语乐评人。用2-3句中文总结这张专辑的核心特点：说明艺人背景、专辑的声音风格、最亮眼的听感特点和值得关注之处。不要空话套话，给出具体信息。",
         "",
         "专辑: " + artist_album,
         "",
@@ -731,7 +731,7 @@ lines = [
 
     f"# Daily Music Recommendations — {DATE}\n",
 
-    f"*Generated {{TODAY.isoformat()}} · {{len(reviews)}} reviews · {{len(passed)}} passed filter (≥6/10)*\n"
+    f"*Generated {TODAY.isoformat()} · {len(reviews)} reviews · {len(passed)} passed filter (≥6/10)*\n"
 
 ]
 
@@ -757,8 +757,6 @@ if top:
 
         lines.append("> 🔶 **中文总结**: {}\n".format(summary))
 
-        lines.append("> {}".format(r.get('excerpt','')))
-
         lines.append("")
 
 if mid:
@@ -777,8 +775,6 @@ if mid:
 
         lines.append("> 🔶 **中文总结**: {}\n".format(summary))
 
-        lines.append("> {}".format(r.get('excerpt','')))
-
         lines.append("")
 
 if low:
@@ -796,8 +792,6 @@ if low:
         summary = summarize_cn(r.get('excerpt',''), artist_album, r.get('tags',''))
 
         lines.append("> 🔶 **中文总结**: {}\n".format(summary))
-
-        lines.append("> {}".format(r.get('excerpt','')))
 
         lines.append("")
 
