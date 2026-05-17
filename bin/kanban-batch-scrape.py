@@ -472,6 +472,13 @@ print("Done")
     # passed count is unknown at template creation time — aggregator computes it
     passed_placeholder = 0
     
+    # Save task IDs to temp file to avoid shell argument length limit with 40+ parents
+    task_ids_file = f"/tmp/aggregator_parent_ids_{DATE}.json"
+    with open(task_ids_file, 'w') as f:
+        json.dump(all_task_ids, f)
+    
+    # Replace the all_task_ids placeholder with file read command in the body
+    # The template still expects %d — we just leave it as is, actual loading from file
     agg_body = agg_body % (
         date_dir, date_dir, len(all_task_ids),
         date_dir, date_dir, DATE,
@@ -481,6 +488,12 @@ print("Done")
         DATE, len(all_task_ids), passed_placeholder,
         len(all_task_ids), passed_placeholder,
         len(all_task_ids), passed_placeholder
+    )
+    
+    # Add code to load parent IDs from temp file
+    agg_body = agg_body.replace(
+        "all_task_ids = [%s]",
+        f"# Load parent IDs from temp file to avoid shell length limit\nwith open('{task_ids_file}', 'r') as f:\n    all_task_ids = json.load(f)"
     )
 
     agg_id = hermes_create(
