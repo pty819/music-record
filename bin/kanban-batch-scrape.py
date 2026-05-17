@@ -349,7 +349,7 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.7,
-        "max_tokens": 1000
+        "max_tokens": 30000
     }
     
     try:
