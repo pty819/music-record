@@ -325,7 +325,7 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
     if len(text) > 1000:
         text = text[:1000] + "..."
     
-    # 拼接prompt，避免全角标点语法问题
+    # 拼接prompt，要求模型把最终总结放在固定标签里，方便精准提取
     prompt_lines = [
         "你是一位专业华语乐评人。用1-2句简洁的中文总结这张专辑的核心特点：艺人是谁、什么声音风格、最亮眼之处。不要空话套话。",
         "",
@@ -334,7 +334,7 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
         "英文原文:",
         text,
         "",
-        "中文总结(1-2句): "
+        "请将最终的中文总结放在<summary>和</summary>标签之间，方便程序提取。"
     ]
     prompt = "\n".join(prompt_lines)
     
@@ -362,6 +362,10 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
             # Strip <think>...</think> thinking block from MiniMax output
             import re
             result = re.sub(r'<think>.*?</think>', '', result, flags=re.DOTALL)
+            # Extract content from <summary>...</summary> for 100% accurate extraction
+            match = re.search(r'<summary>(.*?)</summary>', result, flags=re.DOTALL)
+            if match:
+                result = match.group(1)
             return result.strip()
         else:
             # fallback: 用原来的关键词方法
