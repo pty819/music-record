@@ -359,6 +359,9 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
             resp = json.load(f)
         result = resp.get("choices", [{}])[0].get("message", {}).get("content", "")
         if result:
+            # Strip <think>...</think> thinking block from MiniMax output
+            import re
+            result = re.sub(r'<think>.*?</think>', '', result, flags=re.DOTALL)
             return result.strip()
         else:
             # fallback: 用原来的关键词方法
