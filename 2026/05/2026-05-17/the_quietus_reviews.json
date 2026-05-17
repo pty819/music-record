@@ -1,11 +1,11 @@
 [
   {
     "album": "The Eighteenth Day Of May",
-    "artist": "Reissue of the Week",
+    "artist": "John Doran",
     "score": null,
     "url": "https://thequietus.com/quietus-reviews/reissue-of-the-week/the-eighteenth-day-of-may-album-review/",
     "source": "The Quietus",
-    "pub_date": "Fri 15 May",
+    "pub_date": "2026-05-15",
     "tags": [
       "experimental",
       "electronic",
@@ -15,11 +15,10 @@
       "prog",
       "free-improv"
     ],
-    "excerpt": "Reviews Reissue of the Week Reissue of the Week: The Eighteenth Day Of May Read later The Eighteenth Day Of May’s singular self-titled album remains timeless and enchanting, says Will Salmon Will Salmon Published 8:30am 15 May 2026 The Eighteenth Day of May by The Eighteenth Day of May You might not recall The Eighteenth Day Of May, but if you&#8217;re a regular reader of The Quietus then there&#8217;s a strong chance that you&#8217;ll know at least one of the projects that rose from the ashes...",
+    "excerpt": "The Eighteenth Day Of May’s singular self-titled album remains timeless and enchanting, says Will Salmon The Eighteenth Day of May by The Eighteenth Day of May You might not recall The Eighteenth Day Of May, but if you're a regular reader of The Quietus then there's a strong chance that you'll know at least one of the projects that rose from the ashes of this short-lived, but quietly influential psych folk sextet. The band formed in London in 2003, initially as a trio: vocalist Allison Brice,...",
     "site_id": "the_quietus",
     "crawl_status": "scraped",
-    "type": "review",
-    "reviewer": "Will Salmon"
+    "type": "review"
   },
   {
     "album": "Walkman",
@@ -27,7 +26,7 @@
     "score": null,
     "url": "https://thequietus.com/quietus-reviews/speedy-j-walkman-review/",
     "source": "The Quietus",
-    "pub_date": "Fri 15 May",
+    "pub_date": "2026-05-15",
     "tags": [
       "experimental",
       "electronic",
@@ -37,19 +36,18 @@
       "prog",
       "free-improv"
     ],
-    "excerpt": "Reviews Speedy J Walkman Read later Dutch producer Jochem Paap's first album in two decades is a proud ripose to the vicissitudes of the algorithm, finds Jeremy Allen Jeremy Allen Published 6:00am 15 May 2026 Walkman by Speedy J With more than 43 million songs uploaded to streaming services every year, how does one avert overload fatigue from the sheer mass of new music? It’s a modern reality that the Dutch music producer Jochem Paap has been wrestling with, with Walkman his first solo release...",
+    "excerpt": "Speedy J Walkman Dutch producer Jochem Paap's first album in two decades is a proud ripose to the vicissitudes of the algorithm, finds Jeremy Allen Walkman by Speedy J With more than 43 million songs uploaded to streaming services every year, how does one avert overload fatigue from the sheer mass of new music? It’s a modern reality that the Dutch music producer Jochem Paap has been wrestling with, with Walkman his first solo release in twenty years. The name of this record harks back to the...",
     "site_id": "the_quietus",
     "crawl_status": "scraped",
-    "type": "review",
-    "reviewer": "Jeremy Allen"
+    "type": "review"
   },
   {
-    "album": "Sam Hoyek&#8217;s Demonstration 01: Anomalous",
-    "artist": "Shatterproof",
+    "album": "Shatterproof: Sam Hoyek's Demonstration 01: Anomalous",
+    "artist": "Robert Barry",
     "score": null,
     "url": "https://thequietus.com/quietus-reviews/album-of-the-week/shatterproof-demonstration-01-anomalous-by-sam-hoyek/",
     "source": "The Quietus",
-    "pub_date": "Thu 14 May",
+    "pub_date": "2026-05-14",
     "tags": [
       "experimental",
       "electronic",
@@ -59,11 +57,10 @@
       "prog",
       "free-improv"
     ],
-    "excerpt": "Reviews Album of the Week Shatterproof: Sam Hoyek&#8217;s Demonstration 01: Anomalous Read later An album of sonic and metaphysical skirmishes from the Syrian-born, Montreal-based experimental musician Jon Buckland Published 9:27am 14 May 2026 For Sam Hoyek, the decentralised songs on Demonstration 01: Anomalous are inflicted by sounds which seem to transgress interior/exterior borderlands. They creep in from outside. There’s a porous sense of exchange. Of ideas lost and gained. Of sounds...",
+    "excerpt": "An album of sonic and metaphysical skirmishes from the Syrian-born, Montreal-based experimental musician For Sam Hoyek, the decentralised songs on Demonstration 01: Anomalous are inflicted by sounds which seem to transgress interior/exterior borderlands. They creep in from outside. There’s a porous sense of exchange. Of ideas lost and gained. Of sounds encroaching on a destabilised core before dissipating away. The result is a constantly shifting record which rattles through styles and genres...",
     "site_id": "the_quietus",
     "crawl_status": "scraped",
-    "type": "review",
-    "reviewer": "Jon Buckland"
+    "type": "feature"
   },
   {
     "album": "Pre-Historic Metal",
@@ -71,7 +68,7 @@
     "score": null,
     "url": "https://thequietus.com/quietus-reviews/darkthrone-pre-historic-metal-review/",
     "source": "The Quietus",
-    "pub_date": "Thu 14 May",
+    "pub_date": "2026-05-14",
     "tags": [
       "experimental",
       "electronic",
@@ -81,10 +78,9 @@
       "prog",
       "free-improv"
     ],
-    "excerpt": "Reviews Darkthrone Pre-Historic Metal Read later Fenriz and Nocturno Culto emerge from their respective dark corners for their 23rd album together – and it may be their freshest yet, finds Kez Whelan Kez Whelan Published 6:00am 14 May 2026 Pre- Historic metal by Darkthrone There’s something oddly cosy about the release of a new Darkthrone album in this day and age. Whilst their immediate peers find themselves clutching at relevancy, either smothered by the controversies they courted in their...",
+    "excerpt": "Darkthrone Pre-Historic Metal Fenriz and Nocturno Culto emerge from their respective dark corners for their 23rd album together – and it may be their freshest yet, finds Kez Whelan Pre- Historic metal by Darkthrone There’s something oddly cosy about the release of a new Darkthrone album in this day and age. Whilst their immediate peers find themselves clutching at relevancy, either smothered by the controversies they courted in their youth or, conversely, coasting on former glories and...",
     "site_id": "the_quietus",
     "crawl_status": "scraped",
-    "type": "review",
-    "reviewer": "Kez Whelan"
+    "type": "review"
   }
 ]

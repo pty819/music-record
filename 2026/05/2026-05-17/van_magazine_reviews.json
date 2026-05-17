@@ -1,0 +1,41 @@
+[
+  {
+    "album": "The Impossible Task",
+    "artist": "",
+    "score": null,
+    "url": "https://van-magazine.com/mag/goliath-elegy-venice-biennale/",
+    "source": "VAN Magazine",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "classical",
+      "contemporary classical",
+      "criticism",
+      "New in VAN",
+      "Review"
+    ],
+    "excerpt": "This year’s Venice Biennale of Art is titled “In Minor Keys,” a curatorial vision proposed by the late Koyo Kouoh, who died a year before the Biennale opened last week. The theme asks us to take a deep breath, close our eyes, and listen for the music that continues in the face of repression, tragedy, [&hellip;]",
+    "site_id": "van_magazine",
+    "crawl_status": "paywalled",
+    "type": "review"
+  },
+  {
+    "album": "“The Music Still Has to Go On”",
+    "artist": "Interview; New in VAN; Composers",
+    "score": null,
+    "url": "https://van-magazine.com/mag/carlos-simon/",
+    "source": "VAN Magazine",
+    "pub_date": "2026-05-14",
+    "tags": [
+      "classical",
+      "contemporary classical",
+      "criticism",
+      "Interview",
+      "New in VAN",
+      "Composers"
+    ],
+    "excerpt": "Like few others, the composer Carlos Simon’s artistic work has been subject to the changing political winds at the Kennedy Center. He came to the institution in 2021 as part of an industry-wide reckoning with legacies of racism. He will leave amid unprecedented turmoil and with the Center itself closed for Trumpian renovations. We spoke [&hellip;]",
+    "site_id": "van_magazine",
+    "crawl_status": "paywalled",
+    "type": "feature"
+  }
+]

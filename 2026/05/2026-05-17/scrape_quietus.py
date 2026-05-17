@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The Quietus scraper - full implementation
+The Quietus scraper - final version
 RSS: https://thequietus.com/columns/quietus-reviews/feed/
 """
 import subprocess, re, json
@@ -12,7 +12,7 @@ CUTOFF_DAYS = 3
 TAGS = ['experimental', 'electronic', 'jazz', 'world', 'psych', 'prog', 'free-improv']
 SITE_ID = 'the_quietus'
 
-def get_page_via_curl(url):
+def curl(url):
     result = subprocess.run([
         'curl', '-s', '--max-time', '20', '-L', '-A',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -21,9 +21,8 @@ def get_page_via_curl(url):
     return result.stdout
 
 def parse_date(date_str):
-    """Parse RFC 2822 date like 'Mon, 16 May 2026 00:00:00 +0000'"""
     date_str = date_str.strip()
-    for fmt in ['%a, %d %b %Y %H:%M:%S %z', '%d %b %Y', '%Y-%m-%d']:
+    for fmt in ['%a, %d %b %Y %H:%M:%S %z', '%d %b %Y']:
         try:
             return datetime.strptime(date_str, fmt)
         except:
@@ -31,176 +30,164 @@ def parse_date(date_str):
     return None
 
 def strip_html(text):
-    """Remove HTML tags from text"""
     text = re.sub(r'<[^>]+>', ' ', text)
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
-def extract_score_from_text(text):
-    """Look for a score pattern like 8/10, 7.5, etc."""
-    m = re.search(r'(\d+(?:\.\d+)?)\s*/\s*10', text)
+def extract_pub_date_from_article(html):
+    m = re.search(r'Published\s+\d{1,2}:\d{2}(?:am|pm)?\s+(\d{1,2})\s+(\w+)\s+(\d{4})', html, re.IGNORECASE)
     if m:
-        return float(m.group(1))
-    # Look for "X out of 10"
-    m = re.search(r'(\d+(?:\.\d+)?)\s*(?:out of\s*)?10', text)
-    if m:
-        return float(m.group(1))
+        day, month_name, year = m.groups()
+        month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+                     'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12,
+                     'January': 1, 'February': 2, 'March': 3, 'April': 4, 'June': 6,
+                     'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12}
+        if month_name in month_map:
+            return f"{year}-{month_map[month_name]:02d}-{int(day):02d}"
     return None
 
 def parse_review_title(title):
-    """Parse 'Artist - Album Name' or similar patterns.
-    Returns (artist, album) or (None, title) for features.
     """
-    # Common patterns: "Artist – Album Name" or "Artist - Album Name"
+    Parse title into (artist, album, type).
+    
+    Formats:
+    - "Artist – Album" or "Artist - Album" -> artist, album, 'review'
+    - "Album of the Week: Artist – Album" -> artist, album, 'review' 
+    - "Album of the Week: Some Album Name" (no artist split) -> album, reviewer (from context), 'feature'
+    - "Reissue of the Week: The Eighteenth Day Of May" -> band name is the album name; title is album; type=review
+    - "Shatterproof: Sam Hoyek's Demonstration 01: Anomalous" -> artist=Shatterproof (band), album="Sam Hoyek's...", type=review
+    """
+    title = title.replace('&#8217;', "'").replace('&#038;', '&').replace('&#8211;', '–')
+    
+    # Try standard "Artist – Album" or "Artist - Album"
     m = re.match(r'^(.+?)\s*[-–]\s*(.+)$', title)
     if m:
-        return m.group(1).strip(), m.group(2).strip()
+        return m.group(1).strip(), m.group(2).strip(), 'review'
     
-    # Split on colon first
-    if ':' in title:
-        parts = title.split(':', 1)
-        return parts[0].strip(), parts[1].strip()
+    # Handle "Album of the Week: Artist – Album"
+    for prefix in ['Album of the Week: ', 'Reissue of the Week: ', 'Track Review: ', 'Live Album of the Week: ']:
+        if title.startswith(prefix):
+            rest = title[len(prefix):]
+            m = re.match(r'^(.+?)\s*[-–]\s*(.+)$', rest)
+            if m:
+                return m.group(1).strip(), m.group(2).strip(), 'review'
+            # No "Artist – Album" split found inside
+            # For reissues/featured items, use title as-is but try to split on colons
+            # "Shatterproof: Sam Hoyek's Demonstration..." - first part is the band name
+            parts = rest.split(': ', 1)
+            if len(parts) == 2:
+                return parts[0].strip(), parts[1].strip(), 'review'
+            return None, rest.strip(), 'review'
     
-    return None, title
+    return None, title, 'feature'
 
-# Fetch RSS feed
-rss_text = get_page_via_curl(RSS_URL)
-print(f"RSS response length: {len(rss_text)}")
+def extract_score_from_html(html_text):
+    patterns = [r'<[^>]+class="[^"]*score[^"]*"[^>]*>(\d+(?:\.\d+)?)</[^>]+>']
+    for p in patterns:
+        m = re.search(p, html_text, re.IGNORECASE)
+        if m:
+            score = float(m.group(1))
+            if 0 <= score <= 10:
+                return score
+    return None
 
+# Fetch RSS
+rss_text = curl(RSS_URL)
 items_xml = re.findall(r'<item>(.*?)</item>', rss_text, re.DOTALL)
 print(f"Total RSS items: {len(items_xml)}")
 
 now = datetime.now()
 cutoff = now - timedelta(days=CUTOFF_DAYS)
 print(f"Cutoff: {cutoff}")
-print(f"Current time: {now}")
-
-# Non-music keywords to filter
-NON_MUSIC_KEYWORDS = ['BLU-RAY', 'BLU RAY', 'UHD', 'VOD', 'DVD', 'VIDEO', 'FILM', 'DOCUMENTARY', 'PODCAST', 'TV', 'SERIES']
 
 results = []
 
 for item in items_xml:
-    # Extract fields
     title_cdata = re.findall(r'<title><!\[CDATA\[(.*?)\]\]></title>', item)
     title_plain = re.findall(r'<title>(.*?)</title>', item)
-    title = title_cdata[0] if title_cdata else (title_plain[0] if title_plain else '')
+    title = (title_cdata or title_plain)[0] if (title_cdata or title_plain) else ''
+    title = title.replace('&#8217;', "'").replace('&#038;', '&').replace('&#8211;', '–')
     
     link = re.findall(r'<link>(.*?)</link>', item)
-    link = link[0] if link else ''
-    link = re.sub(r'\?utm_source=rss.*', '', link)
+    link = re.sub(r'\?utm_source=rss.*', '', (link[0] if link else ''))
     
     pub_date_str = re.findall(r'<pubDate>(.*?)</pubDate>', item)
     pub_date_parsed = parse_date(pub_date_str[0]) if pub_date_str else None
     
-    # Description in CDATA - this has the full review text per the task spec
     desc_cdata = re.findall(r'<description><!\[CDATA\[(.*?)\]\]></description>', item, re.DOTALL)
-    desc_html = desc_cdata[0] if desc_cdata else ''
     desc_text = strip_html(desc_cdata[0] if desc_cdata else '')
     
-    # content:encoded has full HTML
-    content_cdata = re.findall(r'<content:encoded><!\[CDATA\[(.*?)\]\]></content:encoded>', item, re.DOTALL)
-    content_html = content_cdata[0] if content_cdata else ''
+    author_cdata = re.findall(r'<dc:creator><!\[CDATA\[(.*?)\]\]></dc:creator>', item)
+    author_plain = re.findall(r'<author>(.*?)</author>', item)
+    author_str = (author_cdata or author_plain)[0].strip() if (author_cdata or author_plain) else ''
     
-    # Get author/reviewer
-    author = re.findall(r'<dc:creator><!\[CDATA\[(.*?)\]\]></dc:creator>', item)
-    if not author:
-        author = re.findall(r'<author>(.*?)</author>', item)
-    author = author[0] if author else ''
-    
-    # Get category
-    category = re.findall(r'<category[^>]*><!\[CDATA\[(.*?)\]\]></category>', item)
-    category = category[0] if category else ''
-    
-    # Check pubDate
-    pub_dt = pub_date_parsed
-    if pub_dt is None:
+    if pub_date_parsed is None:
         print(f"  SKIP (no date): {title[:60]}")
         continue
     
-    # Remove timezone for comparison
-    if pub_dt.tzinfo is not None:
-        pub_dt_naive = pub_dt.replace(tzinfo=None)
-    else:
-        pub_dt_naive = pub_dt
+    pub_dt_naive = pub_date_parsed.replace(tzinfo=None) if pub_date_parsed.tzinfo else pub_date_parsed
     
-    # Check if within cutoff
     if pub_dt_naive < cutoff:
         print(f"  SKIP (too old {pub_dt_naive.strftime('%Y-%m-%d')}): {title[:60]}")
         continue
     
-    print(f"\n  PROCESS: {title[:80]}")
-    print(f"    Date: {pub_dt}")
-    print(f"    Author: {author}")
-    print(f"    Category: {category}")
+    # Non-music filter
+    skip = False
+    for kw in ['BLU-RAY', 'BLU RAY', 'UHD', 'VOD', 'DVD ', 'VIDEO ', 'FILM', 'DOCUMENTARY', 'PODCAST', 'TV SHOW', 'SERIES']:
+        if kw in title.upper():
+            print(f"  SKIP (non-music '{kw}'): {title[:60]}")
+            skip = True
+            break
+    if skip:
+        continue
     
-    # Use description as excerpt (strip HTML, first 500 chars)
-    excerpt = desc_text[:500] if desc_text else ''
+    # Parse artist/album
+    artist, album, art_type = parse_review_title(title)
+    
+    # Get pub_date from article page if available (more precise)
+    pub_date_str_out = None
+    if link:
+        article_html = curl(link)
+        pub_date_str_out = extract_pub_date_from_article(article_html)
+    
+    if not pub_date_str_out:
+        pub_date_str_out = pub_dt_naive.strftime('%Y-%m-%d')
+    
+    # Excerpt from description
+    excerpt = desc_text[:500]
     if len(desc_text) > 500:
         excerpt = excerpt.rsplit(' ', 1)[0] + '...'
     
-    # Try to extract artist/album from title
-    artist, album = parse_review_title(title)
+    # Final artist: if None (feature), use author/reviewer as artist
+    final_artist = artist if artist else author_str
     
-    # Determine if this is a traditional review or feature
-    # Check if it's a traditional album review format
-    is_feature = False
-    if artist is None:
-        is_feature = True
-    
-    # Check for non-music content
-    upper_title = title.upper()
-    for kw in NON_MUSIC_KEYWORDS:
-        if kw in upper_title:
-            print(f"    SKIP (non-music keyword '{kw}'): {title[:60]}")
-            is_feature = True  # Will be treated as feature, but we'll skip scoring
-            break
-    
-    # If it's a feature type (interview, essay, etc.), set type=feature
-    feature_indicators = ['interview', 'essay', 'opinion', 'column', 'feature', 'playlist', 'digest', 'round-up', 'best of', 'top ']
-    for indicator in feature_indicators:
-        if indicator in title.lower():
-            is_feature = True
-            break
-    
-    # Also check if the article URL contains feature-like paths
-    if '/feature/' in link or '/interview/' in link or '/opinion/' in link or '/playlist/' in link:
-        is_feature = True
-    
-    # Extract score
-    score = None
-    if not is_feature:
-        # Look for score in description
-        score = extract_score_from_text(desc_text)
-        if score is None:
-            score = extract_score_from_text(content_html)
-    
-    # Build result
     entry = {
-        "album": album if not is_feature else title,
-        "artist": artist if not is_feature else (category or ''),
-        "score": score,
+        "album": album,
+        "artist": final_artist,
+        "score": None,
         "url": link,
         "source": "The Quietus",
-        "pub_date": pub_dt.strftime('%Y-%m-%d') if pub_dt else None,
+        "pub_date": pub_date_str_out,
         "tags": TAGS,
         "excerpt": excerpt,
         "site_id": SITE_ID,
         "crawl_status": "scraped",
-        "type": "feature" if is_feature else "review"
+        "type": art_type
     }
     
-    print(f"    Type: {entry['type']}, Score: {score}, Artist: {artist}, Album: {album}")
-    print(f"    Excerpt (first 100): {excerpt[:100]}")
-    
+    print(f"  OK [{art_type}] artist={final_artist} | album={album[:40]} | date={pub_date_str_out}")
     results.append(entry)
 
-print(f"\n\n=== SUMMARY ===")
-print(f"Total items in 3-day window: {len(results)}")
+print(f"\n=== SUMMARY ===")
+print(f"Total: {len(results)} items")
 print(f"Reviews: {sum(1 for r in results if r['type']=='review')}")
 print(f"Features: {sum(1 for r in results if r['type']=='feature')}")
 
-# Write output
 with open(OUTPUT_FILE, 'w') as f:
     json.dump(results, f, indent=2, ensure_ascii=False)
-print(f"\nWritten to {OUTPUT_FILE}")
+print(f"Written to {OUTPUT_FILE}")
+
+# Verify
+with open(OUTPUT_FILE) as f:
+    verify = json.load(f)
+print(f"Verified: {len(verify)} items")
