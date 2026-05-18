@@ -1,0 +1,41 @@
+[
+  {
+    "album": "L'oreille Voleuse",
+    "artist": "Brunhild Ferrari, Eiko Ishibashi, Jim O'Rourke",
+    "score": 5,
+    "url": "https://www.musiquemachine.com/reviews/brunhild-ferrari-eiko-ishibashi-jim-o-rourke-l-oreille-voleuse-1778912428443",
+    "source": "musique_machine",
+    "pub_date": "2026-05-16",
+    "tags": ["dark ambient", "industrial", "electroacoustic"],
+    "excerpt": "Curated and archived by Ferrari's widow and former GRM alum, Brunhild, the single 20-minute piece is a perambulatory landscape filled with spectres and disembodied voices, punctuated by thunder and a giant gong at the outset. There is an unmistakable forward thrust to the work, aptly called \"the thieving ear\", which references the structural modus operandi while also paying homage to the blueprint of Ferrari's most recognized achievement: Presque rien (1967-70).",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "The Grapes Of Death",
+    "artist": "The Grapes Of Death",
+    "score": 4,
+    "url": "https://www.musiquemachine.com/reviews/the-grapes-of-death-the-grapes-of-death-uhd-blu-ray-1778836299590",
+    "source": "musique_machine",
+    "pub_date": "2026-05-15",
+    "tags": ["dark ambient", "industrial", "electroacoustic"],
+    "excerpt": "French director Jean Rollin is most known for his eerier, erotic and darkly surreal vampire films, such as The Shiver Of Vampires (1971), Lips Of Blood (1975), and Fasciation (1979). Though he did helm a few non-vampiric creations, and one of the most effective/ rewarding of these is The Grapes Of Death. It regards pesticides that are altering the residents of a small rural village- it blends body horror, zombies, folk horror with a keen sense of paranoia and unease throughout, with some moments of brutal gore. Here from Powerhouse, as part of their series of reissues of Rollin's Back catalogue.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Killer on the Air",
+    "artist": "Killer on the Air",
+    "score": 4,
+    "url": "https://www.musiquemachine.com/reviews/killer-on-the-air-killer-on-the-air-vod-1778833419692",
+    "source": "musique_machine",
+    "pub_date": "2026-05-15",
+    "tags": ["dark ambient", "industrial", "electroacoustic"],
+    "excerpt": "Killer on the Air (2025) is a psychological thriller directed by Haylie Duff (Danger in the Countryside) and produced by Hybrid and Cartel Pictures. The film follows Sarah Williams (Jessica Morris, One Life to Live), a closed-off psychologist turned late-night radio host who receives a chilling on-air call during her broadcast. A man claims that a murder will occur by the end of her shift, forcing Sarah into a race against time to uncover his identity and motive before it's too late.",
+    "site_id": "musique_machine",
+    "crawl_status": "paywall",
+    "type": "review"
+  }
+]

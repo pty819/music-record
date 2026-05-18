@@ -1,0 +1,67 @@
+[
+  {
+    "album": "INERT (Embassy One)",
+    "artist": "Janus Rasmussen",
+    "score": null,
+    "url": "https://igloomag.com/reviews/janus-rasmussen-inert-embassy-one",
+    "source": "igloomag.com",
+    "pub_date": "Sun, 17 May 2026 17:42:51 +0000",
+    "tags": "experimental electronic, IDM, ambient, glitch, electroacoustic",
+    "excerpt": "Rasmussen incorporates his own vocals more than ever, weaving them seamlessly into intricate electronic textures as he expands his sound into new territory while retaining the subtle restraint that has defined his work.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "The Sanctity of Rust (Spotted Peccary Music)",
+    "artist": "Hollan Holmes",
+    "score": null,
+    "url": "https://igloomag.com/features/hollan-holmes-the-sanctity-of-rust-spotted-peccary-music",
+    "source": "igloomag.com",
+    "pub_date": "Sun, 17 May 2026 17:16:04 +0000",
+    "tags": "experimental electronic, IDM, ambient, glitch, electroacoustic",
+    "excerpt": "Hollan Holmes delivers a conceptual ambient-electronic album that energizes beauty, while considering decay, aging, and the passage of time. This could act in a sonic parallel to Holmes' visual art, celebrating the unconventional elegance of oxidation and endurance.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "",
+    "artist": "Manja Ristić",
+    "score": null,
+    "url": "https://igloomag.com/profiles/interlude-2-manja-ristic",
+    "source": "igloomag.com",
+    "pub_date": "Sat, 16 May 2026 03:56:55 +0000",
+    "tags": "experimental electronic, IDM, ambient, glitch, electroacoustic",
+    "excerpt": "The second Interlude episode of the series invites critically acclaimed Serbian violinist, sound artist, poet and researcher Manja Ristić. Her work offers a much-needed opening …",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "NORD Compendium (Spinal Constellation)",
+    "artist": "Burial Grid",
+    "score": null,
+    "url": "https://igloomag.com/reviews/burial-grid-nord-compendium",
+    "source": "igloomag.com",
+    "pub_date": "Sat, 16 May 2026 02:51:50 +0000",
+    "tags": "experimental electronic, IDM, ambient, glitch, electroacoustic",
+    "excerpt": "Burial Grid (Adam Michael Kozak) has long occupied a fascinating space within the darker fringes of experimental electronic music, blending industrial grit, ambient decay, rhythmic abstraction, and noise-driven architecture into something uniquely cinematic and emotionally charged. With NORD Compendium, that vision feels sharpened to its most raw and unforgiving form.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Wabi-Sabi (Cyclical Dreams)",
+    "artist": "Yakuza Jacuzzi",
+    "score": null,
+    "url": "https://igloomag.com/reviews/yakuza-jacuzzi-wabi-sabi-cyclical-dreams",
+    "source": "igloomag.com",
+    "pub_date": "Sat, 16 May 2026 02:16:15 +0000",
+    "tags": "experimental electronic, IDM, ambient, glitch, electroacoustic",
+    "excerpt": "A nicely refined journey blending somewhat-synthwave textures, known organic tones, and subtle and assured rhythmology, balancing with craft atmospheres of intention with a known exploratory …",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

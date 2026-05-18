@@ -1,0 +1,20 @@
+{
+  "site_id": "downbeat",
+  "crawl_status": "success",
+  "items": [],
+  "meta": {
+    "site": "downbeat",
+    "count": 0,
+    "days_scanned": "3",
+    "pages_scanned": 1,
+    "method": "browser_headless",
+    "rss_available": false,
+    "findings": [
+      "No RSS feed found at /feed or /rss (404)",
+      "Page 1 article listing shows dates from January 2026 (e.g. Yuhan Su Published January 2026)",
+      "Today is May 18, 2026 - 3-day window is May 15-18, 2026",
+      "All visible articles are from January 2026 or earlier, far outside 3-day window",
+      "Per rule 5: stop immediately, no need to scan additional pages"
+    ]
+  }
+}

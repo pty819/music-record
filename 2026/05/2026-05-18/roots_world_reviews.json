@@ -1,0 +1,8 @@
+{
+  "crawl_status": "cloudflare_blocked",
+  "site": "roots_world",
+  "count": 0,
+  "days_scanned": "3",
+  "notes": "rootsworld.com/rw/ returns HTTP 403 Forbidden and Cloudflare bot verification. No RSS feed available (all RSS paths returned 404). Browser headless mode also blocked. Output empty array per task item 6.",
+  "items": []
+}
