@@ -1,0 +1,28 @@
+{
+  "site": "rhythm_passport",
+  "crawl_date": "2026-05-19",
+  "count": 1,
+  "window": "3_days",
+  "items": [
+    {
+      "album": "Africa Oyé 2026 @ Sefton Park (Liverpool; Saturday 20th & Sunday 21st June 2026)",
+      "artist": "PREVIEWS",
+      "score": null,
+      "url": "https://rhythmpassport.com/event-preview-africa-oye-2026/",
+      "source": "rhythm_passport",
+      "pub_date": "2026-05-18",
+      "tags": [
+        "Featured",
+        "Previews",
+        "Africa Oyé",
+        "African Music",
+        "Afro-Caribbean",
+        "Afrobeat"
+      ],
+      "excerpt": "Africa Oyé returns to Sefton Park on 20 and 21 June, and Liverpool gets it back after a fallow year in 2025. The UK's largest African and Caribbean music festival, which drew over 80,000 people to its last edition in 2024, returns with a bill that spans Lagos, Bamako, Kinshasa, Maputo, Accra and Port of Spain across two days.",
+      "site_id": "rhythm_passport",
+      "crawl_status": "success",
+      "type": "feature"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "site": "worldmusiccentral",
+  "cloudflare_blocked": true,
+  "count": 0,
+  "days_scanned": "3",
+  "method": "rss_feed_available_but_article_pages_cloudflare_blocked",
+  "rss_entries_in_window": 5,
+  "articles": []
+}
