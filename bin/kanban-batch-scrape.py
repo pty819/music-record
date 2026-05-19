@@ -228,7 +228,7 @@ URL：{url}
 
    🔸 许多站的 RSS 在 <description> CDATA 字段有完整正文（如 The Wire）。用 feedparser 的 summary 字段获取全文，strip HTML 后取前 500 字填入 excerpt。如果没有正文仅摘要则用摘要。
 
-2. 如果没有 RSS：用 browser_navigate headless 访问 reviews_url，只浏览列表页前 2 页，筛选 3 天内的文章
+2. 如果没有 RSS：用 browser_navigate headless（通过 Camoufox 反检测引擎自动路由，非 vanilla Playwright）访问 reviews_url，只浏览列表页前 2 页，筛选 3 天内的文章
 
 3. **Cookie 墙处理**（所有站点必须执行）：
 

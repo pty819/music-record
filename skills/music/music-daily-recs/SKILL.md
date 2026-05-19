@@ -49,8 +49,10 @@ Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/{YYYY-MM-DD}/`，即直接�
 - **skip**（Syrphe / Textura / Fluid Radio）：已知无法访问或仅历史存档，跳过。sites.json 中 `crawl_strategy: "skip"`
 - **Boomkat**：原 ASN 黑名单 skip，**2026-05-19 重新验证：Camoufox fingerprint 可绕过 Cloudflare ASN 封锁** ✅ 已恢复为 `playwright_headless`
 - **RSS 优先组**（~21 站）：feedparser 直接解析，**只取 3 天内条目**，超期停止翻页
-- **Playwright 组**（~23 站）：browser_navigate headless + stealth，**只浏览列表页前 2 页**，筛选 3 天内文章，超期停止
+- **Camoufox 浏览器组**（~23 站，原 Playwright 组）：全量通过 Camoufox 反检测引擎驱动（详见下方配置段），browser_navigate 自动路由到 `localhost:9377` 的 Camoufox HTTP 服务器，非 vanilla Playwright。**只浏览列表页前 2 页**，筛选 3 天内文章，超期停止
 - **搜索降级组**：paywall/cloudflare 站降级到 web_search，同样限制 3 天
+
+**ⓘ 新 session 须知**：所有 `browser_navigate` / `browser_snapshot` / `browser_click` 调用自动通过 Camoufox 反检测引擎——由 `~/.hermes/config.yaml` 的 `browser.engine: auto` + `.env` 的 `CAMOFOX_URL` 路由，无需手动指定。Camoufox 服务器由 systemd 用户服务 `hermes-camoufox.service` 开机自启。
 
 ### Browser Configuration (Anti-blocking) — Python Camoufox Server + systemd
 
