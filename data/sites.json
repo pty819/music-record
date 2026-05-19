@@ -390,7 +390,7 @@
       "tier": "S",
       "crawl_frequency": "daily",
       "parser_hint": {
-        "notes": "需登录才能看完整评论。无 RSS。优先跳过，如果 Playwright 能绕过登录则用 headed 模式访问"
+        "notes": "需登录才能看完整评论。无 RSS。2026-05-19 Camoufox 已能绕过 CF ASN 封锁，现在走 playwright_headless 列表页抓取 metadata"
       },
       "tags": [
         "experimental",
@@ -399,8 +399,8 @@
         "ambient",
         "modern composition"
       ],
-      "notes": "ASN黑名单，整个IP段被Cloudflare封锁，已标记为skip",
-      "crawl_strategy": "skip",
+      "notes": "原ASN黑名单整段被Cloudflare封锁，Camoufox fingerprint 2026-05-19 实测可绕过",
+      "crawl_strategy": "playwright_headless",
       "skip_reason": "ASN黑名单，整个IP段被Cloudflare封锁",
       "startUrls": [
         "https://boomkat.com/"

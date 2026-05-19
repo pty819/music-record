@@ -5,9 +5,9 @@ cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git pu
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, kanban, fan-out]
 author: hermes-agent
-version: 3.0
+version: 3.1
 created: 2026-05-07
-updated: 2026-05-14
+updated: 2026-05-19
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
 ---
 
@@ -45,20 +45,54 @@ Step 3  cron agent 推送完整推荐 markdown 到 Telegram
 sites.json 在 `/home/liyifan/.minimax/music-sites/sites.json`（从 music-record repo 同步）
 Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/{YYYY-MM-DD}/`，即直接是 git 仓库路径
 
-共 46 个站点，其中 42 个活跃 + 4 个 skip：
-- **skip**（Boomkat / Syrphe / Textura / Fluid Radio）：已知无法访问或仅历史存档，跳过。sites.json 中 `crawl_strategy: "skip"`
+共 46 个站点，其中 43 个活跃 + 3 个 skip：
+- **skip**（Syrphe / Textura / Fluid Radio）：已知无法访问或仅历史存档，跳过。sites.json 中 `crawl_strategy: "skip"`
+- **Boomkat**：原 ASN 黑名单 skip，**2026-05-19 重新验证：Camoufox fingerprint 可绕过 Cloudflare ASN 封锁** ✅ 已恢复为 `playwright_headless`
 - **RSS 优先组**（~21 站）：feedparser 直接解析，**只取 3 天内条目**，超期停止翻页
-- **Playwright 组**（~22 站）：browser_navigate headless + stealth，**只浏览列表页前 2 页**，筛选 3 天内文章，超期停止
+- **Playwright 组**（~23 站）：browser_navigate headless + stealth，**只浏览列表页前 2 页**，筛选 3 天内文章，超期停止
 - **搜索降级组**：paywall/cloudflare 站降级到 web_search，同样限制 3 天
 
-### Browser Configuration (Anti-blocking)
-To bypass Cloudflare/anti-crawling detection, **Camoufox stealth fingerprint browser** is configured as the default Playwright engine in `~/.hermes/config.yaml`:
+### Browser Configuration (Anti-blocking) — Python Camoufox Server + systemd
+
+2026-05-19 重大更新：Camoufox 从 Node.js 包（`camoufox-js`）切换到 **Python 独立 HTTP 服务器 + 用户级 systemd 自启**。原 ARM64 上 `camoufox-js` 缺失原生模块不可用。新方案：
+
+**架构**：`~/camofox-browser/camoufox_server.py`（Python REST 服务，端口 9377）通过 systemd 用户服务自启。Hermes 配置为通过 `CAMOFOX_URL` 连接。
+
+**配置**：
 ```yaml
+# ~/.hermes/config.yaml
 browser:
-  engine: playwright
-  executable_path: /home/liyifan/.cache/camoufox/camoufox
+  engine: auto
+  camofox:
+    url: http://localhost:9377
 ```
-Camoufox provides better fingerprint stealth than default Playwright browsers, improving scraping success rate for protected sites.
+以及 `.env`：
+```
+CAMOFOX_URL=http://localhost:9377
+```
+
+**服务管理**：
+```bash
+systemctl --user enable hermes-camoufox.service   # 开机自启
+systemctl --user start hermes-camoufox.service     # 手动启动
+systemctl --user status hermes-camoufox.service    # 检查状态
+```
+
+Camoufox 提供比默认 Playwright 浏览器更好的 fingerprint stealth，显著提高对 Cloudflare 保护站点的抓取成功率。详见 `references/camoufox-configuration.md`。
+
+**已知限制**：
+- `browser_click` 通过 Camoufox 服务器时可能超时（30s timeout），可直接用 `browser_navigate` 替代
+- `browser_console` JavaScript 评估不受支持
+
+**2026-05-19 实测突破**：Camoufox Python 版成功绕过 **Boomkat** 的 Cloudflare ASN 黑名单（原标记 skip）。AAJ 和 RA 的详情页级 Cloudflare 保护仍不可绕过，但列表页可正常提取 metadata。
+
+**当前 Cloudflare 拦截汇总**：
+| 程度 | 站点 | 说明 |
+|------|------|------|
+| ❌ 整站 JS 挑战不可过 | ProgArchives | 靠 RSS 替代 |
+| ❌ 详情页 CF 403 | All About Jazz、Resident Advisor | 列表页 metadata 够用 |
+| ✅ 原 ASN 黑名单，现可过 | Boomkat | Camoufox fingerprint 绕过，已恢复 |
+| ✅ 偶发 paywall/CF，现更稳定 | The Quietus | Camoufox 提升成功率 |
 
 ### ⚠️ 新增站点：RSS 必须验证再提交
 
@@ -122,9 +156,9 @@ The Wire 有两大板块：
 - `references/all-about-jazz-site-config.md` — AAJ 列表页可访问但详情页 Cloudflare 保护，entry tag 匹配修复，评分处理
 - `references/tracklist-sources.md`
 
-### ⚠️ The Quietus — Playwright 可抓但有时崩溃
+### ⚠️ The Quietus — Camoufox 下更稳定
 
-The Quietus 有 paywall，但 `browser_navigate` 访问 `/columns/quietus-reviews/` 后，cookie 过期前可以抓取部分正文。如果 scraper 任务因 CF/paywall 崩溃：先 `kanban unblock` 再 `kanban reclaim`，不要直接归档。
+The Quietus 有 paywall，但 `browser_navigate` 访问 `/columns/quietus-reviews/` 后，cookie 过期前可以抓取部分正文。Camoufox Python 服务器版提供更好的 stealth，此站点抓取成功率有所提升。如果 scraper 任务仍因 CF/paywall 崩溃：先 `kanban unblock` 再 `kanban reclaim`，不要直接归档。
 
 ### ⚠️ Musique Machine — 电影/音乐混合，需过滤非音乐条目
 
@@ -132,9 +166,9 @@ The Quietus 有 paywall，但 `browser_navigate` 访问 `/columns/quietus-review
 
 详情见 `references/musique-machine-structure.md`。
 
-### ⚠️ All About Jazz (AAJ) — 详情页 Cloudflare 保护
+### ⚠️ All About Jazz (AAJ) — 详情页 Cloudflare 保护（2026-05-19 重新验证）
 
-AAJ 的 `/reviews` 列表页可正常访问（可提取 album、artist、tags、date），但单个 review 页面 `/review/{slug}` 有强 Cloudflare 保护，Camoufox 也无法绕过。RSS 全部返回 403。
+AAJ 的 `/reviews` 列表页可正常访问（可提取 album、artist、tags、date），但单个 review 页面 `/review/{slug}` 有强 Cloudflare 保护。**Camoufox Python 服务器版（2026-05-19）重新确认**：仍无法绕过。RSS 全部返回 403。
 
 **Scraper 行为**：从列表页提取元数据，excerpt 为空字符串。
 
@@ -142,7 +176,7 @@ AAJ 的 `/reviews` 列表页可正常访问（可提取 album、artist、tags、
 
 **已知限制**：
 - 无 excerpt → CQ=0，上限受站点基线约束
-- 条目标签全是站点级 tags ["jazz", "fusion", "avant-jazz", "world-jazz"]，不是条目级
+- 条目标签全是站点级 tags [\"jazz\", \"fusion\", \"avant-jazz\", \"world-jazz\"]，不是条目级
 - 用「All About Jazz 推荐（详情页受 Cloudflare 保护，无法提取原文）」替代中文总结
 - 详情见 `references/all-about-jazz-site-config.md`
 
@@ -158,6 +192,27 @@ AAJ 的 `/reviews` 列表页可正常访问（可提取 album、artist、tags、
 - `crawl_strategy`: `playwright_headless`（无 RSS）
 - `tier`: B
 - 详情见 `references/musique-machine-structure.md`
+
+### ⚠️ Resident Advisor (ra.co) — 电子/舞曲核心站，详情页 Cloudflare 保护
+
+RA 的 `/reviews` 列表页可正常访问（含内联简短 excerpt），但单个 review 详情页有 Cloudflare 403 保护。Camoufox Python 服务器版（2026-05-19 重新验证）：**详情页仍不可达**。
+
+**Scraper 行为**：从列表页提取 metadata + 内联 excerpt（约 20-50 字短语，如 "Ice-cold 808s from electro's new prince"）。不需要点进详情页。
+
+**评分处理**：
+- 标签 `electronic/club/experimental` → site_base=1
+- excerpt 短（<150 字）→ CQ=1，penalty +1
+- 稳定 ★4-5
+
+**注意事项**：
+- RA 列表页需要处理 cookie consent banner（有 cookie 弹窗）
+- 只提取 3 天内条目
+
+### ⚠️ ProgArchives — Cloudflare JS 挑战（无解，走 RSS）
+
+ProgArchives 整个站点触发 Cloudflare JS 挑战（`Just a moment...` 验证页），Camoufox 也无法绕过（2026-05-19 验证）。但 RSS 通过 Feedburner 正常可用。
+
+**Scraper 策略**：走 RSS（`feeds.feedburner.com/Progarchives/newreleases`），已验证 24 条可手动拉取。`crawl_strategy: http_get`（实际走 RSS 解析），不做 Playwright 尝试。
 
 ## 非音乐内容过滤（通用规则）
 
@@ -391,10 +446,38 @@ LLM_MODEL = "MiniMax-M2.7"
 
 - 每条总结约需 **5-10 秒** API 延迟。13 条通过 ≈ 2 分钟
 - 如果 excerpt > 1000 字符会被截断
-- MiniMax M2.7 有时会在输出前加 `<think>...</think>` 思考前缀，需要 strip 掉
+- MiniMax M2.7 有时会在输出前加 ` thinking... response` 思考前缀，需要 strip 掉
+- **⚠️ 更严重的 thinking 泄露问题**：MiniMax M2.7 有时会输出**完整的多段内部独白**（包含 "We need to produce a 1-2 sentence Chinese summary..."、逐条分析要点、中英文交替的自我论证），而非仅返回最终总结。代码中只 strip ` thinking... response` 前缀不够，需要额外过滤。
+  ```python
+  # 过滤 MiniMax thinking 泄露的修复
+  def clean_summary(text):
+      if not text:
+          return ""
+      # Strip thinking prefix
+      if " response" in text:
+          text = text.split(" response", 1)[-1].strip()
+      # Strip full internal monologue (model reasoning about what to write)
+      monologue_markers = ["We need to", "我们应该", "Thus:", "1-2 sentence",
+                           "First sentence", "Second sentence", "we can give",
+                           "we should mention", "maybe:"]
+      has_monologue = any(m in text for m in monologue_markers)
+      if has_monologue:
+          # Try to extract only the actual summary sentences (those ending with 。)
+          import re
+          sentences = re.findall(r'[^。]+。', text)
+          # Filter out sentences that look like instructions
+          actual = [s.strip() for s in sentences
+                    if not any(m in s for m in ["We need", "我们应该", "Thus:",
+                                                  "First sentence", "Second sentence",
+                                                  "we can give", "we should mention"])]
+          if actual:
+              return "；".join(actual[:2])
+          return ""
+      return text
+  ```
 - LLM 可以自主区分电影和音乐 — 对 `(BLU-RAY` 等电影条目，它会输出"这是电影而非音乐专辑"
 
-详情见 `references/minimax-summarization-api.md`。
+详情见 `references/minimax-summarization-api.md` 和 `references/minimax-thinking-leakage.md`。
 
 ## 推荐原因写法规范
 
@@ -528,6 +611,45 @@ hermes kanban list | grep -c "◻.*scrape:"           # 仍待执行
 hermes kanban list | grep "running" | grep scraper   # 当前运行中
 ```
 
+**💡 SQLite 直接轮询（推荐，比 hermes kanban list 快 10x）**：
+```bash
+# 快速计数 scraper 状态
+python3 -c "
+import sqlite3
+conn = sqlite3.connect('/home/liyifan/.hermes/kanban.db')
+status = conn.execute(\"SELECT status, COUNT(*) FROM tasks WHERE title LIKE 'scrape:%' GROUP BY status\").fetchall()
+conn.close()
+print(status)
+# 输出类似: [('done', 42), ('running', 0), ('todo', 0)]
+" 2>/dev/null
+
+# 检查 aggregator 状态
+python3 -c "
+import sqlite3
+conn = sqlite3.connect('/home/liyifan/.hermes/kanban.db')
+rows = conn.execute(\"SELECT title, status, id FROM tasks WHERE title LIKE 'aggreg%'\").fetchall()
+conn.close()
+for r in rows:
+    print(f'{r[1]:<10} {r[0]} ({r[2][:12]}...)')
+" 2>/dev/null
+
+# 循环轮询（每 30s，直到全部 done）
+python3 -c "
+import sqlite3, time
+target = 42
+while True:
+    conn = sqlite3.connect('/home/liyifan/.hermes/kanban.db')
+    d = conn.execute(\"SELECT status, COUNT(*) FROM tasks WHERE title LIKE 'scrape:%' GROUP BY status\").fetchall()
+    conn.close()
+    if any(s[0]=='todo' or s[0]=='running' for s in d):
+        print(f'[{\"A\" if int(time.time())%2 else \"B\"}] {d}')
+        time.sleep(30)
+    else:
+        print(f'ALL DONE: {d}')
+        break
+" 2>/dev/null
+```
+
 **快速确认是否只有1个批次在跑（无重复/并行批次堆积）**：
 
 ```bash
@@ -596,7 +718,81 @@ hermes kanban dispatch <aggregator_id>  # ⚠️ 这个命令语法不对，见�
 **Fallback 聚合（aggregator 卡死时执行）**：
 > ⚠️ 需要使用 LLM-based 中文总结（旧版关键词拼接已被用户拒绝）。见 `references/minimax-summarization-api.md` 获取完整配置。
 
-简化版 fallback（不含 LLM 总结的轻量版，仅供快速验证数据量）：
+**推荐 LLM-based 完整 fallback（优先）**：
+将 `gen_summaries.py` 写入临时文件并执行，生成真正的 MiniMax M2.7 中文总结，再构建 markdown。参见 2026-05-19 session 的实际做法：
+
+```bash
+# 关键步骤序列（替换 YYYY-MM-DD 为实际日期）：
+TODAY="YYYY-MM-DD"  # 改为实际日期
+DATE_DIR="/home/liyifan/music-record/2026/${TODAY:5:2}/${TODAY}"
+
+# 1. 聚合（读取所有 scraper JSON → dedup → 评分 → filtered.json）
+cd /home/liyifan/music-record && python3 -c "
+import json, os, glob
+# ...（同下方简化版中的聚合逻辑）
+" 
+
+# 2. 生成中文总结（写临时脚本 → 执行）
+cat > /tmp/gen_summaries_${TODAY}.py << 'PYEOF'
+import json, os, requests, re, sys
+
+# MiniMax API 配置（从 auth.json 读取）
+with open(os.path.expanduser('~/.hermes/profiles/scraper/auth.json')) as f:
+    auth = json.load(f)
+key = auth.get('credential_pool', {}).get('minimax-cn', {})
+MINIMAX_CN_API_KEY = key.get('api_key', '')
+
+LLM_API_URL = 'https://api.minimaxi.com/v1/chat/completions'
+LLM_MODEL = 'MiniMax-M2.7'
+
+def call_llm(prompt):
+    resp = requests.post(LLM_API_URL, headers={
+        'Authorization': f'Bearer {MINIMAX_CN_API_KEY}',
+        'Content-Type': 'application/json'
+    }, json={
+        'model': LLM_MODEL,
+        'messages': [
+            {'role': 'system', 'content': '你是一位专业华语乐评人。用1-2句简洁的中文总结这张专辑的核心特点：艺人是谁、什么声音风格、最亮眼之处。不要空话套话。'},
+            {'role': 'user', 'content': prompt}
+        ],
+        'max_tokens': 300,
+        'temperature': 0.1
+    }, timeout=30)
+    return resp.json()['choices'][0]['message']['content']
+
+def clean_summary(text):
+    # 过滤 MiniMax thinking 泄露
+    if not text: return ''
+    if ' response' in text:
+        text = text.split(' response', 1)[-1].strip()
+    monologue = ['We need to', '我们应该', 'Thus:', '1-2 sentence',
+                 'First sentence', 'Second sentence', 'we can give',
+                 'we should mention', 'maybe:']
+    if any(m in text for m in monologue):
+        sentences = re.findall(r'[^。]+。', text)
+        actual = [s.strip() for s in sentences
+                  if not any(m in s for m in monologue)]
+        return '；'.join(actual[:2]) if actual else ''
+    return text
+
+# ... 读取 filtered.json，逐个调用 LLM，保存 summaries.json
+PYEOF
+python3 /tmp/gen_summaries_${TODAY}.py
+
+# 3. 构建 markdown（读取 summaries.json 插入中文总结）
+python3 -c "
+import json
+with open('/tmp/summaries_${TODAY}.json') as f:
+    summaries = json.load(f)
+# ... 构建 recommend/${TODAY}.md
+"
+```
+
+⚠️ 每条 LLM 调用约 5-10 秒。写独立脚本而不是内联 heredoc，避免 shell 转义问题。
+⚠️ 注意处理 `clean_summary` — MiniMax 的 thinking 泄露可能包含完整的多段内部独白。
+⚠️ 在 cron job 中使用 `background` + `notify_on_complete` 运行 LLM 生成，设置 timeout=600。
+
+**简化版 fallback（不含 LLM 总结的轻量版，仅供快速验证数据量）**：
 
 ```bash
 cd ~/music-record && python3 - << 'PYEOF'
@@ -1127,7 +1323,6 @@ Pipeline 完成后的 git push 和 skill 文件管理通过 `~/music-record/` �
 └── recommend/{YYYY-MM-DD}.md       ← **完整全量推荐总结**
 
 > ⚠️ **五部分必须一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit，不可只更新其中某一部分。
-> ⚠️ **四部分必须一起 push**：`bin/`、`skills/`、`2026/`、`recommend/` 四个目录每次必须同时 commit，不可只更新其中某一部分。
 
 脚本同步通过 Step 1 的 `cp` 命令完成（不是 hard link）。skill 和脚本修复后必须立即 commit 到 music-record，下次 cron 才能拉到正确版本。
 
@@ -1158,7 +1353,8 @@ git push
 - `references/musique-machine-structure.md` — 2026-05-14 Musique Machine 网站实测：页面结构、URL 模式、电影/音乐标题区分规则、常见标签
 - `references/site-investigation-methodology.md` — 空 scraper 结果排查流程：RSS 验证、HTTP 状态检测、Playwright 浏览、正确 URL 定位、分类定论（2026-05-14）
 - `references/scraper-diagnostics-2026-05-14.md` — 2026-05-14 全量 42 站 audit：哪些站空、为什么空、每站笔记、修复计划
-
+- `references/template-formatting-pitfalls.md` — agg_body `%` vs f-string 格式化陷阱大全（5 种错误模式 + 综合验证流程）
+- `references/minimax-thinking-leakage.md` — 2026-05-19 MiniMax M2.7 完整多段内部独白泄露的检测与修复
 ## 注意事项
 
 - **workspace 必须统一**：`dir:~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹，不是 scratch！）。scraper 各写各的 `{site_id}_reviews.json`，aggregator 读目录里所有 `*_reviews.json`，scratch 目录互相不可见。
