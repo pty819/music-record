@@ -45,8 +45,8 @@ BATCH_SIZE = 2
 
 
 def run(cmd):
-
-    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    use_shell = isinstance(cmd, str)
+    result = subprocess.run(cmd, shell=use_shell, capture_output=True, text=True)
 
     if result.returncode != 0:
 
@@ -61,40 +61,20 @@ def run(cmd):
 
 
 def hermes_create(title, body, assignee="scraper", parents=None, skills=None, workspace=None):
-
-    parent_args = ""
+    cmd = ["hermes", "kanban", "create", title, "--body", body, "--assignee", assignee]
 
     if parents:
-
         for p in parents:
-
-            parent_args += f" --parent {p}"
-
-    skill_args = ""
+            cmd.extend(["--parent", p])
 
     if skills:
-
         for s in skills:
+            cmd.extend(["--skill", s])
 
-            skill_args += f" --skill {s}"
+    if workspace:
+        cmd.extend(["--workspace", workspace])
 
-    ws_arg = f" --workspace {workspace}" if workspace else ""
-
-
-
-    cmd = (
-
-        f"hermes kanban create {json.dumps(title)} "
-
-        f"--body {json.dumps(body)} "
-
-        f"--assignee {assignee}"
-
-        f"{parent_args}{skill_args}{ws_arg}"
-
-        f" --json"
-
-    )
+    cmd.append("--json")
 
     output = run(cmd)
 
@@ -799,7 +779,7 @@ if low:
 
 # ── 写文件 ────────────────────────────────────────────────────
 
-md_path = f"/home/liyifan/music-record/recommend/{{DATE}}.md"
+md_path = f"/home/liyifan/music-record/recommend/{DATE}.md"
 
 with open(md_path, "w") as f:
 
@@ -809,13 +789,13 @@ print(f"Wrote {{md_path}}")
 
 
 
-with open(f"{{date_dir}}/filtered.json", "w") as f:
+with open(f"{date_dir}/filtered.json", "w") as f:
 
     json.dump(passed, f, ensure_ascii=False, indent=2)
 
 
 
-with open(f"{{date_dir}}/aggregated.json", "w") as f:
+with open(f"{date_dir}/aggregated.json", "w") as f:
 
     json.dump(scored, f, ensure_ascii=False, indent=2)
 
