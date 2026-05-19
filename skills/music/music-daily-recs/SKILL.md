@@ -199,14 +199,6 @@ AAJ 的 `/reviews` 列表页可正常访问（可提取 album、artist、tags、
 - 用「All About Jazz 推荐（详情页受 Cloudflare 保护，无法提取原文）」替代中文总结
 - 详情见 `references/all-about-jazz-site-config.md`
 
-**过滤方法**：scraper body 模板已内置非音乐过滤步骤（第 8 步）：提取标题后，如果 `artist` 或 `album` 包含 `(BLU-RAY`、`(BLU RAY`、`(UHD`、`(VOD)`、`(DVD` 等关键词，跳过该条目。
-
-**配置**：
-- `reviews_url`: `https://www.musiquemachine.com/reviews/`（不是首页）
-- `crawl_strategy`: `playwright_headless`（无 RSS）
-- `tier`: B
-- 详情见 `references/musique-machine-structure.md`
-
 ### ⚠️ Resident Advisor (ra.co) — 电子/舞曲核心站，详情页 Cloudflare 保护
 
 RA 的 `/reviews` 列表页可正常访问（含内联简短 excerpt），但单个 review 详情页有 Cloudflare 403 保护。Camoufox Python 服务器版（2026-05-19 重新验证）：**详情页仍不可达**。
@@ -1369,6 +1361,10 @@ git push
 - **workspace 必须统一**：`dir:~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹，不是 scratch！）。scraper 各写各的 `{site_id}_reviews.json`，aggregator 读目录里所有 `*_reviews.json`，scratch 目录互相不可见。
 - **并发控制**：不是 43 并行，是 **2 并行 × 22 批**。每批 2 个 task，全部 done 之后下一批才解锁（parent-gating）。这是 kanban dispatcher 对 scraper profile 的并发限制 + 进程内存限制共同决定的。
 - **关于空 `score` 字段**：The Quietus、A Closer Listen 等站不给数字评分，这是正常的，不影响推荐质量。评分公式完全基于 `excerpt` 内容判断，只要 scraper 把 `excerpt` 抓完整即可。
+
+## 维护检查清单
+
+> **修改 skill 后必读**：`references/skill-maintenance-checklist.md` — 逐项核查路径一致性、占位符、过期标注、章节错位等常见积累性错误。
 
 ## 配套文档
 
