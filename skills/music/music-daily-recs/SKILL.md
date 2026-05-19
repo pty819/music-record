@@ -38,12 +38,12 @@ Step 3  cron agent 推送完整推荐 markdown 到 Telegram
 | 任务 | assignee | 说明 |
 |------|----------|------|
 | 所有 scraper | `scraper` | 已配置的独立 profile，有独立 auth.json |
-| aggregator | `scraper` | 同上，读取 scraper 的共享 workspace（即 music-record/2026/{MM}/{DD}/） |
+| aggregator | `scraper` | 同上，读取 scraper 的共享 workspace（即 music-record/2026/{MM}/{YYYY-MM-DD}/） |
 
 ## 站点配置
 
 sites.json 在 `/home/liyifan/.minimax/music-sites/sites.json`（从 music-record repo 同步）
-Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/{YYYY-MM-DD}/`，即直接是 git 仓库路径
+Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹），即直接是 git 仓库路径
 
 共 46 个站点，其中 43 个活跃 + 3 个 skip：
 - **skip**（Syrphe / Textura / Fluid Radio）：已知无法访问或仅历史存档，跳过。sites.json 中 `crawl_strategy: "skip"`
@@ -107,7 +107,7 @@ curl -sL --max-time 10 "https://site.com/feed/" | head -5
 # 看到 DOCTYPE / 403 / 404 → 无效
 ```
 
-如果 RSS 返回 403 或 404，必须改为 `has_rss: false` + `crawl_strategy: playwright_headless`。**宁可用 Playwright 爬，也不要猜一个错的 RSS 放上去。**
+如果 RSS 返回 403 或 404，必须改为 `has_rss: false` + `crawl_strategy: playwright_headless`。**宁可用 Camoufox 爬，也不要猜一个错的 RSS 放上去。**
 
 详见 `references/rss-verification.md`。
 
@@ -164,7 +164,24 @@ The Quietus 有 paywall，但 `browser_navigate` 访问 `/columns/quietus-review
 
 ### ⚠️ Musique Machine — 电影/音乐混合，需过滤非音乐条目
 
-...
+**Scraper 行为**：从列表页提取元数据，excerpt 为空字符串。
+
+**评分处理**：SITE_TAGS 基线 2（avant-jazz/world-jazz 匹配），entry 标签 fusion + avant-jazz + world-jazz 各匹配 → entry_match=3，tm=5，cdb=1（jazz + world 双域）。修正后稳定 ★6。
+
+**已知限制**：
+- 无 excerpt → CQ=0，上限受站点基线约束
+- 条目标签全是站点级 tags，不是条目级
+- 用「All About Jazz 推荐（详情页受 Cloudflare 保护，无法提取原文）」替代中文总结
+
+**过滤方法**：scraper body 模板已内置非音乐过滤步骤：提取标题后，如果 `artist` 或 `album` 包含 `(BLU-RAY`、`(UHD`、`(VOD)`、`(DVD` 等关键词，跳过该条目。
+
+**标题格式**（用于区分音乐/电影）：
+| 类型 | 标题模式 | 示例 |
+|------|---------|------|
+| 🎵 音乐 | `ARTIST — ALBUM TITLE` | `ANDREW LILES — NEITHER PRECIOUS NOR NOBLE` |
+| 🎬 电影 | `FILM — FILM(BLU-RAY/UHD/VOD/DVD)` | `THE GHOST — THE GHOST(UHD, BLU-RAY, & CD)` |
+
+**配置**：`reviews_url: https://www.musiquemachine.com/reviews/`（不是首页），`crawl_strategy: playwright_headless`，tier: B。
 
 详情见 `references/musique-machine-structure.md`。
 
@@ -181,11 +198,6 @@ AAJ 的 `/reviews` 列表页可正常访问（可提取 album、artist、tags、
 - 条目标签全是站点级 tags [\"jazz\", \"fusion\", \"avant-jazz\", \"world-jazz\"]，不是条目级
 - 用「All About Jazz 推荐（详情页受 Cloudflare 保护，无法提取原文）」替代中文总结
 - 详情见 `references/all-about-jazz-site-config.md`
-
-| 类型 | 标题模式 | 示例 |
-|------|---------|------|
-| 🎵 音乐 | `ARTIST — ALBUM TITLE` | `ANDREW LILES — NEITHER PRECIOUS NOR NOBLE` |
-| 🎬 电影 | `FILM — FILM(BLU-RAY/UHD/VOD/DVD)` | `THE GHOST — THE GHOST(UHD, BLU-RAY, & CD)` |
 
 **过滤方法**：scraper body 模板已内置非音乐过滤步骤（第 8 步）：提取标题后，如果 `artist` 或 `album` 包含 `(BLU-RAY`、`(BLU RAY`、`(UHD`、`(VOD)`、`(DVD` 等关键词，跳过该条目。
 
@@ -257,7 +269,7 @@ The Wire 的 RSS CDATA 中含有数千字的全文，但 feedparser 默认 descr
 ```
 The Wire 的 In Writing 板块、The Quietus 的专栏/访谈等都不是 album+artist 的传统格式。Agent 需要判断格式差异并输出 type="feature"。
 
-### Playwright 列表页只爬不点
+### Camoufox 列表页只爬不点
 今日发现多个站点（All About Jazz）详情页被 Cloudflare 保护，列表页可访问且有条目数据。Scraper 指令已明确：
 - 只浏览列表页前 2 页
 - 不需要点进详情页抓全文
@@ -265,9 +277,7 @@ The Wire 的 In Writing 板块、The Quietus 的专栏/访谈等都不是 album+
 - excerpt 可为空
 
 ### Songlines / DownBeat URL 修复
-- **Songlines**：`/category/reviews` → `/reviews-hub`（旧 URL 返回 500 错误）
-- **DownBeat**：首页 `/` → `/reviews`（旧 URL 从首页无法找到 review 列表）
-- 两个 URL 已在 sites.json 中修复，下次 cron 生效
+- **Songlines**：`/category/reviews` → `/reviews-hub`（旧 URL 返回 500 错误，已修复）\n- **DownBeat**：首页 `/` → `/reviews`（旧 URL 从首页无法找到 review 列表，已修复）\n- 两个 URL 已在 sites.json 中修复并生效（2026-05-14），多次 cron 验证稳定
 
 ## 类型分类规则（`type` 字段）
 
@@ -496,9 +506,9 @@ LLM_MODEL = "MiniMax-M2.7"
 | 文件 | 路径 | 说明 |
 |------|------|------|
 | recommend markdown | `recommend/{YYYY-MM-DD}.md` | 唯一 markdown 输出，含 ★10/8/6 分级 |
-| aggregator JSON | `2026/{MM}/{DD}/{YYYY-MM-DD}/aggregated.json` | 全量去重评论 |
-| filtered JSON | `2026/{MM}/{DD}/{YYYY-MM-DD}/filtered.json` | >=6 分评论 |
-| scraper JSON | `2026/{MM}/{DD}/{YYYY-MM-DD}/{site_id}_reviews.json` | 各站原始输出 |
+| aggregator JSON | `2026/{MM}/{YYYY-MM-DD}/aggregated.json` | 全量去重评论 |
+| filtered JSON | `2026/{MM}/{YYYY-MM-DD}/filtered.json` | >=6 分评论 |
+| scraper JSON | `2026/{MM}/{YYYY-MM-DD}/{site_id}_reviews.json` | 各站原始输出 |
 
 **Telegram 推送**：`recommend/{DATE}.md` 内容作为消息体发送。
 
@@ -575,9 +585,8 @@ sites.json 路径：`/home/liyifan/.minimax/music-sites/sites.json`
 skill 路径：`~/.hermes/skills/music/music-daily-recs/SKILL.md`
 脚本路径：`~/.local/bin/kanban-batch-scrape.py`
 Output 路径：
-- `~/music-record/2026/{MM}/{YYYY-MM-DD}/{YYYY-MM-DD}/` — 当天 scraper JSON + aggregated.json + filtered.json + markdown
-- `~/music-record/recommend/{YYYY-MM-DD}.md` — 完整推荐 markdown（直接推送 Telegram）
-- 两个文件一起 commit + push
+- `~/music-record/2026/{MM}/{YYYY-MM-DD}/` — 当天 scraper JSON + aggregated.json + filtered.json（不含 markdown，markdown 仅在 recommend/）
+- `~/music-record/recommend/{YYYY-MM-DD}.md` — 唯一 markdown 输出（直接推送 Telegram）
 
 ### Step 2 — 运行 batch 脚本（正确方式）
 
@@ -1259,21 +1268,21 @@ hermes kanban show <aggregator_id> | grep parents
 
 ## GitHub 仓库结构（music-record repo）
 
-**三个组成部分**（每次 Pipeline 必须同步更新）：
+**五个组成部分**（每次 Pipeline 必须同步更新）：
 
 | 目录 | 内容 | 说明 |
 |------|------|------|
 | `bin/kanban-batch-scrape.py` | batch 脚本最新版本 | 跟着每日结果一起 commit，cron 触发时拉到本地执行 |
 | `skills/music/music-daily-recs/SKILL.md` | skill 最新副本 | 同上 |
 | `data/sites.json` | 站点配置 | 从 music-record 同步到 ~/.minimax/music-sites/ |
-| `2026/{MM}/{DD}/{YYYY-MM-DD}/` | 当天乐评原始数据 | scraper JSON + aggregated + filtered + markdown |
+| `2026/{MM}/{YYYY-MM-DD}/` | 当天乐评原始数据 | scraper JSON + aggregated + filtered + markdown |
 | `recommend/YYYY-MM-DD.md` | 每日推荐总结 | **完整全量推荐**，放在仓库根目录 `recommend/` 下 |
 
 > ⚠️ **五部分必须一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit。
 
 **⚠️ 目录结构规范（已清理多余副本）**：
 - `recommend/{YYYY-MM-DD}.md` — 唯一 markdown 输出（aggregator 直接写到这里，不在日期子目录下重复写）
-- scraper 输出：`2026/{MM}/{DD}/{YYYY-MM-DD}/`（只放 scraper JSON + aggregated + filtered，不放 markdown）
+- scraper 输出：`2026/{MM}/{YYYY-MM-DD}/`（只放 scraper JSON + aggregated + filtered，不放 markdown）
 - skill 文档：`skills/music/music-daily-recs/SKILL.md`（**不是** `skill/`、`scripts/`、`references/` 下分散的副本）
 - batch 脚本：`bin/kanban-batch-scrape.py`（**不是** `scripts/` 下重复副本）
 
@@ -1285,7 +1294,7 @@ music-record/
 ├── skills/music/music-daily-recs/       ← skill 文档（唯一真源）
 │   └── SKILL.md
 ├── data/sites.json                      ← 站点配置（从 music-record 同步）
-├── 2026/{MM}/{DD}/{YYYY-MM-DD}/        ← 当天 scraper JSON + aggregated + filtered
+├── 2026/{MM}/{YYYY-MM-DD}/          ← 当天 scraper JSON + aggregated + filtered
 └── recommend/{YYYY-MM-DD}.md            ← 唯一 markdown 输出（aggregator 直接写）
 ```
 
@@ -1308,8 +1317,6 @@ git commit -m "Fix: <what you fixed>"
 git push
 ```
 
-**五部分一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit。
-
 ## GitHub 同步（每日必须）
 
 Pipeline 完成后的 git push 和 skill 文件管理通过 `~/music-record/` 仓库进行。
@@ -1321,7 +1328,7 @@ Pipeline 完成后的 git push 和 skill 文件管理通过 `~/music-record/` �
 ├── bin/kanban-batch-scrape.py     ← batch 脚本
 ├── skills/music/music-daily-recs/  ← skill 文档（含 references/）
 ├── data/sites.json                ← 站点配置
-├── 2026/{MM}/{DD}/{YYYY-MM-DD}/   ← 当天 scraper JSON + aggregated + filtered
+├── 2026/{MM}/{YYYY-MM-DD}/   ← 当天 scraper JSON + aggregated + filtered
 └── recommend/{YYYY-MM-DD}.md       ← **完整全量推荐总结**
 
 > ⚠️ **五部分必须一起 push**：`bin/`、`skills/`、`data/`、`2026/`、`recommend/` 五个目录/文件每次必须同时 commit，不可只更新其中某一部分。
