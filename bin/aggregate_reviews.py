@@ -76,7 +76,7 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
         )
         message = client.messages.create(
             model="MiniMax-M2.7",
-            max_tokens=300,
+            max_tokens=30000,
             temperature=0.7,
             messages=[{"role": "user", "content": prompt}]
         )
