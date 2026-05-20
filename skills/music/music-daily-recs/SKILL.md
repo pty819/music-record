@@ -45,7 +45,24 @@ Step 3  cron agent 推送完整推荐 markdown 到 Telegram
 sites.json 在 `/home/liyifan/.minimax/music-sites/sites.json`（从 music-record repo 同步）
 Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹），即直接是 git 仓库路径
 
-共 46 个站点，其中 43 个活跃 + 3 个 skip：
+共 50 个站点，其中 47 个活跃 + 3 个 skip：
+
+### 2026-05-20 新增：暗潮/暗黑电子站点（4 站，全部 RSS 已验证）
+
+新增暗潮（darkwave/dark ambient/dark electronic/industrial/goth）方向 4 站，全部走 RSS 优先策略：
+
+| site_id | 名称 | RSS URL | 覆盖风格 |
+|---------|------|---------|---------|
+| `side_line` | Side-Line | `https://www.side-line.com/feed/` | Industrial / Electro / EBM / Post-Punk / Darkwave |
+| `post_punk_com` | Post-Punk.com | `https://www.post-punk.com/feed/` | Post-Punk / Goth / Industrial / Synth / Shoegaze |
+| `i_die_you_die` | I Die: You Die | `https://www.idieyoudie.com/feed/` | Industrial / EBM / Goth / Dark Electro |
+| `peek_a_boo_magazine` | Peek-A-Boo Magazine | `http://www.peek-a-boo-magazine.be/all.rss` | Alternative / Underground / Gothic / Industrial |
+
+⚠️ Peek-A-Boo 的 RSS 是 HTTP 非 HTTPS，scraper 做 HTTP GET 时需注意。
+
+详情见 `references/darkwave-sites-2026-05-20.md`。
+
+共 50 个站点，其中 47 个活跃 + 3 个 skip：
 - **skip**（Syrphe / Textura / Fluid Radio）：已知无法访问或仅历史存档，跳过。sites.json 中 `crawl_strategy: "skip"`
 - **Boomkat**：原 ASN 黑名单 skip，**2026-05-19 重新验证：Camoufox fingerprint 可绕过 Cloudflare ASN 封锁** ✅ 已恢复为 `playwright_headless`
 - **RSS 优先组**（~21 站）：feedparser 直接解析，**只取 3 天内条目**，超期停止翻页
@@ -413,6 +430,8 @@ aggregator 模板内嵌的 `summarize_cn` 函数使用 **MiniMax M2.7** 为每�
 
 **⚠️ 不要用关键词拼接做总结** — `gen_cn_fallback_v1` 是兜底函数，输出的是"低频嗡鸣与氛围纹理；噪音/工业粗粝质感"这种无关痛痒的模板化文本，用户明确拒绝。**正常路径必须走 LLM API。**
 
+> **📁 参考文档**：`references/aggregate-troubleshooting.md` — aggregate_reviews.py 故障排查（ThinkingBlock/Fallback 问题、max_tokens 设置、auth 误判）
+
 ### API 配置（已验证）
 
 ```python
@@ -448,10 +467,17 @@ LLM_MODEL = "MiniMax-M2.7"
 
 ### 注意事项
 
-- 每条总结约需 **5-10 秒** API 延迟。13 条通过 ≈ 2 分钟
+- 每条总结约需 **5-22 秒** API 延迟。23 条通过 ≈ 8-12 分钟
 - 如果 excerpt > 1000 字符会被截断
-- MiniMax M2.7 有时会在输出前加 ` thinking... response` 思考前缀，需要 strip 掉
-- **⚠️ 更严重的 thinking 泄露问题**：MiniMax M2.7 有时会输出**完整的多段内部独白**（包含 "We need to produce a 1-2 sentence Chinese summary..."、逐条分析要点、中英文交替的自我论证），而非仅返回最终总结。代码中只 strip ` thinking... response` 前缀不够，需要额外过滤。
+- MiniMax 通过 Anthropic 端点返回两个 block：`ThinkingBlock`（在前）和 `TextBlock`（在后）。代码必须用 forward 遍历跳过 ThinkingBlock，只取 TextBlock：
+  ```python
+  for block in message.content:  # ✅ forward 遍历
+      if hasattr(block, 'type') and block.type == 'text' and hasattr(block, 'text'):
+          result = block.text
+          break
+  ```
+  ❌ 不要用 `reversed()` — MiniMax 的 block 顺序是固定的 thinking→text，forward 更直观
+- Prompt 里用 `<summary>` 标签包围总结结果，通过 `re.search(r'<summary>(.*?)</summary>', ...)` 抽取，比 strip thinking 更干净。
   ```python
   # 过滤 MiniMax thinking 泄露的修复
   def clean_summary(text):
@@ -1407,6 +1433,16 @@ git push
 - `references/template-formatting-pitfalls.md` — agg_body `%` vs f-string 格式化陷阱大全（5 种错误模式 + 综合验证流程）
 - `references/minimax-thinking-leakage.md` — 2026-05-19 MiniMax M2.7 完整多段内部独白泄露的检测与修复
 ## 注意事项
+
+### ⚠️ 用户问音乐推荐：必须先查 OpenViking，再查 pipeline，最后才 web 搜索
+
+用户多次纠正此行为。当用户问"推荐点 XXX 音乐"时，正确顺序是：
+
+1. **先查 OpenViking** — `viking_search(query)` 搜知识库已有推荐记录
+2. **再看 pipeline 近期输出** — 翻 `viking://resources/` 下的每日推荐 markdown
+3. **最后才 web 搜索** — 只有前两步都不够才上网查
+
+不要默认直接 web_search。用户在意的不是"你搜了什么新东西"，而是"我们已有的库里有没有"。
 
 - **workspace 必须统一**：`dir:~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹，不是 scratch！）。scraper 各写各的 `{site_id}_reviews.json`，aggregator 读目录里所有 `*_reviews.json`，scratch 目录互相不可见。
 - **并发控制**：不是 43 并行，是 **2 并行 × 22 批**。每批 2 个 task，全部 done 之后下一批才解锁（parent-gating）。这是 kanban dispatcher 对 scraper profile 的并发限制 + 进程内存限制共同决定的。
