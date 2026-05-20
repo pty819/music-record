@@ -1,11 +1,11 @@
 ---
 name: music-daily-recs
-description: 每日巡检 46 个音乐评论站，fan-out scraper 并行抓取，汇总评分后推送 GitHub + Telegram。前卫/实验/学院派爵士/电子/世界音乐定向采集。
+description: 每日巡检 50 个音乐评论站，fan-out scraper 并行抓取，汇总评分后推送 GitHub + Telegram。前卫/实验/学院派爵士/电子/世界音乐/暗潮定向采集。
 cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git push）
 category: music
-tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, kanban, fan-out]
+tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, darkwave, industrial, kanban, fan-out]
 author: hermes-agent
-version: 3.3
+version: 3.4
 created: 2026-05-07
 updated: 2026-05-20
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
@@ -57,8 +57,10 @@ Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹）�
 | `post_punk_com` | Post-Punk.com | `https://www.post-punk.com/feed/` | Post-Punk / Goth / Industrial / Synth / Shoegaze |
 | `i_die_you_die` | I Die: You Die | `https://www.idieyoudie.com/feed/` | Industrial / EBM / Goth / Dark Electro |
 | `peek_a_boo_magazine` | Peek-A-Boo Magazine | `http://www.peek-a-boo-magazine.be/all.rss` | Alternative / Underground / Gothic / Industrial |
+| `dark_entries_be` | Dark Entries | Camoufox 爬 `https://darkentries.be/recensies` | Gothic / Darkwave / Industrial / EBM |
 
 ⚠️ Peek-A-Boo 的 RSS 是 HTTP 非 HTTPS，scraper 做 HTTP GET 时需注意。
+⚠️ Dark Entries 是荷兰语站，无 RSS，需 Camoufox 浏览器模式。首页 recensies 列表直接有 album/artist/date/excerpt，不需点详情页。`crawl_strategy: playwright_headless`
 
 详情见 `references/darkwave-sites-2026-05-20.md`。
 

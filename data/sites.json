@@ -2180,6 +2180,65 @@
       ],
       "automationStatus": "default_on",
       "crawl_strategy": "http_get"
+    },
+    {
+      "id": "dark_entries_be",
+      "name": "Dark Entries",
+      "homepage": "https://darkentries.be/",
+      "rss_url": null,
+      "reviews_url": "https://darkentries.be/recensies",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "darkentries.be/",
+        "list_selector": "article h2 a, .uk-card a",
+        "body_selector": "article .el-content p",
+        "notes": "荷兰语，需 Camoufox。首页有完整 recensies（review）列表，含 excerpt 和日期。"
+      },
+      "tags": [
+        "gothic",
+        "darkwave",
+        "industrial",
+        "EBM",
+        "post-punk",
+        "alternative"
+      ],
+      "notes": "比利时荷兰语暗潮/哥特/工业杂志。首页 recensies 列表可直接提取 album/artist/date/excerpt，无需点进详情页。",
+      "startUrls": [
+        "https://darkentries.be/"
+      ],
+      "allowUrlPatterns": [
+        "/recensies/",
+        "/nieuws/"
+      ],
+      "denyUrlPatterns": [
+        "/over-ons",
+        "/contact"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".uk-article",
+          ".el-item"
+        ],
+        "titleSelectors": [
+          "h1",
+          "h3",
+          ".el-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          ".uk-card a",
+          ".el-item a"
+        ]
+      },
+      "automationStatus": "default_on",
+      "crawl_strategy": "playwright_headless"
     }
   ],
   "crawl_priority": {
@@ -2233,7 +2292,8 @@
       "side_line",
       "post_punk_com",
       "i_die_you_die",
-      "peek_a_boo_magazine"
+      "peek_a_boo_magazine",
+      "dark_entries_be"
     ]
   }
 }
