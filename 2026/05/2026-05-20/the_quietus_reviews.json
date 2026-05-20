@@ -1,0 +1,41 @@
+[
+  {
+    "album": "Longer Than Spring",
+    "artist": "For Breakfast",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/for-breakfast-longer-than-spring-review/",
+    "source": "the_quietus",
+    "pub_date": "2026-05-19T05:00:00+00:00",
+    "tags": ["experimental", "electronic", "jazz", "world", "psych", "prog", "free-improv"],
+    "excerpt": "After four years, North London's For Breakfast return with Longer Than Spring, an LP trading the murky, sprawling friction of the seven-piece band's roots for a leaner, solo-led architecture. It's a sophisticated if occasionally sanitised evolution; while the band's signature virtuosity remains, it is now tethered to the singular narrative of vocalist and keys player Maya Harrison.",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Musick",
+    "artist": "Laibach",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/laibach-musick-review/",
+    "source": "the_quietus",
+    "pub_date": "2026-05-18T08:57:34+00:00",
+    "tags": ["experimental", "electronic", "jazz", "world", "psych", "prog", "free-improv"],
+    "excerpt": "What does culture, or entertainment, mean right now? And should we be scared of such things, in the mediums they currently present themselves in? Laibach's new long player, Musick, often toys with such questions.",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Feedbacker: Rock Music for May",
+    "artist": "JR Moores",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/rock/rock-music-review-foo-fighters-failure-claypool-lennon-delirium/",
+    "source": "the_quietus",
+    "pub_date": "2026-05-19T09:29:07+00:00",
+    "tags": ["experimental", "electronic", "jazz", "world", "psych", "prog", "free-improv"],
+    "excerpt": "JR Moores listens to some alt rock releases and has a bone to pick with the chief Foo Fibber. Dave Grohl is on the charm offensive. I know what you're thinking. That's exactly what he's been on for the past 30 years.",
+    "site_id": "the_quietus",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]

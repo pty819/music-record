@@ -299,7 +299,7 @@ def main():
     for r in reviews:
         key = (r.get("album", ""), r.get("artist", ""))
         old = seen.get(key, {})
-        if "score" not in old or (r.get("score") and r.get("score", 0) > old.get("score", 0)):
+        if "score" not in old or (r.get("score") is not None and r.get("score", 0) > (old.get("score") or 0)):
             seen[key] = r
     reviews = list(seen.values())
     print(f"Deduplicated: {len(reviews)} unique")

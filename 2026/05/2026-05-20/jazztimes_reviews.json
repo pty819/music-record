@@ -1,0 +1,41 @@
+[
+  {
+    "album": "Concert Review: Brad Mehldau Trio at the Ridgefield Playhouse",
+    "artist": "Brad Mehldau Trio",
+    "score": null,
+    "url": "https://www.jazztimes.com/reviews/live/concert-review-brad-mehldau-trio-at-the-ridgefield-playhouse/",
+    "source": "JazzTimes",
+    "pub_date": "2026-05-18",
+    "tags": ["jazz", "reviews", "modern jazz"],
+    "excerpt": "Pianist Brad Mehldau, during a trio concert at the Ridgefield Playhouse in Connecticut, made a point of mentioning his West Hartford origins to a generous and welcoming crowd. He was four tunes in when he finally picked up the mic, first to say, \"On drums tonight, Jorge Rossy.\" To this aging listener it felt like the old days with the original Mehldau rhythm section of Rossy and bassist Larry Grenadier, which took the jazz world pretty much by storm in the mid-'90s and early '00s.",
+    "site_id": "jazztimes",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Tyshawn Sorey Piano Concerto \u201cFor Marilyn Crispell,\u201d Featuring Aaron Diehl, Has Its Philly-Hosted World Premiere",
+    "artist": "Tyshawn Sorey / Aaron Diehl / Philadelphia Orchestra",
+    "score": null,
+    "url": "https://www.jazztimes.com/reviews/live/tyshawn-sorey-piano-concerto-for-marilyn-crispell-featuring-aaron-diehl-has-its-philly-hosted-world-premiere/",
+    "source": "JazzTimes",
+    "pub_date": "2026-05-18",
+    "tags": ["jazz", "reviews", "modern jazz"],
+    "excerpt": "Composer and drummer/multi-instrumentalist Tyshawn Sorey won a 2024 Pulitzer Prize for the stately \u201cAdagio\u201d (dedicated to trumpeter Wadada Leo Smith), one of his numerous acclaimed concert works. He\u2019s also maintained his high profile in the jazz and improvised music world with collaborators including Vijay Iyer, John Zorn, Adam Rudolph and many others.",
+    "site_id": "jazztimes",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Book Review: Melvin Gibbs\u2019s How Black Music Took Over the World",
+    "artist": "Melvin Gibbs",
+    "score": null,
+    "url": "https://www.jazztimes.com/reviews/books/book-review-melvin-gibbss-how-black-music-took-over-the-world/",
+    "source": "JazzTimes",
+    "pub_date": "2026-05-17",
+    "tags": ["jazz", "reviews", "modern jazz"],
+    "excerpt": "First, full disclosure: I have written six books, since the 1990s, on the history of American music, most with an emphasis on the way race has shaped so much of our cultural history. Second: I know that Melvin Gibbs\u2019s How Black Music Took Over the World (Basic Books) is about \u201cthe world,\u201d not just the U.S. Of course it\u2019s hard to separate the two, since American culture is emulated, copied and appropriated everywhere.",
+    "site_id": "jazztimes",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]

@@ -1,0 +1,78 @@
+[
+  {
+    "album": "Bringing Belgian Folk Music Back to Life",
+    "artist": "",
+    "score": null,
+    "url": "https://daily.bandcamp.com/scene-report/belgian-folk-music-guide",
+    "source": "bandcamp_daily",
+    "pub_date": "Tue, 19 May 2026 15:49:20 -0000",
+    "tags": [
+      "experimental",
+      "electronic",
+      "world",
+      "ambient",
+      "scene-specific"
+    ],
+    "excerpt": "With many of its original recordings lost to history, its up to a new generation to revive the art form. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "The Anthology of UnAmerican Folk Music",
+    "artist": "Marisa Anderson",
+    "score": null,
+    "url": "https://daily.bandcamp.com/album-of-the-day/marisa-anderson-anthology-of-unamerican-folk-music-review",
+    "source": "bandcamp_daily",
+    "pub_date": "Tue, 19 May 2026 13:53:47 -0000",
+    "tags": [
+      "experimental",
+      "electronic",
+      "world",
+      "ambient",
+      "scene-specific"
+    ],
+    "excerpt": "The guitarist breaks down musical borders on her latest LP. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Spencer’s Gifts",
+    "artist": "",
+    "score": null,
+    "url": "https://daily.bandcamp.com/hotlist/vic-spencer-album-guide",
+    "source": "bandcamp_daily",
+    "pub_date": "Mon, 18 May 2026 13:32:56 -0000",
+    "tags": [
+      "experimental",
+      "electronic",
+      "world",
+      "ambient",
+      "scene-specific"
+    ],
+    "excerpt": "Vic Spencer’s sprawling discography encompasses both the profound and the profane. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Remembering Well",
+    "artist": "Death Kneel",
+    "score": null,
+    "url": "https://daily.bandcamp.com/album-of-the-day/death-kneel-remembering-well-review",
+    "source": "bandcamp_daily",
+    "pub_date": "Mon, 18 May 2026 13:32:35 -0000",
+    "tags": [
+      "experimental",
+      "electronic",
+      "world",
+      "ambient",
+      "scene-specific"
+    ],
+    "excerpt": "The Tomb Mold drummer and vocalist taps into a galaxy's worth of musical impulses with this fascinating noise project. Read full story on the Bandcamp Daily .",
+    "site_id": "bandcamp_daily",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

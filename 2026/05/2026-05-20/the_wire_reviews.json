@@ -1,0 +1,20 @@
+[
+  {
+    "album": "Against The Grain: London's DIY sound systems",
+    "artist": "Against The Grain",
+    "score": null,
+    "url": "https://www.thewire.co.uk/in-writing/collateral-damage/against-the-grain-london-s-diy-sound-systems",
+    "source": "the_wire_reviews.json",
+    "pub_date": "2026-05-18",
+    "tags": [
+      "experimental",
+      "avant-garde",
+      "sound art",
+      "improvisation"
+    ],
+    "excerpt": "As music venues across London struggle with mounting costs, sound system events are putting down roots in community centres and other ad hoc spaces, writes Derek Walmsley in The Wire 508 It’s a winter evening in Stratford, East London, and past the cemetery, just down from the corner shop, on a quiet street with terraced houses on one side and a council block on the other, reggae sound systems are battling for supremacy. In the spartan main room at Hibiscus Community Centre, home to the local Ca",
+    "site_id": "the_wire",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]

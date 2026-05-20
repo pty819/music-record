@@ -1,0 +1,28 @@
+[
+  {
+    "album": "Bitches Blues",
+    "artist": "Hedvig Mollestad Weejuns",
+    "score": 2.5,
+    "url": "https://jazztrail.net/blog/hedvig-mollestad-weejuns-bitches-blues-album-review",
+    "source": "jazztrail.net",
+    "pub_date": "2026-05-19",
+    "tags": ["avant jazz", "modern jazz", "jazz", "rock", "psychedelic rock", "guitar organ drums trio"],
+    "excerpt": "With Bitches Blues—a clear nod to Miles Davis' Bitches Brew—powerhouse Norwegian guitarist Hedvig Mollestad explores terrain that is noticeably less abrasive than on her previous releases. Her working trio has earned deserved recognition through both electrifying live performances and consistently balanced albums. Technically accomplished yet rarely exhilarating, Bitches Blues leaves the impression of an album that could have dug deeper emotionally and texturally in order to achieve a more compelling result.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Penta",
+    "artist": "Jo Berger Myhre",
+    "score": 3.0,
+    "url": "https://jazztrail.net/blog/jo-berger-myhre-penta-album-review",
+    "source": "jazztrail.net",
+    "pub_date": "2026-05-18",
+    "tags": ["avant jazz", "modern jazz", "jazz", "ambient", "experimental"],
+    "excerpt": "Norwegian bassist and composer Jo Berger Myhre approaches patterns, drones, and general ideas with curiosity on Penta, his third release for Rare Noise Records. The album, where cultures and disciplines intersect with remarkable fluidity, reunites the core quartet from Live Maneuvers (2023). Myhre's music pulses with a vital, searching energy, exploring the fragile spaces between breath and sound. His patterned imprints, often reinforced by adapt post-production, casts an occasional spell.",
+    "site_id": "jazz_trail",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

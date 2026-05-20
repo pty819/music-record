@@ -1,0 +1,28 @@
+[
+  {
+    "album": "Beethoven: The Sonatas for Piano and Cello",
+    "artist": "Paul Watkins, Alessio Bax",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-beethoven-the-cello-sonatas-watkins-bax/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-19",
+    "tags": ["classical", "contemporary"],
+    "excerpt": "Paul Watkins and Alessio Bax's complete set of Beethoven's Cello Sonatas follows a succession of notable cycles reviewed in these pages in recent years. They offer a compelling journey through Beethoven's stylistic evolution, effectively tracing his development across his three distinct periods. High-quality sound engineering further elevates these five readings, magnifying a performance already distinguished by its depth, sensitivity, and formidable musicianship.",
+    "site_id": "theclassicreview",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Sibelius: Violin Concerto, Lemminkäinen Suite",
+    "artist": "Ava Bahari, Santtu-Matias Rouvali, Gothenburg Symphony Orchestra",
+    "score": null,
+    "url": "https://theclassicreview.com/album-reviews/review-sibelius-violin-concerto-lemminkainen-suite-bahari-rouvali/",
+    "source": "The Classic Review",
+    "pub_date": "2026-05-17",
+    "tags": ["classical", "contemporary"],
+    "excerpt": "Ava Bahari's technique is unquestionably brilliant. Every technical difficulty is fully mastered: perfect intonation, awkward shifts flawlessly managed, the opening movement's difficult cadenza thrillingly dispatched. Throughout the concerto she draws a wonderful variety of colors from her 1694 Stradivarius 'Ovcharov.' Yet after repeated listening, the reviewer came away impressed but rarely moved, preferring more heart-on-sleeve interpretations like Janine Jansen or Vilde Frang.",
+    "site_id": "theclassicreview",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]
