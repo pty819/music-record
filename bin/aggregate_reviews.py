@@ -72,16 +72,17 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
         client = anthropic.Anthropic(
             api_key=MINIMAX_CN_API_KEY,
             base_url="https://api.minimaxi.com/anthropic",
+            timeout=60,
         )
         message = client.messages.create(
-            timeout=60,
             model="MiniMax-M2.7",
-            max_tokens=30000,
+            max_tokens=300,
             temperature=0.7,
             messages=[{"role": "user", "content": prompt}]
         )
         result = ""
-        for block in reversed(message.content):
+        # Skip thinking blocks — MiniMax M2.7 returns ThinkingBlock before/beside TextBlock
+        for block in message.content:
             if hasattr(block, 'type') and block.type == 'text' and hasattr(block, 'text'):
                 result = block.text
                 break
@@ -91,9 +92,10 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
                 result = match.group(1)
             return result.strip()
         else:
+            print(f"  [summarize] No text block in response (content types: {[type(b).__name__ for b in message.content]}), fallback", file=sys.stderr)
             return _gen_cn_fallback(excerpt, artist_album, tags_raw_str)
     except Exception as e:
-        print(f"  [summarize] API error: {e}, fallback", file=sys.stderr)
+        print(f"  [summarize] API error: {type(e).__name__}: {e}, fallback", file=sys.stderr)
         return _gen_cn_fallback(excerpt, artist_album, tags_raw_str)
 
 
