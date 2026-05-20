@@ -5,9 +5,9 @@ cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git pu
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, kanban, fan-out]
 author: hermes-agent
-version: 3.1
+version: 3.3
 created: 2026-05-07
-updated: 2026-05-19
+updated: 2026-05-20
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
 ---
 
@@ -522,7 +522,22 @@ LLM_MODEL = "MiniMax-M2.7"
 
 以下步骤按顺序执行：
 
-### ⚠️ Step 0 — 积压清理 + auth 检查（**每次 cron 触发必须首先执行**）
+### ⚠️ Step 0 — 积压清理 + auth 检查 + DB 健康检查（**每次 cron 触发必须首先执行**）
+
+**🔴 DB 损坏保护**：在归档任何任务前，先验证 kanban.db：
+```bash
+python3 -c "
+import sqlite3
+conn = sqlite3.connect('/home/liyifan/.hermes/kanban.db')
+ok = conn.execute('PRAGMA integrity_check').fetchone()[0]
+conn.close()
+print('DB_INTEGRITY:' + ok)
+" 2>/dev/null
+# 输出应为 DB_INTEGRITY:ok
+# 若输出 DB_INTEGRITY:ok 以外的任何内容 → ⚠️ DB 已损坏，SKIP 本步清理！
+#   先修复 DB（见 references/kanban-db-corruption.md），
+#   再手动触发或等下次 cron。归档损坏 DB 中的任务会导致 board 变空且无法重建。
+```
 
 **自动化检查**（推荐）：
 ```bash
@@ -535,6 +550,7 @@ bash ~/.hermes/skills/music/music-daily-recs/scripts/check-scraper-auth.sh
 hermes kanban list | grep "◻" | grep "scrape:" | wc -l
 
 # 2. 清理旧 todo scraper（只保留 done/running/blocked）
+#    ⚠️ 仅在前一步 DB_INTEGRITY:ok 确认后方可执行！
 hermes kanban list | grep "◻" | grep "scrape:" | awk '{print $2}' | while read id; do
   hermes kanban archive "$id"
 done
@@ -913,7 +929,41 @@ git commit -m "Daily: $(date +%Y-%m-%d) — fallback aggregation"
 git push origin main
 ```
 
-### Step 5 — Pipeline 跑完后检查
+### Step 6 — 入库 OpenViking 知识库
+
+Pipeline 完成后，将当天的 recommend markdown 添加到 OpenViking 作为可搜索资源：
+
+```bash
+# 添加推荐文档到 OpenViking（后台处理，会自动生成摘要+向量索引）
+TODAY=$(date +%Y-%m-%d)
+MD_PATH="/home/liyifan/music-record/recommend/${TODAY}.md"
+if [ -f "$MD_PATH" ]; then
+  ov add-resource --reason "每日音乐推荐，${TODAY}" "$MD_PATH"
+  echo "✅ OpenViking: ${TODAY} 已入库"
+else
+  echo "⚠️ OpenViking: ${TODAY}.md 不存在，跳过入库"
+fi
+```
+
+入库后可以通过 `viking_search` 或 MCP 的 `mcp_OpenViking_find` 搜索历史推荐内容。OpenViking 的 VLM（MiniMax M2.7）会自动生成中文摘要和向量索引。
+
+### Step 5 — 入库 OpenViking 知识库
+
+Pipeline 完成后，将当天的 recommend markdown 添加到 OpenViking 作为可搜索资源：
+
+```bash
+# 添加推荐文档到 OpenViking（后台处理，会自动生成摘要+向量索引）
+TODAY=$(date +%Y-%m-%d)
+MD_PATH="/home/liyifan/music-record/recommend/${TODAY}.md"
+if [ -f "$MD_PATH" ]; then
+  ov add-resource --reason "每日音乐推荐，${TODAY}" "$MD_PATH"
+  echo "✅ OpenViking: ${TODAY} 已入库"
+else
+  echo "⚠️ OpenViking: ${TODAY}.md 不存在，跳过入库"
+fi
+```
+
+### Step 6 — Pipeline 跑完后检查
 
 ```bash
 # 确认所有 scraper done（期望：43 done）
