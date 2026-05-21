@@ -1,0 +1,41 @@
+[
+  {
+    "album": "Raptures",
+    "artist": "Days Of Sorrow",
+    "score": 9,
+    "url": "https://www.side-line.com/days-of-sorrow-raptures-digital-cd-vinyl-album-mots-music/",
+    "source": "Side-Line",
+    "pub_date": "2026-05-20",
+    "tags": ["industrial", "darkwave", "EBM", "electro", "post-punk", "goth"],
+    "excerpt": "German band Days Of Sorrow first emerged in the early 1980s before disappearing from the radar, much like many other acts from that era, only to resurface years later. Raptures already marks their second album since this resurrection and delivers ten impressive songs. You could categorize the group as Electro-Wave, but Days Of Sorrow clearly inject their own identity into the genre, making everything sound harder, darker, and far more powerful. The result is a wonderfully danceable fusion of dark Electro-Wave and EBM. Raptures contains several absolute gems and is, without question, one of the strongest albums I have heard in this genre in recent months.",
+    "site_id": "side_line",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Ground",
+    "artist": "Bob Data",
+    "score": 7,
+    "url": "https://www.side-line.com/bob-data-ground-digital-ep-bob-data/",
+    "source": "Side-Line",
+    "pub_date": "2026-05-19",
+    "tags": ["industrial", "darkwave", "EBM", "electro", "post-punk", "goth"],
+    "excerpt": "Bob Data is a solo project by Aleksandrs O. Berzins, whom some may know from other projects such as Irklis, Audioscope, Formā Anonym, and Negative Values. Following two previous EPs, he has released this new EP this year, featuring six brand-new tracks. Bob Data's sound is rooted in old-school Electro, where vintage textures strongly define the atmosphere. The music is somewhat minimalist, partly because there are no vocals or samples involved, yet it remains highly idiosyncratic.",
+    "site_id": "side_line",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "NNHMN interview: \u201cWe are evolutionists\u201d",
+    "artist": "NNHMN",
+    "score": null,
+    "url": "https://www.side-line.com/nnhmn-interview-2026/",
+    "source": "Side-Line",
+    "pub_date": "2026-05-18",
+    "tags": ["industrial", "darkwave", "EBM", "electro", "post-punk", "goth"],
+    "excerpt": "Berlin-based NNHMN have built their recent work around movement, tension, and transformation. With \u201cOpera of Lust and The Art of Sorrow\u201d, the duo continue to expand a sound that connects darkwave, electronic body music, performance, and club discipline without reducing itself to nostalgia. As \u201cCold Like Steel\u201d prepares to open a slower, more melancholic side of the project, Lee and Michal speak about theatrical writing, genre evolution, live tension, Grauzone 2026, and \u201cUNTERWELT\u201d, their Halloween event at Festsaal Kreuzberg in Berlin.",
+    "site_id": "side_line",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]
