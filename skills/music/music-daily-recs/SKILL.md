@@ -196,7 +196,7 @@ python3 bin/aggregate_reviews.py \
 ```
 total_score = critic_quality(0-3) + taste_match(0-5) + novelty(0-3)
             + cross_domain_bonus(0-3) + regional_bonus(0-2)
-            - mainstream_penalty(0-3)
+            - mainstream_penalty(0-3) - excerpt_penalty(0-1)
 ```
 
 | 维度 | 范围 | 核心逻辑 |
@@ -207,6 +207,7 @@ total_score = critic_quality(0-3) + taste_match(0-5) + novelty(0-3)
 | cross_domain | 0-3 | jazz/electronic/world/classical 多域命中 |
 | regional | 0-2 | 地区级（southeast asia 等）→2，县级（argentina 等）→1 |
 | mainstream_penalty | 0-3 | 主流/流行内容降权 |
+| excerpt_penalty | 0-1 | CQ≤1 且 TM<3 时 +1（低质量+低相关度的短条目降权） |
 
 > synth_dungeon_downgrade 已删除——用户口味包含 dark ambient / drone / dungeon synth，不降权。
 
@@ -216,12 +217,24 @@ total_score = critic_quality(0-3) + taste_match(0-5) + novelty(0-3)
 
 aggregator 用 MiniMax M2.7 生成 1-2 句中文总结。
 
-**正确配置（不是猜的）：**
+aggregator 通过 **Anthropic SDK** 调用 `api.minimaxi.com` 的 MiniMax M2.7 模型：
+
 ```python
-LLM_API_URL = "https://api.minimaxi.com/v1/chat/completions"
-LLM_MODEL = "MiniMax-M2.7"
-# 环境变量名：MINIMAX_CN_API_KEY（不是 MINIMAX_API_KEY）
+import anthropic
+client = anthropic.Anthropic(
+    api_key=MINIMAX_CN_API_KEY,
+    base_url="https://api.minimaxi.com/anthropic",
+    timeout=60,
+)
+message = client.messages.create(
+    model="MiniMax-M2.7",
+    max_tokens=30000,
+    temperature=0.7,
+    messages=[{"role": "user", "content": prompt}]
+)
 ```
+
+⚠️ 环境变量名是 `MINIMAX_CN_API_KEY`（不是 `MINIMAX_API_KEY`）。API key 从 `~/.hermes/.env` 读取。
 
 **⚠️ 不要用关键词拼接做总结** — 兜底输出的是"低频嗡鸣与氛围纹理"这类无意义文案，用户明确拒绝。必须走 LLM API。
 
