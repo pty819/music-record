@@ -250,22 +250,8 @@ def score_review(r, site_id="musique_machine"):
     elif "mainstream" in el and "experimental" not in el:
         mp = 2 if "indie" in el else 1
 
-    # DR: synth/dungeon downgrade
-    dr = 0
-    if "synthwave" in tags_str or "retrowave" in tags_str:
-        has_novelty = any(k in el for k in ["innovative", "modern", "experimental", "composition", "texture", "design"])
-        if not has_novelty:
-            if all(k in el for k in ["retro", "nostalgic"]):
-                dr += 1
-            if "vibes" in el and "sound" not in el and "textur" not in el:
-                dr += 1
-    if "dungeon synth" in tags_str or "dark ambient" in tags_str:
-        has_detail = any(k in el for k in ["texture", "layer", "narrative", "worldbuilding", "composition", "ritual"])
-        if not has_detail and ("lo-fi" in el or "noise" in el):
-            dr += 1
-
     pen = 1 if cq <= 1 and tm < 3 else 0
-    return max(0, cq + tm + nov + cdb + reg - mp - dr - pen)
+    return max(0, cq + tm + nov + cdb + reg - mp - pen)
 
 
 # ── Main ────────────────────────────────────────────────────────
@@ -313,16 +299,17 @@ def main():
     passed = [r for r in scored if r["total_score"] >= 6]
     print(f"Passed (>=6): {len(passed)}")
 
-    # 4. Generate Chinese summaries (only for passed items)
-    print(f"Summarizing {len(passed)} items via MiniMax M2.7...")
-    for i, r in enumerate(passed, 1):
+    # 4. Generate Chinese summaries (ALL items, not just passed)
+    all_to_summarize = scored
+    print(f"Summarizing {len(all_to_summarize)} items via MiniMax M2.7...")
+    for i, r in enumerate(all_to_summarize, 1):
         if args.no_summary:
             r["_cn_summary"] = "（摘要跳过）"
             continue
         album = r.get("album", "")
         artist = r.get("artist", "")
         artist_album = f"{album} — {artist}" if album and artist else (album or artist or "未知作品")
-        sys.stdout.write(f"  [{i}/{len(passed)}] {artist_album[:50]}... ")
+        sys.stdout.write(f"  [{i}/{len(all_to_summarize)}] {artist_album[:50]}... ")
         sys.stdout.flush()
         r["_cn_summary"] = summarize_cn(
             r.get("excerpt", ""),
@@ -347,18 +334,18 @@ def main():
     now = datetime.now()
     lines = [
         f"# Daily Music Recommendations — {date_str}\n",
-        f"*Generated {now.isoformat()} · {len(reviews)} reviews · {len(passed)} passed filter (≥6/10)*\n"
+        f"*Generated {now.isoformat()} · {len(reviews)} reviews · 全量输出*\n"
     ]
 
-    top = [r for r in scored if r["total_score"] >= 11]
-    mid = [r for r in scored if 8 <= r["total_score"] <= 10]
-    low = [r for r in scored if 6 <= r["total_score"] < 8]
+    groups = [
+        ("## ★8+ — Notable\n", [r for r in scored if r["total_score"] >= 8]),
+        ("## ★6-7 — 值得关注\n", [r for r in scored if 6 <= r["total_score"] < 8]),
+        ("## ★4-5 — 尚可\n", [r for r in scored if 4 <= r["total_score"] < 6]),
+        ("## ★2-3 — 偏低\n", [r for r in scored if 2 <= r["total_score"] < 4]),
+        ("## ★0-1 — 低分\n", [r for r in scored if r["total_score"] < 2]),
+    ]
 
-    for group_title, group in [
-        ("## ★10+ — Top Picks\n", top),
-        ("## ★8-9 — Notable\n", mid),
-        ("## ★6-7 — 此外值得关注\n", low),
-    ]:
+    for group_title, group in groups:
         if not group:
             continue
         lines.append(group_title)
