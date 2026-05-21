@@ -102,51 +102,24 @@ def cleanup_old_tasks():
 
     """Archive existing music-pipeline kanban tasks (scrape:* and aggregate:*).
 
-    Does NOT touch tasks from other domains. Runs directly on kanban DB
+    Uses `hermes kanban` CLI exclusively — never opens kanban.db directly
 
-    to avoid CLI text-parsing fragility."""
+    to avoid WAL conflicts with the kanban dispatcher.
 
-    import sqlite3
+    Does NOT touch tasks from other domains."""
 
-    db_path = os.path.expanduser("~/.hermes/kanban.db")
+    import subprocess
 
-    if not os.path.exists(db_path):
-
-        print("  [cleanup] no kanban.db, skip", file=sys.stderr)
-
-        return 0
-
-    conn = sqlite3.connect(db_path)
-
-    cur = conn.execute(
-
-        "SELECT id, title, status FROM tasks "
-
-        "WHERE (title LIKE 'scrape:%' OR title LIKE 'aggregate:%') "
-
-        "AND status NOT IN ('archived', 'done')"
-
+    # Read via CLI (safe — no direct SQLite)
+    result = subprocess.run(
+        ["hermes", "kanban", "list"],
+        capture_output=True, text=True, timeout=15
     )
-
-    tasks = cur.fetchall()
-
-    conn.close()
-
-    if not tasks:
-
-        print("  [cleanup] no music tasks to archive")
-
+    if result.returncode != 0:
+        print(f"  [cleanup] kanban list failed: {result.stderr.strip()}", file=sys.stderr)
         return 0
 
-    print(f"  [cleanup] archiving {len(tasks)} old music-pipeline tasks...")
-
-    for tid, title, status in tasks:
-
-        code = run(["hermes", "kanban", "archive", tid])
-
-        print(f"    archived {status:<8} {title[:50]}  ({tid[:12]}...)")
-
-    return len(tasks)
+    # Pars...[truncated]
 
 
 
