@@ -5,7 +5,7 @@ cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git pu
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, darkwave, industrial, kanban, fan-out]
 author: hermes-agent
-version: 3.6
+version: 3.7
 created: 2026-05-07
 updated: 2026-05-21
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
@@ -18,7 +18,7 @@ trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
 ```
 T0  orchestrator   cron agent = music-daily-recs skill 执行者
      ↓
-Step 0  清理旧积压（归档 stale ◻ todo scraper） — 每次触发前必须
+Step 0  Auth 检查 + DB 健康检查（积压清理已移至脚本自动执行）
      ↓
 Step 1  同步 sites.json（git pull）
      ↓
@@ -27,7 +27,7 @@ Step 2  python3 kanban-batch-scrape.py --confirm
 [T1a ... T1z]  48 个 scraper 任务
      ↓ (全部 done)
 T49  aggregator    收集所有 scraper 的输出 JSON，合并去重，评分，写 markdown
-     ↓ (aggregator 自身完成 git push + Telegram 推送)
+     ↓ (aggregator 自身完成 git push + **Telegram 推送**)
 ```
 
 **⚠️ 不要照着 Step 2 的代码示例手动创建任务** — 那段代码绕过了 batching，会导致 48 个 scraper 同时启动，OOM。正确做法是用 `kanban-batch-scrape.py`，它内部实现 2-at-a-time 的 parent-gated batching。
@@ -357,7 +357,7 @@ scraper 输出 JSON 后，aggregator 需要自动推断 `type` 字段：
 | CDB (cross_domain) | 0-3 | 仅 13% | ❌ 只查标签不查正文 |
 | REG (regional) | 0-2 | ~0% | ❌ 只查标签不查正文国家/地名 |
 | MP (mainstream_penalty) | 0-3 | ~0% | ❌ 这些站本来就不存在主流内容 |
-| DR (synth_dungeon_downgrade) | 0-2 | ~0% | ❌ 同上 |
+| DR (synth_dungeon_downgrade) | 0-2 | ~0% | ❌ 已删除（用户喜欢 dark ambient/drone，不应降权） |
 
 **最大问题**：TM=0 不代表"不匹配口味"。很多重要站点（world_music_central、roots_world、a_closer_listen）在 sites.json 中标注了 experimental/avant-garde 标签，但 scraper 提取的 entry-level tags 不包含这些关键词。例如 **Jonny Greenwood（Radiohead）的 qawwali fusion 作品 TM=0**，Omar Sosa TM=0，Julius Eastman TM=2（仅因 avant_music_news 的 entry tags 恰好匹配）。
 
@@ -371,7 +371,7 @@ total ≈ CQ(0-5) + TM(0-5 但只有 23% 有值) - 1(if excerpt < 100字)
 ```
 total_score = critic_quality(0-3) + taste_match(0-5) + novelty(0-3)
              + cross_domain_bonus(0-3) + regional_bonus(0-2) 
-             - mainstream_penalty(0-3) - synth_dungeon_downgrade(0-2)
+|             - mainstream_penalty(0-3) |
 ```
 
 ### critic_quality (0-3，上限从 5 降低)
@@ -441,7 +441,9 @@ domain_map = {
 - 1：偏主流但有可取之处
 - 0：不属于 mainstream penalty 范围
 
-### Synthwave / Dungeon Synth 降权（synth_dungeon_downgrade, 0-2）— 不变
+### Synthwave / Dungeon Synth 降权 ~~(synth_dungeon_downgrade, 0-2)~~ — 已删除
+
+> 用户口味包含 dark ambient、drone、dungeon synth，不应对这些类型降权。已从评分公式中移除。
 
 - Synthwave / Retrowave：只有 80s nostalgia aesthetic，没有明显声音创新 → -1；评论只是 "fun", "nostalgic", "retro vibes" → -1
 - Dungeon Synth / Dark Ambient：只是低保真循环 pad 堆叠，没有明显叙事感/音色设计/世界构建 → -1
@@ -568,7 +570,7 @@ LLM_MODEL = "MiniMax-M2.7"
 |------|------|------|
 | recommend markdown | `recommend/{YYYY-MM-DD}.md` | 唯一 markdown 输出，含 ★10/8/6 分级 |
 | aggregator JSON | `2026/{MM}/{YYYY-MM-DD}/aggregated.json` | 全量去重评论 |
-| filtered JSON | `2026/{MM}/{YYYY-MM-DD}/filtered.json` | >=6 分评论 |
+| filtered JSON | `2026/{MM}/{YYYY-MM-DD}/filtered.json` | ~~>=6 分评论~~ → 已废弃（现为全量 scored JSON） |
 | scraper JSON | `2026/{MM}/{YYYY-MM-DD}/{site_id}_reviews.json` | 各站原始输出 |
 
 **Telegram 推送**：**由 aggregator body 内置**，不再依赖 cron agent。aggregator 完成 `aggregate_reviews.py` + git push 后，自动调用 `send_message` 将 `recommend/{DATE}.md` 内容推送到 Telegram Home。这样即使 cron agent session 超时，推送也不会丢失。
@@ -989,23 +991,7 @@ git commit -m "Daily: $(date +%Y-%m-%d) — fallback aggregation"
 git push origin main
 ```
 
-### Step 6 — 入库 OpenViking 知识库
-
-Pipeline 完成后，将当天的 recommend markdown 添加到 OpenViking 作为可搜索资源：
-
-```bash
-# 添加推荐文档到 OpenViking（后台处理，会自动生成摘要+向量索引）
-TODAY=$(date +%Y-%m-%d)
-MD_PATH="/home/liyifan/music-record/recommend/${TODAY}.md"
-if [ -f "$MD_PATH" ]; then
-  ov add-resource --reason "每日音乐推荐，${TODAY}" "$MD_PATH"
-  echo "✅ OpenViking: ${TODAY} 已入库"
-else
-  echo "⚠️ OpenViking: ${TODAY}.md 不存在，跳过入库"
-fi
-```
-
-入库后可以通过 `viking_search` 或 MCP 的 `mcp_OpenViking_find` 搜索历史推荐内容。OpenViking 的 VLM（MiniMax M2.7）会自动生成中文摘要和向量索引。
+### Step 5 — 入库 OpenViking 知识库（重复，上方已覆盖，忽略此段）
 
 ### Step 5 — 入库 OpenViking 知识库
 
@@ -1155,7 +1141,7 @@ hermes cronjob run 6fd93b4a4c4c
 
 **根本解法**：将 cron 调度器从 gateway 进程中独立出来（Hermes 未来的 `cron_mode: external`），避免 gateway crash 导致 cron 漏触发。
 
-### ⚠️ 已知 Bug：cron agent 超时，scraper JSON 存在但 aggregator 未运行
+### ⚠️ 已知 Bug：cron agent 超时，scraper JSON 存在但 aggregator 未运行（2026-05-21 修复）
 
 **现象**（2026-05-21 实测）：cron 自动运行后：
 1. kanban-batch-scrape.py 成功创建了所有 scraper 任务（40+ 个 JSON 文件已写入当天目录）
@@ -1170,12 +1156,15 @@ hermes cronjob run 6fd93b4a4c4c
 
 **修复方向**：
 - **短期内**：aggregator body 自包含 Telegram 推送，不再依赖 cron agent
-- **中期**：考虑 no_agent 模式或增加 gateway_timeout 到 4h
-- **Step 0 积压清理**必须跑成功，否则旧 task 越攒越多
+
+**实际修复（2026-05-21）**：
+1. `kanban-batch-scrape.py` 新增 `cleanup_old_tasks()`，在 `--confirm` 时自动归档旧 `scrape:` 和 `aggregate:` 任务
+2. aggregator body 新增 Step 5（Telegram 推送）
+3. `aggregate_reviews.py` 修复 `os.path.expanduser("~")` 路径问题，改用硬编码绝对路径
 
 **⚠️ 关键认识**：Delivery timeout 不代表 pipeline 失败。Scraper 任务仍然在 kanban dispatcher 中继续运行。cron 状态为 `ok` 但 Telegram 超时，聚合结果可能已在 `recommend/` 目录中（如果 aggregator 已被手动触发过），只需手动推送。但如果 aggregator 从未运行（常见），则需手动触发。
 
-4. **Aggregator 不自带 Telegram 推送** — cron agent 死后无人能推 Telegram。Aggregator body 只写了 `kanban_complete` + git push，没有 include Telegram 发送。修复：在 aggregator body 中加入 `send_message` 调用，或做成独立 task。
+4. ~~**Aggregator 不自带 Telegram 推送**~~ — 已修复，aggregator body 内置 `send_message` Step 5
 
 **恢复步骤（直接跑 standalone aggregator，无需 fallback 脚本）**：
 
@@ -1198,7 +1187,7 @@ git add -A
 git commit -m "daily: ${TODAY} music recommendations (manual aggregator run)"
 git push origin main
 
-# 5. 手动推送到 Telegram（或等用户查询时直接发送 recommend/{TODAY}.md 内容）
+# 5. ~~手动推送到 Telegram~~ — aggregator Step 5 已内置自动推送，只需确认 GitHub 已同步
 ```
 
 ⚠️ **必须在 `~/music-record/` 目录下执行** — `aggregate_reviews.py` 内部使用相对路径 `recommend/{DATE}.md` 写输出。从其他目录运行会写错路径或报错。
@@ -1219,7 +1208,7 @@ hermes kanban show <aggregator_id> | grep parent
 
 **处理**：归档旧 aggregator，手动 fallback 聚合。
 
-**Telegram 推送**也是跟着 aggregator 一起跳过的。如果走了 fallback，Telegram 也不会发。下次改进：把 Telegram 发送做成独立 task，不要绑定在 aggregator body 里面。
+**Telegram 推送**已内置于 aggregator Step 5，不再依赖 fallback 路径。
 
 ### ⚠️ 推荐结果 Songlines 系统性偏高 — 根因分析
 
@@ -1385,19 +1374,19 @@ git push
 
 ## Pipeline 跑完后维护
 
-### 每次 cron 触发前必须清理
+### 积压清理（现已自动化）
 
-> **此步骤已内置于 cron job prompt 的 Step 0 中，每次触发时自动执行。** 以下为说明性内容，供手动排障参考。
+> **积压清理由 `kanban-batch-scrape.py --confirm` 自动完成**，不再依赖 cron agent Step 0。脚本启动时调用 `cleanup_old_tasks()` 直接查 SQLite 归档 `scrape:` 和 `aggregate:` 任务，不碰其他领域任务。以下为说明性内容，供手动排障参考。
 
 `kanban-batch-scrape.py` 每次运行会**新建 48 个 task ID**，旧任务的 `◻ todo` 状态不会自动清理。3 轮后 board 上会有 140+ 个 stale task。
 
-**每次 cron 触发前，orchestrator 必须先归档上一轮的 stale scraper：**
+**手动归档旧 scraper（如需）：**
 
 ```bash
 # 检查当前积压
 hermes kanban list | grep "◻" | grep "scrape:" | wc -l
 
-# 归档所有旧 ◻ todo scraper（done/running/blocked 的保留）
+# 归档所有旧 scraper（done/running/blocked 的保留）
 hermes kanban list | grep "◻" | grep "scrape:" | awk '{print $2}' | while read id; do
   hermes kanban archive "$id"
 done
@@ -1513,10 +1502,14 @@ git push
 - `references/directory-migration-checklist.md` — 目录结构迁移时必查的 5 个文件 + grep 命令
 - `references/musique-machine-structure.md` — 2026-05-14 Musique Machine 网站实测：页面结构、URL 模式、电影/音乐标题区分规则、常见标签
 - `references/site-investigation-methodology.md` — 空 scraper 结果排查流程：RSS 验证、HTTP 状态检测、Playwright 浏览、正确 URL 定位、分类定论（2026-05-14）
-- `references/scraper-diagnostics-2026-05-14.md` — 2026-05-14 全量 42 站 audit：哪些站空、为什么空、每站笔记、修复计划
+- `references/scraper-profile-home-trap.md` — 2026-05-21 scraper profile $HOME 陷阱：`os.path.expanduser("~")` 解析到假 home，导致聚合器写入错误路径 + MiniMax API key 读不到→全走 fallback — 2026-05-14 全量 42 站 audit：哪些站空、为什么空、每站笔记、修复计划
 - `references/template-formatting-pitfalls.md` — agg_body `%` vs f-string 格式化陷阱大全（5 种错误模式 + 综合验证流程）
 - `references/minimax-thinking-leakage.md` — 2026-05-19 MiniMax M2.7 完整多段内部独白泄露的检测与修复
 ## 注意事项
+
+### ⚠️ Scraper Profile $HOME 陷阱（2026-05-21）
+
+Kanban worker 在 `scraper` profile 下运行时，`os.path.expanduser("~")` 解析到 profile 的假 home（`~/.hermes/profiles/scraper/home/`）。**所有脚本必须用硬编码绝对路径**，不用 `expanduser` 或 `~`。详见 `references/scraper-profile-home-trap.md`。
 
 ### ⚠️ 用户问音乐推荐：必须先查 OpenViking，再查 pipeline，最后才 web 搜索
 
