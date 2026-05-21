@@ -164,15 +164,7 @@ python3 bin/aggregate_reviews.py \
 | Camoufox (playwright_headless) | ~23 | Camoufox 反检测引擎，浏览前 2 页 |
 | skip | 3 | Syrphe / Textura / Fluid Radio（停更/不可访问） |
 
-### 暗潮方向（2026-05-20 新增，5 站）
-
-| site_id | 名称 | 策略 | 备注 |
-|---------|------|------|------|
-| side_line | Side-Line | RSS | https://www.side-line.com/feed/ |
-| post_punk_com | Post-Punk.com | RSS | https://www.post-punk.com/feed/ |
-| i_die_you_die | I Die: You Die | RSS | https://www.idieyoudie.com/feed/ |
-| peek_a_boo_magazine | Peek-A-Boo Magazine | RSS | http://www.peek-a-boo-magazine.be/all.rss |
-| dark_entries_be | Dark Entries | Camoufox | 荷兰语站，无 RSS |
+详情和站点列表见 `sites.json`。
 
 ### 各站特殊处理
 
