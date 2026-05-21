@@ -34,7 +34,7 @@ def _read_api_key():
     if key:
         return key
     try:
-        with open(os.path.expanduser("~/.hermes/.env")) as f:
+        with open("/home/liyifan/.hermes/.env") as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith("#") and "MINIMAX_CN_API_KEY" in line:
@@ -382,7 +382,7 @@ def main():
             lines.append("")
 
     # 8. Write recommend/{DATE}.md
-    recommend_dir = os.path.expanduser("~/music-record/recommend")
+    recommend_dir = "/home/liyifan/music-record/recommend"
     os.makedirs(recommend_dir, exist_ok=True)
     md_path = os.path.join(recommend_dir, f"{date_str}.md")
     with open(md_path, "w") as f:
