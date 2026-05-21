@@ -374,6 +374,15 @@ git push
 
 4. kanban_complete(summary="aggregated %d unique reviews, %d passed filter, recommend written to recommend/", metadata={"total": %d, "passed": %d})
 
+5. **Telegram 推送**：将 recommend markdown 推送到 Telegram Home。
+
+   ```markdown
+   读取 /home/liyifan/music-record/recommend/%s.md 内容。
+   用 send_message 推送到 Telegram Home 频道：
+   - 如果文件 <= 4000 字符：直接发送全部内容
+   - 如果文件 > 4000 字符：发送精简版（标题+★8以上+总数统计+"完整版见 GitHub: https://github.com/pty819/music-record/blob/main/recommend/%s.md"）
+   ```
+
 """
 
     from datetime import datetime
@@ -404,7 +413,9 @@ git push
 
         len(all_task_ids), passed_placeholder,
 
-        len(all_task_ids), passed_placeholder
+        len(all_task_ids), passed_placeholder,
+
+        DATE, DATE  # Telegram 推送的两个 %s
 
     )
 
