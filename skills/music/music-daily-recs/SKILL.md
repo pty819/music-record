@@ -3,12 +3,16 @@ name: music-daily-recs
 description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，聚合评分后推送 GitHub + Telegram
 category: music
 cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行）
-tags: [music-reviews, kanban, fan-out]
 author: hermes-agent
 version: 4.0
+license: MIT
 created: 2026-05-07
 updated: 2026-05-22
 trigger_condition: cron 每天 04:00 触发，或手动 `hermes cronjob run 6fd93b4a4c4c`
+metadata:
+  hermes:
+    tags: [music-reviews, kanban, fan-out, scraper, aggregator]
+    related_skills: [kanban-worker, hermes-agent-skill-authoring]
 ---
 
 # Music Daily Recs — Kanban Fan-Out Pipeline
@@ -27,6 +31,14 @@ Step 2  kanban-batch-scrape.py --confirm
   ↓（全部 done）
 Aggregator  合并去重 → 评分 → LLM 中文总结 → recommend/{DATE}.md → git push → Telegram 推送
 ```
+
+## 何时执行
+
+| 触发方式 | 说明 |
+|---------|------|
+| cron 自动 | 每天 04:00 北京时间，cron job `6fd93b4a4c4c` 触发 |
+| 手动 | `hermes cronjob run 6fd93b4a4c4c` |
+| 排障 | 发现当日推荐未送达时手动触发重跑 |
 
 ## 🔒 Harness Constraints（不可违反）
 
@@ -270,7 +282,7 @@ for block in message.content:
 
 ---
 
-## 常见故障速查
+## Common Pitfalls
 
 | 症状 | 检查 | 处理 |
 |------|------|------|
