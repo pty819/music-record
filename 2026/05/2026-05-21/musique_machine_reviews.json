@@ -1,0 +1,110 @@
+[
+  {
+    "album": "Capri",
+    "artist": "Celer",
+    "score": 5.0,
+    "url": "https://www.musiquemachine.com/reviews/celer-capri-1779287599536",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-20",
+    "tags": [
+      "dark ambient",
+      "ambient",
+      "drone"
+    ],
+    "excerpt": "Originally released in 2009, Capri features the prolific act when it was a duo, before Danielle Baquet-Long tragically passed later that year. Light drones create ambient vignettes of nature's ephemeral moments, what we take in daily, not realizing that their impermanence forms the solid foundations of our being.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review",
+    "reviewer": "Paul Casey"
+  },
+  {
+    "album": "Savage Imperial Death March",
+    "artist": "Melvins & Napalm Death",
+    "score": 5.0,
+    "url": "https://www.musiquemachine.com/reviews/melvins-napalm-death-savage-imperial-death-march-1779201268576",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-19",
+    "tags": [
+      "doom",
+      "experimental",
+      "collaboration"
+    ],
+    "excerpt": "When I first heard about this collaboration between The Melvins and Napalm Death, I thought I had a good idea how this was going to sound- but aside from a few tracks, this album sounds nothing like I was expecting. And I think it's fair to say that for the most part, Savage Imperial Death March is very much a dive into the odd, off-kilter, and downright weird.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review",
+    "reviewer": "Roger Batty"
+  },
+  {
+    "album": "Sunn O))))))",
+    "artist": "Sunn O))))))",
+    "score": 5.0,
+    "url": "https://www.musiquemachine.com/reviews/sunn-o-sunn-o-1779200212470",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-19",
+    "tags": [
+      "doom",
+      "drone",
+      "dark ambient"
+    ],
+    "excerpt": "After spending the last decade and a half or so trying to expand upon, cross-genre pollinate, and generally do something different with their monolithic sound. This tenth studio album from prime doom droners Sunn O)))))) finds them very much returning to their roots, but with way more layers of guitars and pure crushing weightiness about it.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review",
+    "reviewer": "Roger Batty"
+  },
+  {
+    "album": "Ossabaw Island Hog",
+    "artist": "Pig Peasant",
+    "score": 5.0,
+    "url": "https://www.musiquemachine.com/reviews/pig-peasant-ossabaw-island-hog-1779127373858",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-18",
+    "tags": [
+      "HNW",
+      "wall noise",
+      "industrial"
+    ],
+    "excerpt": "Ossabaw Island Hog is a twenty-minute slice of choppy and bass-pummelling walling from this Old Town, Maine-based project. Throughout the track has an oddly soothing quality about it, and I could have easily played this for another twenty, thirty, or even forty minutes.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review",
+    "reviewer": "Roger Batty"
+  },
+  {
+    "album": "Bruit De Fond",
+    "artist": "Raté",
+    "score": 5.0,
+    "url": "https://www.musiquemachine.com/reviews/rat-bruit-de-fond-1779126606960",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-18",
+    "tags": [
+      "wall noise",
+      "HNW",
+      "industrial"
+    ],
+    "excerpt": "Bruit De Fond is an example of churning walled noise nihilism from Bordeaux's Raté. It's a single thirty-four-minute track, which remains terminal hope-battering & unbreakable over its full length.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review",
+    "reviewer": "Roger Batty"
+  },
+  {
+    "album": "Was",
+    "artist": "Necrotik Fissure",
+    "score": 5.0,
+    "url": "https://www.musiquemachine.com/reviews/necrotik-fissure-was-1779126210014",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-18",
+    "tags": [
+      "HNW",
+      "wall noise",
+      "industrial"
+    ],
+    "excerpt": "Here's seventy-eight minutes' worth of barrenly searing 'n' crudely whizzing HNW from this Hungarian project. Necrotik Fissure has been active since the early 2010's, been both prolific and unflinchingly extreme in its releasing of the walled noise form.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review",
+    "reviewer": "Roger Batty"
+  }
+]

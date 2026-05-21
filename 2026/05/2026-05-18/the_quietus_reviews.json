@@ -1,27 +1,64 @@
 [
   {
-    "album": "The Eighteenth Day of May",
-    "artist": "The Eighteenth Day of May",
+    "album": "Musick",
+    "artist": "Laibach",
     "score": null,
-    "url": "https://thequietus.com/quietus-reviews/reissue-of-the-week/the-eighteenth-day-of-may-album-review/?utm_source=rss&utm_medium=rss&utm_campaign=the-eighteenth-day-of-may-album-review",
-    "source": "The Quietus",
-    "pub_date": "Fri, 15 May 2026 07:30:00 +0000",
-    "tags": "experimental, electronic, jazz, world, psych, prog, free-improv",
-    "excerpt": "The Eighteenth Day Of May’s singular self-titled album remains timeless and enchanting, says Will Salmon You might not recall The Eighteenth Day Of May, but if you're a regular reader of The Quietus then there's a strong chance that you'll know at least one of the projects that rose from the ashes of this short-lived, but quietly influential psych folk sextet. The band formed in London in 2003, initially as a trio: vocalist Allison Brice, and multi-instrumentalists Richard Olson and Ben Phillips",
-    "site_id": "the_quietus",
+    "url": "https://thequietus.com/quietus-reviews/laibach-musick-review/",
+    "source": "thequietus",
+    "pub_date": "2026-05-18",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "What does culture, or entertainment, mean right now? And should we be scared of such things, in the mediums they currently present themselves in? Laibach's new long player, Musick, often toys with such questions.",
+    "site_id": "thequietus",
     "crawl_status": "success",
-    "type": "feature"
+    "type": "review"
+  },
+  {
+    "album": "The Eighteenth Day Of May",
+    "artist": "The Eighteenth Day Of May",
+    "score": null,
+    "url": "https://thequietus.com/quietus-reviews/reissue-of-the-week/the-eighteenth-day-of-may-album-review/",
+    "source": "thequietus",
+    "pub_date": "2026-05-15",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "The Eighteenth Day Of May's singular self-titled album remains timeless and enchanting, says Will Salmon",
+    "site_id": "thequietus",
+    "crawl_status": "success",
+    "type": "review"
   },
   {
     "album": "Walkman",
     "artist": "Speedy J",
     "score": null,
-    "url": "https://thequietus.com/quietus-reviews/speedy-j-walkman-review/?utm_source=rss&utm_medium=rss&utm_campaign=speedy-j-walkman-review",
-    "source": "The Quietus",
-    "pub_date": "Fri, 15 May 2026 05:00:00 +0000",
-    "tags": "experimental, electronic, jazz, world, psych, prog, free-improv",
-    "excerpt": "'s first album in two decades is a proud ripose to the vicissitudes of the algorithm, finds Jeremy Allen to streaming services every year, how does one avert overload fatigue from the sheer mass of new music? It’s a modern reality that the Dutch music producer Jochem Paap has been wrestling with, with Walkman his first solo release in twenty years. The name of this record harks back to the Sony Walkman, of course, the mobile cassette player that revolutionised personal listening in the 1980s and",
-    "site_id": "the_quietus",
+    "url": "https://thequietus.com/quietus-reviews/speedy-j-walkman-review/",
+    "source": "thequietus",
+    "pub_date": "2026-05-15",
+    "tags": [
+      "experimental",
+      "electronic",
+      "jazz",
+      "world",
+      "psych",
+      "prog",
+      "free-improv"
+    ],
+    "excerpt": "Dutch producer Jochem Paap's first album in two decades is a proud riposte to the vicissitudes of the algorithm. With more than 43 million songs uploaded to streaming services every year, how does one avert overload fatigue from the sheer mass of new music?",
+    "site_id": "thequietus",
     "crawl_status": "success",
     "type": "review"
   }

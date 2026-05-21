@@ -1,0 +1,41 @@
+[
+  {
+    "album": "Heavy Water",
+    "artist": "Magic Tuber Stringband",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/20/magic-tuber-stringband-heavy-water/",
+    "source": "acloserlisten",
+    "pub_date": "2026-05-20",
+    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
+    "excerpt": "Imagine living in the \"best town,\" a rural community of friendly neighbors surrounded by natural beauty, and then being forcibly displaced so the government could make nuclear bombs. This is what happened to the shellshocked citizens of Ellenton, South Carolina in 1951.",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "The Second Coming Was a Moonrise",
+    "artist": "Hammock",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/19/hammock-the-second-coming-was-a-moonrise/",
+    "source": "acloserlisten",
+    "pub_date": "2026-05-19",
+    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
+    "excerpt": "What would happen if one were to mix LSD with fundamentalist Christianity? Hammock's Marc Byrd learned the answer when watching the moonrise and mistaking it for the apocalypse.",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "The Sun Turned Black",
+    "artist": "Aho Ssan",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/18/aho-ssan-the-sun-turned-black/",
+    "source": "acloserlisten",
+    "pub_date": "2026-05-18",
+    "tags": "instrumental, experimental, ambient, drone, field recording, modern composition",
+    "excerpt": "You can't go home again, writes Thomas C. Wolfe in Look Homeward, Angel. Paris-based artist Aho Ssan experienced this feeling of disconnection when he visited Ghana, his ancestral home.",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]
