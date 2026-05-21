@@ -5,9 +5,9 @@ cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行 pipeline + git pu
 category: music
 tags: [music-reviews, avant-garde, experimental, jazz, electronic, world-music, darkwave, industrial, kanban, fan-out]
 author: hermes-agent
-version: 3.4
+version: 3.6
 created: 2026-05-07
-updated: 2026-05-20
+updated: 2026-05-21
 trigger_condition: 每天北京时间凌晨 04:00 cron 触发，或手动调用
 ---
 
@@ -23,15 +23,14 @@ Step 0  清理旧积压（归档 stale ◻ todo scraper） — 每次触发前�
 Step 1  同步 sites.json（git pull）
      ↓
 Step 2  python3 kanban-batch-scrape.py --confirm
-     ↓（脚本内部：2并行 × 22批，parent-gated）
-[T1a ... T1z]  43 个 scraper 任务
+     ↓（脚本内部：2并行 × 24批，parent-gated）
+[T1a ... T1z]  48 个 scraper 任务
      ↓ (全部 done)
-T44  aggregator    收集所有 scraper 的输出 JSON，合并去重，评分，写 markdown
-     ↓ (aggregator 自身完成 git push)
-Step 3  cron agent 推送完整推荐 markdown 到 Telegram
+T49  aggregator    收集所有 scraper 的输出 JSON，合并去重，评分，写 markdown
+     ↓ (aggregator 自身完成 git push + Telegram 推送)
 ```
 
-**⚠️ 不要照着 Step 2 的代码示例手动创建任务** — 那段代码绕过了 batching，会导致 43 个 scraper 同时启动，OOM。正确做法是用 `kanban-batch-scrape.py`，它内部实现 2-at-a-time 的 parent-gated batching。
+**⚠️ 不要照着 Step 2 的代码示例手动创建任务** — 那段代码绕过了 batching，会导致 48 个 scraper 同时启动，OOM。正确做法是用 `kanban-batch-scrape.py`，它内部实现 2-at-a-time 的 parent-gated batching。
 
 ## Task Assignee 定义
 
@@ -45,9 +44,9 @@ Step 3  cron agent 推送完整推荐 markdown 到 Telegram
 sites.json 在 `/home/liyifan/.minimax/music-sites/sites.json`（从 music-record repo 同步）
 Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹），即直接是 git 仓库路径
 
-共 50 个站点，其中 47 个活跃 + 3 个 skip：
+共 50 个站点，其中 48 个活跃 + 3 个 skip：
 
-### 2026-05-20 新增：暗潮/暗黑电子站点（4 站，全部 RSS 已验证）
+### 2026-05-20 新增：暗潮/暗黑电子站点（5 站，全部 RSS 已验证）
 
 新增暗潮（darkwave/dark ambient/dark electronic/industrial/goth）方向 4 站，全部走 RSS 优先策略：
 
@@ -64,7 +63,7 @@ Output 写入 `~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹）�
 
 详情见 `references/darkwave-sites-2026-05-20.md`。
 
-共 50 个站点，其中 47 个活跃 + 3 个 skip：
+共 50 个站点，其中 48 个活跃 + 3 个 skip：
 - **skip**（Syrphe / Textura / Fluid Radio）：已知无法访问或仅历史存档，跳过。sites.json 中 `crawl_strategy: "skip"`
 - **Boomkat**：原 ASN 黑名单 skip，**2026-05-19 重新验证：Camoufox fingerprint 可绕过 Cloudflare ASN 封锁** ✅ 已恢复为 `playwright_headless`
 - **RSS 优先组**（~21 站）：feedparser 直接解析，**只取 3 天内条目**，超期停止翻页
@@ -250,6 +249,48 @@ ProgArchives 整个站点触发 Cloudflare JS 挑战（`Just a moment...` 验证
 ```
 
 这条规则已内置于 `kanban-batch-scrape.py` 的 scraper body 模板中（步骤 8），对所有站点生效。添加新站点时，如果该站同时有电影和音乐内容，需要确保这条规则能覆盖。
+
+## ⚠️ Scraper Agent 执行纪律（2026-05-21 新增）
+
+Scraper agent 被选中后独立运行，**容易过度分析和浪费时间在无意义的事情上**。必须严格执行以下纪律：
+
+### RSS 站点：绝对不要开浏览器
+
+如果 `sites.json` 中 `has_rss: true` 且 `crawl_strategy: http_get`：
+
+1. **只走 feedparser**。不要 `browser_navigate`、不要开 Camoufox。
+2. 直接用 `python3 -c "import feedparser; ..."` 拉 RSS → 提取条目 → 写 JSON
+3. 日期过滤已在脚本模板中内置。**不要现场写 Python 测日期逻辑**、不要 debug "cutoff 是今天-3天还是昨天"
+4. RSS 有数据 → 写 JSON → 完成。**不需要验证浏览器版的内容是否更完整。**
+
+日志超过 200 行就说明你在过度分析。目标：RSS 站点 < 30 秒完成。
+
+### 禁止行为（会导致 kanban slot 被阻塞）
+
+```
+❌ RSS 站又开 Camoufox 浏览器对比数据
+❌ 现场写 Python 脚本测试日期过滤是否正确
+❌ 调试 cutoff 逻辑（模板已正确，信任模板）
+❌ 来回浏览器/RSS 交叉验证
+❌ 验证已有 JSON 输出的格式（写的时候一并完成就好）
+```
+
+### 允许行为
+
+```
+✅ RSS → feedparser → 提取 → JSON → done
+✅ Camoufox站 → navigate列表页 → 提取前2页metadata → JSON → done
+✅ 只用`has_rss`决定策略，不要重新判断
+```
+
+### 评估标准
+
+| 指标 | 目标 |
+|------|------|
+| RSS 站耗时 | < 30 秒 |
+| Camoufox 站耗时 | < 3 分钟（含 navigate） |
+| 日志行数 | < 100 行（RSS），< 300 行（Camoufox） |
+| 是否新写 Python 脚本 | 否 |
 
 ## Scraper 模板指令改进（2026-05-14）
 
@@ -530,7 +571,7 @@ LLM_MODEL = "MiniMax-M2.7"
 | filtered JSON | `2026/{MM}/{YYYY-MM-DD}/filtered.json` | >=6 分评论 |
 | scraper JSON | `2026/{MM}/{YYYY-MM-DD}/{site_id}_reviews.json` | 各站原始输出 |
 
-**Telegram 推送**：`recommend/{DATE}.md` 内容作为消息体发送。
+**Telegram 推送**：**由 aggregator body 内置**，不再依赖 cron agent。aggregator 完成 `aggregate_reviews.py` + git push 后，自动调用 `send_message` 将 `recommend/{DATE}.md` 内容推送到 Telegram Home。这样即使 cron agent session 超时，推送也不会丢失。
 
 ## 站点诊断（爬虫空结果排查）
 
@@ -546,13 +587,17 @@ LLM_MODEL = "MiniMax-M2.7"
 
 ## 执行步骤（cron job prompt 完整内容）
 
-> **⚠️ 重要：这些步骤是 cron job `6fd93b4a4c4c` 的 `--prompt` 完整内容。每次触发都会原样执行。Step 0（积压清理）是**每次触发前必须执行的第一步**，不可跳过。**
+> **⚠️ 重要：这些步骤是 cron job `6fd93b4a4c4c` 的 `--prompt` 完整内容。每次触发都会原样执行。**
+
+> ⓘ 积压清理（旧音乐任务归档）已由 `kanban-batch-scrape.py --confirm` 在脚本启动时自动完成——脚本直接查 SQLite 匹配 `scrape:` 和 `aggregate:` 标题的任务归档，不碰其他领域任务。不再依赖 cron agent 执行 Step 0。**
 
 以下步骤按顺序执行：
 
-### ⚠️ Step 0 — 积压清理 + auth 检查 + DB 健康检查（**每次 cron 触发必须首先执行**）
+### ✅ Step 0 — Auth 检查 + DB 健康检查
 
-**🔴 DB 损坏保护**：在归档任何任务前，先验证 kanban.db：
+> ⓘ 积压清理已由 `kanban-batch-scrape.py` 在脚本启动时自动归档所有 `scrape:` 和 `aggregate:` 任务，不碰其他领域。
+
+**DB 健康检查**：
 ```bash
 python3 -c "
 import sqlite3
@@ -561,34 +606,21 @@ ok = conn.execute('PRAGMA integrity_check').fetchone()[0]
 conn.close()
 print('DB_INTEGRITY:' + ok)
 " 2>/dev/null
-# 输出应为 DB_INTEGRITY:ok
-# 若输出 DB_INTEGRITY:ok 以外的任何内容 → ⚠️ DB 已损坏，SKIP 本步清理！
-#   先修复 DB（见 references/kanban-db-corruption.md），
-#   再手动触发或等下次 cron。归档损坏 DB 中的任务会导致 board 变空且无法重建。
+# 期望输出：DB_INTEGRITY:ok
 ```
 
-**自动化检查**（推荐）：
+**Auth 检查**（推荐）：
 ```bash
 bash ~/.hermes/skills/music/music-daily-recs/scripts/check-scraper-auth.sh
 ```
 
 **手动检查**：
 ```bash
-# 1. 检查积压（旧 todo scraper 数量）
-hermes kanban list | grep "◻" | grep "scrape:" | wc -l
-
-# 2. 清理旧 todo scraper（只保留 done/running/blocked）
-#    ⚠️ 仅在前一步 DB_INTEGRITY:ok 确认后方可执行！
-hermes kanban list | grep "◻" | grep "scrape:" | awk '{print $2}' | while read id; do
-  hermes kanban archive "$id"
-done
-
-# 3. 确认 auth.json 只有 minimax-cn
+# 确认 auth.json 只有 minimax-cn
 cat ~/.hermes/profiles/scraper/auth.json
-# 期望：credential_pool 里只有 "minimax-cn" 这一个 key，base_url 应为 https://api.minimaxi.com
-# 如果同时有 "minimax"（api.minimax.io）→ 删除 minimax 条目，只留 minimax-cn
+# 期望：credential_pool 里只有 "minimax-cn" 这一个 key
 
-# 4. 确认 scraper profile config
+# 确认 scraper profile config
 cat ~/.hermes/profiles/scraper/config.yaml | grep -E "provider|model"
 # 期望：provider: minimax-cn
 ```
@@ -626,7 +658,7 @@ Output 路径：
 
 ### Step 2 — 运行 batch 脚本（正确方式）
 
-**⚠️ 不要手动创建任务。** 手动循环 `kanban_create` 会创建 43 个无 parent 的 task，dispatcher 会同时 spawn 43 个 scraper 进程，内存爆炸。
+**⚠️ 不要手动创建任务。** 手动循环 `kanban_create` 会创建 48 个无 parent 的 task，dispatcher 会同时 spawn 48 个 scraper 进程，内存爆炸。
 
 正确方式：
 
@@ -642,10 +674,10 @@ python3 /home/liyifan/.local/bin/kanban-batch-scrape.py --confirm
 1. 读取 sites.json，过滤 `crawl_strategy != "skip"` 的站点
 2. 分批：每批 2 个 task，用 `parents=` 形成 parent-gated chain
 3. batch 1 无 parent；batch 2 的 `parents=[t1a, t1b]`；batch 3 的 `parents=[t2a, t2b]`... 以此类推
-4. 所有 43 个 scraper done 后，aggregator 自动 `▶ ready`
-5. aggregator 的 `parents=` 填入全部 43 个 scraper task_id
+4. 所有 48 个 scraper done 后，aggregator 自动 `▶ ready`
+5. aggregator 的 `parents=` 填入全部 48 个 scraper task_id
 
-**为什么 batch size = 2？** kanban dispatcher 对同一 profile 的并发 spawn 数有限制，加上 scraper 进程（每个带 headless 浏览器）内存峰值约 200-400MB，43 并发会直接 OOM。2 并行是经过测试的稳定值。
+**为什么 batch size = 2？** kanban dispatcher 对同一 profile 的并发 spawn 数有限制，加上 scraper 进程（每个带 headless 浏览器）内存峰值约 200-400MB，48 并发会直接 OOM。2 并行是经过测试的稳定值。
 
 ### Step 3 — 监控 scraper 进度
 
@@ -742,7 +774,7 @@ sleep 120 && hermes kanban list | grep -c "✓.*done.*scraper" && hermes kanban 
 **⚠️ Dispatcher 卡死识别与恢复**：如果 `✓ done` 不再增加（计数器 plateau），但 `◻ todo` 还有剩余，说明 dispatcher 卡死。
 
 **症状判断**：
-- `✓ done` 停在 N，剩余 `(43 - N)` 个 `◻ todo`
+- `✓ done` 停在 N，剩余 `(48 - N)` 个 `◻ todo`
 - `running` 计数为 0（没有 scraper 在跑）
 - 但 scraper 的 JSON 文件已经写入了
 
@@ -994,7 +1026,7 @@ fi
 ### Step 6 — Pipeline 跑完后检查
 
 ```bash
-# 确认所有 scraper done（期望：43 done）
+# 确认所有 scraper done（期望：48 done）
 hermes kanban list | grep -c "✓.*done.*scraper"
 
 # 确认 aggregator done（期望：1 done）
@@ -1122,6 +1154,56 @@ hermes cronjob run 6fd93b4a4c4c
 然后等待结果推送到 Telegram。如果 Telegram 不稳定导致 delivery timeout，job 状态仍为 ok，结果存档在 music-record GitHub。**但存档不等于替代推送**——必须确保 Telegram 收到结果。
 
 **根本解法**：将 cron 调度器从 gateway 进程中独立出来（Hermes 未来的 `cron_mode: external`），避免 gateway crash 导致 cron 漏触发。
+
+### ⚠️ 已知 Bug：cron agent 超时，scraper JSON 存在但 aggregator 未运行
+
+**现象**（2026-05-21 实测）：cron 自动运行后：
+1. kanban-batch-scrape.py 成功创建了所有 scraper 任务（40+ 个 JSON 文件已写入当天目录）
+2. cron agent 输出 "Waiting for the 10-minute progress check..." 后 session 因 `gateway_timeout: 1800`（30 分钟）超时中断
+3. **aggregator 从未启动** — 目录中没有 `aggregated.json`、`filtered.json`、`recommend/*.md`
+4. Aggregator 在 kanban 上仍显示 `◻ todo`，因为 parent scraper 未全部完成
+5. Cron job 状态显示 `ok` 但 Telegram 推送失败（`Telegram send failed: Timed out`）
+
+**双根因**：
+1. **Scraper 耗时 3-4 小时**（50 站 × 2 并行）远超 `gateway_timeout=1800`（30 分钟）。Agent 进入 poll 循环后超时，无法等 aggregator 完成。
+2. **Kanban 积压** — 旧 task 未清理（84 个 done task），dispatcher 在所有任务中穿行，拖慢节奏。
+
+**修复方向**：
+- **短期内**：aggregator body 自包含 Telegram 推送，不再依赖 cron agent
+- **中期**：考虑 no_agent 模式或增加 gateway_timeout 到 4h
+- **Step 0 积压清理**必须跑成功，否则旧 task 越攒越多
+
+**⚠️ 关键认识**：Delivery timeout 不代表 pipeline 失败。Scraper 任务仍然在 kanban dispatcher 中继续运行。cron 状态为 `ok` 但 Telegram 超时，聚合结果可能已在 `recommend/` 目录中（如果 aggregator 已被手动触发过），只需手动推送。但如果 aggregator 从未运行（常见），则需手动触发。
+
+4. **Aggregator 不自带 Telegram 推送** — cron agent 死后无人能推 Telegram。Aggregator body 只写了 `kanban_complete` + git push，没有 include Telegram 发送。修复：在 aggregator body 中加入 `send_message` 调用，或做成独立 task。
+
+**恢复步骤（直接跑 standalone aggregator，无需 fallback 脚本）**：
+
+```bash
+# 1. 确认 scraper JSON 已全部就位
+TODAY="YYYY-MM-DD"  # 替换为实际日期
+ls ~/music-record/2026/${TODAY:5:2}/${TODAY}/*_reviews.json | wc -l
+
+# 2. 从 music-record 目录下运行 standalone aggregator
+# ⚠️ 必须 cd 到此目录！脚本内部使用相对路径写 recommend/{DATE}.md
+cd ~/music-record
+python3 bin/aggregate_reviews.py --date-dir 2026/${TODAY:5:2}/${TODAY} --date ${TODAY}
+
+# 3. 确认输出
+ls -la ~/music-record/recommend/${TODAY}.md
+
+# 4. Git push 到远程
+cd ~/music-record
+git add -A
+git commit -m "daily: ${TODAY} music recommendations (manual aggregator run)"
+git push origin main
+
+# 5. 手动推送到 Telegram（或等用户查询时直接发送 recommend/{TODAY}.md 内容）
+```
+
+⚠️ **必须在 `~/music-record/` 目录下执行** — `aggregate_reviews.py` 内部使用相对路径 `recommend/{DATE}.md` 写输出。从其他目录运行会写错路径或报错。
+
+⚠️ **Delivery timeout 不等于 pipeline 失败** — cron 状态为 `ok` 但 Telegram 超时，聚合结果已在 `recommend/` 目录中，只需手动推送。参见上方恢复步骤。
 
 ### ⚠️ 已知 Bug：aggregator parent-gating 偶尔失效
 
@@ -1307,7 +1389,7 @@ git push
 
 > **此步骤已内置于 cron job prompt 的 Step 0 中，每次触发时自动执行。** 以下为说明性内容，供手动排障参考。
 
-`kanban-batch-scrape.py` 每次运行会**新建 43 个 task ID**，旧任务的 `◻ todo` 状态不会自动清理。3 轮后 board 上会有 120+ 个 stale task。
+`kanban-batch-scrape.py` 每次运行会**新建 48 个 task ID**，旧任务的 `◻ todo` 状态不会自动清理。3 轮后 board 上会有 140+ 个 stale task。
 
 **每次 cron 触发前，orchestrator 必须先归档上一轮的 stale scraper：**
 
@@ -1447,7 +1529,7 @@ git push
 不要默认直接 web_search。用户在意的不是"你搜了什么新东西"，而是"我们已有的库里有没有"。
 
 - **workspace 必须统一**：`dir:~/music-record/2026/{MM}/{YYYY-MM-DD}/`（当天子文件夹，不是 scratch！）。scraper 各写各的 `{site_id}_reviews.json`，aggregator 读目录里所有 `*_reviews.json`，scratch 目录互相不可见。
-- **并发控制**：不是 43 并行，是 **2 并行 × 22 批**。每批 2 个 task，全部 done 之后下一批才解锁（parent-gating）。这是 kanban dispatcher 对 scraper profile 的并发限制 + 进程内存限制共同决定的。
+- **并发控制**：不是 48 并行，是 **2 并行 × 24 批**。每批 2 个 task，全部 done 之后下一批才解锁（parent-gating）。这是 kanban dispatcher 对 scraper profile 的并发限制 + 进程内存限制共同决定的。
 - **关于空 `score` 字段**：The Quietus、A Closer Listen 等站不给数字评分，这是正常的，不影响推荐质量。评分公式完全基于 `excerpt` 内容判断，只要 scraper 把 `excerpt` 抓完整即可。
 
 ## 维护检查清单
