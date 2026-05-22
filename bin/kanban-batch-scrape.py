@@ -258,7 +258,7 @@ kanban_complete(
         len(all_task_ids), passed_placeholder,
         len(all_task_ids), passed_placeholder,
         len(all_task_ids), passed_placeholder,
-        DATE, DATE
+        DATE
     )
 
     agg_id = hermes_create(
