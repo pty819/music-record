@@ -1,0 +1,70 @@
+[
+  {
+    "album": "Paranormal Awakening",
+    "artist": "Tungu & Tabata",
+    "score": "3",
+    "url": "https://www.musiquemachine.com/reviews/tungu-tabata-paranormal-awakening-1779355882549",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-21",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Paranormal Awakening is a moody & often seared blend of blues-tinged psych rock freakouts, off-kilter to cinematic soundtracking, and atmospheric noise. This project brings together Mitsuru Tabata (The Boredoms) and Tungu, a Ukrainian experimental electronica project.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Capri",
+    "artist": "Celer",
+    "score": "4",
+    "url": "https://www.musiquemachine.com/reviews/celer-capri-1779287599536",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-20",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "Originally released in 2009, Capri features the prolific act when it was a duo, before Danielle Baquet-Long tragically passed later that year. Light drones create ambient vignettes of nature's ephemeral moments, what we take in daily, not realizing that their impermanence forms the solid foundation.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Savage Imperial Death March",
+    "artist": "Melvins & Napalm Death",
+    "score": "4",
+    "url": "https://www.musiquemachine.com/reviews/melvins-napalm-death-savage-imperial-death-march-1779201268576",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-19",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "When I first heard about this collaboration between The Melvins and Napalm Death, I thought I had a good idea how this was going to sound- but aside from a few tracks, this album sounds nothing like I was expecting. And I think it's fair to say that for the most part, Savage Imperial Death March is a very different beast.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Sunn O))))))",
+    "artist": "Sunn O))))))",
+    "score": "5",
+    "url": "https://www.musiquemachine.com/reviews/sunn-o-sunn-o-1779200212470",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-19",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic"
+    ],
+    "excerpt": "After spending the last decade and a half or so trying to expand upon, cross-genre pollinate, and generally do something different with their monolithic sound. This tenth studio album from prime doom droners Sunn O)))))) finds them very much returning to their roots, but with way more layers of guitar.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

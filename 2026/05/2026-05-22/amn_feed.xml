@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>Avant Music News</title>
+	<atom:link href="https://avantmusicnews.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://avantmusicnews.com</link>
+	<description>A source for news on music that is challenging, interesting,  different, progressive, introspective, or just plain weird</description>
+	<lastBuildDate>Thu, 21 May 2026 14:01:05 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+
+<image>
+	<url>https://avantmusicnews.com/wp-content/uploads/2024/03/cropped-amn-logo-1.webp?w=32</url>
+	<title>Avant Music News</title>
+	<link>https://avantmusicnews.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">30124242</site><cloud domain='avantmusicnews.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<atom:link rel="search" type="application/opensearchdescription+xml" href="https://avantmusicnews.com/osd.xml" title="Avant Music News" />
+	<atom:link rel='hub' href='https://avantmusicnews.com/?pushpress=hub'/>
+	<item>
+		<title>2026 Guggenheim Fellowships in Music Composition</title>
+		<link>https://avantmusicnews.com/2026/05/21/2026-guggenheim-fellowships-in-music-composition/</link>
+					<comments>https://avantmusicnews.com/2026/05/21/2026-guggenheim-fellowships-in-music-composition/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Thu, 21 May 2026 16:00:00 +0000</pubDate>
+				<category><![CDATA[General]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158630</guid>
+
+					<description><![CDATA[The John Simon Guggenheim Memorial Foundation announced its 2026 class of Fellows on April 14, with a strong showing of improvising and experimental composers among the fifteen recipients in Music Composition. The list includes saxophonists Jon Irabagon, Ingrid Laubrock, and James Brandon Lewis; bassist Linda May Han Oh; violinist-composer Modney; and composers Mathew Arrellín, Sivan [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/21/2026-guggenheim-fellowships-in-music-composition/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158630</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2018/09/laubrock.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2018/09/laubrock.jpg" medium="image">
+			<media:title type="html">laubrock</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Ars Nova Workshop: Philadelphia Shows, Late May through June</title>
+		<link>https://avantmusicnews.com/2026/05/21/ars-nova-workshop-philadelphia-shows-late-may-through-june/</link>
+					<comments>https://avantmusicnews.com/2026/05/21/ars-nova-workshop-philadelphia-shows-late-may-through-june/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Thu, 21 May 2026 15:00:00 +0000</pubDate>
+				<category><![CDATA[Performances]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158628</guid>
+
+					<description><![CDATA[Ars Nova Workshop presents the following at Solar Myth in Philadelphia, except where noted. Get Up With It — May 21–23, 8PM. A three-night residency by The War on Drugs drummer Charlie Hall&#8217;s longstanding Miles Davis electric-period ensemble, performing In a Silent Way (May 21), Bitches Brew (May 22), and Jack Johnson (May 23). The [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/21/ars-nova-workshop-philadelphia-shows-late-may-through-june/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158628</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2018/06/220px-kahil_elzabar.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2018/06/220px-kahil_elzabar.jpg" medium="image">
+			<media:title type="html">220px-Kahil_El&#039;Zabar</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Jin Hi Kim Announces 9CD Box Set on Neuma Records</title>
+		<link>https://avantmusicnews.com/2026/05/21/jin-hi-kim-announces-free-9cd-box-set-on-neuma-records/</link>
+					<comments>https://avantmusicnews.com/2026/05/21/jin-hi-kim-announces-free-9cd-box-set-on-neuma-records/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Thu, 21 May 2026 14:00:00 +0000</pubDate>
+				<category><![CDATA[Releases]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158622</guid>
+
+					<description><![CDATA[Korean-American komungo player and composer Jin Hi Kim releases The Jin Hi Kim Collection, a nine-CD, 52-track, ten-hour box set on Neuma Records in September, available in digital and physical form via Bandcamp and Neuma. Curated by Kim herself and drawn from four decades of live recordings archived at Wesleyan University, the set is organized [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/21/jin-hi-kim-announces-free-9cd-box-set-on-neuma-records/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158622</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2026/05/jinhikim.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/jinhikim.jpg" medium="image">
+			<media:title type="html">jinhikim</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>The Breath of the Room: Electroacoustic Poetics in Motion </title>
+		<link>https://avantmusicnews.com/2026/05/21/the-breath-of-the-room-electroacoustic-poetics-in-motion/</link>
+					<comments>https://avantmusicnews.com/2026/05/21/the-breath-of-the-room-electroacoustic-poetics-in-motion/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Thu, 21 May 2026 13:00:00 +0000</pubDate>
+				<category><![CDATA[General]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158616</guid>
+
+					<description><![CDATA[Source: Metapsychosis. In this article, I explore “The Breath of the Room,” a framework for my electroacoustic compositions that transforms spatial sound into a multi-sensory poetic sensation. Drawing on the phenomenology of Bachelard and Böhme, I detail my Electropoem series, which utilizes multichannel arrays and microtonal systems to move away from linear time and toward [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/21/the-breath-of-the-room-electroacoustic-poetics-in-motion/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158616</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2025/04/metapsychosis.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2025/04/metapsychosis.png" medium="image">
+			<media:title type="html">metapsychosis</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>RIP Ike Willis (1955–2026)</title>
+		<link>https://avantmusicnews.com/2026/05/21/rip-ike-willis-1955-2026/</link>
+					<comments>https://avantmusicnews.com/2026/05/21/rip-ike-willis-1955-2026/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Thu, 21 May 2026 12:30:00 +0000</pubDate>
+				<category><![CDATA[General]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158645</guid>
+
+					<description><![CDATA[Singer and guitarist Ike Willis, who joined Frank Zappa&#8217;s band in 1978 and remained one of its longest-tenured members through Zappa&#8217;s final tour in 1988, died on May 16 in North Las Vegas at age 70; he had been diagnosed with prostate cancer in 2021. Willis voiced the title role of Joe in Joe&#8217;s Garage [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/21/rip-ike-willis-1955-2026/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158645</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2026/05/ike-willis-e1779367671347.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/ike-willis-e1779367671347.jpg" medium="image">
+			<media:title type="html">ike willis</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Rabble Without A Cause Show &#8211; May 13, 2026</title>
+		<link>https://avantmusicnews.com/2026/05/21/rabble-without-a-cause-show-may-13-2026-2/</link>
+					<comments>https://avantmusicnews.com/2026/05/21/rabble-without-a-cause-show-may-13-2026-2/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Thu, 21 May 2026 12:00:00 +0000</pubDate>
+				<category><![CDATA[Podcasts]]></category>
+		<category><![CDATA[1]]></category>
+		<category><![CDATA[2]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158620</guid>
+
+					<description><![CDATA[Source: CKCU. Suono Per Il Popolo 2026.]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/21/rabble-without-a-cause-show-may-13-2026-2/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158620</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2025/04/a-photorelastic-rendering-of-a-record-album-with-no-text.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2025/04/a-photorelastic-rendering-of-a-record-album-with-no-text.png" medium="image">
+			<media:title type="html">a-photorelastic-rendering-of-a-record-album-with-no-text</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>AMN Picks of the Week: Bertucci / Grunditz / Michaeli-Shchori-Drake / TAK Ensemble / Okazaki</title>
+		<link>https://avantmusicnews.com/2026/05/20/amn-picks-of-the-week-bertucci-grunditz-michaeli-shchori-drake-tak-ensemble-okazaki/</link>
+					<comments>https://avantmusicnews.com/2026/05/20/amn-picks-of-the-week-bertucci-grunditz-michaeli-shchori-drake-tak-ensemble-okazaki/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Wed, 20 May 2026 16:00:00 +0000</pubDate>
+				<category><![CDATA[AMN Picks]]></category>
+		<category><![CDATA[General]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158605</guid>
+
+					<description><![CDATA[Here is where I post, at a frequency of about once a week, a list of the new music that caught my attention. All of the releases listed below I have heard for the first time recently and come recommended. Lea Bertucci &#8211; The Days Pass Quickly Immersed in the Shadow of Eternity (2026) Michael [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/20/amn-picks-of-the-week-bertucci-grunditz-michaeli-shchori-drake-tak-ensemble-okazaki/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158605</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2018/07/bertucci-inset.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2018/07/bertucci-inset.jpg" medium="image">
+			<media:title type="html">Bertucci-inset</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>The Elite Extremophile Reviews</title>
+		<link>https://avantmusicnews.com/2026/05/20/the-elite-extremophile-reviews-46/</link>
+					<comments>https://avantmusicnews.com/2026/05/20/the-elite-extremophile-reviews-46/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Wed, 20 May 2026 15:00:00 +0000</pubDate>
+				<category><![CDATA[Reviews]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158598</guid>
+
+					<description><![CDATA[A roundup of reviews and features published at The Elite Extremophile over the last month. Album Review: Tusmørke – Balderdom reviewed by Matt. Album Review: Neurosis – An Undying Love for a Burning World reviewed by Matt. Odds &#38; Ends: May 4, 2026 reviewed by Matt. Album Review: Witch Ripper – Through the Hourglass reviewed [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/20/the-elite-extremophile-reviews-46/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158598</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2024/11/elite.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2024/11/elite.png" medium="image">
+			<media:title type="html">elite</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Coming to Seattle</title>
+		<link>https://avantmusicnews.com/2026/05/20/coming-to-seattle-260/</link>
+					<comments>https://avantmusicnews.com/2026/05/20/coming-to-seattle-260/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Wed, 20 May 2026 14:00:00 +0000</pubDate>
+				<category><![CDATA[Performances]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158601</guid>
+
+					<description><![CDATA[Source: Wayward Music Series, a monthly series of adventurous and experimental music presented by Nonsequitur at the Chapel Performance Space in Seattle&#8217;s Good Shepherd Center. May 22, 2026 &#124; 8:00 PM — Coen Rios: Pacific Tribute — Coen Rios presents a set of original compositions and freely improvised music, as a final showcase for his [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/20/coming-to-seattle-260/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158601</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2024/11/fi_wayward.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2024/11/fi_wayward.jpg" medium="image">
+			<media:title type="html">fi_wayward</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>The Free Jazz Collective Reviews</title>
+		<link>https://avantmusicnews.com/2026/05/20/the-free-jazz-collective-reviews-549/</link>
+					<comments>https://avantmusicnews.com/2026/05/20/the-free-jazz-collective-reviews-549/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Wed, 20 May 2026 13:00:00 +0000</pubDate>
+				<category><![CDATA[Reviews]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158596</guid>
+
+					<description><![CDATA[A roundup of reviews and features published at The Free Jazz Collective over the last several days. DoYeon Kim &#8211; Wellspring (TAO Forms, 2026) reviewed by Sammy Stein. Albert Beger Quartet &#8211; Astral Visit (Kame&#8217;a, 2026) reviewed by Eyal Hareuveni. Negotiating Control and Openness: Three Albums by Gligor Kondovski feature by Vangel Nonevski. Brian Marsella [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/20/the-free-jazz-collective-reviews-549/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158596</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2026/04/goal-weight-gersten-cox.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/04/goal-weight-gersten-cox.jpg" medium="image">
+			<media:title type="html">goal weight gersten cox</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Setola di Maiale: Eight New Releases</title>
+		<link>https://avantmusicnews.com/2026/05/20/setola-di-maiale-eight-new-releases/</link>
+					<comments>https://avantmusicnews.com/2026/05/20/setola-di-maiale-eight-new-releases/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Wed, 20 May 2026 12:00:00 +0000</pubDate>
+				<category><![CDATA[Releases]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158594</guid>
+
+					<description><![CDATA[Italian experimental label Setola di Maiale announces eight new titles: Nest by Nest — Tim Trevor-Briscoe, Simone Faraci, Francois Laurent, Michael Harding (SM5170). A Letter to Karl by Maria Merlino / Thollem McDonas (SM5160). Senryu – Evocazioni Musicali by Maurizio Lesmi (SM5150). Mompracem by Mompracem — Luca Pedeferri, Luca Pissavini, Fabrizio Carriero (SM5140). E.R.T.A. / [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/20/setola-di-maiale-eight-new-releases/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158594</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2024/12/setola.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2024/12/setola.jpg" medium="image">
+			<media:title type="html">setola</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Santa Sangre Reviews</title>
+		<link>https://avantmusicnews.com/2026/05/20/santa-sangre-reviews-122/</link>
+					<comments>https://avantmusicnews.com/2026/05/20/santa-sangre-reviews-122/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Wed, 20 May 2026 11:00:00 +0000</pubDate>
+				<category><![CDATA[Reviews]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158603</guid>
+
+					<description><![CDATA[A roundup of recent reviews published at Santa Sangre. Love Sea Sick – Sciócaz reviewed by Benjamin. Philippe Petit – The Acoustic Cornet, an hommage to Leonora Carrington reviewed by Benjamin. Merzbow – Paulownia reviewed by Benjamin. Anguish – Doomkvädet reviewed by Benjamin.]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/20/santa-sangre-reviews-122/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158603</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2024/11/santa_sangre.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2024/11/santa_sangre.png" medium="image">
+			<media:title type="html">santa_sangre</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>AMN Reviews: FIMAV 2026 Day Four</title>
+		<link>https://avantmusicnews.com/2026/05/19/amn-reviews-fimav-2026-day-four/</link>
+					<comments>https://avantmusicnews.com/2026/05/19/amn-reviews-fimav-2026-day-four/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Tue, 19 May 2026 15:56:18 +0000</pubDate>
+				<category><![CDATA[AMN Reviews]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158579</guid>
+
+					<description><![CDATA[VICTORIAVILLE, Que. – The final day of the 42nd edition of the Festival International de Musique Actuelle kicked off with a new initiative – a free outdoor afternoon concert by a 21-member orchestra that played joyful, lyrical, and spirit-lifting music in a city park. It was among efforts by the festival’s general manager and artistic [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/19/amn-reviews-fimav-2026-day-four/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158579</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2026/05/fimav42.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/fimav42.png" medium="image">
+			<media:title type="html">fimav42</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/fanfare-pourpour-24.jpg?w=1024" medium="image" />
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/queen-mab-40ans-plus-tard_fimav42-6.jpg?w=703" medium="image" />
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/sarah-page-no-hay-banda-voda_fimav42-5.jpg?w=1024" medium="image" />
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/ahmed_playmonk-1.jpg?w=1024" medium="image" />
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/eric_cheneaux-15.jpg?w=1024" medium="image" />
+	</item>
+		<item>
+		<title>Newsbits: Orcutt and Fratti / Fidget / Sorey / Dunmall / Schneider</title>
+		<link>https://avantmusicnews.com/2026/05/19/newsbits-orcutt-and-fratti-fidget-sorey-dunmall-schneider/</link>
+					<comments>https://avantmusicnews.com/2026/05/19/newsbits-orcutt-and-fratti-fidget-sorey-dunmall-schneider/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Tue, 19 May 2026 15:00:00 +0000</pubDate>
+				<category><![CDATA[General]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158574</guid>
+
+					<description><![CDATA[Guitarist Bill Orcutt and Guatemalan cellist/vocalist Mabe Fratti release their first collaborative album, Almost Waking, on May 22 via Tin Angel / Unheard of Hope / Meat Machine. Eight pieces developed remotely over nearly a year, recorded at Tinho Studios in Mexico City and in San Francisco, with cello arrangement contributions from I. La Católica [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/19/newsbits-orcutt-and-fratti-fidget-sorey-dunmall-schneider/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158574</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2026/03/orcutt.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/03/orcutt.jpg" medium="image">
+			<media:title type="html">orcutt</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Musique Machine Reviews</title>
+		<link>https://avantmusicnews.com/2026/05/19/musique-machine-reviews-1204/</link>
+					<comments>https://avantmusicnews.com/2026/05/19/musique-machine-reviews-1204/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Tue, 19 May 2026 14:00:00 +0000</pubDate>
+				<category><![CDATA[Reviews]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158567</guid>
+
+					<description><![CDATA[A roundup of reviews published at Musique Machine over the last week. Pig Peasant – Ossabaw Island Hog Raté – Bruit De Fond Necrotik Fissure – Was Brunhild Ferrari, Eiko Ishibashi, Jim O&#8217;Rourke – L&#8217;oreille Voleuse Andrew Liles – Neither Precious Nor Noble]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/19/musique-machine-reviews-1204/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158567</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2024/11/fi_musique.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2024/11/fi_musique.png" medium="image">
+			<media:title type="html">fi_musique</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Another Place Show, May 18, 2026</title>
+		<link>https://avantmusicnews.com/2026/05/19/another-place-show-may-18-2026/</link>
+					<comments>https://avantmusicnews.com/2026/05/19/another-place-show-may-18-2026/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Tue, 19 May 2026 13:21:55 +0000</pubDate>
+				<category><![CDATA[Podcasts]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158571</guid>
+
+					<description><![CDATA[Source: 90.9fm WDCB. Chicago journalist and jazz aficionado Andy Pierce hosts &#8220;Another Place&#8221; Sundays at midnight. The show explores creative music, jazz and the avant-garde, and delves into the longer, more complex compositions and improvisations in jazz.]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/19/another-place-show-may-18-2026/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158571</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2026/03/podcast-microphone.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/03/podcast-microphone.jpg" medium="image">
+			<media:title type="html">podcast-microphone</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>DOWNTOWNMUSIC.NET Photos</title>
+		<link>https://avantmusicnews.com/2026/05/19/downtownmusic-net-photos-518/</link>
+					<comments>https://avantmusicnews.com/2026/05/19/downtownmusic-net-photos-518/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Tue, 19 May 2026 13:00:00 +0000</pubDate>
+				<category><![CDATA[Performances]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158564</guid>
+
+					<description><![CDATA[Source: DOWNTOWNMUSIC.NET. May 17, 2026Boris Grebenshikov &#38; Aquarium, Webster HallLiam Bradley Brian Finnegan Gleb Grebenshchikov Boris Grebenshikov Alexander Titov Konstantin Tumanov May 15, 2026Marc Edwards, Nathan Nakadegawa-Lee, William Parker, IBeamMarc Edwards Nathan Nakadegawa-Lee William Parker May 15, 2026Ivan Chen Solo, IBeamIvan Chen May 12, 2026Aliya Ultan, Ches Smith, Gregg Belisle-Chi, Tim Berne, Trevor Dunn, LowlandsGregg [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/19/downtownmusic-net-photos-518/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158564</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2024/11/downtownmusic.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2024/11/downtownmusic.png" medium="image">
+			<media:title type="html">downtownmusic</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Freq Reviews</title>
+		<link>https://avantmusicnews.com/2026/05/19/freq-reviews-165/</link>
+					<comments>https://avantmusicnews.com/2026/05/19/freq-reviews-165/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Tue, 19 May 2026 12:00:00 +0000</pubDate>
+				<category><![CDATA[Reviews]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158538</guid>
+
+					<description><![CDATA[A roundup of reviews published at Freq over the last week. Juli Deák – Brisk — reviewed by Mr Olivetti The Stargazer&#8217;s Assistant – Modular Fields — reviewed by Michael Rodham-Heaps Let Spin – I Am Alien — reviewed by Mr Olivetti Gnod / Vanishing (live at Strange Brew) — reviewed by Loki Wartel / [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/19/freq-reviews-165/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158538</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2024/11/freq.jpg" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2024/11/freq.jpg" medium="image">
+			<media:title type="html">freq</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>AMN Reviews: FIMAV 2026 Day Three</title>
+		<link>https://avantmusicnews.com/2026/05/18/amn-reviews-fimav-2026-day-three/</link>
+					<comments>https://avantmusicnews.com/2026/05/18/amn-reviews-fimav-2026-day-three/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Mon, 18 May 2026 15:00:00 +0000</pubDate>
+				<category><![CDATA[AMN Reviews]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158544</guid>
+
+					<description><![CDATA[VICTORIAVILLE, Que. – Improvised music and free jazz were dominant modes of expression in the five indoor concerts Saturday at the 42nd edition of Festival International de Musique Actuelle in this city, 105 miles northeast of Montreal. It has drawn fans and musicians from across North America and Europe because of its reputation as a [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/18/amn-reviews-fimav-2026-day-three/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158544</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2026/05/fimav42.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/fimav42.png" medium="image">
+			<media:title type="html">fimav42</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/pjimenez_amundendixon_fimav42-1.jpg?w=1024" medium="image" />
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/raphael_toral_fimav42-4.jpg?w=652" medium="image" />
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/ycharuet_jedwards_mssanders_fimav42-1.jpg?w=1024" medium="image" />
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/pat-thomas-solo_fimav42-2.jpg?w=1024" medium="image" />
+
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2026/05/darius-jones-fluxkit-vancouver_fimav42-1.jpg?w=1024" medium="image" />
+	</item>
+		<item>
+		<title>All About Jazz Reviews</title>
+		<link>https://avantmusicnews.com/2026/05/18/all-about-jazz-reviews-934/</link>
+					<comments>https://avantmusicnews.com/2026/05/18/all-about-jazz-reviews-934/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike]]></dc:creator>
+		<pubDate>Mon, 18 May 2026 14:00:00 +0000</pubDate>
+				<category><![CDATA[Reviews]]></category>
+		<guid isPermaLink="false">http://avantmusicnews.com/?p=158542</guid>
+
+					<description><![CDATA[A roundup of reviews published at All About Jazz over the last week. Kronos Quartet – Glorious Mahalia (Smithsonian Folkways Recordings) — reviewed by Scott Gudell, May 16, 2026 Olivia Murphy – Fateful Birds &#38; Fledgling Stories — reviewed by John Eyles, May 16, 2026 Martin Kohlstedt – Kluft (Self Produced) — reviewed by Neil [&#8230;]]]></description>
+		
+					<wfw:commentRss>https://avantmusicnews.com/2026/05/18/all-about-jazz-reviews-934/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">158542</post-id>
+		<media:thumbnail url="https://avantmusicnews.com/wp-content/uploads/2025/07/all_about_jazz_logo-300x300-1.png" />
+		<media:content url="https://avantmusicnews.com/wp-content/uploads/2025/07/all_about_jazz_logo-300x300-1.png" medium="image">
+			<media:title type="html">all_about_jazz_logo-300x300</media:title>
+		</media:content>
+
+		<media:content url="https://0.gravatar.com/avatar/6fcb41f75514a91274a81c26e89a6affa0f8f8cce7ea5e06fba70fd2dd4000af?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">msb69</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>
