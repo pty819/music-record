@@ -1,0 +1,28 @@
+[
+  {
+    "album": "IT'S NICE TO SEE A LAKE IN YOUR EYES",
+    "artist": "CAROL MAIA & JEREMY GUSTIN",
+    "score": null,
+    "url": "https://www.truthandliesmusic.com/magazine/carol-maia-amp-jeremy-gustin-its-nice-to-see-a-lake-in-your-eyes-hive-mind-records-a-review",
+    "source": "Hive Mind Records",
+    "pub_date": "May 19, 2026",
+    "tags": ["brasil", "Brazil", "Rio de Janeiro", "New York", "Experimental", "MPB"],
+    "excerpt": "The debut partnership of Carol Maia and Jeremy Gustin has delivered an album of rare alchemy. With thousands of miles between Carol's home in Rio de Janeiro and Jeremy's in Brooklyn and with the help of a few friends from their respective cities they have created a record that is intimate, quietly funky and transcendental in its poetic beauty.",
+    "site_id": "truthandliesmusic.com",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "DISCO CHIMI",
+    "artist": "CHARLIE CHIMI",
+    "score": "8/10",
+    "url": "https://www.truthandliesmusic.com/magazine/charlie-chimi-disco-chimi-club-coco-a-review",
+    "source": "Club Coco",
+    "pub_date": "May 13, 2026",
+    "tags": ["New York", "Dominican Republic", "Cuba", "funk", "Experimental"],
+    "excerpt": "Afro-Cuban rhythms, no-wave garage punk edge, homemade funk and a fearless middle-fingered attitude towards generic straightforwardness. It's also fun, surreal, irreverent and ace.",
+    "site_id": "truthandliesmusic.com",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

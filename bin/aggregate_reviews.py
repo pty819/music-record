@@ -69,17 +69,29 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
 
     try:
         import anthropic
+        import time as _time
         client = anthropic.Anthropic(
             api_key=MINIMAX_CN_API_KEY,
             base_url="https://api.minimaxi.com/anthropic",
-            timeout=60,
+            timeout=120,
         )
-        message = client.messages.create(
-            model="MiniMax-M2.7",
-            max_tokens=30000,
-            temperature=0.7,
-            messages=[{"role": "user", "content": prompt}]
-        )
+        last_exc = None
+        for attempt in range(3):
+            try:
+                message = client.messages.create(
+                    model="MiniMax-M2.7",
+                    max_tokens=30000,
+                    temperature=0.7,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                last_exc = None
+                break
+            except Exception as e:
+                last_exc = e
+                print(f"  [summarize] attempt {attempt+1}/3 failed: {type(e).__name__}: {e}, retrying...", file=sys.stderr)
+                _time.sleep(5)
+        if last_exc:
+            raise last_exc
         result = ""
         # Skip thinking blocks — MiniMax M2.7 returns ThinkingBlock before/beside TextBlock
         for block in message.content:

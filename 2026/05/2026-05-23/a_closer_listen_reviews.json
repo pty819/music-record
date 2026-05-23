@@ -1,0 +1,55 @@
+[
+  {
+    "album": "Minke",
+    "artist": "Bambi OFS",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/22/bambi-ofs-minke/",
+    "source": "A Closer Listen",
+    "pub_date": "2026-05-22",
+    "tags": [
+      "Electronic",
+      "Antibody",
+      "Bambi OFS",
+      "Minke",
+      "Richard Allen"
+    ],
+    "excerpt": "ACL readers may remember Bambi OFS (Cédric Dambrain) from the hyperkinetic EP Yakka. Since then, the Brussels artist has released the EP Kwon-9, whose remixes fleshed it out to the length of an LP, and now Minke. Should one wish, one might view these releases as a trilogy.",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "The Endless Dance",
+    "artist": "Hannah Peel & Beibei Wang",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/21/hannah-peel-beibei-wang-the-endless-dance/",
+    "source": "A Closer Listen",
+    "pub_date": "2026-05-21",
+    "tags": [
+      "Electronic",
+      "Beibei Wang",
+      "Hannah Peel",
+      "Hom",
+      "Real World",
+      "Richard Allen",
+      "The Endless Dance"
+    ],
+    "excerpt": "Humor, play, fun. These words are bandied about in the press release for The Endless Dance, a sky blue LP that sparkles like spring. The vibrant template of the cover suggests an array of flowers bursting from the earth, the artists cleverly disguised in the collage.",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "Heavy Water",
+    "artist": "Magic Tuber Stringband",
+    "score": null,
+    "url": "https://acloserlisten.com/2026/05/20/magic-tuber-stringband-heavy-water/",
+    "source": "A Closer Listen",
+    "pub_date": "2026-05-20",
+    "tags": [],
+    "excerpt": "Imagine living in the \"best town,\" a rural community of friendly neighbors surrounded by natural beauty, and then having to leave it behind.",
+    "site_id": "a_closer_listen",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]

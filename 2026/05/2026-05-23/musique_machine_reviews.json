@@ -1,0 +1,39 @@
+[
+  {
+    "album": "Paranormal Awakening",
+    "artist": "Tungu & Tabata",
+    "score": null,
+    "url": "https://www.musiquemachine.com/reviews/tungu-tabata-paranormal-awakening-1779355882549",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-21",
+    "tags": [
+      "dark ambient",
+      "industrial",
+      "electroacoustic",
+      "experimental",
+      "psych rock"
+    ],
+    "excerpt": "Paranormal Awakening is a moody & often seared blend of blues-tinged psych rock freakouts, off-kilter to cinematic soundtracking, and atmospheric noise. This project brings together Mitsuru Tabata (The Boredoms) and Tungu, a Ukrainian experimental electronica project.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Capri",
+    "artist": "Celer",
+    "score": null,
+    "url": "https://www.musiquemachine.com/reviews/celer-capri-1779287599536",
+    "source": "Musique Machine",
+    "pub_date": "2026-05-20",
+    "tags": [
+      "ambient",
+      "drone",
+      "electroacoustic",
+      "experimental"
+    ],
+    "excerpt": "Originally released in 2009, Capri features the prolific act when it was a duo, before Danielle Baquet-Long tragically passed later that year. Light drones create ambient vignettes of nature's ephemeral moments, what we take in daily, not realizing that their impermanence forms the solid foundations of our being.",
+    "site_id": "musique_machine",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]

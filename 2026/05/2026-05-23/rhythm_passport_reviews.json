@@ -1,0 +1,10 @@
+{
+  "site_id": "rhythm_passport",
+  "crawl_status": "blocked",
+  "method": "curl",
+  "error": "site_unreachable_timeout",
+  "count": 0,
+  "items": [],
+  "crawled_at": "2026-05-22T19:30:43.009773+00:00",
+  "days_scanned": 3
+}

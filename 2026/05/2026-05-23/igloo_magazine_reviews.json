@@ -1,0 +1,41 @@
+[
+  {
+    "album": "Trace (Reissue)",
+    "artist": "Gridlock",
+    "score": null,
+    "url": "https://igloomag.com/reviews/gridlock-trace-viasonde",
+    "source": "igloomag.com",
+    "pub_date": "2026-05-22",
+    "tags": [],
+    "excerpt": "Gridlock's Trace returns, and this is a classic industrial IDM release. As a reissue, there's nothing here that's reinventing the wheel in regards to production, it was released at a time where this type of sound was innovative and thriving.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "re[\u00d8]load EP",
+    "artist": "Bearclaw",
+    "score": null,
+    "url": "https://igloomag.com/reviews/bearclaw-re-load-clean-error",
+    "source": "igloomag.com",
+    "pub_date": "2026-05-21",
+    "tags": [],
+    "excerpt": "re[\u00d8]load presents a focused study in kinetic fragmentation, balancing technical finesse with a visceral, bodily pull that makes its abstract architecture unexpectedly physical.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Lost Hope Society",
+    "artist": "The Music Liberation Front Sweden",
+    "score": null,
+    "url": "https://igloomag.com/reviews/the-music-liberation-front-sweden-lost-hope-society-subexotic",
+    "source": "igloomag.com",
+    "pub_date": "2026-05-20",
+    "tags": [],
+    "excerpt": "Lost Hope Society doesn\u2019t deal in easy optimism. Instead, it locates hope as a kind of underlying signal\u2014constant, even when masked by noise. Like Midsommar, it uses brightness to reveal shadow, and in doing so, turns discomfort into clarity.",
+    "site_id": "igloo_magazine",
+    "crawl_status": "success",
+    "type": "review"
+  }
+]
