@@ -4,10 +4,10 @@ description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，
 category: music
 cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行）
 author: hermes-agent
-version: 4.0
+version: 4.3
 license: MIT
 created: 2026-05-07
-updated: 2026-05-22
+updated: 2026-05-24
 trigger_condition: cron 每天 04:00 触发，或手动 `hermes cronjob run 6fd93b4a4c4c`
 metadata:
   hermes:
@@ -80,6 +80,13 @@ c.close()
 bash /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/check-scraper-auth.sh
 cat /home/liyifan/.hermes/profiles/scraper/auth.json | grep minimax-cn | wc -l
 # 期望: 1（已删掉 minimax 国际版条目）
+
+# 关键预检: scraper profile gateway 必须运行（否则 kanban scheduler 无法 spawn worker）
+hermes gateway status scraper 2>&1 | grep -c "running"
+# 期望: 1（如果显示 stopped，先 `hermes gateway start scraper`）
+# ⚠️ 注意: 如果 default gateway (PID) 已在运行相同 token，scraper gateway 无法独立启动。
+#   此时 kanban dispatch 通过 default gateway 正常运作 — 只要 default gateway 是 running 状态，
+#   调度器可以正常 spawn worker。跳过启动 scraper gateway，直接进入 dispatch。
 ```
 
 ### Step 1 — 同步
@@ -112,6 +119,43 @@ python3 /home/liyifan/.local/bin/kanban-batch-scrape.py --confirm
 
 ### Step 3 — 监控进度
 
+**⏳ 建议使用主动进程探测循环**（不要仅依赖 DB 查询 — 大量 Camoufox scraper 无声退出后 task 状态仍为 running）
+
+通用监控循环：
+
+```bash
+while true; do
+  # 1. DB 状态
+  python3 -c "
+import sqlite3
+c = sqlite3.connect('/home/liyifan/.hermes/kanban.db')
+for row in c.execute(\"SELECT status, COUNT(*) FROM tasks WHERE title LIKE 'scrape:%' AND status NOT IN ('archived') GROUP BY status\").fetchall():
+    print(f'{row[0]:>10}: {row[1]}')
+c.close()
+"
+  # 2. 探活 running 任务
+  RUNNING_TASKS=$(hermes kanban list 2>&1 | grep "running" | grep scraper | awk '{print $2}')
+  for TID in $RUNNING_TASKS; do
+    ALIVE=$(ps aux | grep "$TID" | grep -v grep | wc -l)
+    if [ "$ALIVE" = "0" ]; then
+      echo "⚠️ Task $TID silent-exited → force completing"
+      hermes kanban complete "$TID"
+    fi
+  done
+  # 3. 如果运行中为 0 且有 ready/todo → dispatch
+  RUNNING_COUNT=$(hermes kanban list 2>&1 | grep -c "running.*scraper" || true)
+  TODO_COUNT=$(hermes kanban list 2>&1 | grep -c "todo.*scraper" || true)
+  if [ "$RUNNING_COUNT" = "0" ] && [ "$TODO_COUNT" -gt 0 ]; then
+    hermes kanban dispatch
+  fi
+  # 全部完成则退出
+  DONE_COUNT=$(hermes kanban list 2>&1 | grep -c "✓.*done.*scraper" || true)
+  [ "$DONE_COUNT" -ge 48 ] && echo "✅ ALL 48 DONE" && break
+  sleep 60
+done
+```
+
+备选（静态检查 — 仅一次）：
 ```bash
 python3 -c "
 import sqlite3
@@ -120,13 +164,15 @@ for row in c.execute(\"SELECT status, COUNT(*) FROM tasks WHERE title LIKE 'scra
     print(f'{row[0]:>10}: {row[1]}')
 c.close()
 "
-```
-
-备选（CLI）：
-```bash
 hermes kanban list | grep -c "✓.*done.*scraper"   # 已完成数
 hermes kanban list | grep "running" | grep scraper  # 当前运行中
 ```
+
+**⏳ 进度停滞检测**：如果连续 3+ 分钟无进展（done/running 数不变）：
+1. 查 scraper gateway 是否仍在运行：`hermes gateway status scraper`
+2. 如果 stopped，先启动：`hermes gateway start scraper`（如 token 冲突跳过 → 用 default gateway）
+3. 然后触发调度器重试：`hermes kanban dispatch`
+4. 再检查：`hermes kanban list | grep -c "running" | grep scraper`
 
 ### Step 4 — Pipeline 收尾
 
@@ -137,6 +183,22 @@ hermes kanban list | grep "aggregat"
 # 期望: ✓ done
 ```
 
+**⚠️ aggregator 未创建（kanban-batch-scrape.py 超时）**：如果 `--confirm` 因超时（30s）中断，aggregator 任务可能不存在。检查：
+
+```bash
+hermes kanban list | grep aggregate
+# 无输出 → aggregator 未创建
+```
+
+恢复方法（二选一）：
+
+| 方案 | 命令 | 适用场景 |
+|------|------|---------|
+| 手动运行聚合器 | `cd /home/liyifan/music-record && python3 bin/aggregate_reviews.py --date-dir 2026/$(date +%m)/$(date +%Y-%m-%d) --date $(date +%Y-%m-%d)` | 快速生成推荐 |
+| 创建 aggregator task | 重新运行 `kanban-batch-scrape.py --confirm`（但会创建重复 scraper） | 需要走完整 kanban 流程 |
+
+推荐方案 1（手动运行），更可靠。
+
 如果 aggregator 卡在 ◻ todo 超过 10 分钟：
 ```bash
 # 手动 fallback
@@ -144,6 +206,27 @@ cd /home/liyifan/music-record
 python3 bin/aggregate_reviews.py \
   --date-dir 2026/$(date +%m)/$(date +%Y-%m-%d) \
   --date $(date +%Y-%m-%d)
+```
+
+### Step 5 — 推送前清理
+
+```bash
+cd /home/liyifan/music-record
+
+# 1. 🔥 删除数据目录中的调试脚本（Boomkat、DownBeat、All About Jazz 等 worker 会遗留大量 *.py）
+DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+if [ -d "$DATE_DIR" ]; then
+  rm -f "$DATE_DIR"/*.py
+  echo "Cleaned .py files from $DATE_DIR"
+fi
+
+# 2. 验证无 .py 混入
+find 2026/\($(date +%m)\) -name "*.py" | grep -q . && echo "⚠️ WARNING: .py still present!" || echo "✅ Clean"
+
+# 3. Git push
+git add -A "$DATE_DIR" recommend/$(date +%Y-%m-%d).md bin/aggregate_reviews.py bin/kanban-batch-scrape.py
+git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations"
+git push origin main
 ```
 
 ---
@@ -221,21 +304,37 @@ total_score = critic_quality(0-3) + taste_match(0-5) + novelty(0-3)
 
 aggregator 用 MiniMax M2.7 生成 1-2 句中文总结。
 
-aggregator 通过 **Anthropic SDK** 调用 `api.minimaxi.com` 的 MiniMax M2.7 模型：
+aggregator 通过 **Anthropic SDK** 调用 `api.minimaxi.com` 的 MiniMax M2.7 模型。
+
+**⚠️ MiniMax API 会间歇性挂起**（随机在某条目卡住 >10 分钟）。必须在 Anthropic SDK 参数中设置合理 timeout（120s），并在外层包裹重试循环（3 次）。否则 67 条总结中平均有 1-2 条会挂起导致整个 pipeline 超时。
+
+`aggregate_reviews.py` 中的实际实现：
 
 ```python
 import anthropic
+import time as _time
 client = anthropic.Anthropic(
     api_key=MINIMAX_CN_API_KEY,
     base_url="https://api.minimaxi.com/anthropic",
-    timeout=60,
+    timeout=120,  # ⚠️ 最小 120s，MiniMax 响应可能极慢
 )
-message = client.messages.create(
-    model="MiniMax-M2.7",
-    max_tokens=30000,
-    temperature=0.7,
-    messages=[{"role": "user", "content": prompt}]
-)
+last_exc = None
+for attempt in range(3):
+    try:
+        message = client.messages.create(
+            model="MiniMax-M2.7",
+            max_tokens=30000,
+            temperature=0.7,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        last_exc = None
+        break
+    except Exception as e:
+        last_exc = e
+        print(f"  [summarize] attempt {attempt+1}/3 failed, retrying...")
+        _time.sleep(5)
+if last_exc:
+    raise last_exc
 ```
 
 ⚠️ 环境变量名是 `MINIMAX_CN_API_KEY`（不是 `MINIMAX_API_KEY`）。API key 从 `~/.hermes/.env` 读取。
@@ -288,8 +387,19 @@ for block in message.content:
 |------|------|------|
 | Git push 失败 | `cd ~/music-record && git pull origin main` 解冲突 | resolve → push |
 | Telegram 推送超时 | cron 状态为 ok 但 delivery failed | 手动 `send_message` 或 GitHub 查收 |
-| Aggregator 卡 todo | `hermes kanban show <id> \| grep parent` | 归档旧 aggregator，手动 `aggregate_reviews.py` |
+| Aggregator 卡 todo | `hermes kanban show <id> | grep parent` | 归档旧 aggregator，手动 `aggregate_reviews.py` |
 | Cron 漏触发 | `last reboot` + `journalctl --user -u hermes-gateway` | `hermes cronjob run 6fd93b4a4c4c` |
 | DB 损坏 | `PRAGMA integrity_check` | 用源 schema 重建空 kanban.db |
 | Scraper 全 fail | 查 scraper profile auth.json 是否只有 minimax-cn | 删除 minimax 国际版条目 |
 | Scraper 空结果 | 查该站 JSON 是 `[]` 还是 `{excerpt:""}` | 按 references/site-investigation-methodology.md 排查 |
+| Scraper gateway stopped | `hermes gateway status scraper` -> stopped | `hermes gateway start scraper` -> `hermes kanban dispatch` |
+| **Scraper gateway token 冲突** | `hermes gateway start scraper` 报 "token already in use" | default gateway (PID) 已运行相同 token；kanban dispatch 通过 default gateway 正常工作，跳过专用 scraper gateway |
+| Tasks stuck "ready"（不转 running） | `hermes kanban dispatch --dry-run` 显示 0 spawn | 启动 scraper gateway, 然后 `hermes kanban dispatch` |
+| **Camoufox 广泛无声退出（~23 站）** | task 状态 "running" 但 `ps aux` 无对应进程 | `hermes kanban complete <id>`。影响全部 ~23 个 Camoufox 站点，非个别站问题 |
+| **低活跃日大量空结果** | 周末/节假日后多数站输出 `[]` | 正常现象。Camoufox 站 3 天窗口内无新文章 -> 空结果非错误。继续推进即可 |
+| Songlines 挂起（Camoufox tab 过期） | `ps aux | grep songlines` 运行 >5 分钟无输出 | `hermes kanban complete <task_id>`（JSON 通常已存在） |
+| Boomkat 无限重试 | 多次 retry 后仍然挂起 | `kill -9 <PID>` -> retry 通常更快通过 |
+| Point of Departure 无声退出 | worker 进程消失，task 留 running | `hermes kanban complete <task_id>`（小站，3 天内很空） |
+| aggregator 未创建 | `--confirm` 30s 超时后缺失 aggregator task | 手动跑 `aggregate_reviews.py`（见 Step 4 恢复方法） |
+| **Aggregator MiniMax 总结挂起** | 随机在某条目卡住 >10 分钟无进展 | `Ctrl+C` 后重跑（重试逻辑处理剩余条目）；如重跑仍在同条目挂起，截断 excerpt（>2000 字） |
+| **数据目录混入 *.py 调试脚本** | `git status` 显示 `.py` 文件被追踪 | 在 `git add` 前先 `rm -f 2026/{MM}/{DATE}/*.py`（见 Step 5） |

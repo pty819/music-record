@@ -114,7 +114,7 @@ def summarize_cn(excerpt, artist_album, tags_raw_str=""):
 def _gen_cn_fallback(excerpt_text, artist_album_str, tags_raw_str=""):
     excerpt = excerpt_text or ""
     tags_raw = tags_raw_str or ""
-    tags_str = tags_raw.lower() if isinstance(tags_raw, str) else " ".join(tags_raw).lower()
+    tags_str = tags_raw.lower() if isinstance(tags_raw, str) else " ".join(str(t) for t in tags_raw if t is not None).lower()
     parts = []
     el = excerpt.lower()
 
@@ -188,7 +188,10 @@ def get_site_taste_baseline(site_id):
 def score_review(r, site_id="musique_machine"):
     excerpt = r.get("excerpt", "") or r.get("summary", "") or ""
     tags_raw = r.get("tags", "") or r.get("genre", "") or ""
-    tags_str = tags_raw.lower() if isinstance(tags_raw, str) else " ".join(t.lower() for t in tags_raw).lower()
+    if isinstance(tags_raw, str):
+        tags_str = tags_raw.lower()
+    else:
+        tags_str = " ".join(str(t).lower() for t in tags_raw if t is not None).lower()
     el = excerpt.lower()
     elen = len(excerpt)
 
