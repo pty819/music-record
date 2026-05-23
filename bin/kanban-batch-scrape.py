@@ -245,7 +245,7 @@ kanban_complete(
 
     from datetime import datetime
     date_obj = datetime.fromisoformat(DATE)
-    git_month = date_obj.strftime("%Y-%m")
+    git_month = date_obj.strftime("%m")
     N = len(all_task_ids)
     passed_placeholder = 0
     task_ids_file = f"/tmp/aggregator_parent_ids_{DATE}.json"
