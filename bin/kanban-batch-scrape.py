@@ -216,17 +216,7 @@ cp /home/liyifan/.local/bin/kanban-batch-scrape.py /home/liyifan/music-record/bi
 cp /home/liyifan/music-record/bin/aggregate_reviews.py /home/liyifan/music-record/bin/aggregate_reviews.py
 ```
 
-3. GitHub 推送（结果 + skill + 脚本一起）
-
-```bash
-cd /home/liyifan/music-record
-git add 2026/%s/%s/ recommend/%s.md
-git add skills/music/music-daily-recs/SKILL.md bin/kanban-batch-scrape.py bin/aggregate_reviews.py
-git commit -m "Daily: %s — %d reviews, %d passed filter"
-git push
-```
-
-4. kanban_complete
+3. kanban_complete
 
 ```python
 kanban_complete(
@@ -235,7 +225,7 @@ kanban_complete(
 )
 ```
 
-5. Telegram 推送
+4. Telegram 推送
 
 读取 /home/liyifan/music-record/recommend/%s.md
 用 send_message 推送到 Telegram Home 频道：
@@ -253,9 +243,6 @@ kanban_complete(
         json.dump(all_task_ids, f)
     agg_body = agg_body % (
         date_dir, DATE,
-        git_month, DATE, DATE,
-        DATE,
-        len(all_task_ids), passed_placeholder,
         len(all_task_ids), passed_placeholder,
         len(all_task_ids), passed_placeholder,
         DATE
