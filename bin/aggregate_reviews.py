@@ -280,7 +280,14 @@ def main():
         print(f"Error: date_dir not found: {date_dir}", file=sys.stderr)
         sys.exit(1)
 
-    # 1. Read all scraper JSON files
+    # 1. Clean up debug .py files (kanban workers leave behind check_*, boomkat_*.py etc.)
+    py_files = [f for f in os.listdir(date_dir) if f.endswith(".py")]
+    for f in py_files:
+        os.remove(os.path.join(date_dir, f))
+    if py_files:
+        print(f"Cleaned {len(py_files)} debug .py files from {date_dir}")
+
+    # 1b. Read all scraper JSON files
     all_files = sorted(f for f in os.listdir(date_dir) if f.endswith("_reviews.json"))
     reviews = []
     for fname in all_files:
@@ -391,7 +398,33 @@ def main():
         f.write("\n".join(lines))
     print(f"Wrote {md_path}")
 
-    # 9. Print summary for kanban_complete (stdout is captured)
+    # 9. Git push — aggregate_reviews.py 自己完成 git push
+    repo_dir = "/home/liyifan/music-record"
+    import subprocess
+    from datetime import timezone as _tz
+
+    # 再次清理 .py（防止 aggregator 期间又产生）
+    for f in os.listdir(date_dir):
+        if f.endswith(".py"):
+            os.remove(os.path.join(date_dir, f))
+
+    month_dir = date_str[:7].replace("-", "/")  # 2026-05
+    subprocess.run(
+        ["git", "add", f"2026/{month_dir}/{date_str}/", f"recommend/{date_str}.md"],
+        cwd=repo_dir, capture_output=True, check=False,
+    )
+    subprocess.run(
+        ["git", "commit", "-m", f"music-recs: {date_str} daily recommendations ({len(reviews)} reviews, {len(passed)} passed)"],
+        cwd=repo_dir, capture_output=True, check=False,
+    )
+    push = subprocess.run(["git", "push"], cwd=repo_dir, capture_output=True, text=True)
+    print(push.stdout.strip())
+    if push.returncode != 0:
+        print(f"⚠️ git push failed (stderr): {push.stderr.strip()}", file=sys.stderr)
+    else:
+        print("✅ Git push successful")
+
+    # 10. Print summary for kanban_complete (stdout is captured)
     print(f"\nSUMMARY: aggregated {len(reviews)} unique reviews, {len(passed)} passed filter, recommend written to recommend/{date_str}.md")
 
 
