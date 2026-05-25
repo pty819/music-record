@@ -108,12 +108,8 @@ def main():
         if s.get("crawl_strategy") != "skip" and not s.get("skipped") and not s.get("has_rss")
     ]
     print(f"Active sites: {len(sites)}")
-    batches = []
-    for i in range(0, len(sites), BATCH_SIZE):
-        batches.append(sites[i:i+BATCH_SIZE])
-    print(f"Batches: {len(batches)} (batch_size={BATCH_SIZE})")
-    for i, b in enumerate(batches):
-        print(f"  Batch {i+1}: {[s['name'] for s in b]}")
+    for s in sites:
+        print(f"  {s['name']}")
     print()
     if not confirm:
         print("Dry run. Pass --confirm to create tasks.")
@@ -129,22 +125,17 @@ def main():
     ws = f"dir:{date_dir}"
     os.makedirs(date_dir, exist_ok=True)
 
-    prev_task_ids = []
     all_task_ids = []
 
-    for batch_idx, batch in enumerate(batches):
-        batch_num = batch_idx + 1
-        parents = list(prev_task_ids)
-        task_ids = []
-        for site in batch:
-            sid = site.get("id", site["name"].lower().replace(" ", "_"))
-            name = site["name"]
-            url = site.get("url") or site.get("reviews_url") or site.get("homepage", "")
-            strategy = site.get("crawl_strategy", "playwright_headless")
-            tags = ", ".join(site.get("tags", []))
-            out_file = f"{date_dir}/{sid}_reviews.json"
-            title = f"scrape: {name}"
-            body = f"""**{name}** · {url} · {strategy} · {tags}
+    for site in sites:
+        sid = site.get("id", site["name"].lower().replace(" ", "_"))
+        name = site["name"]
+        url = site.get("url") or site.get("reviews_url") or site.get("homepage", "")
+        strategy = site.get("crawl_strategy", "playwright_headless")
+        tags = ", ".join(site.get("tags", []))
+        out_file = f"{date_dir}/{sid}_reviews.json"
+        title = f"scrape: {name}"
+        body = f"""**{name}** · {url} · {strategy} · {tags}
 
 🔒 约束
 ━━━━━━━━━━━━━━━━
@@ -182,19 +173,19 @@ def main():
 type: "review" | "feature" | "tracklist"
 kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}})"""
 
-            tid = hermes_create(
-                title=title,
-                body=body,
-                assignee="scraper",
-                parents=parents if parents else None,
-                skills=worker_skills,
-                workspace=ws,
-            )
-            task_ids.append(tid)
-            print(f"  [{batch_num}] {tid}: {name} -> {sid}_reviews.json")
-        prev_task_ids = list(task_ids)
-        all_task_ids.extend(task_ids)
-        print(f"Batch {batch_num} done (parents={len(parents)}, this batch={len(task_ids)})")
+        tid = hermes_create(
+            title=title,
+            body=body,
+            assignee="scraper",
+            parents=None,
+            skills=worker_skills,
+            workspace=ws,
+        )
+        if tid:
+            all_task_ids.append(tid)
+            print(f"  {tid}: {name}")
+        else:
+            print(f"  FAILED: {name}", file=sys.stderr)
 
     # ── Final aggregator ────────────────────────────────────────────────
     agg_body = """✅ 步骤
