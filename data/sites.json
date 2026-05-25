@@ -304,9 +304,9 @@
       "id": "bandcamp_daily",
       "name": "Bandcamp Daily",
       "homepage": "https://daily.bandcamp.com/",
-      "rss_url": null,
+      "rss_url": "https://daily.bandcamp.com/feed",
       "reviews_url": "https://daily.bandcamp.com/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "S",
       "crawl_frequency": "daily",
       "parser_hint": {
@@ -378,7 +378,7 @@
         "fusion"
       ],
       "automationStatus": "default_on",
-      "crawl_strategy": "playwright_headless"
+      "crawl_strategy": "http_get"
     },
     {
       "id": "boomkat",
@@ -450,9 +450,9 @@
       "id": "igloo_magazine",
       "name": "Igloo Magazine",
       "homepage": "https://igloomag.com/",
-      "rss_url": null,
+      "rss_url": "https://igloomag.com/feed",
       "reviews_url": "https://igloomag.com/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "S",
       "crawl_frequency": "daily",
       "parser_hint": {
@@ -510,7 +510,7 @@
         "experimental"
       ],
       "automationStatus": "default_on",
-      "crawl_strategy": "playwright_headless"
+      "crawl_strategy": "http_get"
     },
     {
       "id": "fluid_radio",
@@ -1208,9 +1208,9 @@
       "id": "van_magazine",
       "name": "VAN Magazine",
       "homepage": "https://van-magazine.com/",
-      "rss_url": null,
+      "rss_url": "https://van-magazine.com/feed/",
       "reviews_url": "https://van-magazine.com/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "A",
       "crawl_frequency": "weekly_2x",
       "parser_hint": {
@@ -1254,7 +1254,7 @@
         "new music"
       ],
       "automationStatus": "fallback_only",
-      "crawl_strategy": "playwright_headless"
+      "crawl_strategy": "http_get"
     },
     {
       "id": "world_music_central",
@@ -1484,9 +1484,9 @@
       "id": "rest_is_noise_ph",
       "name": "The Rest Is Noise PH",
       "homepage": "https://therestisnoiseph.com/",
-      "rss_url": null,
+      "rss_url": "https://therestisnoiseph.com/feed/",
       "reviews_url": "https://therestisnoiseph.com/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "A",
       "crawl_frequency": "weekly_2x",
       "parser_hint": {
@@ -1531,7 +1531,7 @@
         "electronic"
       ],
       "automationStatus": "fallback_only",
-      "crawl_strategy": "playwright_headless"
+      "crawl_strategy": "http_get"
     },
     {
       "id": "mixmag_asia",
@@ -1835,9 +1835,9 @@
       "id": "jazz_journal",
       "name": "Jazz Journal",
       "homepage": "https://jazzjournal.co.uk/",
-      "rss_url": null,
+      "rss_url": "https://jazzjournal.co.uk/feed/",
       "reviews_url": "https://jazzjournal.co.uk/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "B",
       "crawl_frequency": "weekly",
       "parser_hint": {
@@ -1847,7 +1847,8 @@
         "jazz",
         "reviews"
       ],
-      "notes": "老牌专业站，适合历史与新盘并读"
+      "notes": "老牌专业站，适合历史与新盘并读",
+      "crawl_strategy": "http_get"
     },
     {
       "id": "five_against_four",
@@ -1891,9 +1892,9 @@
       "id": "the_classic_review",
       "name": "The Classic Review",
       "homepage": "https://theclassicreview.com/",
-      "rss_url": null,
+      "rss_url": "https://theclassicreview.com/feed/",
       "reviews_url": "https://theclassicreview.com/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "B",
       "crawl_frequency": "weekly",
       "parser_hint": {
@@ -1903,7 +1904,8 @@
         "classical",
         "contemporary"
       ],
-      "notes": "偏传统古典，可补 contemporary"
+      "notes": "偏传统古典，可补 contemporary",
+      "crawl_strategy": "http_get"
     },
     {
       "id": "froots",
@@ -1994,9 +1996,9 @@
       "id": "prog_mistress",
       "name": "Prog Mistress",
       "homepage": "https://progmistress.com/",
-      "rss_url": null,
+      "rss_url": "https://progmistress.com/feed",
       "reviews_url": "https://progmistress.com/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "B",
       "crawl_frequency": "weekly",
       "parser_hint": {
@@ -2007,7 +2009,8 @@
         "jazz-rock",
         "fusion"
       ],
-      "notes": "可补 fusion/jazz-rock 方向"
+      "notes": "可补 fusion/jazz-rock 方向",
+      "crawl_strategy": "http_get"
     },
     {
       "id": "wild_city",
