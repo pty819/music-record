@@ -105,7 +105,7 @@ def main():
         d = json.load(f)
     sites = [
         s for s in d["sites"]
-        if s.get("crawl_strategy") != "skip" and not s.get("skipped")
+        if s.get("crawl_strategy") != "skip" and not s.get("skipped") and not s.get("has_rss")
     ]
     print(f"Active sites: {len(sites)}")
     batches = []

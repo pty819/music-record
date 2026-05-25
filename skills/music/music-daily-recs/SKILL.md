@@ -4,10 +4,10 @@ description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，
 category: music
 cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行）
 author: hermes-agent
-version: 4.3
+version: 4.4
 license: MIT
 created: 2026-05-07
-updated: 2026-05-24
+updated: 2026-05-25
 trigger_condition: cron 每天 04:00 触发，或手动 `hermes cronjob run 6fd93b4a4c4c`
 metadata:
   hermes:
@@ -26,10 +26,15 @@ Step 0  预检：Auth + DB 健康
   ↓
 Step 1  同步：git pull → cp skill + script + sites.json
   ↓
-Step 2  kanban-batch-scrape.py --confirm
-         （脚本创建 48 scraper 任务，2 并行 parent-gated）
+Step 2  RSS 批量抓取 (fast-rss-scrape.py)
+        ↓
+        JSON 已输出到数据目录，无需 kanban
+        ↓
+Step 3  Camoufox 批量抓取 (kanban-batch-scrape.py --confirm)
+         （仅 21 个无 RSS 站创建 kanban 任务）
   ↓（全部 done）
-Aggregator  合并去重 → 评分 → LLM 中文总结 → recommend/{DATE}.md → git push → Telegram 推送
+Aggregator  合并 RSS + Camoufox 数据 → 评分 → LLM 中文总结
+             → recommend/{DATE}.md → git push → Telegram 推送
 ```
 
 ## 何时执行
@@ -105,19 +110,30 @@ mkdir -p /home/liyifan/.minimax/music-sites
 cp /home/liyifan/music-record/data/sites.json /home/liyifan/.minimax/music-sites/ 2>/dev/null || true
 ```
 
-### Step 2 — 创建 scraper 任务
+### Step 2 — RSS 批量抓取（27 站，~60 秒）
 
 ```bash
-# 先用 dry run 预览
+mkdir -p /home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)
+python3 /home/liyifan/.local/bin/fast-rss-scrape.py \
+  -o /home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)/rss_merged.json
+```
+
+✅ 输出：`rss_merged.json` — 包含 27 个 RSS 站最近 2 天的全部文章
+无 kanban 任务、无 LLM、无浏览器。
+
+### Step 3 — 创建 Camoufox 抓取任务
+
+```bash
+# 先用 dry run 预览（应显示 ~21 个 Camoufox 站，RSS 站已被过滤）
 python3 /home/liyifan/.local/bin/kanban-batch-scrape.py
 
-# 确认无误后创建（脚本内部自动 cleanup 旧任务，创建 48+1 个）
+# 确认无误后创建
 python3 /home/liyifan/.local/bin/kanban-batch-scrape.py --confirm
 ```
 
-⚠️ 禁止手动循环 `kanban_create`。48 个无 parent 的 scraper 同时 spawn 会 OOM。
+⚠️ `kanban-batch-scrape.py` 已自动过滤 `has_rss=true` 的站，只创建无 RSS 的 Camoufox 站任务。
 
-### Step 3 — 监控进度
+### Step 4 — 监控 Camoufox 进度
 
 **⏳ 建议使用主动进程探测循环**（不要仅依赖 DB 查询 — 大量 Camoufox scraper 无声退出后 task 状态仍为 running）
 
@@ -174,32 +190,18 @@ hermes kanban list | grep "running" | grep scraper  # 当前运行中
 3. 然后触发调度器重试：`hermes kanban dispatch`
 4. 再检查：`hermes kanban list | grep -c "running" | grep scraper`
 
-### Step 4 — Pipeline 收尾
+### Step 5 — Pipeline 收尾
 
-全部 scraper done 后，aggregator 自动运行。确认状态：
+全部 Camoufox scraper done 后，通知 aggregator。此时 RSS 数据已提前就位。
+
+确认状态：
 
 ```bash
 hermes kanban list | grep "aggregat"
 # 期望: ✓ done
 ```
 
-**⚠️ aggregator 未创建（kanban-batch-scrape.py 超时）**：如果 `--confirm` 因超时（30s）中断，aggregator 任务可能不存在。检查：
-
-```bash
-hermes kanban list | grep aggregate
-# 无输出 → aggregator 未创建
-```
-
-恢复方法（二选一）：
-
-| 方案 | 命令 | 适用场景 |
-|------|------|---------|
-| 手动运行聚合器 | `cd /home/liyifan/music-record && python3 bin/aggregate_reviews.py --date-dir 2026/$(date +%m)/$(date +%Y-%m-%d) --date $(date +%Y-%m-%d)` | 快速生成推荐 |
-| 创建 aggregator task | 重新运行 `kanban-batch-scrape.py --confirm`（但会创建重复 scraper） | 需要走完整 kanban 流程 |
-
-推荐方案 1（手动运行），更可靠。
-
-如果 aggregator 卡在 ◻ todo 超过 10 分钟：
+**⚠️ aggregator 未创建（kanban-batch-scrape.py 超时）**：如果 `--confirm` 因超时（30s）中断，aggregator 任务可能不存在。检查：\n\n```bash\nhermes kanban list | grep aggregate\n# 无输出 → aggregator 未创建\n```\n\n恢复方法（二选一）：\n\n| 方案 | 命令 | 适用场景 |\n|------|------|---------|\n| 手动运行聚合器 | `cd /home/liyifan/music-record && python3 bin/aggregate_reviews.py --date-dir 2026/$(date +%m)/$(date +%Y-%m-%d) --date $(date +%Y-%m-%d)` | 快速生成推荐 |\n| 创建 aggregator task | 重新运行 `kanban-batch-scrape.py --confirm`（但会创建重复 scraper） | 需要走完整 kanban 流程 |\n\n推荐方案 1（手动运行），更可靠。\n\n**⚠️ aggregator 卡在 ◻ todo 但 parent scraper blocked**：先检查 blocked scraper，force-complete 后 aggregator 自动解锁。大多数 blocked 站点只是 CF/iteration-budget 问题，数据已在 JSON 中：\n\n```bash\n# 找出 blocked scraper\nBLOCKED=$(hermes kanban list 2>&1 | grep \"⊘\" | awk '{print $2}')\nfor TID in $BLOCKED; do\n  echo \"Force-completing blocked: $TID\"\n  hermes kanban show \"$TID\" 2>&1 | grep -E \"title|blocked\"\n  hermes kanban complete \"$TID\"\ndone\n# 然后手动跑 aggregator（不等全部 48 站完成，已有数据就够）\ncd /home/liyifan/music-record\npython3 bin/aggregate_reviews.py \\\n  --date-dir 2026/$(date +%m)/$(date +%Y-%m-%d) \\\n  --date $(date +%Y-%m-%d)\n```\n\n如果 aggregator 仍卡在 ◻ todo 超过 10 分钟（且无 blocked parent）：
 ```bash
 # 手动 fallback
 cd /home/liyifan/music-record
@@ -208,7 +210,7 @@ python3 bin/aggregate_reviews.py \
   --date $(date +%Y-%m-%d)
 ```
 
-### Step 5 — 推送前清理
+### Step 6 — 推送前清理
 
 ```bash
 cd /home/liyifan/music-record
@@ -231,6 +233,36 @@ git push origin main
 
 ---
 
+## 快速替代方案：fast-rss-scrape.py（纯 RSS，无 kanban）
+
+当只需要 RSS 站的数据时，可以用此脚本替代整个 kanban pipeline。**零 LLM、零浏览器、<2 分钟跑完。**
+
+```bash
+# 最近 2 天，输出到文件
+python3 /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \\
+  --days 2 -o /tmp/rss_merged.json
+
+# 输出包含 meta + reviews 数组，格式与 _reviews.json 完全兼容
+```
+
+**限制：** 只覆盖 `has_rss: true` 的站（目前 27 个）。artist/album 靠标题正则提取，不够精确时字段会退化。Camoufox-only 站（21 个）不在此脚本范围内。
+
+**适用场景：**
+- 快速巡检当天 RSS 站产出，不等 kanban
+- 调试某站 RSS 是否正常
+- 作为 aggregator 的 RSS-only 预取输入
+
+### 脚本文件：`scripts/fast-rss-scrape.py`
+
+保存于 skill 目录。如需独立使用，可拷贝到 `~/.local/bin/`：
+
+```bash
+cp /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \\
+   /home/liyifan/.local/bin/
+```
+
+---
+
 ## Scraper 模板关键指令
 
 以下约束已内置于 `kanban-batch-scrape.py` 的 scraper body 模板，对所有站点生效：
@@ -248,17 +280,14 @@ git push origin main
 
 ---
 
-## 站点配置
-
-配置文件：`/home/liyifan/.minimax/music-sites/sites.json`
-共 48 个活跃站点：
+## 站点配置\n\n配置文件：`/home/liyifan/.minimax/music-sites/sites.json`\n\n**⚠️ 关键问题：scraper body 模板没有注入 rss_url**\n\n`kanban-batch-scrape.py` 第 147 行的 body 模板只有 `url`（首页地址），没有 `rss_url`。kanban worker 需要自行发现 RSS，不可靠。如果修改模板，记得加上 `rss_url={site.get('rss_url','')}`。
+共 48 个活跃站点。**27 个 RSS + 21 个 Camoufox**（7 个站已在 2026-05-25 从 Camoufox 提升为 RSS）
 
 | 策略 | 数量 | 说明 |
 |------|------|------|
-| RSS (http_get) | ~22 | feedparser 直接解析，3 天过滤 |
-| Camoufox (playwright_headless) | ~23 | Camoufox 反检测引擎，浏览前 2 页 |
+| RSS (http_get) | **27** | feedparser 直接解析，2 天过滤，`fast-rss-scrape.py` 批量抓取 |
+| Camoufox (playwright_headless) | **21** | Camoufox 反检测引擎，浏览前 2 页，走 kanban worker |
 | skip | 3 | Syrphe / Textura / Fluid Radio（停更/不可访问） |
-
 详情和站点列表见 `sites.json`。
 
 ### 各站特殊处理
@@ -268,11 +297,32 @@ git push origin main
 | The Wire | RSS 91 条含 CDATA 全文（5K-20K）。内容为特稿/访谈，output `type: feature`，score: null |
 | All About Jazz | 详情页 Cloudflare 保护。列表页提取 metadata，excerpt 为空 |
 | Resident Advisor | 详情页 Cloudflare 保护。列表页含内联简短 excerpt（20-50 字） |
-| ProgArchives | 全站 Cloudflare JS 挑战。走 RSS（feeds.feedburner.com/Progarchives/newreleases） |
+| ProgArchives | 全站 Cloudflare JS 挑战，RSS `feeds.feedburner.com/Progarchives/newreleases` 也返回 403。Camoufox NSS 库版本不兼容。**目前完全不可爬取**，发现即 `blocked`，force-complete |
 | Musique Machine | 电影/音乐混合。非音乐过滤规则覆盖 (BLU-RAY/UHD/VOD/DVD) |
 | The Quietus | 有 paywall。Camoufox 下可抓取 `/columns/quietus-reviews/` |
-| Boomkat | 原 ASN 封锁，Camoufox fingerprint 可过 ✅ |
+| VAN Magazine | 原 Camoufox，2026-05-25 发现其 RSS `van-magazine.com/feed/` 可用，已升为 RSS |
+| Igloo Magazine | 原 Camoufox，2026-05-25 发现其 RSS `igloomag.com/feed` 可用，已升为 RSS |
+| Jazz Journal | 原 Camoufox，2026-05-25 发现其 RSS `jazzjournal.co.uk/feed/` 可用，已升为 RSS |
+| The Classic Review | 原 Camoufox，2026-05-25 发现其 RSS `theclassicreview.com/feed/` 可用，已升为 RSS |
+| Bandcamp Daily | 原 Camoufox，2026-05-25 发现其 RSS `daily.bandcamp.com/feed` 可用，已升为 RSS |
+| Prog Mistress | 原 Camoufox，2026-05-25 发现其 RSS `progmistress.com/feed` 可用，已升为 RSS |
+| The Rest Is Noise PH | 原 Camoufox，2026-05-25 发现其 RSS `therestisnoiseph.com/feed/` 可用，已升为 RSS |
+| The Squid's Ear | 极度高产出站（一次可抓 100+ 条）→ 极易耗尽 kanban worker 的 90-iteration budget。发现 blocked 时检查原因：若是 "Iteration budget exhausted"，force-complete。批量中产出 103 条的数据已在 JSON 中，不需要重跑 |
 | Fluid Radio | 停更，skip。存档 2013-2022 |
+
+### Camoufox 站转 RSS（已验证可用）
+
+以下 7 个站当前标记为 `crawl_strategy: playwright_headless`，但实际有可用的 RSS feed。建议在 `sites.json` 中加 `has_rss: true` + `rss_url`，并在 scraper body 模板注入 rss_url 避免浏览器：
+
+| 站点 | RSS 地址 | 验证结果 |
+|------|---------|---------|
+| VAN Magazine | `https://van-magazine.com/feed/` | status=200, 10 entries |
+| Jazz Journal | `https://jazzjournal.co.uk/feed/` | status=200, 10 entries |
+| The Classic Review | `https://theclassicreview.com/feed/` | status=200, 10 entries |
+| Igloo Magazine | `https://igloomag.com/feed` | status=200, 9 entries |
+| Bandcamp Daily | `https://daily.bandcamp.com/feed` | status=200, 35 entries |
+| Prog Mistress | `https://progmistress.com/feed` | status=301→200, 10 entries |
+| The Rest Is Noise PH | `https://therestisnoiseph.com/feed` | status=301→200, 10 entries |
 
 ---
 
@@ -361,6 +411,7 @@ for block in message.content:
 | recommend markdown | `recommend/{YYYY-MM-DD}.md` | 唯一 markdown 输出，供 Telegram 推送 |
 | aggregator JSON | `2026/{MM}/{YYYY-MM-DD}/aggregated.json` | 全量去重+评分后的 JSON |
 | scraper JSON | `2026/{MM}/{YYYY-MM-DD}/{site_id}_reviews.json` | 各站原始抓取输出 |
+| RSS 注入分析 | `references/rss-url-injection.md` | Camoufox 站转 RSS 方案和已验证站点列表 |
 
 **Telegram 推送**：aggregator body Step 5 内置。读取 `recommend/{DATE}.md`，≤4000 字符发全文，否则发精简版 + GitHub 链接。
 
@@ -402,4 +453,8 @@ for block in message.content:
 | Point of Departure 无声退出 | worker 进程消失，task 留 running | `hermes kanban complete <task_id>`（小站，3 天内很空） |
 | aggregator 未创建 | `--confirm` 30s 超时后缺失 aggregator task | 手动跑 `aggregate_reviews.py`（见 Step 4 恢复方法） |
 | **Aggregator MiniMax 总结挂起** | 随机在某条目卡住 >10 分钟无进展 | `Ctrl+C` 后重跑（重试逻辑处理剩余条目）；如重跑仍在同条目挂起，截断 excerpt（>2000 字） |
-| **数据目录混入 *.py 调试脚本** | `git status` 显示 `.py` 文件被追踪 | 在 `git add` 前先 `rm -f 2026/{MM}/{DATE}/*.py`（见 Step 5） |
+| **数据目录混入 *.py 调试脚本** | `git status` 显示 `.py` 文件被追踪（一次可多达 60+ 个） | 在 `git add` 前先 `rm -f 2026/{MM}/{DATE}/*.py`（见 Step 5） |
+| **Iteration budget exhausted（90/90）** | scraper blocked, reason "Iteration budget exhausted" | force-complete。Squid's Ear 一次 103 条在 90 轮内可能写不完，数据通常已在 JSON 中 |
+| **Camoufox 站实际有 RSS** | scraper 走浏览器慢/挂，但该站实际有可用 RSS | 验证 RSS 后用 `fast-rss-scrape.py` 替代。改 sites.json 加 `has_rss: true` + `rss_url`；参考 `references/camoufox-to-rss-promotion.md` |
+| **Scraper body 缺 rss_url** | kanban worker 无法直接知道 RSS 地址，需自行发现 | 改 `kanban-batch-scrape.py:147` body 模板，加 `rss_url={site.get('rss_url','')}` |
+| **RSS 快速巡检** | 不想等 kanban，只要 RSS 站数据 | 用 `scripts/fast-rss-scrape.py`，<2 分钟出 27 站合并结果 |
