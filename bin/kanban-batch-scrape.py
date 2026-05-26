@@ -259,9 +259,21 @@ kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}
             'git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations (kanban aggregator)" || true\n'
             "git push origin main 2>&1\n"
             "\n"
-            "Step 5: 完成任务\n"
+"Step 5: Telegram 推送\n"
             "\n"
-            'kanban_complete(summary="music-recs post-processing for $(date +%Y-%m-%d): merge -> score -> report -> git push")\n'
+            "读取 /home/liyifan/music-record/recommend/$(date +%Y-%m-%d).md 内容\n"
+            "如果 ≤4000 字符，用 send_message 发送全文到 Telegram Home 频道\n"
+            "如果 >4000 字符，发送前 30 行 + '...' + 完整推荐 GitHub 链接\n"
+            "\n"
+            "Step 6: 归档本轮 scraper 任务\n"
+            "\n"
+            "hermes kanban list | grep \"done.*scrape:\" | awk '{print $2}' | while read tid; do\n"
+            "  hermes kanban archive \"$tid\"\n"
+            "done\n"
+            "\n"
+            "Step 7: 完成任务\n"
+            "\n"
+            'kanban_complete(summary="music-recs post-processing for $(date +%Y-%m-%d): merge -> score -> report -> telegram -> archive")'
             "\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             "‼️ 仅执行以上步骤，不多做任何事。"

@@ -2,7 +2,7 @@
 name: music-daily-recs
 description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，聚合评分后推送 GitHub + Telegram
 category: music
-cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行）
+cron_job: ec5ea562d589（每天 04:00 北京时间自动运行）
 author: hermes-agent
 version: 5.1
 license: MIT
