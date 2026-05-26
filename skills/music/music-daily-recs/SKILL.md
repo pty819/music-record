@@ -4,7 +4,7 @@ description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，
 category: music
 cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行）
 author: hermes-agent
-version: 4.9
+version: 5.0
 license: MIT
 created: 2026-05-07
 updated: 2026-05-26
@@ -118,7 +118,9 @@ hermes gateway status scraper 2>&1 | grep -c "running"
 #   调度器可以正常 spawn worker。跳过启动 scraper gateway，直接进入 dispatch。
 ```
 
-### Step 1 — 同步
+### Step 1 — 同步（仅 cron/自动化运行需要）
+
+> 交互式运行时跳过此步。当前会话中的 skill 和脚本永远是最新版。
 
 ```bash
 cd /home/liyifan/music-record && git pull origin main
@@ -203,7 +205,7 @@ echo "✅ HTML/curl 抓取完成"
 # 检查各站产出
 for f in "$DATE_DIR"/*_reviews.json; do
   count=$(python3 -c "import json; d=json.load(open('$f')); print(len(d.get('items', d)) if isinstance(d, dict) else len(d) if isinstance(d, list) else '?')" 2>/dev/null || echo "0")
-  [ "$count" != "0" ] && [ "$count" != "0" ] && echo "  $(basename $f): $count 条"
+  [ "$count" != "0" ] && echo "  $(basename $f): $count 条"
 done
 ```
 
@@ -371,6 +373,22 @@ git add -A "$DATE_DIR" recommend/$(date +%Y-%m-%d).md \
   bin/kanban-batch-scrape.py bin/merge_scraped.py
 git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations"
 git push origin main
+
+# 4. Telegram 推送
+cd /home/liyifan/music-record
+RECOMMEND_FILE="recommend/$(date +%Y-%m-%d).md"
+if [ -f "$RECOMMEND_FILE" ]; then
+  CHARS=$(wc -c < "$RECOMMEND_FILE")
+  if [ "$CHARS" -le 4000 ]; then
+    # 全文推送（用 send_message 工具手动发送）
+    echo "✅ 已推送到 GitHub，Telegram 全文发送请用 send_message"
+  else
+    # 精简版 + 链接
+    head -30 "$RECOMMEND_FILE"
+    echo "..."
+    echo "🔗 完整推荐: https://github.com/pty819/music-record/blob/main/recommend/$(date +%Y-%m-%d).md"
+  fi
+fi
 ```
 
 ---
@@ -392,7 +410,7 @@ python3 /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scr
 **适用场景：**
 - 快速巡检当天 RSS 站产出，不等 kanban
 - 调试某站 RSS 是否正常
-- 作为 aggregator 的 RSS-only 预取输入
+- 配合 `merge_scraped.py` 作为 process_reviews.py 的输入
 
 ### 脚本文件：`scripts/fast-rss-scrape.py`
 
@@ -498,7 +516,9 @@ git push origin main 2>&1 || echo "⚠️ git push failed (TLS), manual retry la
 
 ---
 
-## 站点配置\n\n配置文件：`/home/liyifan/.minimax/music-sites/sites.json`\n\n**⚠️ 关键问题：scraper body 模板没有注入 rss_url**\n\n`kanban-batch-scrape.py` 第 147 行的 body 模板只有 `url`（首页地址），没有 `rss_url`。kanban worker 需要自行发现 RSS，不可靠。如果修改模板，记得加上 `rss_url={site.get('rss_url','')}`。
+## 站点配置
+
+配置文件：`/home/liyifan/.minimax/music-sites/sites.json`
 共 48 个活跃站点。**27 个 RSS + 21 个 Camoufox**（7 个站已在 2026-05-25 从 Camoufox 提升为 RSS）
 
 | 策略 | 数量 | 说明 |
@@ -646,7 +666,7 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | scraper JSON | `2026/{MM}/{YYYY-MM-DD}/{site_id}_reviews.json` | 各站原始抓取输出 |
 | RSS 注入分析 | `references/rss-url-injection.md` | Camoufox 站转 RSS 方案和已验证站点列表 |
 
-**Telegram 推送**：aggregator body Step 5 内置。读取 `recommend/{DATE}.md`，≤4000 字符发全文，否则发精简版 + GitHub 链接。
+**Telegram 推送**：手动发，读取 `recommend/{DATE}.md`，≤4000 字符发全文，否则发精简版 + GitHub 链接。
 
 ---
 
@@ -654,11 +674,13 @@ LLM 不一定返回干净 JSON，使用三层解析：
 
 | 用途 | 路径 |
 |------|------|
+| RSS 批量抓取脚本 | `/home/liyifan/music-record/bin/fast-rss-scrape.py` |
+| HTML 抓取脚本（12 个） | `/home/liyifan/music-record/bin/scrape_*.py` |
 | 合并脚本 | `/home/liyifan/music-record/bin/merge_scraped.py` |
 | 评分+总结脚本 | `/home/liyifan/music-record/bin/process_reviews.py` |
 | 报告生成脚本 | `/home/liyifan/music-record/bin/generate_report.py` |
 | 站点配置 | `/home/liyifan/.minimax/music-sites/sites.json` |
-| batch 脚本 | `/home/liyifan/.local/bin/kanban-batch-scrape.py` |
+| batch 脚本 | `/home/liyifan/music-record/bin/kanban-batch-scrape.py` |
 | skill 本文 | `/home/liyifan/.hermes/skills/music/music-daily-recs/SKILL.md` |
 | Camoufox 服务器 | `/home/liyifan/camofox-browser/camoufox_server.py` |
 | GitHub repo | `https://github.com/pty819/music-record` |
@@ -687,7 +709,7 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | Boomkat 无限重试 | 多次 retry 后仍然挂起 | `kill -9 <PID>` -> retry 通常更快通过 |
 | Point of Departure 无声退出 | worker 进程消失，task 留 running | `hermes kanban complete <task_id>`（小站，3 天内很空） |
 | aggregator 未创建 | `--confirm` 30s 超时后缺失 aggregator task | **旧流程**（kanban aggregator 不再使用）→ 直接跑 `process_reviews.py` + `generate_report.py` |
-| **MiniMax 并发问题** | `process_reviews.py` 线程池 5 并发，每条约 15-20s，但 MiniMax 偶尔卡住整批超时 | 降并发到 3：`--max-workers 3`；如仍卡住，Ctrl+C 重跑（已总结的重新请求，幂等） |
+| **MiniMax rate limit** | `process_reviews.py` 5 并发触发 MiniMax Token Plan 429 错误 | 降并发到 3：`--max-workers 3`；如仍 429 降到 2：`--max-workers 2` |
 | **数据目录混入 *.py 调试脚本** | `git status` 显示 `.py` 文件被追踪（一次可多达 60+ 个） | 在 `git add` 前先 `rm -f 2026/{MM}/{DATE}/*.py`（见 Step 5） |
 | **Iteration budget exhausted（90/90）** | scraper blocked, reason "Iteration budget exhausted" | force-complete。Squid's Ear 一次 103 条在 90 轮内可能写不完，数据通常已在 JSON 中 |
 | **Camoufox 站实际有 RSS** | scraper 走浏览器慢/挂，但该站实际有可用 RSS | 验证 RSS 后用 `fast-rss-scrape.py` 替代。改 sites.json 加 `has_rss: true` + `rss_url`；参考 `references/camoufox-to-rss-promotion.md` |
