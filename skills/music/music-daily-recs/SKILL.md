@@ -18,7 +18,7 @@ metadata:
 ## 架构
 
 ```
-cron 触发n 触发
+cron 触发（04:00）
 Step 0  预检：Auth + DB 健康
   ↓
 Step 1  同步：git pull → cp skill + script + sites.json
@@ -324,10 +324,12 @@ python3 bin/process_reviews.py \
 
 ✅ 输出：`processed.json` — 每条含 `total_score` + `_cn_summary`，按分数降序排列。
 
-**备用命令**（MiniMax rate limit 时降并发）：
+**备用命令**（MiniMax rate limit 时降并发到 2）：
 ```bash
-python3 bin/process_reviews.py --date-dir "$DATE_DIR" --max-workers 3
+python3 bin/process_reviews.py --date-dir "$DATE_DIR" --max-workers 2
 ```
+
+> 性能实测数据见 `references/pipeline-performance-2026-05-26.md`（102 条，5 并发 93% 成功率，建议 3 并发）
 
 ### Step 9 — 生成推荐 markdown（generate_report.py → recommend/{DATE}.md）
 
@@ -559,7 +561,7 @@ git push origin main 2>&1 || echo "⚠️ git push failed (TLS), manual retry la
 
 每条调用返回严格 JSON：
 ```json
-{"total_score": <整数1-10>, "cn_summary": "<30-80字中文综述>"}
+{"total_score": <整数1-10>, "cn_summary": "<150-300字中文综述>"}
 ```
 
 `generate_report.py` 读取 `processed.json`，按分数分档展示（🌟9-10 / ⭐7-8 / 👍5-6 / 🔹3-4 / 📋1-2），零 API 调用。
