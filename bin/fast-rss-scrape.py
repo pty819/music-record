@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
 fast-rss-scrape.py — 遍历所有 RSS 站，抓取最近 N 天文章，
-输出结构化 JSON：[{site_id, site_name, title, url, pub_date, body}]
-正文不截断。
+输出统一 JSON 格式（与 scrape_*.py 一致）。
 
 用法:
   python3 fast-rss-scrape.py
@@ -21,6 +20,36 @@ from pathlib import Path
 
 SITES_JSON = Path.home() / ".minimax" / "music-sites" / "sites.json"
 DEFAULT_DAYS = 2
+
+TAG_MAP = {
+    "the_wire": "experimental avant-garde sound art improvisation",
+    "the_quietus": "experimental electronic jazz world psych prog",
+    "a_closer_listen": "experimental ambient drone field recording",
+    "avant_music_news": "experimental weird progressive avant-garde",
+    "bandcamp_daily": "experimental electronic world ambient",
+    "igloo_magazine": "experimental electronic IDM ambient glitch",
+    "icareifyoulisten": "contemporary classical new music",
+    "jazztimes": "jazz",
+    "sequenza21": "contemporary classical new music",
+    "van_magazine": "classical contemporary",
+    "rhythm_passport": "world music folk",
+    "progarchives": "progressive rock",
+    "rest_is_noise_ph": "asian experimental alternative",
+    "attn_magazine": "experimental sound art",
+    "chain_dlk": "industrial dark ambient glitch avant-garde",
+    "hhv_mag": "electronic vinyl culture electroacoustic",
+    "new_music_buff": "contemporary electroacoustic",
+    "jazz_journal": "jazz",
+    "five_against_four": "modern classical electronic experimental",
+    "modern_classical_music": "modern classical contemporary",
+    "the_classic_review": "classical contemporary",
+    "froots": "folk roots world music",
+    "prog_mistress": "prog jazz-rock fusion",
+    "side_line": "industrial darkwave EBM electro post-punk",
+    "post_punk_com": "post-punk goth darkwave industrial synth",
+    "i_die_you_die": "industrial EBM goth dark electro post-punk",
+    "peek_a_boo_magazine": "alternative underground gothic industrial darkwave",
+}
 
 
 def load_sites():
@@ -60,6 +89,17 @@ def get_body(entry):
     return body
 
 
+def parse_artist_album(title):
+    """Parse title to extract artist and album.
+    Try splitting on common separators: ' — ', ' – ', ' - '.
+    Returns (artist, album)."""
+    for sep in [" — ", " – ", " - "]:
+        parts = title.split(sep, 1)
+        if len(parts) == 2:
+            return parts[0].strip(), parts[1].strip()
+    return "", title
+
+
 def scrape_site(site, cutoff_date):
     site_id = site["id"]
     name = site["name"]
@@ -73,19 +113,32 @@ def scrape_site(site, cutoff_date):
         print(f"  [{site_id}] 0 条", file=sys.stderr)
         return []
 
+    tags = TAG_MAP.get(site_id, "")
+
     items = []
     for entry in entries:
         pub_date = parse_rss_date(entry)
         if pub_date is None or pub_date < cutoff_date:
             continue
 
+        title = entry.get("title", "").strip()
+        artist, album = parse_artist_album(title)
+        body = get_body(entry)
+        excerpt = body[:500]
+
         items.append({
-            "site_id": site_id,
-            "site_name": name,
-            "title": entry.get("title", "").strip(),
+            "album": album,
+            "artist": artist,
+            "score": None,
             "url": entry.get("link", ""),
+            "source": name,
             "pub_date": pub_date.isoformat(),
-            "body": get_body(entry),
+            "tags": tags,
+            "excerpt": excerpt,
+            "body": body,
+            "site_id": site_id,
+            "crawl_status": "success",
+            "type": "review",
         })
 
     print(f"  [{site_id}] {len(items)} 条 (≥ {cutoff_date})", file=sys.stderr)
@@ -93,7 +146,7 @@ def scrape_site(site, cutoff_date):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="快速 RSS 抓取 — 纯结构化输出")
+    parser = argparse.ArgumentParser(description="快速 RSS 抓取 — 统一 JSON 输出格式")
     parser.add_argument("-o", "--output", help="输出 JSON 文件路径（缺省输出到 stdout）")
     parser.add_argument("--days", type=int, default=DEFAULT_DAYS,
                         help=f"抓取最近 N 天（缺省 {DEFAULT_DAYS}）")
@@ -120,11 +173,9 @@ def main():
 
     result = {
         "meta": {
-            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "total": len(all_items),
+            "scraped_at": datetime.now(timezone.utc).isoformat(),
             "cutoff_date": cutoff_date.isoformat(),
-            "ref_date": ref_date.isoformat(),
-            "days_back": args.days,
-            "total_entries": len(all_items),
         },
         "items": all_items,
     }

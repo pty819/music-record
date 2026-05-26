@@ -11,11 +11,13 @@ Usage:
 """
 
 import argparse
+import fnmatch
 import json
 import os
 import re
+import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, date
 
 
 def parse_args():
@@ -287,8 +289,12 @@ def main():
     if py_files:
         print(f"Cleaned {len(py_files)} debug .py files from {date_dir}")
 
-    # 1b. Read all scraper JSON files
-    all_files = sorted(f for f in os.listdir(date_dir) if f.endswith("_reviews.json"))
+    # 1b. Read all scraper JSON files (*_reviews.json + rss_merged.json)
+    review_patterns = ["*_reviews.json", "rss_merged.json"]
+    all_files = sorted(
+        f for f in os.listdir(date_dir)
+        if any(fnmatch.fnmatch(f, pat) for pat in review_patterns)
+    )
     reviews = []
     for fname in all_files:
         fpath = os.path.join(date_dir, fname)
@@ -296,13 +302,24 @@ def main():
             try:
                 data = json.load(f)
                 if isinstance(data, list):
+                    # Old format: raw array
                     for item in data:
+                        if isinstance(item, dict):
+                            reviews.append(item)
+                elif isinstance(data, dict) and "items" in data:
+                    # New format: {"meta":..., "items": [...]}
+                    for item in data["items"]:
                         if isinstance(item, dict):
                             reviews.append(item)
             except json.JSONDecodeError as e:
                 print(f"  [warn] JSON error in {fname}: {e}", file=sys.stderr)
 
     print(f"Loaded {len(reviews)} reviews from {len(all_files)} files")
+
+    # Map site_id → _site for scoring (RSS items have site_id not _site)
+    for r in reviews:
+        if "_site" not in r or not r["_site"]:
+            r["_site"] = r.get("site_id", r.get("source", "unknown"))
 
     # 2. Dedup by (album+artist), keep highest score
     seen = {}

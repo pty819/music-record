@@ -4,10 +4,10 @@ description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，
 category: music
 cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行）
 author: hermes-agent
-version: 4.4
+version: 4.5
 license: MIT
 created: 2026-05-07
-updated: 2026-05-25
+updated: 2026-05-26
 trigger_condition: cron 每天 04:00 触发，或手动 `hermes cronjob run 6fd93b4a4c4c`
 metadata:
   hermes:
@@ -99,11 +99,19 @@ hermes gateway status scraper 2>&1 | grep -c "running"
 ```bash
 cd /home/liyifan/music-record && git pull origin main
 
+# 同步 SKILL.md（git 源 → skill 目录 → cron 加载用）
 mkdir -p /home/liyifan/.hermes/skills/music/music-daily-recs
 cp /home/liyifan/music-record/skills/music/music-daily-recs/SKILL.md \
    /home/liyifan/.hermes/skills/music/music-daily-recs/
 
+# 同步 kanban-batch-scrape.py（git 源 → ~/.local/bin/ 执行用）
 cp /home/liyifan/music-record/bin/kanban-batch-scrape.py \
+   /home/liyifan/.local/bin/
+
+# ⚠️ fast-rss-scrape.py 必须同步到 skill + ~/.local/bin/，否则 cron 使用 stale 副本产生旧格式输出
+cp /home/liyifan/music-record/bin/fast-rss-scrape.py \
+   /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/
+cp /home/liyifan/music-record/bin/fast-rss-scrape.py \
    /home/liyifan/.local/bin/
 
 mkdir -p /home/liyifan/.minimax/music-sites
@@ -114,7 +122,7 @@ cp /home/liyifan/music-record/data/sites.json /home/liyifan/.minimax/music-sites
 
 ```bash
 mkdir -p /home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)
-python3 /home/liyifan/.local/bin/fast-rss-scrape.py \
+python3 /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \
   -o /home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)/rss_merged.json
 ```
 
@@ -233,15 +241,15 @@ git push origin main
 
 ---
 
-## 快速替代方案：fast-rss-scrape.py（纯 RSS，无 kanban）
+# 速替代方案：fast-rss-scrape.py（纯 RSS，无 kanban）
 
 当只需要 RSS 站的数据时，可以用此脚本替代整个 kanban pipeline。**零 LLM、零浏览器、<2 分钟跑完。**
 
 ```bash
 # 最近 2 天，输出到文件
-python3 /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \\
+python3 /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \
   --days 2 -o /tmp/rss_merged.json
-
+```
 # 输出包含 meta + reviews 数组，格式与 _reviews.json 完全兼容
 ```
 
@@ -458,3 +466,5 @@ for block in message.content:
 | **Camoufox 站实际有 RSS** | scraper 走浏览器慢/挂，但该站实际有可用 RSS | 验证 RSS 后用 `fast-rss-scrape.py` 替代。改 sites.json 加 `has_rss: true` + `rss_url`；参考 `references/camoufox-to-rss-promotion.md` |
 | **Scraper body 缺 rss_url** | kanban worker 无法直接知道 RSS 地址，需自行发现 | 改 `kanban-batch-scrape.py:147` body 模板，加 `rss_url={site.get('rss_url','')}` |
 | **RSS 快速巡检** | 不想等 kanban，只要 RSS 站数据 | 用 `scripts/fast-rss-scrape.py`，<2 分钟出 27 站合并结果 |
+| **旧格式 rss_merged.json（generated_at/total_entries）** | Step 2 使用了 stale 的 fast-rss-scrape.py（新格式应为 `scraped_at/total`），check `~/.local/bin/` vs skill 目录版本 | 手动重跑；修复 Step 1 sync 确认 fast-rss-scrape.py 已同步 |
+| **Cron session 0 条消息** | cron 启动后 agent 未输出任何内容。可能 cron prompt 与 skill 步骤不一致、gateway 异常、或 prompt 中的路径/命令错误 | `hermes cronjob run <id>` 手动触发；检查 cron prompt 是否仍引用旧 skill 步骤 |

@@ -199,12 +199,12 @@ python3 /home/liyifan/music-record/bin/aggregate_reviews.py \\
   --date %s
 ```
 
-2. 同步 skill + 脚本到 music-record（版本控制）
+2. 同步 skill + 脚本（git 源 → ~/.local/bin/）
 
 ```bash
-cp /home/liyifan/.hermes/skills/music/music-daily-recs/SKILL.md /home/liyifan/music-record/skills/music/music-daily-recs/
-cp /home/liyifan/.local/bin/kanban-batch-scrape.py /home/liyifan/music-record/bin/
-cp /home/liyifan/music-record/bin/aggregate_reviews.py /home/liyifan/music-record/bin/aggregate_reviews.py
+cp /home/liyifan/music-record/bin/kanban-batch-scrape.py /home/liyifan/.local/bin/
+cp /home/liyifan/music-record/bin/fast-rss-scrape.py /home/liyifan/.local/bin/
+cp /home/liyifan/music-record/bin/aggregate_reviews.py /home/liyifan/.local/bin/ 2>/dev/null || true
 ```
 
 3. kanban_complete
