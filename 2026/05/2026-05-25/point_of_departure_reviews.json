@@ -1,0 +1,137 @@
+[
+  {
+    "album": "Away, I Was",
+    "artist": "John Butcher",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MomentsNotice.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Relative Pitch RPR1250"
+    ],
+    "excerpt": "John Butcher — Away, I Was (Relative Pitch RPR1250)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "Two Seasons",
+    "artist": "Angharad Davies & John Butcher",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MomentsNotice.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Weight Of Wax WoW07"
+    ],
+    "excerpt": "Angharad Davies & John Butcher — Two Seasons (Weight Of Wax WoW07)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "Sharp Illusion",
+    "artist": "Last Dream Of The Morning",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MomentsNotice.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Fundacja Słuchaj FSR24"
+    ],
+    "excerpt": "Last Dream Of The Morning — Sharp Illusion (Fundacja Słuchaj FSR24)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "Under The Surface",
+    "artist": "Alchemy Sound Project + Sumi Tonooka",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MoreMoments2.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Artists Recording Collective ARC 6670"
+    ],
+    "excerpt": "Alchemy Sound Project + Sumi Tonooka — Under The Surface (Artists Recording Collective ARC 6670)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "A Spirit Speaks",
+    "artist": "The Descendants of Mike and Phoebe",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MoreMoments2.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Strata East SES-19744-25"
+    ],
+    "excerpt": "The Descendants of Mike and Phoebe — A Spirit Speaks (Strata East SES-19744-25)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "Marchin’ On!",
+    "artist": "The Heath Brothers",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MoreMoments2.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Strata East SES 19766-25"
+    ],
+    "excerpt": "The Heath Brothers — Marchin’ On! (Strata East SES 19766-25)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "Mutima",
+    "artist": "Cecil McBee",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MoreMoments2.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Strata East 7417-25"
+    ],
+    "excerpt": "Cecil McBee — Mutima (Strata East 7417-25)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "Music Inc.",
+    "artist": "Music Inc.",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MoreMoments2.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Strata East 1971-25"
+    ],
+    "excerpt": "Music Inc. — Music Inc. (Strata East 1971-25)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  },
+  {
+    "album": "Dream Up",
+    "artist": "Tomas Fujiwara",
+    "score": null,
+    "url": "https://pointofdeparture.org/PoD94/PoD94MoreMoments2.html",
+    "source": "point_of_departure",
+    "pub_date": "2026-03-01",
+    "tags": [
+      "Out Of Your Head OOYH036"
+    ],
+    "excerpt": "Tomas Fujiwara — Dream Up (Out Of Your Head OOYH036)",
+    "site_id": "point_of_departure",
+    "crawl_status": "ok",
+    "type": "review"
+  }
+]

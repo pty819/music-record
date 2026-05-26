@@ -1,0 +1,15 @@
+[
+  {
+    "album": "",
+    "artist": "",
+    "score": null,
+    "url": "https://boomkat.com/",
+    "source": "boomkat",
+    "pub_date": null,
+    "tags": [],
+    "excerpt": "Cloudflare ASN ban: entire ASN 35916 blocked from boomkat.com (error 1005). RSS also returns CF block. No accessible content.",
+    "site_id": "boomkat",
+    "crawl_status": "blocked",
+    "type": "review"
+  }
+]

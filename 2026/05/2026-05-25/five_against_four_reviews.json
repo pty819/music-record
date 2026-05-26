@@ -1,0 +1,35 @@
+[
+  {
+    "album": "Skinweeper",
+    "artist": "Bergrún Snæbjörnsdóttir",
+    "score": null,
+    "url": "https://5against4.com/2026/05/25/bergrun-snaebjornsdottir-skinweeper/",
+    "source": "5against4",
+    "pub_date": "2026-05-25T05:00:00+00:00",
+    "tags": [
+      "CD/Digital releases",
+      "Bergrún Snæbjörnsdóttir",
+      "experimental",
+      "Iceland"
+    ],
+    "excerpt": "It&#8217;s a sign of the trust that i have in Bergrún Snæbjörnsdóttir&#8217;s music that, when she sent me her new album Skinweeper a few months back, i dropped everything and just pressed play. No prep, no note-reading, i didn&#8217;t even look at the track titles; i just wanted to listen,&#8230;",
+    "site_id": "5:4",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "Fermata România",
+    "artist": "",
+    "score": null,
+    "url": "https://5against4.com/2026/05/23/fermata-romania/",
+    "source": "5against4",
+    "pub_date": "2026-05-23T05:00:00+00:00",
+    "tags": [
+      "Announcements"
+    ],
+    "excerpt": "This morning i&#8217;m setting off for Romania, where i&#8217;ll be experiencing the cavalcade of sonic joy that is the World New Music Days. One or two things to come in my absence, and a welter of words once i get back from Bucharest.",
+    "site_id": "5:4",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]

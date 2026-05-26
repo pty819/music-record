@@ -1,0 +1,41 @@
+[
+  {
+    "album": "Pareidolia",
+    "artist": "Jake Muir",
+    "score": null,
+    "url": "https://www.thewire.co.uk/in-writing/essays/a-bardo-gong-bath-of-in-betweenness-jake-muir-reviewed",
+    "source": "https://www.thewire.co.uk",
+    "pub_date": "May 2026",
+    "tags": [],
+    "excerpt": "US field recordist, DJ and composer Jake Muir transforms metal's quieter moments into striking evocations of place, writes James Gormley in The Wire 508",
+    "site_id": "the_wire",
+    "crawl_status": "success",
+    "type": "review"
+  },
+  {
+    "album": "In Another World: The Four Seasons Of Talk Talk (book extract)",
+    "artist": "Talk Talk",
+    "score": null,
+    "url": "https://www.thewire.co.uk/in-writing/book-extracts/read-an-extract-from-in-another-world-the-four-seasons-of-talk-talk",
+    "source": "https://www.thewire.co.uk",
+    "pub_date": "May 2026",
+    "tags": [],
+    "excerpt": "In this extract from his new book on Talk Talk, Graeme Thomson investigates the conditions and influences behind the group's 1991 album Laughing Stock",
+    "site_id": "the_wire",
+    "crawl_status": "success",
+    "type": "feature"
+  },
+  {
+    "album": "London's DIY sound systems",
+    "artist": "",
+    "score": null,
+    "url": "https://www.thewire.co.uk/in-writing/columns/against-the-grain-london-s-diy-sound-systems",
+    "source": "https://www.thewire.co.uk",
+    "pub_date": "May 2026",
+    "tags": [],
+    "excerpt": "As music venues across London struggle with mounting costs, sound system events are putting down roots in community centres and other ad hoc spaces, writes Derek Walmsley in The Wire 508",
+    "site_id": "the_wire",
+    "crawl_status": "success",
+    "type": "feature"
+  }
+]
