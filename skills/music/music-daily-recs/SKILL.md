@@ -4,10 +4,10 @@ description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，
 category: music
 cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行）
 author: hermes-agent
-version: 5.0
+version: 5.1
 license: MIT
 created: 2026-05-07
-updated: 2026-05-26
+updated: 2026-05-27
 trigger_condition: cron 每天 04:00 触发，或手动 `hermes cronjob run 6fd93b4a4c4c`
 metadata:
   hermes:
@@ -32,21 +32,33 @@ Step 3  HTML/curl 抓取 (12 个 scrape_*.py 并行)
 Step 4  **合并 RSS + HTML → scraped_raw.json** (merge_scraped.py)
         ↓ 统一文件，URL 去重
         ↓
-Step 5  Camoufox 批量抓取 (kanban-batch-scrape.py --confirm)
-         （仅 21 个无 RSS 站创建 kanban 任务）
-  ↓（全部 done）
-Step 6  监控 Camoufox 进度
-  ↓
-Step 7  **合并 Camoufox 数据到 scraped_raw.json** (merge_scraped.py)
-  ↓
-Step 8  **并发评分 + 中文总结** (process_reviews.py → processed.json)
-        ↓ 线程池并发调 MiniMax，评分在 prompt 中，LLM 直接打分
-        ↓
-Step 9  **生成推荐 markdown** (generate_report.py → recommend/{DATE}.md)
-        ↓ 零 API 调用，毫秒级
-        ↓
-Step 10 **Git push + Telegram 推送**
+Step 5  创建 Camoufox 抓取任务 + **parent-gated aggregator**
+        (kanban-batch-scrape.py --confirm)
+         ↓ 21 个独立 scraper + 1 个 aggregator（parent=所有 scraper）
+         ↓
+┌─ kanban 调度器接手（cron session 可以安全退出）─────┐
+│                                                      │
+│  21 个 scraper 并行（max_workers=3）                 │
+│  ↓ 全部 done 后 parent-gate 解锁                     │
+│                                                      │
+│  aggregator（kanban worker，自动触发）               │
+│  Step 6  **合并 Camoufox → scraped_raw.json**       │
+│          (merge_scraped.py)                          │
+│  Step 7  **并发评分 + 中文总结** (process_reviews.py)│
+│  Step 8  **生成推荐 markdown** (generate_report.py)  │
+│  Step 9  **清理 .py + Git push**                     │
+│                                                      │
+└──────────────────────────────────────────────────────┘
 ```
+
+## 新架构核心变化
+
+| 旧方式 | 新方式 |
+|--------|--------|
+| cron agent 轮询等 21 个 Camoufox 完成 | cron 创建任务后立即退出 |
+| cron 超时，Step 7-10 无人执行 | aggregator kanban task 自动接手后四步 |
+| 靠 sleep 60 循环轮询 | 靠 kanban parent-gate 精确触发 |
+| cron 卡半小时，可能超时死 | cron 几秒完成，无需等待 |
 
 ## 何时执行
 
@@ -225,7 +237,7 @@ python3 /home/liyifan/.local/bin/merge_scraped.py \
 ✅ 输出：`scraped_raw.json` — `{meta: {total, merged_from, scraped_at}, items: [...]}`
 此处 `merged_from` 记录各源文件及条数，用于审计。
 
-### Step 5 — 创建 Camoufox 抓取任务
+### Step 5 — 创建 Camoufox 抓取任务 + aggregator
 
 ```bash
 # 先用 dry run 预览（应显示 ~21 个 Camoufox 站，RSS 站已被过滤）
@@ -236,160 +248,59 @@ python3 /home/liyifan/.local/bin/kanban-batch-scrape.py --confirm
 ```
 
 ⚠️ `kanban-batch-scrape.py` 已自动过滤 `has_rss=true` 的站，只创建无 RSS 的 Camoufox 站任务。
+同时会自动创建一个 **aggregator task**，其 `--parent` 绑定所有 scraper task ID。
 
-### Step 6 — 监控 Camoufox 进度
+**至此 cron session 的工作结束。** kanban 调度器接手后续：scraper 完成后 aggregator 自动解锁执行。
 
-**⏳ 建议使用主动进程探测循环**（不要仅依赖 DB 查询 — 大量 Camoufox scraper 无声退出后 task 状态仍为 running）
+### 监控（可选 — 查进度不阻塞）
 
-通用监控循环：
-
-```bash
-while true; do
-  # 1. DB 状态
-  python3 -c "
-import sqlite3
-c = sqlite3.connect('/home/liyifan/.hermes/kanban.db')
-for row in c.execute(\"SELECT status, COUNT(*) FROM tasks WHERE title LIKE 'scrape:%' AND status NOT IN ('archived') GROUP BY status\").fetchall():
-    print(f'{row[0]:>10}: {row[1]}')
-c.close()
-"
-  # 2. 探活 running 任务
-  RUNNING_TASKS=$(hermes kanban list 2>&1 | grep "running" | grep scraper | awk '{print $2}')
-  for TID in $RUNNING_TASKS; do
-    ALIVE=$(ps aux | grep "$TID" | grep -v grep | wc -l)
-    if [ "$ALIVE" = "0" ]; then
-      echo "⚠️ Task $TID silent-exited → force completing"
-      hermes kanban complete "$TID"
-    fi
-  done
-  # 3. 如果运行中为 0 且有 ready/todo → dispatch
-  RUNNING_COUNT=$(hermes kanban list 2>&1 | grep -c "running.*scraper" || true)
-  TODO_COUNT=$(hermes kanban list 2>&1 | grep -c "todo.*scraper" || true)
-  if [ "$RUNNING_COUNT" = "0" ] && [ "$TODO_COUNT" -gt 0 ]; then
-    hermes kanban dispatch
-  fi
-  # 全部完成则退出
-  DONE_COUNT=$(hermes kanban list 2>&1 | grep -c "✓.*done.*scraper" || true)
-  [ "$DONE_COUNT" -ge 48 ] && echo "✅ ALL 48 DONE" && break
-  sleep 60
-done
-```
-
-备选（静态检查 — 仅一次）：
-```bash
-python3 -c "
-import sqlite3
-c = sqlite3.connect('/home/liyifan/.hermes/kanban.db')
-for row in c.execute(\"SELECT status, COUNT(*) FROM tasks WHERE title LIKE 'scrape:%' GROUP BY status\").fetchall():
-    print(f'{row[0]:>10}: {row[1]}')
-c.close()
-"
-hermes kanban list | grep -c "✓.*done.*scraper"   # 已完成数
-hermes kanban list | grep "running" | grep scraper  # 当前运行中
-```
-
-**⏳ 进度停滞检测**：如果连续 3+ 分钟无进展（done/running 数不变）：
-1. 查 scraper gateway 是否仍在运行：`hermes gateway status scraper`
-2. 如果 stopped，先启动：`hermes gateway start scraper`（如 token 冲突跳过 → 用 default gateway）
-3. 然后触发调度器重试：`hermes kanban dispatch`
-4. 再检查：`hermes kanban list | grep -c "running" | grep scraper`
-
-### Step 7 — 合并 Camoufox 数据到 scraped_raw.json
-
-Camoufox kanban worker 产出后，将其数据追加/合并到 Step 4 创建的 `scraped_raw.json`。如果 `scraped_raw.json` 不存在（未跑 RSS+HTML），会直接创建。
+当需要查看 Camoufox 抓取进度时：
 
 ```bash
-DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
-python3 /home/liyifan/.local/bin/merge_scraped.py \
-  --date-dir "$(pwd)/$DATE_DIR" \
-  -o scraped_raw.json 2>&1
+# 静态检查各状态的任务数量
+hermes kanban list | grep "scrape:" | awk '{print $2}' | sort | uniq -c | sort -rn
+
+# 查看 aggregator 状态（◻ todo = 还在等 scraper 完成）
+hermes kanban list | grep "aggregate:"
 ```
 
-重跑 merge 会重新读取目录下所有文件（包括 rss_merged.json、*_reviews.json、以及 Camoufox 新产的 *_reviews.json），去重后重写 scraped_raw.json。**幂等安全**，可重复执行。
+### 进度停滞恢复
 
-✅ 最终 `scraped_raw.json` 包含 RSS + HTML + Camoufox 全部数据。
+如果长时间 no progress（连续 3+ 分钟 done 数不变）：
 
-### Step 8 — 并发评分 + 中文总结（process_reviews.py → processed.json）
+1. 查 gateway 状态：`hermes gateway status`（如果 stopped，`hermes gateway run --replace`）
+2. 手动 dispatch：`hermes kanban dispatch`
+3. 强制完成无声退出的 scraper 任务（状态 running 但进程消失）：
+   ```bash
+   hermes kanban list | grep "running.*scrape:" | awk '{print $2}' | while read tid; do
+     ps aux | grep "$tid" | grep -q . || hermes kanban complete "$tid"
+   done
+   ```
 
-读取 `scraped_raw.json`，线程池并发调 MiniMax API。**N 条并发 ≈ 1 条的时间。**
-评分细则写在 prompt 中，由 LLM 直接打分，不再用本地硬编码公式。
+### 后四步（Step 6-9）— 由 aggregator kanban worker 自动执行
+
+以上步骤创建完成后，cron session 即可安全退出。后续 **四步操作由 aggregator kanban worker 自动完成**，无需人工介入：
+
+| 步骤 | 操作 | 脚本 |
+|------|------|------|
+| Step 6 | 合并所有数据 → `scraped_raw.json` | `merge_scraped.py` |
+| Step 7 | 并发评分 + 中文总结 → `processed.json` | `process_reviews.py` |
+| Step 8 | 生成推荐 markdown → `recommend/{DATE}.md` | `generate_report.py` |
+| Step 9 | 清理 .py 文件 + git push | git commands |
+
+aggregator 的 task body 包含这些步骤的完整指令，kanban worker 读到后按序执行。详见 `kanban-batch-scrape.py` 中 aggregator body 模板。
+
+### 结果确认
+
+聚合任务完成后，检查推荐文件是否生成：
 
 ```bash
-cd /home/liyifan/music-record
-DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
-python3 bin/process_reviews.py \
-  --date-dir "$DATE_DIR" \
-  -i scraped_raw.json \
-  -o processed.json \
-  --max-workers 3 2>&1
+ls -la /home/liyifan/music-record/recommend/$(date +%Y-%m-%d).md
 ```
 
-✅ 输出：`processed.json` — 每条含 `total_score` + `_cn_summary`，按分数降序排列。
+GitHub 查看：https://github.com/pty819/music-record
 
-**备用命令**（MiniMax rate limit 时降并发到 2）：
-```bash
-python3 bin/process_reviews.py --date-dir "$DATE_DIR" --max-workers 2
-```
-
-> 性能实测数据见 `references/pipeline-performance-2026-05-26.md`（102 条，5 并发 93% 成功率，建议 3 并发）
-
-### Step 9 — 生成推荐 markdown（generate_report.py → recommend/{DATE}.md）
-
-读取 `processed.json`，纯格式化，**零 API 调用**，毫秒级。
-
-```bash
-cd /home/liyifan/music-record
-DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
-python3 bin/generate_report.py \
-  --date-dir "$DATE_DIR" \
-  -i processed.json \
-  --date $(date +%Y-%m-%d) \
-  --min-score 1 2>&1
-```
-
-`--min-score` 可选：设 5 则只显示 ≥5 分的条目（精简版用）。
-`--top-k 20` 可选：只显示前 20 条。
-
-✅ 输出：`recommend/{DATE}.md`
-
-### Step 10 — 推送前清理
-
-```bash
-cd /home/liyifan/music-record
-
-# 1. 🔥 删除数据目录中的调试脚本（Boomkat、DownBeat、All About Jazz 等 worker 会遗留大量 *.py）
-DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
-if [ -d "$DATE_DIR" ]; then
-  rm -f "$DATE_DIR"/*.py
-  echo "Cleaned .py files from $DATE_DIR"
-fi
-
-# 2. 验证无 .py 混入
-find 2026/\($(date +%m)\) -name "*.py" | grep -q . && echo "⚠️ WARNING: .py still present!" || echo "✅ Clean"
-
-# 3. Git push
-git add -A "$DATE_DIR" recommend/$(date +%Y-%m-%d).md \
-  bin/process_reviews.py bin/generate_report.py \
-  bin/kanban-batch-scrape.py bin/merge_scraped.py
-git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations"
-git push origin main
-
-# 4. Telegram 推送
-cd /home/liyifan/music-record
-RECOMMEND_FILE="recommend/$(date +%Y-%m-%d).md"
-if [ -f "$RECOMMEND_FILE" ]; then
-  CHARS=$(wc -c < "$RECOMMEND_FILE")
-  if [ "$CHARS" -le 4000 ]; then
-    # 全文推送（用 send_message 工具手动发送）
-    echo "✅ 已推送到 GitHub，Telegram 全文发送请用 send_message"
-  else
-    # 精简版 + 链接
-    head -30 "$RECOMMEND_FILE"
-    echo "..."
-    echo "🔗 完整推荐: https://github.com/pty819/music-record/blob/main/recommend/$(date +%Y-%m-%d).md"
-  fi
-fi
-```
+Telegram 推送：读取 `recommend/{DATE}.md`，≤4000 字符发全文，否则精简版 + GitHub 链接。
 
 ---
 
@@ -695,7 +606,7 @@ LLM 不一定返回干净 JSON，使用三层解析：
 |------|------|------|
 | Git push 失败 | `cd ~/music-record && git pull origin main` 解冲突 | resolve → push |
 | Telegram 推送超时 | cron 状态为 ok 但 delivery failed | 手动 `send_message` 或 GitHub 查收 |
-| Aggregator 卡 todo | `hermes kanban show <id> | grep parent` | **旧流程**（kanban aggregator 不再使用）→ 直接跑 `process_reviews.py` + `generate_report.py` |
+| **Aggregator 卡 todo** | `hermes kanban show <task_id> | grep parent` — 查看是否有未完成的 parent scraper | 正常行为：aggregator 等所有 parent scraper done 才触发。如所有 scraper 已完成但仍 todo，手动 `hermes kanban dispatch` 触发调度 |
 | Cron 漏触发 | `last reboot` + `journalctl --user -u hermes-gateway` | `hermes cronjob run 6fd93b4a4c4c` |
 | DB 损坏 | `PRAGMA integrity_check` | 用源 schema 重建空 kanban.db |
 | Scraper 全 fail | 查 scraper profile auth.json 是否只有 minimax-cn | 删除 minimax 国际版条目 |
@@ -708,9 +619,9 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | Songlines 挂起（Camoufox tab 过期） | `ps aux | grep songlines` 运行 >5 分钟无输出 | `hermes kanban complete <task_id>`（JSON 通常已存在） |
 | Boomkat 无限重试 | 多次 retry 后仍然挂起 | `kill -9 <PID>` -> retry 通常更快通过 |
 | Point of Departure 无声退出 | worker 进程消失，task 留 running | `hermes kanban complete <task_id>`（小站，3 天内很空） |
-| aggregator 未创建 | `--confirm` 30s 超时后缺失 aggregator task | **旧流程**（kanban aggregator 不再使用）→ 直接跑 `process_reviews.py` + `generate_report.py` |
+| **aggregator 未创建** | `--confirm` 后无 `aggregate:` 任务 | 已自动创建。如确实缺失，手动：`hermes kanban create "aggregate: \`date +%Y-%m-%d\` post-processing" --parent <scraper_ids> --assignee scraper --workspace "dir:/home/liyifan/music-record/..." --skill kanban-worker --body "..."` |
 | **MiniMax rate limit** | `process_reviews.py` 5 并发触发 MiniMax Token Plan 429 错误 | 降并发到 3：`--max-workers 3`；如仍 429 降到 2：`--max-workers 2` |
-| **数据目录混入 *.py 调试脚本** | `git status` 显示 `.py` 文件被追踪（一次可多达 60+ 个） | 在 `git add` 前先 `rm -f 2026/{MM}/{DATE}/*.py`（见 Step 5） |
+| **数据目录混入 *.py 调试脚本** | `git status` 显示 `.py` 文件被追踪（一次可多达 60+ 个） | aggregator body 已包含自动清理；如手动执行，先 `rm -f 2026/{MM}/{DATE}/*.py` |
 | **Iteration budget exhausted（90/90）** | scraper blocked, reason "Iteration budget exhausted" | force-complete。Squid's Ear 一次 103 条在 90 轮内可能写不完，数据通常已在 JSON 中 |
 | **Camoufox 站实际有 RSS** | scraper 走浏览器慢/挂，但该站实际有可用 RSS | 验证 RSS 后用 `fast-rss-scrape.py` 替代。改 sites.json 加 `has_rss: true` + `rss_url`；参考 `references/camoufox-to-rss-promotion.md` |
 | **Scraper body 缺 rss_url** | kanban worker 无法直接知道 RSS 地址，需自行发现 | 改 `kanban-batch-scrape.py:147` body 模板，加 `rss_url={site.get('rss_url','')}` |

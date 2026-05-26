@@ -194,15 +194,101 @@ kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}
         else:
             print(f"  FAILED: {name}", file=sys.stderr)
 
-# ── Summary ──────────────────────────────────────────────────────────
+    # ── Create parent-gated aggregator task ─────────────────────────
+    if all_task_ids:
+        agg_title = f"aggregate: {DATE} music post-processing"
+        agg_body = (
+            "🔒 约束\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            "- 严格按顺序执行 Step 1→2→3→4，一步不能少\n"
+            "- 每一步检查 exit code，失败则重试一次\n"
+            "- 只用 terminal 工具运行以下命令，不要多做事\n"
+            "- 不要调用 kanban_create / delegate_task / web_search 等无关工具\n"
+            "\n"
+            "❌ 禁止\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            "- 禁止推理、分析、解释、或自行假设数据\n"
+            "- 禁止开浏览器或写临时脚本\n"
+            "- 日志超 50 行说明你在过度分析\n"
+            "\n"
+            "✅ 步骤\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            "\n"
+            "Step 1: 合并所有抓取数据 → scraped_raw.json\n"
+            "\n"
+            "cd /home/liyifan/music-record\n"
+            'DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"\n'
+            "python3 /home/liyifan/.local/bin/merge_scraped.py \\\n"
+            '  --date-dir "$(pwd)/$DATE_DIR" \\\n'
+            "  -o scraped_raw.json\n"
+            "\n"
+            "验证: scraped_raw.json 存在且有 items 数组\n"
+            "\n"
+            "Step 2: 并发评分 + 中文总结 → processed.json\n"
+            "\n"
+            "cd /home/liyifan/music-record\n"
+            'DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"\n'
+            "python3 bin/process_reviews.py \\\n"
+            '  --date-dir "$DATE_DIR" \\\n'
+            "  -i scraped_raw.json \\\n"
+            "  -o processed.json \\\n"
+            "  --max-workers 3\n"
+            "\n"
+            "验证: processed.json 存在且含 total_score + _cn_summary\n"
+            "如果 MiniMax rate limit (429)，重试一次；仍失败则跳过（保留可用数据）\n"
+            "\n"
+            "Step 3: 生成推荐 markdown\n"
+            "\n"
+            "cd /home/liyifan/music-record\n"
+            'DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"\n'
+            "python3 bin/generate_report.py \\\n"
+            '  --date-dir "$DATE_DIR" \\\n'
+            "  -i processed.json \\\n"
+            '  --date "$(date +%Y-%m-%d)"\n'
+            "\n"
+            "验证: recommend/$(date +%Y-%m-%d).md 存在\n"
+            "\n"
+            "Step 4: 清理 .py 调试文件 + git push\n"
+            "\n"
+            "cd /home/liyifan/music-record\n"
+            'DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"\n'
+            'rm -f "$DATE_DIR"/*.py\n'
+            'git add -A "$DATE_DIR" "recommend/$(date +%Y-%m-%d).md" \\\n'
+            "  bin/process_reviews.py bin/generate_report.py \\\n"
+            "  bin/kanban-batch-scrape.py bin/merge_scraped.py\n"
+            'git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations (kanban aggregator)" || true\n'
+            "git push origin main 2>&1\n"
+            "\n"
+            "Step 5: 完成任务\n"
+            "\n"
+            'kanban_complete(summary="music-recs post-processing for $(date +%Y-%m-%d): merge -> score -> report -> git push")\n'
+            "\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            "‼️ 仅执行以上步骤，不多做任何事。"
+        )
+        agg_tid = hermes_create(
+            title=agg_title,
+            body=agg_body,
+            assignee="scraper",
+            parents=all_task_ids,
+            skills=worker_skills,
+            workspace=ws,
+        )
+        if agg_tid:
+            print()
+            print(f"  ── Aggregator ────────────────────────────────")
+            print(f"  ✅ Created aggregator: {agg_title}")
+            print(f"     Aggregator ID: {agg_tid}")
+            print(f"     Parents: {len(all_task_ids)} scraper tasks")
+            print(f"     🕐  Will auto-dispatch when ALL scrapers complete")
+            print(f"     📋  Pipeline: merge_scraped → process_reviews → generate_report → git push")
+        else:
+            print(f"  FAILED to create aggregator task", file=sys.stderr)
+
     print(f"\n✅ Created {len(all_task_ids)} Camoufox scraper tasks")
-    print(f"   All tasks are independent (no parent-gating)")
+    print(f"   All tasks independent + 1 parent-gated aggregator")
     print(f"   Workspace: {ws}")
-    print(f"")
-    print(f"   ⚠️  No kanban aggregator created. After all scrapers complete:")
-    print(f"      1. merge_scraped.py  → scraped_raw.json")
-    print(f"      2. process_reviews.py → processed.json")
-    print(f"      3. generate_report.py → recommend/{{DATE}}.md")
+    print(f"   Cron session can now exit — kanban will finish the rest.")
 
 
 if __name__ == "__main__":
