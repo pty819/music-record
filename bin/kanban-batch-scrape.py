@@ -166,11 +166,18 @@ def main():
 6. 非音乐过滤：跳过含 (BLU-RAY)/(UHD)/(VOD)/(DVD) 条目
 7. kanban_complete
 
-📦 输出
+📦 输出格式
 ━━━━━━━━━━━━━━━━
-写入 {out_file}，JSON 数组
-每条格式：{{"album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "site_id", "crawl_status", "type"}}
+写入 {out_file}，JSON 格式：
+{{
+  "meta": {{"total": N, "scraped_at": "...", "cutoff_date": "~3天前"}},
+  "items": [
+    {{ "album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "body", "site_id", "crawl_status", "type" }}
+  ]
+}}
 type: "review" | "feature" | "tracklist"
+❗ 必须包含 body 字段（全文正文，不截断）
+❗ 必须使用 {{meta, items}} 外包装，不是裸数组
 kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}})"""
 
         tid = hermes_create(
