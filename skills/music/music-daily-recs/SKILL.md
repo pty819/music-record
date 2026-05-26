@@ -319,12 +319,12 @@ python3 bin/process_reviews.py \
   --date-dir "$DATE_DIR" \
   -i scraped_raw.json \
   -o processed.json \
-  --max-workers 5 2>&1
+  --max-workers 3 2>&1
 ```
 
 ✅ 输出：`processed.json` — 每条含 `total_score` + `_cn_summary`，按分数降序排列。
 
-**备用命令**（MiniMax 慢的时候降低并发）：
+**备用命令**（MiniMax rate limit 时降并发）：
 ```bash
 python3 bin/process_reviews.py --date-dir "$DATE_DIR" --max-workers 3
 ```
@@ -453,7 +453,7 @@ python3 bin/process_reviews.py \
   --date-dir "$(pwd)/$DATE_DIR" \
   -i scraped_raw.json \
   -o processed.json \
-  --max-workers 5 2>&1
+  --max-workers 3 2>&1
 ```
 
 ✅ 线程池并发，N 条 ≈ 1 条的时间。评分在 prompt 中由 LLM 直接打分。
