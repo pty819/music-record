@@ -1,7 +1,10 @@
 {
   "meta": {
     "total": 0,
-    "scraped_at": "2026-05-26T01:41:12.618858+00:00"
+    "scraped_at": "2026-05-26T05:35:42Z",
+    "cutoff_date": "2026-05-23T05:35:40Z",
+    "site": "DownBeat",
+    "note": "No content within 3-day window. Most recent reviews: Editors' Picks May 19, 2026 (7 days old). RSS unavailable (malformed XML). News section newest article also May 19, 2026."
   },
   "items": []
 }

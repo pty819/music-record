@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "total": 3
+  },
+  "items": [
+    {
+      "album": "Juxtaposed",
+      "artist": "Ard Bit",
+      "score": 5,
+      "url": "https://www.musiquemachine.com/reviews/ard-bit-juxtaposed-1779710743509",
+      "source": "Musique Machine",
+      "pub_date": "2026-05-25",
+      "tags": "experimental,industrial,noise",
+      "excerpt": "Ard Bit is the project of Norwegian Ard Janssen. The new album is called Juxtaposed, forty two minutes of intentional electronic soundscape, with muted pastel colors, nine tracks ranging from two to seven minutes.",
+      "body": "",
+      "site_id": "musique_machine",
+      "crawl_status": "success",
+      "type": "review"
+    },
+    {
+      "album": "Irata",
+      "artist": "Tinokuknoi Arevulopapo",
+      "score": 3,
+      "url": "https://www.musiquemachine.com/reviews/tinokuknoi-arevulopapo-irata-1779639514424",
+      "source": "Musique Machine",
+      "pub_date": "2026-05-24",
+      "tags": "experimental,industrial,noise",
+      "excerpt": "Tinokuknoi Arevulopapo is the new project from Lea Cummings (King Futile, Kylie Minoise, Official Music Team, etc) and Sarah Glass, who has collaborated with Lea on a few projects. The project takes its name from a character in a Philip K. Dick short story, and Irata is a single-track affair. The forty-seven-minute instrumental track shifts between droned-out moodiness, ritual alien sound-scaping, tolling ambient industrial, and beyond",
+      "body": "",
+      "site_id": "musique_machine",
+      "crawl_status": "success",
+      "type": "review"
+    },
+    {
+      "album": "Zen As Fuck",
+      "artist": "King Futile",
+      "score": 3,
+      "url": "https://www.musiquemachine.com/reviews/king-futile-zen-as-fuck-1779639157697",
+      "source": "Musique Machine",
+      "pub_date": "2026-05-24",
+      "tags": "experimental,industrial,noise",
+      "excerpt": "Zen As Fuck is release number three from the lo-fi/outsider folk project King Futile. Behind it is Lea Cummings (Kylie Minoise, Official Music Team, etc.). The album takes in eight tracks, featuring basic strummed-yet-enduring structures, with the lyrics being decidedly sweary, morosely comic, and sarcastic.",
+      "body": "",
+      "site_id": "musique_machine",
+      "crawl_status": "success",
+      "type": "review"
+    }
+  ]
+}

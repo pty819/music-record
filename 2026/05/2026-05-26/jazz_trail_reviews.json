@@ -1,8 +1,10 @@
 {
   "meta": {
     "total": 0,
-    "scraped_at": "2026-05-26T01:41:40.968107+00:00",
-    "cutoff_date": "2026-05-23"
+    "scraped_at": "2026-05-26T05:35:00Z",
+    "cutoff_date": "2026-05-23",
+    "source": "JazzTrail",
+    "note": "No articles within 3-day window. Newest entry (Pat Metheny - Side-Eye III+) from May 21 is outside cutoff."
   },
   "items": []
 }

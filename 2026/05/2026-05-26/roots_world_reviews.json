@@ -1,0 +1,447 @@
+{
+  "meta": {
+    "total": 23,
+    "scraped_at": "2026-05-26T05:40:52.882896+00:00",
+    "cutoff_date": "2026-05-23 (3 days before scrape)",
+    "note": "RootsWorld does not include publication dates on pages. All items are from main page (2026)."
+  },
+  "items": [
+    {
+      "album": "Les Crimes du Musette",
+      "artist": "Dominique Cravic et les Primitifs du futur",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/primitifs-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Dominique Cravic et les Primitifs du futur"
+      ],
+      "excerpt": "Sometime in 1986, perhaps in a Paris café, Dominique Cravic, a singer, guitarist, and musical archivist, met Robert Crumb, an underground cartoonist, banjo and mandolin player, and jug-band aficionado. Over a few glasses of marc, to continue to speculate, they conjured up the idea for Les Primitifs du futur. Since then, they have recorded an impossible-to-categorize series of albums, with cover illustrations by Crumb, of which Les Crimes du Mussette is the fifth. Weird and wonderful, it sounds l",
+      "body": "Sometime in 1986, perhaps in a Paris café, Dominique Cravic, a singer, guitarist, and musical archivist, met Robert Crumb, an underground cartoonist, banjo and mandolin player, and jug-band aficionado. Over a few glasses of marc, to continue to speculate, they conjured up the idea for Les Primitifs du futur. Since then, they have recorded an impossible-to-categorize series of albums, with cover illustrations by Crumb, of which Les Crimes du Mussette is the fifth. Weird and wonderful, it sounds like they rooted through an attic full of 78 RPM records, scribbled down some arrangements, and then played them on a collection of instruments they found in another attic, including accordion, sax, xylophone, clarinet, banjo, ukulele, theremin, Hawaiian guitar, bagpipe chanter (I’m guessing here), and musical saw.",
+      "site_id": "primitifs-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Reviewed by John Alan Urquhart",
+      "label": "Buda Musique"
+    },
+    {
+      "album": "Vanishment",
+      "artist": "Tiny Sun",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/tinysun-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Tiny Sun"
+      ],
+      "excerpt": "Tiny Sun creates tiny songs that give off light and heat well out of proportion to their size. Composed, performed, and produced by Martina Sorbara, Jonathan Goldsmith, and Don Rooke, the record is vaguely Americana, with plucked guitars and ukuleles, chiming keyboards, and the lonesome slide of the guitar. Vanishment contains eighteen sparkling miniatures - that take a scant 34 minutes to negotiate - notable for their economy of arrangement and the subtle directness of the lyrics. The tracks gl",
+      "body": "Tiny Sun creates tiny songs that give off light and heat well out of proportion to their size. Composed, performed, and produced by Martina Sorbara, Jonathan Goldsmith, and Don Rooke, the record is vaguely Americana, with plucked guitars and ukuleles, chiming keyboards, and the lonesome slide of the guitar. Vanishment contains eighteen sparkling miniatures - that take a scant 34 minutes to negotiate - notable for their economy of arrangement and the subtle directness of the lyrics. The tracks glow with Martina’s clear, high, and sometimes fragile voice. The songs are about loss: lost love, lost confidence, but sometimes about resignation to the enigmatic quirks of the world. The tone of wry fatalism mirrors the fact that this project is the work of many years of collaboration and email exchanges while the trio pursued their musical day jobs. Jonathan Goldsmith is an award-winning composer for television and film, Don Rooke fronts the Toronto roots band The Henrys, and Martina Sorbara is known for folk, electropop, and her band Dragonette.",
+      "site_id": "tinysun-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by John Alan Urquhart",
+      "label": "Self-released"
+    },
+    {
+      "album": "Langs",
+      "artist": "Camilla Hole Trio",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/hole-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Camilla Hole Trio"
+      ],
+      "excerpt": "After the extra-terrestial explorations of Eventyrferd , the previous album from Norway's Camilla Hole Trio, in which sci-fi synth sounds were married with traditional material, their latest release Langs is rather more earthbound. But the quest to look beyond their own country's folk music continues. Camilla Hole's main instrument being the soprano sax, the influence of jazz is unsurprising and this is evident in the opening track “Springleik,” signifying a tune used to accompany the springleik",
+      "body": "After the extra-terrestial explorations of Eventyrferd , the previous album from Norway's Camilla Hole Trio, in which sci-fi synth sounds were married with traditional material, their latest release Langs is rather more earthbound. But the quest to look beyond their own country's folk music continues. Camilla Hole's main instrument being the soprano sax, the influence of jazz is unsurprising and this is evident in the opening track “Springleik,” signifying a tune used to accompany the springleik dance from the west of Norway. Initially Hole takes the melody with Egil Kalman and Knut Kvifte Nesheim providing rhythmic support on double bass and drums respectively, with the overdubbing of Kalman's modular synth and Nesheim's vibraphone adding colour. But characteristically for this trio, in which assigned roles are never clearly defined or adhered to, things soon start to move around, with Kalman taking up the melody on his bass, playing the melody in unison with Hole, while Nesheim opens things out further rhythmically. As the whole piece takes on a much more improvisatory feel, Hole plays the melody one more time as things draw to a close.",
+      "site_id": "hole-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by Mike Adcock",
+      "label": "Taragot"
+    },
+    {
+      "album": "Peter's Field",
+      "artist": "Sean Cooney",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/cooney-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Sean Cooney"
+      ],
+      "excerpt": "In August 1819, tens of thousands of working men and women gathered in St. Peter’s Field in Manchester to hear the politician Henry Hunt speak. They were difficult times, many still out of work after the Napoleonic wars, rising prices and low wages – and always those at the bottom of the heap suffering. Hunt was a famed orator, a man on the side of the people, able to stir and inspire with his voice. Although the gathering was peaceful, the size of the crowd terrified the magistrates, who panick",
+      "body": "In August 1819, tens of thousands of working men and women gathered in St. Peter’s Field in Manchester to hear the politician Henry Hunt speak. They were difficult times, many still out of work after the Napoleonic wars, rising prices and low wages – and always those at the bottom of the heap suffering. Hunt was a famed orator, a man on the side of the people, able to stir and inspire with his voice. Although the gathering was peaceful, the size of the crowd terrified the magistrates, who panicked and imagined an uprising. They sent in half-trained dragoons and the cavalry, who rode down, slashed and killed without compunction or compassion. In the end, 18 died and up to 700 were wounded. It was a stain on the nation, an outrage; prompting Percy Shelley, one of the poetic giants of the age, to write The Masque of Anarchy , with its famous lines: “Rise like Lions after slumber / in unvanquishable number / She your chains to earth like dew / Which in sleep had fallen on you / Ye are many - they are few.” Peterloo, as people called it, remains one of the seminal events in English working-class history, one that Sean Cooney of the Young 'Uns has revisited for this album of original songs, which is lavishly presented in a book with contemporary letters, political cartoons and illustrations to create a multimedia event. It’s ambitious, no doubt about that, and he’s selected some great talent to help – guitarist Sam Carter, the almost ubiquitous fiddler/singer Eliza Carthy, Ben Nicholls supplying background and texture on various instruments, and the Lancashire industrial ballad singer Jennifer Reid, who doubles as narrator.",
+      "site_id": "cooney-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by Chris Nickson",
+      "label": "Hudson"
+    },
+    {
+      "album": "Two Views of a Prayer",
+      "artist": "David Dzubinski",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/prism-prayer-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "David Dzubinski"
+      ],
+      "excerpt": "I want to personally direct you to a remarkable piece of music titled \"Two Views of a Prayer,\" composed and written by David Dzubinski as part of the Prism Quartet 's new series of collaborations called Unlocking Your Inner Composer . If you have listened to my radio programs, you are probably familiar with the quartet's ground-breaking, genre-blurring music. If not, there's no better introduction than this. Performed in November of 2025 at the Free Library of Philadelphia, they invited vocalist",
+      "body": "I want to personally direct you to a remarkable piece of music titled \"Two Views of a Prayer,\" composed and written by David Dzubinski as part of the Prism Quartet 's new series of collaborations called Unlocking Your Inner Composer . If you have listened to my radio programs, you are probably familiar with the quartet's ground-breaking, genre-blurring music. If not, there's no better introduction than this. Performed in November of 2025 at the Free Library of Philadelphia, they invited vocalist Ursula Rucker , percussionist Tyshawn Sorey , and violinist Carlos Santiago to collaborate on the arrangement and performance of Dzubinski's composition. It travels from raw to lyrical and back in the course of just under 4 minutes, with both finesse and energy. - Cliff Furnald, editor",
+      "site_id": "prism-prayer-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "GuldGanger",
+      "artist": "GuldGanger",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/guldganger-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "GuldGanger"
+      ],
+      "excerpt": "A debut, digital-only EP from a Danish trio, led by one of the Nordic folk scene’s outstanding and experienced vocalists, Mia Guldhammer. Five tracks, with the musicians bringing their own perspectives to mostly traditional music. There’s a lovely ancient, creaky mood throughout.",
+      "body": "A debut, digital-only EP from a Danish trio, led by one of the Nordic folk scene’s outstanding and experienced vocalists, Mia Guldhammer. Five tracks, with the musicians bringing their own perspectives to mostly traditional music. There’s a lovely ancient, creaky mood throughout.",
+      "site_id": "guldganger-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by Chris Nickson",
+      "label": "Go' Danish Folk Music"
+    },
+    {
+      "album": "Live at Rockpalast, 1999",
+      "artist": "Dr. John",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/drjohn-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Dr. John"
+      ],
+      "excerpt": "Live at Rockpalast 1999 documents a command performance at the Loreley open-air amphitheater by Malcolm “Mac” Rebennack Jr., aka Dr. John. Rockpalast is a live-music TV show broadcast since 1974 by Westdeutscher Rundfunk (WDR), the archival source for this CD-DVD package, and coincidentally a remarkable cultural institution on its own terms. Taped at the height of Dr. John’s international popularity, backing the singer-pianist-guitarist are New Orleans stalwarts Bobby Broom (guitar), David Barar",
+      "body": "Live at Rockpalast 1999 documents a command performance at the Loreley open-air amphitheater by Malcolm “Mac” Rebennack Jr., aka Dr. John. Rockpalast is a live-music TV show broadcast since 1974 by Westdeutscher Rundfunk (WDR), the archival source for this CD-DVD package, and coincidentally a remarkable cultural institution on its own terms. Taped at the height of Dr. John’s international popularity, backing the singer-pianist-guitarist are New Orleans stalwarts Bobby Broom (guitar), David Barard (bass), and Herman Ernest (drums), a tight quartet that projects authority and engages the crowd from start to close. A striking UNESCO-designated World Heritage Site set, the Loreley is a slate pinnacle on a mythic horseshoe bend of the Rhine River, memorializing an enduring German literary legend both tragic and romantic. The setting is thus well-suited for Mac’s mystical spirit and lyrical style. By this stage of his career, he characterized his live show as a Mardi Gras revue with a mix of New Orleans standards and some of his most recognizable compositions.",
+      "site_id": "drjohn-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by Michael Stone",
+      "label": "Mig"
+    },
+    {
+      "album": "Króta",
+      "artist": "Mats Edén",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/krota-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Mats Edén"
+      ],
+      "excerpt": "Króta , the latest release on Norway's Taragot label, features a Swede and two Norwegians playing interpretations of mainly traditional tunes from their respective countries. Fiddler Mats Edén has long been involved in Swedish folk music, as a player, composer and teacher, and in the process exploring and integrating different musical styles and approaches. Tellef Kvifte was in the pioneering Norwegian crossover band Slinkombas in the 1970s and has continued to play a central role in Norwegian f",
+      "body": "Króta , the latest release on Norway's Taragot label, features a Swede and two Norwegians playing interpretations of mainly traditional tunes from their respective countries. Fiddler Mats Edén has long been involved in Swedish folk music, as a player, composer and teacher, and in the process exploring and integrating different musical styles and approaches. Tellef Kvifte was in the pioneering Norwegian crossover band Slinkombas in the 1970s and has continued to play a central role in Norwegian folk music, both as a musician and an academic. Most often heard playing the sjøfløyte , more widely known as a recorder, Kvifte has employed other instruments from outside the Norwegian tradition, in particular the saxophone and bagpipes. His son Knut Kvifte Nesheim , a drummer and composer, has also shown a determination to blur the lines between different musical genres, both in his solo and group projects.",
+      "site_id": "krota-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by Mike Adcock",
+      "label": "Taragot"
+    },
+    {
+      "album": "Sendas",
+      "artist": "Omar Sosa",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/sosa-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Omar Sosa"
+      ],
+      "excerpt": "True to a Monk-inspired commitment never to play the same thing twice, Cuban pianist and composer Omar Sosa’s new solo album is the vivid invention of a pensive, restlessly creative, evolutionary artistry. As with all Sosa’s work, Sendas is the fortunate product of serendipity. In 2021 he was invited to record at the Fazioli Pianoforti Concert Hall, annex to the renowned Italian piano manufactory in Sacile, Pordenone, about an hour northeast of Venice… An unscripted solo improvisation in the emp",
+      "body": "True to a Monk-inspired commitment never to play the same thing twice, Cuban pianist and composer Omar Sosa’s new solo album is the vivid invention of a pensive, restlessly creative, evolutionary artistry. As with all Sosa’s work, Sendas is the fortunate product of serendipity. In 2021 he was invited to record at the Fazioli Pianoforti Concert Hall, annex to the renowned Italian piano manufactory in Sacile, Pordenone, about an hour northeast of Venice… An unscripted solo improvisation in the emp",
+      "site_id": "sosa-26",
+      "crawl_status": "ok",
+      "type": "feature",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "The Forgotten Parts",
+      "artist": "Ian Brennan (producer) - Chicago Gunfire Survivors",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/chicago-gunfire-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Gunfire Survivors speak from The Forgotten Parts of Chicago"
+      ],
+      "excerpt": "Editor's note: When this set of recordings came to me, I was at a loss as to how to share it. It's not music, in any traditional sense (although there is some freestyle rapping), and a 'review' of such an artifact of reality seems superfluous to the content. Instead, I asked sound recordist Ian Brennan if I could simply use his own brief commentary and the recordings he made on the street in Chicago. Twenty-five people afflicted by gun violence participated, many from the very block we’d setup o",
+      "body": "Editor's note: When this set of recordings came to me, I was at a loss as to how to share it. It's not music, in any traditional sense (although there is some freestyle rapping), and a 'review' of such an artifact of reality seems superfluous to the content. Instead, I asked sound recordist Ian Brennan if I could simply use his own brief commentary and the recordings he made on the street in Chicago. Twenty-five people afflicted by gun violence participated, many from the very block we’d setup on. Many neighbors were pulled-in spontaneously. Almost every one in the community had been impacted by violence somehow— both on the receiving and the inflicting end, and many both. One woman had just come from a memorial service, another was on her way. That’s how far-reaching the violence. Almost no one went untouched.",
+      "site_id": "chicago-gunfire-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Recordings and Commentary by Ian Brennan",
+      "label": ""
+    },
+    {
+      "album": "Brasiliano",
+      "artist": "Lucas Santtana",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/santtana-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Lucas Santtana"
+      ],
+      "excerpt": "After nine previous albums and a 25-year career at the forefront of world music, Lucas Santtana is fluent in the many genres of Brazilian music. His new project, Brasiliano , is a musical exploration of the languages of Brazil. With songs sung in Portuguese, French, English, Spanish, Occitan, Cape Verde Creole, and Tupy-Guarani, a Brazilian native language, Santtana has assembled guest lyricists and vocalists representing a range of musical and linguistic influences. The result is a warm and com",
+      "body": "After nine previous albums and a 25-year career at the forefront of world music, Lucas Santtana is fluent in the many genres of Brazilian music. His new project, Brasiliano , is a musical exploration of the languages of Brazil. With songs sung in Portuguese, French, English, Spanish, Occitan, Cape Verde Creole, and Tupy-Guarani, a Brazilian native language, Santtana has assembled guest lyricists and vocalists representing a range of musical and linguistic influences. The result is a warm and compelling musical treatise on the diverse cultural history of Brazil, expressed through the Brazilian variant of Portuguese, best described as Brasiliano. Returning to his roots, the opening cut and lead single “A história de nossa língua” features Gilberto Gil, a national treasure with whom Santtana worked early in his career. As the liner notes explain, Brasiliano , the language, is depicted in the song as a feminine character meeting other people (languages) on her travels, tracing the history of the language as an offshoot of Latin, including “Occitan, Celtic, Galician, Portuguese, Mozarabic, and others. The chorus features Indigenous words that are part of everyday Brazilian culture: Itapuã, Ipanema, Maracanã, Capoeira, etc.” This song acts as a sort of abstract for the dissertation to follow. Santtana and Gil call and respond over what has become the composer’s trademark mixture of detailed, layered, human-played instruments, including on this track violins and violas, piano, guitars, mellotron, and synths. Throughout the record, Santtana creates an inviting effect with a contemporary gloss, combined with the warm resonance of wood, drum skins, wire strings, sticks, bows, and voices. The album features a range of styles, from the lively party track “Ver meu povo se abraçar” to the convincing reggae of the second single, “Que seja um reggae”. With sophisticated songcraft and inspired arrangements, the songs remain inviting and accessible.",
+      "site_id": "santtana-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by John Alan Urquhart",
+      "label": "No Format"
+    },
+    {
+      "album": "Genuine Negro Jig (15th Anniversary Edition)",
+      "artist": "Carolina Chocolate Drops",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/carolina-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Carolina Chocolate Drops"
+      ],
+      "excerpt": "A little before the end of the last century, a revelatory compilation appeared, seemingly from nowhere. From Where I Stand: The Black Experience In Country Music opened a window on something so many didn’t even know existed to show that country music had never been a white preserve. That album was a few years before the Carolina Chocolate Drops burst on the scene, reclaiming the Black heritage in country and string band music, plus a great deal more. Genuine Negro Jig , their third release, saw ",
+      "body": "A little before the end of the last century, a revelatory compilation appeared, seemingly from nowhere. From Where I Stand: The Black Experience In Country Music opened a window on something so many didn’t even know existed to show that country music had never been a white preserve. That album was a few years before the Carolina Chocolate Drops burst on the scene, reclaiming the Black heritage in country and string band music, plus a great deal more. Genuine Negro Jig , their third release, saw them move up to the prestigious Nonesuch label, a powerful artistic imprimatur, winning them a Grammy for an album very far removed from the mainstream.",
+      "site_id": "carolina-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by Chris Nickson",
+      "label": "Nonesuch"
+    },
+    {
+      "album": "A Djinn and a Hunter Went Walking",
+      "artist": "Neba Solo and Benego Diakité",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/solo-diakite-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Neba Solo and Benego Diakité"
+      ],
+      "excerpt": "Neba Solo and Benego Diakit� - A Djinn and a Hunter Went Walking  / a RootsWorld review\n\n  \n\n  \n\n      \n\n    \n\n    \n\n      \n\n        \n\n            \n\n            \n\n              \n\nNeba Solo and Benego Diakit�\n\nA Djinn and a Hunter Went Walking\n\nNonesuch\n\nReview by Mike Adcock\n\nPhoto: Aboubacar Traor�\n            \n\n  \n\n    \n\n      \n\n    \n\n    \n\n  \n\n  \n\n  \n\nThe newly released album from Malian musicians Neba Solo and Benego Diakit� is the outcome of a project which began in 2013 when Solo and Diaki",
+      "body": "Neba Solo and Benego Diakit� - A Djinn and a Hunter Went Walking  / a RootsWorld review\n\n  \n\n  \n\n      \n\n    \n\n    \n\n      \n\n        \n\n            \n\n            \n\n              \n\nNeba Solo and Benego Diakit�\n\nA Djinn and a Hunter Went Walking\n\nNonesuch\n\nReview by Mike Adcock\n\nPhoto: Aboubacar Traor�\n            \n\n  \n\n    \n\n      \n\n    \n\n    \n\n  \n\n  \n\n  \n\nThe newly released album from Malian musicians Neba Solo and Benego Diakit� is the outcome of a project which began in 2013 when Solo and Diakit�, playing balafon and n'goni respectively, were recorded by Bamako producer Ousmane Ha�dara. He played the result to another record producer, Nick Gold, who was completely taken by what he heard and together they decided to work on the recording to produce a finished album, also enlisting English musician Sonny Johns to help with the production. Gold had previously brought together Ali Farka Tour� and Toumani Diabat� to record what was to become the very successful album \nIn the Heart of the Moon\n and this was a similar story, Solo and Diakit� also being established Malian musicians coming from different musical backgrounds. Indeed, the balafon and n'goni, though both widely associated with Malian music, are seldom played together.\n\nA Djinn and a Hunter Went Walking\n, released as a double CD, is very much an album of two halves. The recordings made in 2013 of the two musicians playing together were transformed over time into ensemble arrangements with the addition of other musicians playing strings, mellotron, guitar and percussion, plus overdubbed vocals from Solo and three female singers. These reworked tracks make up the first half of the album.   \n\n  \n\n    \n\n      \n\n    \n\n    \n\n  \n\n  \n\n  \n\nThe opening track, �Djin� Mogo Tiki� begins with a capella backing vocals before Diakit� introduces a repeated riff on the n'goni over which Solo improvises on the balafon while also taking the lead vocal, a pattern which forms the basis of all the tracks, with the augmented instrumentation creating further layers of interest. �Djin� Mogo Tiki� is one of two tracks to have strings added and these sit well, used sparingly to provide short rhythmic motifs, thankfully belying any fears that might be raised by mention of a string arrangement.\n\n  \n\n    \n\n      \n\n    \n\n    \n\n  \n\n  \n\n  \n\nThe reinvention of these pieces, clearly done with the co-operation of both Solo and Diakit�, may be radical but it has nevertheless been carried out with consideration and musical sensibility. �Yeredon Bali� begins with a few phrases from Solo's balafon, to be joined by Diakit�'s n'goni, some light percussion and hand claps and then more of the female backing vocals, supporting Solo's vocal in the call and response style characteristic of so much Mande music. In this case the vocal content is the only significant addition to the original duo recording, but significant it is because, in the nature of things, once a vocal line is added that becomes the main focus of attention. \n\nWhat makes the format of this album particularly intriguing is that the final six tracks give us the opportunity of hearing the original, unadorned versions of most of the arranged tracks as first recorded by Neba Solo and Benego Diakit�. They are referred to as the �Garden Demos� since they were recorded in a Bamako garden under a mango tree. Without the added vocals the focus shifts to the interplay between the two musicians, and the meaning of the music changes. \n\n  \n\n    \n\n      \n\n    \n\n    \n\n  \n\n    \n\n      \n\"Djine Mogo Tiki\n\n(Garden Demo excerpt)\n\n    \n\n  \n\n  \n\nFor example, we are offered two versions of  \"Djin� Mogo Tiki,\" first appearing as the album's opening track in its arranged version, then later in the original duo take. Perhaps this has been done to show two sides of the same story, with an awareness too of differences in what audiences are looking for. \n\nThe arranged tracks, with their instrumental variety and vocal additions, certainly work well and might help give the music wider appeal. But if you are someone who is captivated by listening to fine players engaged in a musical conversation, eavesdropping on the almost telepathic interaction taking place as the two musicians explore the common ground between them, then it's really already there in the earlier Garden Demos, the final six tracks of \nA Djinn and a Hunter Went Walking\n.  \n\n                                                                                                           \n\nFind the artist online.\n\nSearch RootsWorld\n\nSubscribe and Support RootsWorld\n\n            \n\n          \n\n        \n\n      \n\n    \n\n    \n\n      \n\n  1993 - 2026 RootsWorld. No reproduction of any part of this page or its associated files is permitted without express written permission.",
+      "site_id": "solo-diakite-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Review by Mike Adcock",
+      "label": "Nonesuch"
+    },
+    {
+      "album": "Vida",
+      "artist": "Dani Jané",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/jane-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Dani Jané"
+      ],
+      "excerpt": "Vida, the third release by Dani Jan&#233; (Spanish guitar, loops, synthesizer, composition), is a lyrical, rhythmically driven title that combines elements of flamenco, Catalan folk, classical music, jazz, and Catalan and U.S. poetry. A graduate of the Conservatori Superior de M&#250;sica del Liceu (Barcelona), Jan&#233; pursued further study (classical, flamenco, jazz, tango) elsewhere in Spain, and in Germany, France, Italy, and India. With this new album, he gives voice to a new generation of",
+      "body": "Vida, the third release by Dani Jan&#233; (Spanish guitar, loops, synthesizer, composition), is a lyrical, rhythmically driven title that combines elements of flamenco, Catalan folk, classical music, jazz, and Catalan and U.S. poetry. A graduate of the Conservatori Superior de M&#250;sica del Liceu (Barcelona), Jan&#233; pursued further study (classical, flamenco, jazz, tango) elsewhere in Spain, and in Germany, France, Italy, and India. With this new album, he gives voice to a new generation of",
+      "site_id": "jane-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "Il Mito",
+      "artist": "Canzoniere Grecanico Salentino",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/cgs-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Canzoniere Grecanico Salentino"
+      ],
+      "excerpt": "How do you celebrate 50 years of music by a band that blazed trails for the charged, hypnotic pizzica sound, breaking it out of its homeland in southern Italy? How do you look afresh at a sound that&#146;s changed and broadened its appeal without ever abandoning its roots as a new generation took over the instruments? It&#146;s a challenge, but what Canzoniere Grecanico Salentino (CGS) have done is reframe some of the pieces from those earlier decades through the lens of those playing and singin",
+      "body": "How do you celebrate 50 years of music by a band that blazed trails for the charged, hypnotic pizzica sound, breaking it out of its homeland in southern Italy? How do you look afresh at a sound that&#146;s changed and broadened its appeal without ever abandoning its roots as a new generation took over the instruments? It&#146;s a challenge, but what Canzoniere Grecanico Salentino (CGS) have done is reframe some of the pieces from those earlier decades through the lens of those playing and singin",
+      "site_id": "cgs-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "Tovi",
+      "artist": "Teija Niku",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/niku-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Teija Niku"
+      ],
+      "excerpt": "It&#146;s been a lengthy wait for the fourth album from Finnish accordionist Teija Niku, but she&#146;s hardly been idle over the last few years. Between the pandemic, giving birth, and the death of her mother, her time has been filled. But the long pause makes this return all the sweeter, with its joyful exploration of the places where the music of her homeland intersect with her deep love of Balkan music on Tovi.",
+      "body": "It&#146;s been a lengthy wait for the fourth album from Finnish accordionist Teija Niku, but she&#146;s hardly been idle over the last few years. Between the pandemic, giving birth, and the death of her mother, her time has been filled. But the long pause makes this return all the sweeter, with its joyful exploration of the places where the music of her homeland intersect with her deep love of Balkan music on Tovi.",
+      "site_id": "niku-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "WÖR x Kongero - Songbooks Live",
+      "artist": "Wör",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/songbook-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Wör"
+      ],
+      "excerpt": "This collaboration between the five-piece Belgian instrumental group W&#246;r, whose members specialize in bringing the music of earlier centuries to life, and Kongero, the acclaimed Swedish female a capella folk quartet, offers an unusual chance to explore how their two cultures, ostensibly so different, can come together. It might sound an unlikely mix, but here&#146;s a spoiler: it turns out they&#146;re pretty much musical best friends.",
+      "body": "This collaboration between the five-piece Belgian instrumental group W&#246;r, whose members specialize in bringing the music of earlier centuries to life, and Kongero, the acclaimed Swedish female a capella folk quartet, offers an unusual chance to explore how their two cultures, ostensibly so different, can come together. It might sound an unlikely mix, but here&#146;s a spoiler: it turns out they&#146;re pretty much musical best friends.",
+      "site_id": "songbook-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "Lyric",
+      "artist": "Stelios Petrakis",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/petrakis-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Stelios Petrakis"
+      ],
+      "excerpt": "Crete&#146;s Stelios Petrakis is at the peak of players of his island&#146;s best-known traditional instrument, the Cretan lyra, a small pear-shaped fiddle held vertically on the knee. True to its title, Lyric is an album of his lyra with a panoply of other traditional instruments played by musicians of equal stature to Petrakis, in music of rich lyricism, in melody and texture.",
+      "body": "Crete&#146;s Stelios Petrakis is at the peak of players of his island&#146;s best-known traditional instrument, the Cretan lyra, a small pear-shaped fiddle held vertically on the knee. True to its title, Lyric is an album of his lyra with a panoply of other traditional instruments played by musicians of equal stature to Petrakis, in music of rich lyricism, in melody and texture.",
+      "site_id": "petrakis-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "Di Mashin",
+      "artist": "Maria Ka",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/ka-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Maria Ka"
+      ],
+      "excerpt": "Polish artist Maria Ka&#146;s latest album Di Mashin (The Machine) emerged after she found that her family had Jewish roots &#150; a discovery that led her to an immersion in Jewish studies and the Yiddish language. She unreels original songs written in Yiddish, embracing a politically active feminism and a committed meta-universality. Her musical vision is fragrantly mystical and musically all encompassing.",
+      "body": "Polish artist Maria Ka&#146;s latest album Di Mashin (The Machine) emerged after she found that her family had Jewish roots &#150; a discovery that led her to an immersion in Jewish studies and the Yiddish language. She unreels original songs written in Yiddish, embracing a politically active feminism and a committed meta-universality. Her musical vision is fragrantly mystical and musically all encompassing.",
+      "site_id": "ka-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "Echo",
+      "artist": "Emi Makabe",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/makabe-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Emi Makabe"
+      ],
+      "excerpt": "Loss galvanizes, loss focuses, and musical artists turn loss into shared reflections. Emi Makabe has focused the passing of her father into a generous meditation on resilience and legacy with Echo. The title reminds us of the connections between generations. Here are ten musical memories that span time and culture, blending a modern jazz sensibility with a traditional Japanese soul. Born in Japan, where she studied Japanese traditional music, Emi Makabe is an educator and contributor to the jazz",
+      "body": "Loss galvanizes, loss focuses, and musical artists turn loss into shared reflections. Emi Makabe has focused the passing of her father into a generous meditation on resilience and legacy with Echo. The title reminds us of the connections between generations. Here are ten musical memories that span time and culture, blending a modern jazz sensibility with a traditional Japanese soul. Born in Japan, where she studied Japanese traditional music, Emi Makabe is an educator and contributor to the jazz",
+      "site_id": "makabe-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "sMiLes",
+      "artist": "Jowee Omicil",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/omicil-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Jowee Omicil"
+      ],
+      "excerpt": "Born in Montreal, Haitian-Canadian musician-composer Jowee Omicil plays a variety of instruments. He came of age in the choral milieu of his father&#146;s Montreal congregation, studied saxophone and music education at Berklee, and has gone on to work with some of the century&#146;s masters. Over the course of 2025, Omicil released one song per month, each accompanied by a philosophizing podcast. The collection is called sMiLes.",
+      "body": "Born in Montreal, Haitian-Canadian musician-composer Jowee Omicil plays a variety of instruments. He came of age in the choral milieu of his father&#146;s Montreal congregation, studied saxophone and music education at Berklee, and has gone on to work with some of the century&#146;s masters. Over the course of 2025, Omicil released one song per month, each accompanied by a philosophizing podcast. The collection is called sMiLes.",
+      "site_id": "omicil-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "The Visit",
+      "artist": "Cris Derksen",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/derksen-26.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Cris Derksen"
+      ],
+      "excerpt": "The Visit isn&#146;t an album built on compromises. Composer-musician Cris Derksen, a Canadian from the North TallCree Reserve on her father&#146;s side, and with a Mennonite lineage from her mother, pushes and cajoles her visions. She&#146;s primarily a cellist, one who works across genres &#150; one of the great joys of listening to The Visit is that it is impossible to attach any kind of handle to the music. Just as you think you have it nailed down, the next track is something different.",
+      "body": "The Visit isn&#146;t an album built on compromises. Composer-musician Cris Derksen, a Canadian from the North TallCree Reserve on her father&#146;s side, and with a Mennonite lineage from her mother, pushes and cajoles her visions. She&#146;s primarily a cellist, one who works across genres &#150; one of the great joys of listening to The Visit is that it is impossible to attach any kind of handle to the music. Just as you think you have it nailed down, the next track is something different.",
+      "site_id": "derksen-26",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    },
+    {
+      "album": "They Shall Take Up Serpents",
+      "artist": "Pastor Chris Congregation West Virginia Snake Handler Revival",
+      "score": null,
+      "url": "https://rootsworld.com/reviews/wvsnake-25.shtml",
+      "source": "RootsWorld",
+      "pub_date": "2026-05-26",
+      "tags": [
+        "world music",
+        "Pastor Chris Congregation West Virginia Snake Handler Revival"
+      ],
+      "excerpt": "McDowell County West Virginia is nestled in the Appalachian Mountains, and is both stunning and isolated. The House of Lord Jesus in Squire is the focus of this remarkable series of live recordings of the Pastor Chris Congregation West Virginia Snake Handler Revival. There are guitars and drums, ecstatic singing, praying and preaching, lots of snakes, and people seemingly possessed as they surrender to a form of Pentecostal practice that uses a quote from Mark 16:18 as their raison d&#146;&#234;",
+      "body": "McDowell County West Virginia is nestled in the Appalachian Mountains, and is both stunning and isolated. The House of Lord Jesus in Squire is the focus of this remarkable series of live recordings of the Pastor Chris Congregation West Virginia Snake Handler Revival. There are guitars and drums, ecstatic singing, praying and preaching, lots of snakes, and people seemingly possessed as they surrender to a form of Pentecostal practice that uses a quote from Mark 16:18 as their raison d&#146;&#234;",
+      "site_id": "wvsnake-25",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "",
+      "label": ""
+    }
+  ]
+}

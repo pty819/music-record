@@ -1,1 +1,10 @@
-[]
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-26T05:39:56.526133+00:00",
+    "cutoff_date": "2026-05-23",
+    "latest_article_date": "2026-05-21",
+    "notes": "No articles within 3-day window. Latest article (newsID=3018) dated 2026-05-21."
+  },
+  "items": []
+}
