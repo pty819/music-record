@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-05-26T05:49:33Z",
+    "cutoff_date": "May 23, 2026"
+  },
+  "items": [
+    {
+      "album": "Beyond The Veil",
+      "artist": "Jason Kruk",
+      "score": 4.5,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25541",
+      "source": "Sea of Tranquility",
+      "pub_date": "May 25th 2026",
+      "tags": [
+        "fusion",
+        "jazz-rock",
+        "progressive"
+      ],
+      "excerpt": "Hearing Jason Kruk for the first time on Len Davis’s Bitches Brew was a jolt - the kind of discovery that sends you searching for more. His new album, Beyond the Veil is a bold, highenergy fusion statement featuring an allstar cast with guitarists Adam Rogers, Wayne Krantz, and Snarky Puppy Alumni Michael League, Bob Lanzetti.\r\n\n\r\n\r\n\r\nThe album wastes no time reeling you in. Rogers ignites “Awakening” and “The Lion” with sharp, commanding guitar lines, while “The Ox” leans into a deep funk pocke",
+      "body": "Hearing Jason Kruk for the first time on Len Davis’s Bitches Brew was a jolt - the kind of discovery that sends you searching for more. His new album, Beyond the Veil is a bold, highenergy fusion statement featuring an allstar cast with guitarists Adam Rogers, Wayne Krantz, and Snarky Puppy Alumni Michael League, Bob Lanzetti.\r\n\n\r\n\r\n\r\nThe album wastes no time reeling you in. Rogers ignites “Awakening” and “The Lion” with sharp, commanding guitar lines, while “The Ox” leans into a deep funk pocket before exploding into a standout electricpiano solo from Hirahara. Krantz brings his signature edge to “The Eagle,” delivering a thrilling mix of singlenote runs and angular chord work. “The Man” channels the spontaneity of a live jam, while “Dad” offers a moment of calm with atmospheric textures and understated rhythm work. “Water” is one of the album’s highlights - a constantly evolving piece that moves from a gentle intro to intense, tightly woven interplay. “Wind” and “Fire” keep the heat on with virtuosic soloing and a rhythm section firing on all cylinders.\r\nThe closer, “Creation,” takes its time to find direction, but once it locks in, the band delivers a powerful final stretch that rewards listeners who stay with it.\r\n\n\r\n\r\n\r\nThroughout, Kruk’s drumming is the engine: precise, muscular, and always pushing the music forward. Beyond the Veil is memorable, energetic, and packed with standout performances - a musthear for fusion fans and one of 2026’s early high points.\r\n\n\r\n\r\n\r\nFavorite Tracks: “The Eagle,” “Wind”\r\n\n\r\n\r\n\r\n\nTrack Listing\r\n\r\n\n1. Ascension\r\n\r\n\n2. Awakening\r\n\r\n\n3. The Lion\r\n\r\n\n4. The Ox\r\n\r\n\n5. The Eagle\r\n\r\n\n6. The Man\r\n\r\n\n7. Dad\r\n\r\n\n8. Water\r\n\r\n\n9. Wind\r\n\r\n\n10. Earth\r\n\r\n\n11. Fire\r\n\r\n\n12. Creation",
+      "site_id": "sea_of_tranquility",
+      "crawl_status": "scraped",
+      "type": "review"
+    }
+  ]
+}

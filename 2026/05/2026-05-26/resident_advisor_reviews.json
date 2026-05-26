@@ -1,8 +1,32 @@
 {
   "meta": {
-    "total": 0,
-    "scraped_at": "2026-05-26T05:29:17.526623+00:00",
+    "total": 1,
+    "scraped_at": "2026-05-26T05:47:23.691412+00:00",
     "cutoff_date": "2026-05-23"
   },
-  "items": []
+  "items": [
+    {
+      "album": "Inferno",
+      "artist": "Boards of Canada",
+      "score": null,
+      "url": "https://ra.co/reviews/36354",
+      "source": "Resident Advisor",
+      "pub_date": "2026-05-23T07:00:25.000Z",
+      "tags": [
+        "Album",
+        "English",
+        "Warp Records",
+        "Ambient",
+        "IDM",
+        "RA Recommends"
+      ],
+      "excerpt": "Warp's IDM icons resurface after 13 years with a dark, disquieting record shaped by a violent world. Say goodbye to the fuzz and wistfulness.",
+      "body": "Across their decades-long run as Boards of Canada, Marcus Eoin and Michael Sandison have drifted through endless shades of eerie. The Scottish brothers have been mischievous and playful, chopping up children's voices over downtempo hip-hop beats on their 1998 watershed Music Has the Right to Children and 2000's well-aged In A Beautiful Place Out In The Country. They've plunged into dark psychedelia with 2002's cryptic and sublime Geogaddi, tried melancholic pastoralism on for size in 2005 with The Campfire Headphase and teased out sinister undertones from queasy polyrhythms on 2013's lauded return to form Tomorrow's Harvest. \n\nWith a penchant for backmasked samples and abraded synthesiser tones, the duo has historically thrived on obfuscation. This has in turn inspired a culture of eager exegesis among both fans and casual onlookers, heads tilted towards whatever they might pull off next. Their bleary, hypnotic records feel as much about what should be there as they are about what you can actually hear in the mix. \n\nInferno shakes off its predecessors' shrouds, trading generalised unease for unadulterated menace. If Geogaddi continues to inspire robust discussion about its occultist allusions—it ends with a silent track to reach a runtime of precisely 66 minutes and 6 seconds—Inferno is more head-on, literally invoking demonic robot voices to read from Aleister Crowley's 1929 screed on human sacrifice. Its drumbeats and basslines slam against the ear, taking pages out of industrial and jungle's dog-eared playbooks. It's the darkest and most direct music ever issued under the Boards of Canada seal, a bold swing for an artist whose prettier early formula still inspires wan imitation to this day.\n\nThe 18-track, 70-minute LP delivers its fair share of disguised utterances, but it also draws on plenty of clear speech with disarming transparency. A few of these samples stick to familiar discursive modes: \"The Word Becomes Flesh\" features a documentary narrator cheerfully describing the development of an embryo, a clip that could slot neatly onto Boards of Canada's turn-of-the-millennium offerings. Others highlight speakers who seethe with dramatic conviction. In \"Age of Capricorn,\" in the midst of a smeary choral loop, an overpowering interjection comes from an American-accented voice deep in prayer: \"I'm a sinner,\" he declares, his words hanging plainly in the ambience. \"You bore my sin. You shed your blood for me, to cleanse me.\"\n\nLater, on \"Father and Son,\" another believer speaks as if he's in the middle of a movie scene: \"I love you, but I love the Lord more than any physical being,\" he repeats, his voice Auto-Tuned and snapped to the snaking beat. His conversation partner answers him in corroded metallic babbles reminiscent of Drukqs-era Aphex Twin. The Crowley excerpt on \"All Reason Departs\" opines in gravelly tones that \"the great war must be fought. This bloody sacrifice is the critical point of the world-ceremony of the proclamation of Horus, the crowned and conquering child,\" before a dense, mechanic groove rolls through like the interlocking of several rusted gears. And on the pounding \"Naraka,\" named after the realm of suffering in Hindu, Jain, and Buddhist traditions, we hear devotees chant the Hare Krishna mantra. It's easy to forget the song bears the name of a kind of hell.\n \nThese are bleak expanses, to be sure. It's a heavy and at time unlovely listen, liable to jar on first contact. But there are oases to break up the wastes. \"Into the Magic Land\" draws upon Boards of Canada's early shoegaze influences with echoing guitar and cavernous percussion; \"Deep Time,\" first released as April's \"Tape 05,\" shimmers with plucked strings and wafting woodwinds. Close to the album's finish, \"You Retreat in Time and Space\" burbles with melodies so soft, so untroubled, that it could be drawn from lullabies. Bells twinkle. Horns blare. A beatific dawn settles over an empty plain, and terror retreats to dwindling memory. Against the turmoil of the current cultural moment, this is some of the most placid and enchanting music they've laid to tape.\n\nAs Inferno’s crests from chaos to sanctuary, the rosy picture gives way to closer \"I Saw Through Platonia,\" an understated coda to what are otherwise largely tense and writhing proceedings. The sound that predominates in the album's final minutes is the simple recording of a human heartbeat. With this sample, Boards of Canada pinch Inferno's themes to a subtle point. Throughout the record, people speak about what they believe to be true but cannot materially observe. They make declarations about deities. They talk about Christ's return as if it were sure to happen, a forewarning with an especially dire resonance in this age of Christofascist holy war.\n\nHere, after sharing glimpses of the world's unfolding horror intermingled with astonishing beauty, Boards of Canada drag your ear down to the sound of pulsing blood: a sound that anyone alive can hear within their own bodies. So many stories seduce, and so many are used to justify world-rending violence. What can we know to be real? The body exists. Start there.",
+      "site_id": "ra",
+      "crawl_status": "ok",
+      "type": "review",
+      "label": "Warp Records",
+      "reviewer": "Sasha Geffen"
+    }
+  ]
 }
