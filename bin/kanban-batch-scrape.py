@@ -194,71 +194,15 @@ kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}
         else:
             print(f"  FAILED: {name}", file=sys.stderr)
 
-    # ── Final aggregator ────────────────────────────────────────────────
-    agg_body = """✅ 步骤
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-1. 运行聚合脚本（全量去重 → 评分 → MiniMax 中文总结 → recommend markdown）
-
-```bash
-python3 /home/liyifan/music-record/bin/aggregate_reviews.py \\
-  --date-dir %s \\
-  --date %s
-```
-
-2. 同步 skill + 脚本（git 源 → ~/.local/bin/）
-
-```bash
-cp /home/liyifan/music-record/bin/kanban-batch-scrape.py /home/liyifan/.local/bin/
-cp /home/liyifan/music-record/bin/fast-rss-scrape.py /home/liyifan/.local/bin/
-cp /home/liyifan/music-record/bin/aggregate_reviews.py /home/liyifan/.local/bin/ 2>/dev/null || true
-```
-
-3. kanban_complete
-
-```python
-kanban_complete(
-    summary="aggregated %d unique reviews, %d passed filter, recommend written to recommend/",
-    metadata={"total": %d, "passed": %d}
-)
-```
-
-4. Telegram 推送
-
-读取 /home/liyifan/music-record/recommend/%s.md
-用 send_message 推送到 Telegram Home 频道：
-- ≤4000 字符 → 直接发送全部内容
-- >4000 字符 → 发精简版（标题 + ★8+ + 统计 + "完整版见 GitHub 链接"）
-"""
-
-    from datetime import datetime
-    date_obj = datetime.fromisoformat(DATE)
-    git_month = date_obj.strftime("%m")
-    N = len(all_task_ids)
-    passed_placeholder = 0
-    task_ids_file = f"/tmp/aggregator_parent_ids_{DATE}.json"
-    with open(task_ids_file, 'w') as f:
-        json.dump(all_task_ids, f)
-    agg_body = agg_body % (
-        date_dir, DATE,
-        len(all_task_ids), passed_placeholder,
-        len(all_task_ids), passed_placeholder,
-        DATE
-    )
-
-    agg_id = hermes_create(
-        title="aggregate: all music reviews",
-        body=agg_body,
-        assignee="scraper",
-        parents=all_task_ids,
-        skills=worker_skills,
-        workspace=ws,
-    )
-    print(f"\n  Aggregator: {agg_id}")
-    print(f"\nTotal: {len(all_task_ids)} scraper tasks + 1 aggregator")
-    print(f"Concurrency: {BATCH_SIZE} at a time (parent-gated)")
-    print(f"Workspace: {ws}")
-    print(f"Output base: {OUTPUT_DIR}")
+# ── Summary ──────────────────────────────────────────────────────────
+    print(f"\n✅ Created {len(all_task_ids)} Camoufox scraper tasks")
+    print(f"   All tasks are independent (no parent-gating)")
+    print(f"   Workspace: {ws}")
+    print(f"")
+    print(f"   ⚠️  No kanban aggregator created. After all scrapers complete:")
+    print(f"      1. merge_scraped.py  → scraped_raw.json")
+    print(f"      2. process_reviews.py → processed.json")
+    print(f"      3. generate_report.py → recommend/{{DATE}}.md")
 
 
 if __name__ == "__main__":
