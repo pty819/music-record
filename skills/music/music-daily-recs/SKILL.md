@@ -4,7 +4,7 @@ description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，
 category: music
 cron_job: 6fd93b4a4c4c（每天 04:00 北京时间自动运行）
 author: hermes-agent
-version: 4.5
+version: 4.9
 license: MIT
 created: 2026-05-07
 updated: 2026-05-26
@@ -15,26 +15,37 @@ metadata:
     related_skills: [kanban-worker, hermes-agent-skill-authoring]
 ---
 
-# Music Daily Recs — Kanban Fan-Out Pipeline
-
 ## 架构
 
 ```
-cron 触发（04:00）
-  ↓
+cron 触发n 触发
 Step 0  预检：Auth + DB 健康
   ↓
 Step 1  同步：git pull → cp skill + script + sites.json
   ↓
 Step 2  RSS 批量抓取 (fast-rss-scrape.py)
+        ↓ JSON 已输出到数据目录，无需 kanban
         ↓
-        JSON 已输出到数据目录，无需 kanban
+Step 3  HTML/curl 抓取 (12 个 scrape_*.py 并行)
+        ↓ 各站独立 *_reviews.json
         ↓
-Step 3  Camoufox 批量抓取 (kanban-batch-scrape.py --confirm)
+Step 4  **合并 RSS + HTML → scraped_raw.json** (merge_scraped.py)
+        ↓ 统一文件，URL 去重
+        ↓
+Step 5  Camoufox 批量抓取 (kanban-batch-scrape.py --confirm)
          （仅 21 个无 RSS 站创建 kanban 任务）
   ↓（全部 done）
-Aggregator  合并 RSS + Camoufox 数据 → 评分 → LLM 中文总结
-             → recommend/{DATE}.md → git push → Telegram 推送
+Step 6  监控 Camoufox 进度
+  ↓
+Step 7  **合并 Camoufox 数据到 scraped_raw.json** (merge_scraped.py)
+  ↓
+Step 8  **并发评分 + 中文总结** (process_reviews.py → processed.json)
+        ↓ 线程池并发调 MiniMax，评分在 prompt 中，LLM 直接打分
+        ↓
+Step 9  **生成推荐 markdown** (generate_report.py → recommend/{DATE}.md)
+        ↓ 零 API 调用，毫秒级
+        ↓
+Step 10 **Git push + Telegram 推送**
 ```
 
 ## 何时执行
@@ -62,7 +73,20 @@ RSS 已有数据 → 立即写 JSON → 结束。不要开浏览器对比数据"
 ### 5. 禁止手动创建 kanban task
 `kanban-batch-scrape.py --confirm` 是唯一创建途径。手动循环 `kanban_create` 会 OOM。
 
-### 6. `cleanup_old_tasks()` 必须走 CLI
+### 6. 所有抓取源必须输出同一数据 Schema（硬约束，不可偏离）
+RSS（`fast-rss-scrape.py`）、HTML/curl（`scrape_*.py`）、Camoufox kanban worker 三者输出的 JSON 格式和字段**必须完全一致**。此约束在 `kanban-batch-scrape.py` 的 worker 输出模板层已强制实施。任何偏差均导致 pipeline 合并或评分异常。
+
+**如果 worker 输出格式不符合此标准，即认为任务失败，必须重跑。** `merge_scraped.py` 不承担格式兼容职能——它只合并，不垫背。
+
+外包装：`{"meta": {"total": N, "scraped_at": "...", "cutoff_date": "..."}, "items": [...]}`
+
+每项字段（按顺序）：
+```
+album, artist, score, url, source, pub_date,
+tags, excerpt, body, site_id, crawl_status, type
+```
+
+### 7. `cleanup_old_tasks()` 必须走 CLI
 读走 `hermes kanban list`，写走 `hermes kanban archive`。禁止直接 SQLite 连接。
 
 ---
@@ -114,22 +138,92 @@ cp /home/liyifan/music-record/bin/fast-rss-scrape.py \
 cp /home/liyifan/music-record/bin/fast-rss-scrape.py \
    /home/liyifan/.local/bin/
 
+# 同步 merge_scraped.py（合并 RSS + HTML 数据用）
+cp /home/liyifan/music-record/bin/merge_scraped.py \
+   /home/liyifan/.local/bin/
+
+# 同步 process_reviews.py + generate_report.py（评分+生成推荐）
+cp /home/liyifan/music-record/bin/process_reviews.py \
+   /home/liyifan/.local/bin/
+cp /home/liyifan/music-record/bin/generate_report.py \
+   /home/liyifan/.local/bin/
+
 mkdir -p /home/liyifan/.minimax/music-sites
 cp /home/liyifan/music-record/data/sites.json /home/liyifan/.minimax/music-sites/ 2>/dev/null || true
 ```
 
 ### Step 2 — RSS 批量抓取（27 站，~60 秒）
 
+**⚠️ feedparser 挂起保护**：某些 RSS feed（ProgArchives、The Wire、Rest Is Noise PH）被 Cloudflare 保护，`feedparser.parse()` 会无超时地挂起。运行前设 socket 超时：
+
 ```bash
 mkdir -p /home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)
-python3 /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \
-  -o /home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)/rss_merged.json
+python3 -c "
+import socket
+socket.setdefaulttimeout(15)
+import sys
+sys.argv = ['fast-rss-scrape.py', '-o', '/home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)/rss_merged.json']
+exec(open('/home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py').read())
+" 2>&1
 ```
+
+超时的站会被 catch 为 0 条（容错，不影响其他站）。
 
 ✅ 输出：`rss_merged.json` — 包含 27 个 RSS 站最近 2 天的全部文章
 无 kanban 任务、无 LLM、无浏览器。
 
-### Step 3 — 创建 Camoufox 抓取任务
+### Step 3 — HTML/curl 并行抓取（12 站，~120 秒）
+
+使用专用 Python 脚本抓取没有 RSS 但可直接 curl 的站（8 个 HTML 站 + 4 个混合站），全部并行运行。
+
+**适用脚本列表**（位于 `music-record/bin/`）：
+```
+scrape_all_about_jazz   scrape_dark_entries    scrape_downbeat
+scrape_free_jazz_blog   scrape_jazz_trail     scrape_mixmag_asia
+scrape_musique_machine  scrape_resident_advisor  scrape_sea_of_tranquility
+scrape_songlines        scrape_squids_ear     scrape_wild_city
+```
+
+```bash
+DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+mkdir -p "$DATE_DIR"
+
+SCRIPTS="scrape_songlines scrape_all_about_jazz scrape_resident_advisor \
+         scrape_dark_entries scrape_free_jazz_blog scrape_jazz_trail \
+         scrape_squids_ear scrape_downbeat scrape_mixmag_asia \
+         scrape_musique_machine scrape_sea_of_tranquility scrape_wild_city"
+
+for s in $SCRIPTS; do
+  timeout 120 python3 /home/liyifan/music-record/bin/${s}.py --days 3 \
+    > "$DATE_DIR/${s#scrape_}_reviews.json" 2>/dev/null &
+done
+wait
+
+echo "✅ HTML/curl 抓取完成"
+# 检查各站产出
+for f in "$DATE_DIR"/*_reviews.json; do
+  count=$(python3 -c "import json; d=json.load(open('$f')); print(len(d.get('items', d)) if isinstance(d, dict) else len(d) if isinstance(d, list) else '?')" 2>/dev/null || echo "0")
+  [ "$count" != "0" ] && [ "$count" != "0" ] && echo "  $(basename $f): $count 条"
+done
+```
+
+✅ 输出：各站独立 `{site_id}_reviews.json` 文件，格式与 RSS 标准一致 `{meta, items}`。
+
+### Step 4 — 合并 RSS + HTML 数据 → scraped_raw.json
+
+将 Step 2 的 `rss_merged.json` 与 Step 3 的各 `*_reviews.json` 合并为一个统一文件，URL 去重（保留 RSS 版本），供 aggregator 一次性读取。
+
+```bash
+DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+python3 /home/liyifan/.local/bin/merge_scraped.py \
+  --date-dir "$(pwd)/$DATE_DIR" \
+  -o scraped_raw.json 2>&1
+```
+
+✅ 输出：`scraped_raw.json` — `{meta: {total, merged_from, scraped_at}, items: [...]}`
+此处 `merged_from` 记录各源文件及条数，用于审计。
+
+### Step 5 — 创建 Camoufox 抓取任务
 
 ```bash
 # 先用 dry run 预览（应显示 ~21 个 Camoufox 站，RSS 站已被过滤）
@@ -141,7 +235,7 @@ python3 /home/liyifan/.local/bin/kanban-batch-scrape.py --confirm
 
 ⚠️ `kanban-batch-scrape.py` 已自动过滤 `has_rss=true` 的站，只创建无 RSS 的 Camoufox 站任务。
 
-### Step 4 — 监控 Camoufox 进度
+### Step 6 — 监控 Camoufox 进度
 
 **⏳ 建议使用主动进程探测循环**（不要仅依赖 DB 查询 — 大量 Camoufox scraper 无声退出后 task 状态仍为 running）
 
@@ -198,27 +292,63 @@ hermes kanban list | grep "running" | grep scraper  # 当前运行中
 3. 然后触发调度器重试：`hermes kanban dispatch`
 4. 再检查：`hermes kanban list | grep -c "running" | grep scraper`
 
-### Step 5 — Pipeline 收尾
+### Step 7 — 合并 Camoufox 数据到 scraped_raw.json
 
-全部 Camoufox scraper done 后，通知 aggregator。此时 RSS 数据已提前就位。
-
-确认状态：
+Camoufox kanban worker 产出后，将其数据追加/合并到 Step 4 创建的 `scraped_raw.json`。如果 `scraped_raw.json` 不存在（未跑 RSS+HTML），会直接创建。
 
 ```bash
-hermes kanban list | grep "aggregat"
-# 期望: ✓ done
+DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+python3 /home/liyifan/.local/bin/merge_scraped.py \
+  --date-dir "$(pwd)/$DATE_DIR" \
+  -o scraped_raw.json 2>&1
 ```
 
-**⚠️ aggregator 未创建（kanban-batch-scrape.py 超时）**：如果 `--confirm` 因超时（30s）中断，aggregator 任务可能不存在。检查：\n\n```bash\nhermes kanban list | grep aggregate\n# 无输出 → aggregator 未创建\n```\n\n恢复方法（二选一）：\n\n| 方案 | 命令 | 适用场景 |\n|------|------|---------|\n| 手动运行聚合器 | `cd /home/liyifan/music-record && python3 bin/aggregate_reviews.py --date-dir 2026/$(date +%m)/$(date +%Y-%m-%d) --date $(date +%Y-%m-%d)` | 快速生成推荐 |\n| 创建 aggregator task | 重新运行 `kanban-batch-scrape.py --confirm`（但会创建重复 scraper） | 需要走完整 kanban 流程 |\n\n推荐方案 1（手动运行），更可靠。\n\n**⚠️ aggregator 卡在 ◻ todo 但 parent scraper blocked**：先检查 blocked scraper，force-complete 后 aggregator 自动解锁。大多数 blocked 站点只是 CF/iteration-budget 问题，数据已在 JSON 中：\n\n```bash\n# 找出 blocked scraper\nBLOCKED=$(hermes kanban list 2>&1 | grep \"⊘\" | awk '{print $2}')\nfor TID in $BLOCKED; do\n  echo \"Force-completing blocked: $TID\"\n  hermes kanban show \"$TID\" 2>&1 | grep -E \"title|blocked\"\n  hermes kanban complete \"$TID\"\ndone\n# 然后手动跑 aggregator（不等全部 48 站完成，已有数据就够）\ncd /home/liyifan/music-record\npython3 bin/aggregate_reviews.py \\\n  --date-dir 2026/$(date +%m)/$(date +%Y-%m-%d) \\\n  --date $(date +%Y-%m-%d)\n```\n\n如果 aggregator 仍卡在 ◻ todo 超过 10 分钟（且无 blocked parent）：
+重跑 merge 会重新读取目录下所有文件（包括 rss_merged.json、*_reviews.json、以及 Camoufox 新产的 *_reviews.json），去重后重写 scraped_raw.json。**幂等安全**，可重复执行。
+
+✅ 最终 `scraped_raw.json` 包含 RSS + HTML + Camoufox 全部数据。
+
+### Step 8 — 并发评分 + 中文总结（process_reviews.py → processed.json）
+
+读取 `scraped_raw.json`，线程池并发调 MiniMax API。**N 条并发 ≈ 1 条的时间。**
+评分细则写在 prompt 中，由 LLM 直接打分，不再用本地硬编码公式。
+
 ```bash
-# 手动 fallback
 cd /home/liyifan/music-record
-python3 bin/aggregate_reviews.py \
-  --date-dir 2026/$(date +%m)/$(date +%Y-%m-%d) \
-  --date $(date +%Y-%m-%d)
+DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+python3 bin/process_reviews.py \
+  --date-dir "$DATE_DIR" \
+  -i scraped_raw.json \
+  -o processed.json \
+  --max-workers 5 2>&1
 ```
 
-### Step 6 — 推送前清理
+✅ 输出：`processed.json` — 每条含 `total_score` + `_cn_summary`，按分数降序排列。
+
+**备用命令**（MiniMax 慢的时候降低并发）：
+```bash
+python3 bin/process_reviews.py --date-dir "$DATE_DIR" --max-workers 3
+```
+
+### Step 9 — 生成推荐 markdown（generate_report.py → recommend/{DATE}.md）
+
+读取 `processed.json`，纯格式化，**零 API 调用**，毫秒级。
+
+```bash
+cd /home/liyifan/music-record
+DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+python3 bin/generate_report.py \
+  --date-dir "$DATE_DIR" \
+  -i processed.json \
+  --date $(date +%Y-%m-%d) \
+  --min-score 1 2>&1
+```
+
+`--min-score` 可选：设 5 则只显示 ≥5 分的条目（精简版用）。
+`--top-k 20` 可选：只显示前 20 条。
+
+✅ 输出：`recommend/{DATE}.md`
+
+### Step 10 — 推送前清理
 
 ```bash
 cd /home/liyifan/music-record
@@ -234,14 +364,16 @@ fi
 find 2026/\($(date +%m)\) -name "*.py" | grep -q . && echo "⚠️ WARNING: .py still present!" || echo "✅ Clean"
 
 # 3. Git push
-git add -A "$DATE_DIR" recommend/$(date +%Y-%m-%d).md bin/aggregate_reviews.py bin/kanban-batch-scrape.py
+git add -A "$DATE_DIR" recommend/$(date +%Y-%m-%d).md \
+  bin/process_reviews.py bin/generate_report.py \
+  bin/kanban-batch-scrape.py bin/merge_scraped.py
 git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations"
 git push origin main
 ```
 
 ---
 
-# 速替代方案：fast-rss-scrape.py（纯 RSS，无 kanban）
+# 快速替代方案 A：fast-rss-scrape.py（纯 RSS，无 kanban）
 
 当只需要 RSS 站的数据时，可以用此脚本替代整个 kanban pipeline。**零 LLM、零浏览器、<2 分钟跑完。**
 
@@ -265,8 +397,84 @@ python3 /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scr
 保存于 skill 目录。如需独立使用，可拷贝到 `~/.local/bin/`：
 
 ```bash
-cp /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \\
+cp /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \\\
    /home/liyifan/.local/bin/
+```
+
+---
+
+# 快速替代方案 B：RSS + HTML 快速通道（跳过 Camoufox）
+
+当不需要 Camoufox 源（21 个无 RSS 站），只需要 RSS 站 + curl 可抓的 HTML 站时，跳过 kanban 全流程，手动跑。
+
+**适用场景：** 用户说"先跑 rss 和 html 的，camoufox 不用管"时执行此路径。
+
+## 步骤
+
+### ① RSS 批量抓取（带 socket 超时保护）
+
+```bash
+DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+mkdir -p "$DATE_DIR"
+python3 -c "
+import socket
+socket.setdefaulttimeout(15)
+import sys
+sys.argv = ['fast-rss-scrape.py', '-o', '$DATE_DIR/rss_merged.json']
+exec(open('/home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py').read())
+" 2>&1
+```
+
+### ② 并行跑 curl HTML 抓取脚本（8 个，每个 ~30-120s）
+
+```bash
+DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+SCRIPTS="scrape_songlines scrape_all_about_jazz scrape_resident_advisor scrape_dark_entries scrape_free_jazz_blog scrape_jazz_trail scrape_squids_ear scrape_downbeat"
+for s in $SCRIPTS; do
+  timeout 120 python3 /home/liyifan/music-record/bin/${s}.py --days 3 > "$DATE_DIR/${s#scrape_}_reviews.json" 2>/dev/null &
+done
+wait
+```
+
+⚠️ 注意：scrape 脚本只输出 stdout，不支持 `-o` 参数。
+
+### ③ 合并 RSS + HTML → scraped_raw.json
+
+```bash
+cd /home/liyifan/music-record
+python3 bin/merge_scraped.py --date-dir "$(pwd)/$DATE_DIR" -o scraped_raw.json 2>&1
+```
+
+### ④ 并发评分 + 中文总结（process_reviews.py）
+
+```bash
+cd /home/liyifan/music-record
+python3 bin/process_reviews.py \
+  --date-dir "$(pwd)/$DATE_DIR" \
+  -i scraped_raw.json \
+  -o processed.json \
+  --max-workers 5 2>&1
+```
+
+✅ 线程池并发，N 条 ≈ 1 条的时间。评分在 prompt 中由 LLM 直接打分。
+输出 `processed.json`（含 `total_score` + `_cn_summary`）。
+
+### ⑤ 生成推荐 markdown + 推送
+
+```bash
+cd /home/liyifan/music-record
+python3 bin/generate_report.py \
+  --date-dir "$(pwd)/$DATE_DIR" \
+  -i processed.json \
+  --date $(date +%Y-%m-%d) 2>&1
+
+# 校验已生成
+ls -la recommend/$(date +%Y-%m-%d).md
+
+# git push
+git add -A "$DATE_DIR" recommend/$(date +%Y-%m-%d).md bin/process_reviews.py bin/generate_report.py
+git commit -m "music-recs: $(date +%Y-%m-%d) quick RSS+HTML run"
+git push origin main 2>&1 || echo "⚠️ git push failed (TLS), manual retry later"
 ```
 
 ---
@@ -332,51 +540,60 @@ cp /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.p
 | Prog Mistress | `https://progmistress.com/feed` | status=301→200, 10 entries |
 | The Rest Is Noise PH | `https://therestisnoiseph.com/feed` | status=301→200, 10 entries |
 
+## 评分方式（v3 — LLM 直接打分）
+
+`process_reviews.py` 不再使用本地硬编码公式。评分细则写在 MiniMax API 的 prompt 中，由 LLM 根据文章内容直接判断打分。
+
+### 评分 prompt 中的 6 个维度
+
+| 维度 | 影响 | 说明 |
+|------|------|------|
+| 口味匹配度（权重最高） | 1-10 | 实验/前卫/爵士/电子/世界/暗潮 → 高分；主流流行 → 低分 |
+| 创新性和独特性 | 加减分 | 独特的艺术视角、实验性元素 → 加分；模式化作品 → 减分 |
+| 跨领域融合 | 加分 | 多种类型融合（如爵士+电子、世界+实验）→ 加分 |
+| 地区特色 | +1 ~ +2 | 非主流地区（东南亚、东欧、非洲等）+1；独特文化视角额外+1 |
+| 主流降权 | -1 ~ -2 | 大型主流厂牌、纯商业发行 → 降权 |
+| 评论质量修正 | -1 | 内容太短（<200 字符）或纯新闻稿 → -1 |
+
+### LLM 输出格式
+
+每条调用返回严格 JSON：
+```json
+{"total_score": <整数1-10>, "cn_summary": "<30-80字中文综述>"}
+```
+
+`generate_report.py` 读取 `processed.json`，按分数分档展示（🌟9-10 / ⭐7-8 / 👍5-6 / 🔹3-4 / 📋1-2），零 API 调用。
+
+### 旧公式（v2，已废弃）
+
+旧 `aggregate_reviews.py` 使用的本地公式 `critic_quality + taste_match + novelty + cross_domain_bonus + regional_bonus - mainstream_penalty - excerpt_penalty` 已不再使用。仅在回滚时需要参考旧 `kanban-batch-scrape.py` aggregator 模板。
+
 ---
 
-## 评分公式 (v2)
+## LLM 评分 + 中文总结（process_reviews.py）
 
-实现在 `kanban-batch-scrape.py` aggregator 模板的 `score_review(r, site_id)` 函数。
+`process_reviews.py` 使用 MiniMax M2.7 进行评分和中文总结。评分和总结在**同一次 API 调用**中完成，线程池并发处理。
 
-```
-total_score = critic_quality(0-3) + taste_match(0-5) + novelty(0-3)
-            + cross_domain_bonus(0-3) + regional_bonus(0-2)
-            - mainstream_penalty(0-3) - excerpt_penalty(0-1)
-```
+### API 配置
 
-| 维度 | 范围 | 核心逻辑 |
-|------|------|---------|
-| critic_quality | 0-3 | excerpt 长度对数缩放（150→1，300→2，450+→3） |
-| taste_match | 0-5 | site_base(0-2) + entry_tag_match(0-3) + excerpt_scan(0-1) |
-| novelty | 0-3 | 17 个关键词扫描 excerpt |
-| cross_domain | 0-3 | jazz/electronic/world/classical 多域命中 |
-| regional | 0-2 | 地区级（southeast asia 等）→2，县级（argentina 等）→1 |
-| mainstream_penalty | 0-3 | 主流/流行内容降权 |
-| excerpt_penalty | 0-1 | CQ≤1 且 TM<3 时 +1（低质量+低相关度的短条目降权） |
-
-> synth_dungeon_downgrade 已删除——用户口味包含 dark ambient / drone / dungeon synth，不降权。
-
----
-
-## LLM 中文总结
-
-aggregator 用 MiniMax M2.7 生成 1-2 句中文总结。
-
-aggregator 通过 **Anthropic SDK** 调用 `api.minimaxi.com` 的 MiniMax M2.7 模型。
-
-**⚠️ MiniMax API 会间歇性挂起**（随机在某条目卡住 >10 分钟）。必须在 Anthropic SDK 参数中设置合理 timeout（120s），并在外层包裹重试循环（3 次）。否则 67 条总结中平均有 1-2 条会挂起导致整个 pipeline 超时。
-
-`aggregate_reviews.py` 中的实际实现：
+通过 **Anthropic SDK** 调用 `api.minimaxi.com` 的 MiniMax M2.7 模型：
 
 ```python
 import anthropic
-import time as _time
 client = anthropic.Anthropic(
     api_key=MINIMAX_CN_API_KEY,
     base_url="https://api.minimaxi.com/anthropic",
     timeout=120,  # ⚠️ 最小 120s，MiniMax 响应可能极慢
 )
-last_exc = None
+```
+
+⚠️ 环境变量名是 `MINIMAX_CN_API_KEY`（不是 `MINIMAX_API_KEY`）。API key 从 `~/.hermes/.env` 读取。
+
+### 重试逻辑
+
+线程池 + 每条约 15-20s，3 次重试 + 指数退避：
+
+```python
 for attempt in range(3):
     try:
         message = client.messages.create(
@@ -385,30 +602,35 @@ for attempt in range(3):
             temperature=0.7,
             messages=[{"role": "user", "content": prompt}]
         )
-        last_exc = None
         break
     except Exception as e:
-        last_exc = e
-        print(f"  [summarize] attempt {attempt+1}/3 failed, retrying...")
-        _time.sleep(5)
-if last_exc:
-    raise last_exc
+        if attempt < 2:
+            time.sleep(2 ** attempt)
 ```
 
-⚠️ 环境变量名是 `MINIMAX_CN_API_KEY`（不是 `MINIMAX_API_KEY`）。API key 从 `~/.hermes/.env` 读取。
+### ⚠️ ThinkingBlock 处理
 
-**⚠️ 不要用关键词拼接做总结** — 兜底输出的是"低频嗡鸣与氛围纹理"这类无意义文案，用户明确拒绝。必须走 LLM API。
-
-**⚠️ ThinkingBlock 处理**：MiniMax 通过 Anthropic 端点返回两个 block（thinking → text）。forward 遍历，只取 `block.type == 'text'`：
+MiniMax 通过 Anthropic 端点返回两个 block（thinking → text）。只取 `block.type == 'text'`：
 
 ```python
 for block in message.content:
     if hasattr(block, 'type') and block.type == 'text' and hasattr(block, 'text'):
-        result = block.text
+        text = block.text
         break
 ```
 
-**⚠️ thinking 泄露处理**：有时 MiniMax 把完整内部独白泄露出现在 text block 中。检测 monologue markers（`We need to`、`我们应该`、`Thus:`、`First sentence` 等），用 `re.findall(r'[^。]+。', text)` 只提取中文句子。
+### ⚠️ JSON 解析策略（3 层 fallback）
+
+LLM 不一定返回干净 JSON，使用三层解析：
+1. 直接 `json.loads(text)`
+2. 从 markdown code block 提取（```` ```json {…} ``` ````）
+3. 正则提取 `{...total_score...}` 包裹
+
+任一成功即停止，全部失败则标记为失败（`total_score: 0, _cn_summary: "（评分失败）"`）。
+
+### ⚠️ 不要用关键词拼接做总结
+
+兜底输出的是"低频嗡鸣与氛围纹理"这类无意义文案，用户明确拒绝。必须走 LLM API。
 
 ---
 
@@ -417,7 +639,8 @@ for block in message.content:
 | 文件 | 路径 | 说明 |
 |------|------|------|
 | recommend markdown | `recommend/{YYYY-MM-DD}.md` | 唯一 markdown 输出，供 Telegram 推送 |
-| aggregator JSON | `2026/{MM}/{YYYY-MM-DD}/aggregated.json` | 全量去重+评分后的 JSON |
+| 合并原始数据 | `2026/{MM}/{YYYY-MM-DD}/scraped_raw.json` | RSS+HTML+Camoufox 统一合并文件 |
+| 评分+总结数据 | `2026/{MM}/{YYYY-MM-DD}/processed.json` | 含 total_score + _cn_summary，按分排序 |
 | scraper JSON | `2026/{MM}/{YYYY-MM-DD}/{site_id}_reviews.json` | 各站原始抓取输出 |
 | RSS 注入分析 | `references/rss-url-injection.md` | Camoufox 站转 RSS 方案和已验证站点列表 |
 
@@ -429,10 +652,12 @@ for block in message.content:
 
 | 用途 | 路径 |
 |------|------|
+| 合并脚本 | `/home/liyifan/music-record/bin/merge_scraped.py` |
+| 评分+总结脚本 | `/home/liyifan/music-record/bin/process_reviews.py` |
+| 报告生成脚本 | `/home/liyifan/music-record/bin/generate_report.py` |
 | 站点配置 | `/home/liyifan/.minimax/music-sites/sites.json` |
 | batch 脚本 | `/home/liyifan/.local/bin/kanban-batch-scrape.py` |
 | skill 本文 | `/home/liyifan/.hermes/skills/music/music-daily-recs/SKILL.md` |
-| aggregator 脚本 | `/home/liyifan/music-record/bin/aggregate_reviews.py` |
 | Camoufox 服务器 | `/home/liyifan/camofox-browser/camoufox_server.py` |
 | GitHub repo | `https://github.com/pty819/music-record` |
 | Cron job ID | `6fd93b4a4c4c` |
@@ -446,7 +671,7 @@ for block in message.content:
 |------|------|------|
 | Git push 失败 | `cd ~/music-record && git pull origin main` 解冲突 | resolve → push |
 | Telegram 推送超时 | cron 状态为 ok 但 delivery failed | 手动 `send_message` 或 GitHub 查收 |
-| Aggregator 卡 todo | `hermes kanban show <id> | grep parent` | 归档旧 aggregator，手动 `aggregate_reviews.py` |
+| Aggregator 卡 todo | `hermes kanban show <id> | grep parent` | **旧流程**（kanban aggregator 不再使用）→ 直接跑 `process_reviews.py` + `generate_report.py` |
 | Cron 漏触发 | `last reboot` + `journalctl --user -u hermes-gateway` | `hermes cronjob run 6fd93b4a4c4c` |
 | DB 损坏 | `PRAGMA integrity_check` | 用源 schema 重建空 kanban.db |
 | Scraper 全 fail | 查 scraper profile auth.json 是否只有 minimax-cn | 删除 minimax 国际版条目 |
@@ -459,12 +684,18 @@ for block in message.content:
 | Songlines 挂起（Camoufox tab 过期） | `ps aux | grep songlines` 运行 >5 分钟无输出 | `hermes kanban complete <task_id>`（JSON 通常已存在） |
 | Boomkat 无限重试 | 多次 retry 后仍然挂起 | `kill -9 <PID>` -> retry 通常更快通过 |
 | Point of Departure 无声退出 | worker 进程消失，task 留 running | `hermes kanban complete <task_id>`（小站，3 天内很空） |
-| aggregator 未创建 | `--confirm` 30s 超时后缺失 aggregator task | 手动跑 `aggregate_reviews.py`（见 Step 4 恢复方法） |
-| **Aggregator MiniMax 总结挂起** | 随机在某条目卡住 >10 分钟无进展 | `Ctrl+C` 后重跑（重试逻辑处理剩余条目）；如重跑仍在同条目挂起，截断 excerpt（>2000 字） |
+| aggregator 未创建 | `--confirm` 30s 超时后缺失 aggregator task | **旧流程**（kanban aggregator 不再使用）→ 直接跑 `process_reviews.py` + `generate_report.py` |
+| **MiniMax 并发问题** | `process_reviews.py` 线程池 5 并发，每条约 15-20s，但 MiniMax 偶尔卡住整批超时 | 降并发到 3：`--max-workers 3`；如仍卡住，Ctrl+C 重跑（已总结的重新请求，幂等） |
 | **数据目录混入 *.py 调试脚本** | `git status` 显示 `.py` 文件被追踪（一次可多达 60+ 个） | 在 `git add` 前先 `rm -f 2026/{MM}/{DATE}/*.py`（见 Step 5） |
 | **Iteration budget exhausted（90/90）** | scraper blocked, reason "Iteration budget exhausted" | force-complete。Squid's Ear 一次 103 条在 90 轮内可能写不完，数据通常已在 JSON 中 |
 | **Camoufox 站实际有 RSS** | scraper 走浏览器慢/挂，但该站实际有可用 RSS | 验证 RSS 后用 `fast-rss-scrape.py` 替代。改 sites.json 加 `has_rss: true` + `rss_url`；参考 `references/camoufox-to-rss-promotion.md` |
 | **Scraper body 缺 rss_url** | kanban worker 无法直接知道 RSS 地址，需自行发现 | 改 `kanban-batch-scrape.py:147` body 模板，加 `rss_url={site.get('rss_url','')}` |
 | **RSS 快速巡检** | 不想等 kanban，只要 RSS 站数据 | 用 `scripts/fast-rss-scrape.py`，<2 分钟出 27 站合并结果 |
-| **旧格式 rss_merged.json（generated_at/total_entries）** | Step 2 使用了 stale 的 fast-rss-scrape.py（新格式应为 `scraped_at/total`），check `~/.local/bin/` vs skill 目录版本 | 手动重跑；修复 Step 1 sync 确认 fast-rss-scrape.py 已同步 |
+| **feedparser 挂起（ProgArchives/The Wire/Rest Is Noise）** | Step 2 `feedparser.parse()` 无限等待，阻塞全脚本 | 运行前设 `socket.setdefaulttimeout(15)`，用 exec() 包装脚本（见 Step 2 示例） |
+| **Scraper 脚本不支持 `-o` 参数** | 所有 12 个 scrape_*.py 只输出 stdout，不能写文件 | 重定向 stdout：`python3 bin/scrape_xxx.py --days 3 > output.json` |
+| **MiniMax 批处理耗时（旧流程）** | 旧 `aggregate_reviews.py` 串行跑 MiniMax，42 条 ~13 分钟 | **已解决**：`process_reviews.py` 线程池 5 并发，42 条 ≈ 15-20 秒 |
+| **Worker 输出格式不一致** | `kanban-batch-scrape.py` 模板曾输出裸 JSON 数组（缺 `body`、无 `{meta,items}` 包装），与 RSS/HTML 标准不符 | **✅ 已修复**：模板已改为 `{meta, items}` + 含 `body` 字段。下次 Camoufox 抓取起效。参见约束 #6 |
+| **Aggregator 不读 rss_merged.json（旧流程）** | 旧 `aggregate_reviews.py` 不读 rss_merged.json，只 glob `*_reviews.json` | **旧流程遗留** — 新流程用 `merge_scraped.py` 合并后再处理，不依赖个别文件名 |
+| **Aggregator 不兼容 dict 格式（旧流程）** | 旧 `aggregate_reviews.py` 只认 `isinstance(data, list)` | **旧流程遗留** — `merge_scraped.py` 统一处理 dict/array 两种格式 |
+| RSS items 缺 _site 字段（旧流程） | 旧 aggregate_reviews.py 评分用 r.get("_site")，RSS 条目只有 site_id | **旧流程遗留** — 新 process_reviews.py 不依赖 _site 字段，LLM 直接按内容评分 |
 | **Cron session 0 条消息** | cron 启动后 agent 未输出任何内容。可能 cron prompt 与 skill 步骤不一致、gateway 异常、或 prompt 中的路径/命令错误 | `hermes cronjob run <id>` 手动触发；检查 cron prompt 是否仍引用旧 skill 步骤 |
