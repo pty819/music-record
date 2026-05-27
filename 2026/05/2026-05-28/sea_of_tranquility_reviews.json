@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-28T04:09:00+08:00",
+    "cutoff_date": "2026-05-25",
+    "status": "blocked",
+    "error": "SSL handshake failure - site unreachable from this network (SSL_ERROR_SYSCALL/NS_ERROR_NET_INTERRUPT on all TLS versions). Both curl and Camoufox browser failed."
+  },
+  "items": []
+}

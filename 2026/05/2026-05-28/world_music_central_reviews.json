@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-28T00:00:00Z",
+    "cutoff_date": "2026-05-25T00:00:00Z",
+    "site": "world_music_central",
+    "status": "blocked",
+    "reason": "SSL/TLS handshake failure - NS_ERROR_NET_INTERRUPT from Camoufox, SSL_ERROR_SYSCALL from curl. Site unreachable from this network."
+  },
+  "items": []
+}

@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-28T01:27:00+08:00",
+    "cutoff_date": "~3 days ago",
+    "status": "blocked",
+    "reason": "Cloudflare managed challenge — curl SSL handshake failed, Playwright browser also blocked by CF challenge verification (Ray IDs: a027a25b795d7e47, a027a51d8ae57e47)"
+  },
+  "items": []
+}

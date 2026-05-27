@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-28T04:40:00Z",
+    "cutoff_date": "2026-05-25",
+    "site": "jazztrail.net",
+    "status": "blocked",
+    "reason": "SSL_ERROR_SYSCALL / ERR_CONNECTION_CLOSED during TLS handshake. DNS resolves to 28.0.0.81 (DODNIC range) — site likely hijacked or machine IP is blocked."
+  },
+  "items": []
+}

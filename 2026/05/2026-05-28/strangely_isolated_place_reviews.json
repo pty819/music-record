@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-27T20:07:33.778357+00:00",
+    "cutoff_date": "2026-05-24",
+    "status": "blocked",
+    "reason": "ERR_CONNECTION_CLOSED / SSL_ERROR_SYSCALL — site drops all connections from this network, likely Cloudflare firewall or ASN block"
+  },
+  "items": []
+}

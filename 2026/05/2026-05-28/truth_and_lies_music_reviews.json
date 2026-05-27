@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-27T20:10:49.659683+00:00",
+    "cutoff_date": "2026-05-24T20:10:49.659653+00:00",
+    "status": "blocked",
+    "reason": "CF/SSL block — TLS handshake fails (SSL_ERROR_SYSCALL) from this network. TCP connects but server closes during Client Hello. Likely ASN-level Cloudflare block (same as Boomkat, ASN 396982)."
+  },
+  "items": []
+}
