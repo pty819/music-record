@@ -29,7 +29,12 @@ except ImportError:
     sys.exit(1)
 
 # ── 配置 ────────────────────────────────────────────────
-API_KEY = os.environ.get("MINIMAX_CN_API_KEY", "")
+_API_KEY_PATH = "/home/liyifan/.config/music-recs/minimax_key"
+API_KEY = ""
+if os.path.exists(_API_KEY_PATH):
+    API_KEY = Path(_API_KEY_PATH).read_text(encoding="utf-8").strip()
+if not API_KEY:
+    API_KEY = os.environ.get("MINIMAX_CN_API_KEY", "")
 if not API_KEY:
     env_path = Path.home() / ".hermes" / ".env"
     if env_path.exists():
