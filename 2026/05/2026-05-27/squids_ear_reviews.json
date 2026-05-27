@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-27T04:19:00+08:00",
+    "cutoff_date": "2026-05-24",
+    "days_scanned": "3",
+    "notes": "Site squidco.com is fully behind Cloudflare managed JS challenge. Both curl (403) and Camoufox browser (stuck on 'Performing security verification') failed to bypass. Built-in Hermes browser also blocked. No RSS available as it's behind the same CF protection."
+  },
+  "items": []
+}

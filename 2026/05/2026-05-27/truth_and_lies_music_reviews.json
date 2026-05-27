@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-05-27T14:53:41+00:00",
+    "cutoff_date": "~3 days ago",
+    "source": "Truth & Lies Music",
+    "site_url": "https://www.truthandliesmusic.com/"
+  },
+  "items": [
+    {
+      "album": "BTTFL (LUCKY SUN REMIX)",
+      "artist": "Anna Ling",
+      "score": null,
+      "url": "https://www.truthandliesmusic.com/magazine/anna-ling-bttfl-lucky-sun-remix-self-releae-single-premiere",
+      "source": "Truth & Lies Music",
+      "pub_date": "2026-05-26",
+      "tags": ["folk", "folkloric", "alt-folk", "balearic", "Chilled", "choir"],
+      "excerpt": "If you've just enjoyed the kind of (rare) sun-baked weekend as I have - DJing, dancing and wallowing in the natural wonders of an English forest - then this gorgeous downtempo number is exactly what the soul and body requires. We are delighted to host this premiere for two artists who come from different scenes but whose musical impulses contain a shared feeling of communality.",
+      "body": "If you've just enjoyed the kind of (rare) sun-baked weekend as I have - DJing, dancing and wallowing in the natural wonders of an English forest - then this gorgeous downtempo number is exactly what the soul and body requires. We are delighted to host this premiere for two artists who come from different scenes but whose musical impulses contain a shared feeling of communality.\n\nBased in the beautiful Devon wilds, Anna Ling is a class act. One of the new generation of alt-folk singer-songwriters, she has built a reputation as a mesmeric performer, composer, choir leader and lyricist. Anna certainly has audible roots in English folk traditions but she moves easily outside of them. Her contemporary and daring songs play and explore ideas of mythmaking, love and more, her voice an exceptional instrument as warm and enthralling as a campfire.\n\n'Light', her sublime self-released debut album, arrived late last year and from it, Lucky Sun (aka Tom Lown) was asked to remix her 'Butterfly' track, his own live drums and synth embellishments revealing a chilled Balearic energy, a folk-infused downbeat groove shaped for the quiet, communal moments of a party. Acclaimed widely, he has returned to remix duties and has perhaps done an even better job on 'BTTFL' (Beauty To The Fading Light).\n\nReminiscent of the '90s backroom brilliance of artists such as Fila Brazillia or Kruder & Dorfmeister, Tom has straightened out the original song's 12/8 rhythm into a 4/4 'trip hop' groove and created an orchestral riff by looping Anna's ethereal choral harmonies. Instantly captivating, he then just lets the track breathe, lines from her full vocal appearing in dubbed out snippets, a violin is there then it's gone. So simple. So perfectly judged.",
+      "site_id": "truth_and_lies_music",
+      "crawl_status": "scraped",
+      "type": "feature"
+    }
+  ]
+}
