@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-05-29T00:50:15.284953+00:00",
+    "cutoff_date": "2026-05-26"
+  },
+  "items": [
+    {
+      "album": "Magnor",
+      "artist": "Kristoffer Oustad",
+      "score": null,
+      "url": "https://darkentries.be/recensies/kristoffer-oustad-magnor",
+      "source": "Dark Entries",
+      "pub_date": "2026-05-26",
+      "tags": "dark,experimental,gothic-industrial",
+      "excerpt": "Nieuws Recensies Interviews Concerten & Reportages In Memoriam Foto's English",
+      "body": "Nieuws Recensies Interviews Concerten & Reportages In Memoriam Foto's English",
+      "site_id": "dark_entries",
+      "crawl_status": "success",
+      "type": "review"
+    }
+  ]
+}
