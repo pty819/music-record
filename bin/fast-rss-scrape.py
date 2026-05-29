@@ -19,7 +19,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 SITES_JSON = Path.home() / ".minimax" / "music-sites" / "sites.json"
-DEFAULT_DAYS = 2
+DEFAULT_DAYS = 1.5
 
 TAG_MAP = {
     "the_wire": "experimental avant-garde sound art improvisation",
@@ -148,7 +148,7 @@ def scrape_site(site, cutoff_date):
 def main():
     parser = argparse.ArgumentParser(description="快速 RSS 抓取 — 统一 JSON 输出格式")
     parser.add_argument("-o", "--output", help="输出 JSON 文件路径（缺省输出到 stdout）")
-    parser.add_argument("--days", type=int, default=DEFAULT_DAYS,
+    parser.add_argument("--days", type=float, default=DEFAULT_DAYS,
                         help=f"抓取最近 N 天（缺省 {DEFAULT_DAYS}）")
     parser.add_argument("--date", help="指定基准日期 YYYY-MM-DD（缺省今天）")
     args = parser.parse_args()

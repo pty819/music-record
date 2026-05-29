@@ -106,7 +106,7 @@ RSS 已有数据 → 立即写 JSON → 结束。不要开浏览器对比数据"
 `kanban-swarm.py --confirm` 是唯一创建途径。手动循环 `kanban_create` 会 OOM。
 
 ### 6. 所有抓取源必须输出同一数据 Schema（硬约束，不可偏离）
-RSS（`fast-rss-scrape.py`）、HTML/curl（`scrape_*.py`）、Camoufox kanban worker 三者输出的 JSON 格式和字段**必须完全一致**。此约束在 `kanban-batch-scrape.py` 的 worker 输出模板层已强制实施。任何偏差均导致 pipeline 合并或评分异常。
+RSS（`fast-rss-scrape.py`）、HTML/curl（`scrape_*.py`）、Camoufox kanban worker 三者输出的 JSON 格式和字段**必须完全一致**。此约束在 `kanban-swarm.py` 的 worker 输出模板层已强制实施。任何偏差均导致 pipeline 合并或评分异常。
 
 **如果 worker 输出格式不符合此标准，即认为任务失败，必须重跑。** `merge_scraped.py` 不承担格式兼容职能——它只合并，不垫背。
 
@@ -228,7 +228,7 @@ SCRIPTS="scrape_songlines scrape_all_about_jazz scrape_resident_advisor \
          scrape_musique_machine scrape_sea_of_tranquility scrape_wild_city"
 
 for s in $SCRIPTS; do
-  timeout 120 python3 /home/liyifan/music-record/bin/${s}.py --days 3 \
+  timeout 120 python3 /home/liyifan/music-record/bin/${s}.py --days 1.5 \
     > "$DATE_DIR/${s#scrape_}_reviews.json" 2>/dev/null &
 done
 wait
@@ -346,9 +346,9 @@ Telegram 推送：读取 `recommend/{DATE}.md`，≤4000 字符发全文，否�
 当只需要 RSS 站的数据时，可以用此脚本替代整个 kanban pipeline。**零 LLM、零浏览器、<2 分钟跑完。**
 
 ```bash
-# 最近 2 天，输出到文件
+# 最近 36 小时，输出到文件
 python3 /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-scrape.py \
-  --days 2 -o /tmp/rss_merged.json
+  --days 1.5 -o /tmp/rss_merged.json
 ```
 # 输出包含 meta + reviews 数组，格式与 _reviews.json 完全兼容
 ```
@@ -399,7 +399,7 @@ exec(open('/home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-
 DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
 SCRIPTS="scrape_songlines scrape_all_about_jazz scrape_resident_advisor scrape_dark_entries scrape_free_jazz_blog scrape_jazz_trail scrape_squids_ear scrape_downbeat"
 for s in $SCRIPTS; do
-  timeout 120 python3 /home/liyifan/music-record/bin/${s}.py --days 3 > "$DATE_DIR/${s#scrape_}_reviews.json" 2>/dev/null &
+  timeout 120 python3 /home/liyifan/music-record/bin/${s}.py --days 1.5 > "$DATE_DIR/${s#scrape_}_reviews.json" 2>/dev/null &
 done
 wait
 ```
@@ -449,17 +449,17 @@ git push origin main 2>&1 || echo "⚠️ git push failed (TLS), manual retry la
 
 ## Scraper 模板关键指令
 
-以下约束已内置于 `kanban-batch-scrape.py` 的 scraper body 模板，对所有站点生效：
+以下约束已内置于 `kanban-swarm.py` 的 worker body 模板，对所有站点生效：
 
 | 规则 | 说明 |
 |------|------|
-| 时间范围 | 只抓 3 天内文章，超期停止翻页 |
+| 时间范围 | 只抓 36 小时内文章，超期停止翻页 |
 | RSS 优先 | 有 RSS 就走 feedparser，不走浏览器 |
 | Cookie 墙 | navigate 后检查并点击 Accept/Agree |
 | CDATA 全文 | RSS <description> 含全文时用 feedparser.summary 获取前 500 字 |
 | 非音乐过滤 | 跳过含 (BLU-RAY)、(UHD)、(VOD)、(DVD) 的条目 |
 | 特稿格式 | 非传统乐评 → type: feature，score: null |
-| 空结果 | 3 天内无文章 → 输出 []，不要报错或重试 |
+| 空结果 | 36 小时内无文章 → 输出 []，不要报错或重试 |
 | Paywall/CF | → status: paywalled 或 blocked，返回 [] |
 
 ---
@@ -653,10 +653,10 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | **Scraper gateway token 冲突** | `hermes gateway start scraper` 报 "token already in use" | default gateway (PID) 已运行相同 token；kanban dispatch 通过 default gateway 正常工作，跳过专用 scraper gateway |
 | Tasks stuck "ready"（不转 running） | `hermes kanban dispatch --dry-run` 显示 0 spawn | 启动 scraper gateway, 然后 `hermes kanban dispatch` |
 | **Camoufox 广泛无声退出（~23 站）** | task 状态 "running" 但 `ps aux` 无对应进程 | `hermes kanban complete <id>`。影响全部 ~23 个 Camoufox 站点，非个别站问题 |
-| **低活跃日大量空结果** | 周末/节假日后多数站输出 `[]` | 正常现象。Camoufox 站 3 天窗口内无新文章 -> 空结果非错误。继续推进即可 |
+| **低活跃日大量空结果** | 周末/节假日后多数站输出 `[]` | 正常现象。Camoufox 站 36 小时窗口内无新文章 -> 空结果非错误。继续推进即可 |
 | Songlines 挂起（Camoufox tab 过期） | `ps aux | grep songlines` 运行 >5 分钟无输出 | `hermes kanban complete <task_id>`（JSON 通常已存在） |
 | Boomkat 无限重试 | 多次 retry 后仍然挂起 | `kill -9 <PID>` -> retry 通常更快通过 |
-| Point of Departure 无声退出 | worker 进程消失，task 留 running | `hermes kanban complete <task_id>`（小站，3 天内很空） |
+| Point of Departure 无声退出 | worker 进程消失，task 留 running | `hermes kanban complete <task_id>`（小站，36 小时内很空） |
 | **aggregator 未创建** | `--confirm` 后无 `aggregate:` 任务 | 已自动创建。如确实缺失，手动：`hermes kanban create "aggregate: \`date +%Y-%m-%d\` post-processing" --parent <scraper_ids> --assignee scraper --workspace "dir:/home/liyifan/music-record/..." --skill kanban-worker --body "..."` |
 | **MiniMax rate limit** | `process_reviews.py` 5 并发触发 MiniMax Token Plan 429 错误 | 降并发到 3：`--max-workers 3`；如仍 429 降到 2：`--max-workers 2` |
 | **数据目录混入 *.py 调试脚本** | `git status` 显示 `.py` 文件被追踪（一次可多达 60+ 个） | aggregator body 已包含自动清理；如手动执行，先 `rm -f 2026/{MM}/{DATE}/*.py` |
@@ -665,7 +665,7 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | **Scraper body 缺 rss_url** | kanban worker 无法直接知道 RSS 地址，需自行发现 | 改 `kanban-batch-scrape.py:147` body 模板，加 `rss_url={site.get('rss_url','')}` |
 | **RSS 快速巡检** | 不想等 kanban，只要 RSS 站数据 | 用 `scripts/fast-rss-scrape.py`，<2 分钟出 27 站合并结果 |
 | **feedparser 挂起（ProgArchives/The Wire/Rest Is Noise）** | Step 2 `feedparser.parse()` 无限等待，阻塞全脚本 | 运行前设 `socket.setdefaulttimeout(15)`，用 exec() 包装脚本（见 Step 2 示例） |
-| **Scraper 脚本不支持 `-o` 参数** | 所有 12 个 scrape_*.py 只输出 stdout，不能写文件 | 重定向 stdout：`python3 bin/scrape_xxx.py --days 3 > output.json` |
+| **Scraper 脚本不支持 `-o` 参数** | 所有 12 个 scrape_*.py 只输出 stdout，不能写文件 | 重定向 stdout：`python3 bin/scrape_xxx.py --days 1.5 > output.json` |
 | **MiniMax 批处理耗时（旧流程）** | 旧 `aggregate_reviews.py` 串行跑 MiniMax，42 条 ~13 分钟 | **已解决**：`process_reviews.py` 线程池 5 并发，42 条 ≈ 15-20 秒 |
 | **Worker 输出格式不一致** | `kanban-batch-scrape.py` 模板曾输出裸 JSON 数组（缺 `body`、无 `{meta,items}` 包装），与 RSS/HTML 标准不符 | **✅ 已修复**：模板已改为 `{meta, items}` + 含 `body` 字段。下次 Camoufox 抓取起效。参见约束 #6 |
 | **Aggregator 不读 rss_merged.json（旧流程）** | 旧 `aggregate_reviews.py` 不读 rss_merged.json，只 glob `*_reviews.json` | **旧流程遗留** — 新流程用 `merge_scraped.py` 合并后再处理，不依赖个别文件名 |

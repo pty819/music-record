@@ -81,7 +81,7 @@ def build_scraper_body(site, date_dir):
 
 🔒 约束
 ━━━━━━━━━━━━━━━━
-- 时间范围：只抓 3 天内文章，超期停止
+- 时间范围：只抓 36 小时内文章，超期停止
 - RSS 优先：有 RSS 就走 feedparser，不开浏览器
 - Cookie 墙：navigate 后点击 Accept/Agree
 - 非音乐过滤：跳过 (BLU-RAY)/(UHD)/(VOD)/(DVD)
@@ -98,20 +98,20 @@ def build_scraper_body(site, date_dir):
 
 ✅ 步骤
 ━━━━━━━━━━━━━━━━
-1. 检查 RSS → curl + feedparser，过滤 3 天条目
+1. 检查 RSS → curl + feedparser，过滤 36 小时内条目
    - CDATA 全文用 summary 字段获取，strip HTML 取前 500 字
    - curl 超时（SSL 握手失败）→ 走 Camoufox 浏览器
 2. 无 RSS → Camoufox 浏览器访问列表页，只翻前 2 页
 3. Cookie 墙 → 检查并点击 Accept/Agree，等 1 秒
 4. 提取：album, artist, score, url, source, pub_date, excerpt, type
-5. 超 3 天停止翻页
+5. 超 36 小时停止翻页
 6. 非音乐过滤：跳过含 (BLU-RAY)/(UHD)/(VOD)/(DVD) 条目
 7. kanban_complete
 
 📦 输出格式
 ━━━━━━━━━━━━━━━━
 写入 {out_file}，JSON 格式：
-{{"meta": {{"total": N, "scraped_at": "...", "cutoff_date": "~3天前"}},
+{{"meta": {{"total": N, "scraped_at": "...", "cutoff_date": "~36h前"}},
   "items": [
     {{ "album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "body", "site_id", "crawl_status", "type" }}
   ]
@@ -119,7 +119,7 @@ def build_scraper_body(site, date_dir):
 type: "review" | "feature" | "tracklist"
 ❗ 必须包含 body 字段（全文正文，不截断）
 ❗ 必须使用 {{meta, items}} 外包装，不是裸数组
-kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}", "count": N, "days_scanned": "3"}})"""
+kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}", "count": N, "hours_scanned": "36"}})"""
 
 
 VERIFIER_BODY = """🔒 约束

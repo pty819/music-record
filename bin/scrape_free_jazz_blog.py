@@ -17,7 +17,7 @@ BASE_URL = "https://www.freejazzblog.org"
 def parse_args():
     import argparse
     p = argparse.ArgumentParser(description="Scrape Free Jazz Blog posts")
-    p.add_argument("--days", type=int, default=2, help="Days back from reference date")
+    p.add_argument("--days", type=float, default=1.5, help="Days back from reference date")
     p.add_argument("--date", help="Reference date YYYY-MM-DD (default: today)")
     return p.parse_args()
 

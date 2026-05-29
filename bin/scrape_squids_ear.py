@@ -255,8 +255,8 @@ def main():
     )
     parser.add_argument(
         "--days",
-        type=int,
-        default=2,
+        type=float,
+        default=1.5,
         help="Number of days back to include (default: 2)",
     )
     parser.add_argument(

@@ -269,7 +269,7 @@ def main():
         help="Max reviews to scrape (default: 100, max from index page)"
     )
     parser.add_argument(
-        "--days", type=int, default=2,
+        "--days", type=float, default=1.5,
         help="Max age in days for articles (default: 2)"
     )
     parser.add_argument(
