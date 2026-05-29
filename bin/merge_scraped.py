@@ -97,8 +97,8 @@ def merge_dir(date_dir, dedup=True):
             print(f"  🔄 dedup removed {dups} duplicates (kept RSS version)", file=sys.stderr)
         all_items = deduped
 
-    # Sort by pub_date descending (newest first)
-    all_items.sort(key=lambda r: r.get("pub_date", ""), reverse=True)
+    # Sort by pub_date descending (newest first), handling None
+    all_items.sort(key=lambda r: r.get("pub_date") or "", reverse=True)
 
     return all_items, source_counts
 
