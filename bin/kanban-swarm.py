@@ -30,7 +30,6 @@ OUTPUT_DIR = "/home/liyifan/music-record/2026"
 TODAY = date.today()
 DATE = TODAY.strftime("%Y-%m-%d")
 MONTH = TODAY.strftime("%m")
-BOARD = "music"
 
 # ── Hermes API 导入 ─────────────────────────────────────
 _HERMES_HOME = os.path.expanduser("~/.hermes/hermes-agent")
@@ -410,12 +409,13 @@ def main():
     workspace = f"{date_dir}"
 
     print(f"🏗  Creating swarm via Hermes API: {len(workers)} workers")
-    print(f"   Board: {BOARD}")
     print(f"   Workspace: dir:{workspace}")
     print(f"   Idempotency: {idempotency_key}")
 
     # ── Use Hermes kanban_db connection manager (same WAL as CLI) ──
-    with kb.connect_closing(board=BOARD) as conn:
+    # NOTE: do NOT pass board= — this version of Hermes uses multiple kanban.db files
+    # for boards and the dispatcher only watches the default board.
+    with kb.connect_closing() as conn:
         result = create_swarm_graph(
             conn,
             goal=goal,
