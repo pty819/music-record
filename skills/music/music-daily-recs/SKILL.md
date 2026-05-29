@@ -1,13 +1,13 @@
 ---
 name: music-daily-recs
-description: 每日巡检 48 个音乐评论站，kanban fan-out 并行抓取，聚合评分后推送 GitHub + Telegram
+description: 每日巡检 48 个音乐评论站，kanban swarm 并行抓取，verifier+synthesizer 评分推送 GitHub + Telegram
 category: music
 cron_job: ec5ea562d589（每天 04:00 北京时间自动运行）
 author: hermes-agent
-version: 5.1
+version: 6.0
 license: MIT
 created: 2026-05-07
-updated: 2026-05-27
+updated: 2026-05-29
 trigger_condition: cron 每天 04:00 触发，或手动 `hermes cronjob run 6fd93b4a4c4c`
 metadata:
   hermes:
@@ -15,7 +15,7 @@ metadata:
     related_skills: [kanban-worker, hermes-agent-skill-authoring]
 ---
 
-## 架构
+## 架构 — Kanban Swarm v1
 
 ```
 cron 触发（04:00）
@@ -24,41 +24,61 @@ Step 0  预检：Auth + DB 健康
 Step 1  同步：git pull → cp skill + script + sites.json
   ↓
 Step 2  RSS 批量抓取 (fast-rss-scrape.py)
-        ↓ JSON 已输出到数据目录，无需 kanban
+        ↓ JSON 已输出到数据目录
         ↓
 Step 3  HTML/curl 抓取 (12 个 scrape_*.py 并行)
         ↓ 各站独立 *_reviews.json
         ↓
 Step 4  **合并 RSS + HTML → scraped_raw.json** (merge_scraped.py)
-        ↓ 统一文件，URL 去重
         ↓
-Step 5  创建 Camoufox 抓取任务 + **parent-gated aggregator**
-        (kanban-batch-scrape.py --confirm)
-         ↓ 21 个独立 scraper + 1 个 aggregator（parent=所有 scraper）
+Step 5  创建 Kanban Swarm（一行 CLI 创建完整 DAG）
+        (python3 bin/kanban-swarm.py --confirm)
          ↓
-┌─ kanban 调度器接手（cron session 可以安全退出）─────┐
+┌─ kanban 调度器接手（cron session 可安全退出）─────┐
 │                                                      │
-│  21 个 scraper 并行（max_workers=3）                 │
-│  ↓ 全部 done 后 parent-gate 解锁                     │
-│                                                      │
-│  aggregator（kanban worker，自动触发）               │
-│  Step 6  **合并 Camoufox → scraped_raw.json**       │
-│          (merge_scraped.py)                          │
-│  Step 7  **并发评分 + 中文总结** (process_reviews.py)│
-│  Step 8  **生成推荐 markdown** (generate_report.py)  │
-│  Step 9  **清理 .py + Git push**                     │
-│                                                      │
+│  Root（done, 共享 blackboard）                       │
+│    ├─ worker 1: scrape: boomkat  (ready)             │
+│    ├─ worker 2: scrape: tinymixtapes (ready)         │
+│    ├─ ... 共 21 个独立 scraper                       │
+│    └─ verifier (todo, parent=所有 worker)            │
+│         │  merge_scraped.py + quality check          │
+│         │  gate pass → synthesizer 解锁              │
+│         └─ synthesizer (todo)                        │
+│              process_reviews.py → generate_report.py │
+│              → git push → Telegram → archive         │
 └──────────────────────────────────────────────────────┘
 ```
 
-## 新架构核心变化
+## Swarm 映射表
 
-| 旧方式 | 新方式 |
+| Swarm 角色 | 我们的 pipeline | 工作内容 |
+|-----------|---------------|---------|
+| **Workers** (21) | Camoufox 抓取 | 各站浏览器抓取，写入独立 `{site}_reviews.json` |
+| **Verifier** (1) | 合并+质量检查 | `merge_scraped.py` → 验证数据完整性 → 放行/阻拦 |
+| **Synthesizer** (1) | 评分+报告+推送 | `process_reviews.py` → `generate_report.py` → git push → Telegram → 归档 |
+
+### 为什么 synthesizer 不是简单的"总结"
+
+用户担心 synthesizer 和我们调 final summary 不太一样——确实。我们的 synthesizer **不只是** LLM 总结，而是**完整的生产线**：
+
+1. **并发评分 + 中文总结**（process_reviews.py 线程池调用 MiniMax M2.7）
+2. **生成推荐 markdown**（generate_report.py，零 API 调用）
+3. **Git push 到 GitHub**
+4. **Telegram 推送**
+5. **归档 scraper 任务**
+
+Verifier 负责**数据整合和把关**（merge + check），Synthesizer 负责**从评分到推送的全流程**。这个分工比旧的 aggregator（一个任务做所有事）更清晰、更可监控。
+
+## 相比旧模式（parent-gated aggregator）的核心变化
+
+| 旧方式 (v5.x) | 新方式 (v6.0) |
 |--------|--------|
-| cron agent 轮询等 21 个 Camoufox 完成 | cron 创建任务后立即退出 |
-| cron 超时，Step 7-10 无人执行 | aggregator kanban task 自动接手后四步 |
-| 靠 sleep 60 循环轮询 | 靠 kanban parent-gate 精确触发 |
-| cron 卡半小时，可能超时死 | cron 几秒完成，无需等待 |
+| `kanban-batch-scrape.py` 创建 21+1 个独立任务 | `kanban-swarm.py` 一行 `hermes kanban swarm` 创建完整 DAG |
+| aggregator body 硬编码 4 步指令 | verifier + synthesizer 分工明确 |
+| aggregator 手工 create 要传 parent ID 列表 | swarm 自动创建 root→workers→verifier→synthesizer 关系 |
+| 无 idempotency 机制 | 内置 `--idempotency-key` 防重复创建 |
+| 无 root card | 有 root card（done 态，作为共享 blackboard） |
+| cron 几秒完成，无需等待 | 同样：cron 创建后立即退出 |
 
 ## 何时执行
 
@@ -83,7 +103,7 @@ RSS 已有数据 → 立即写 JSON → 结束。不要开浏览器对比数据"
 不用 `expanduser("~")`、不用 `~/` 相对路径。统一用 `/home/liyifan/...`。
 
 ### 5. 禁止手动创建 kanban task
-`kanban-batch-scrape.py --confirm` 是唯一创建途径。手动循环 `kanban_create` 会 OOM。
+`kanban-swarm.py --confirm` 是唯一创建途径。手动循环 `kanban_create` 会 OOM。
 
 ### 6. 所有抓取源必须输出同一数据 Schema（硬约束，不可偏离）
 RSS（`fast-rss-scrape.py`）、HTML/curl（`scrape_*.py`）、Camoufox kanban worker 三者输出的 JSON 格式和字段**必须完全一致**。此约束在 `kanban-batch-scrape.py` 的 worker 输出模板层已强制实施。任何偏差均导致 pipeline 合并或评分异常。
@@ -142,8 +162,8 @@ mkdir -p /home/liyifan/.hermes/skills/music/music-daily-recs
 cp /home/liyifan/music-record/skills/music/music-daily-recs/SKILL.md \
    /home/liyifan/.hermes/skills/music/music-daily-recs/
 
-# 同步 kanban-batch-scrape.py（git 源 → ~/.local/bin/ 执行用）
-cp /home/liyifan/music-record/bin/kanban-batch-scrape.py \
+# 同步 kanban-swarm.py（git 源 → ~/.local/bin/ 执行用）
+cp /home/liyifan/music-record/bin/kanban-swarm.py \
    /home/liyifan/.local/bin/
 
 # ⚠️ fast-rss-scrape.py 必须同步到 skill + ~/.local/bin/，否则 cron 使用 stale 副本产生旧格式输出
@@ -237,20 +257,36 @@ python3 /home/liyifan/.local/bin/merge_scraped.py \
 ✅ 输出：`scraped_raw.json` — `{meta: {total, merged_from, scraped_at}, items: [...]}`
 此处 `merged_from` 记录各源文件及条数，用于审计。
 
-### Step 5 — 创建 Camoufox 抓取任务 + aggregator
+### Step 5 — 创建 Kanban Swarm（替代旧的 aggregator 模式）
 
 ```bash
 # 先用 dry run 预览（应显示 ~21 个 Camoufox 站，RSS 站已被过滤）
-python3 /home/liyifan/.local/bin/kanban-batch-scrape.py
+python3 /home/liyifan/music-record/bin/kanban-swarm.py
 
 # 确认无误后创建
-python3 /home/liyifan/.local/bin/kanban-batch-scrape.py --confirm
+python3 /home/liyifan/music-record/bin/kanban-swarm.py --confirm
 ```
 
-⚠️ `kanban-batch-scrape.py` 已自动过滤 `has_rss=true` 的站，只创建无 RSS 的 Camoufox 站任务。
-同时会自动创建一个 **aggregator task**，其 `--parent` 绑定所有 scraper task ID。
+⚠️ `kanban-swarm.py` 自动过滤 `has_rss=true` 的站，只创建无 RSS 的 Camoufox 站任务。
+使用 `--idempotency-key`（基于当天日期）防止一天内多次运行时重复创建任务。
 
-**至此 cron session 的工作结束。** kanban 调度器接手后续：scraper 完成后 aggregator 自动解锁执行。
+Swarm 创建完整 DAG：
+```
+Root (done)
+  ├─ 21 workers (ready) — Camoufox 各站抓取
+  ├─ Verifier (todo, parent=所有 worker)
+  │    merge_scraped.py + 质量检查 → gate pass/block
+  └─ Synthesizer (todo, parent=verifier)
+       process_reviews.py → generate_report.py → git push → Telegram → archive
+```
+
+**至此 cron session 的工作结束。** kanban 调度器接手后续：worker 全部 done → verifier 自动解锁 → 通过后 synthesizer 自动解锁。
+
+### 从旧模式迁移
+
+如果旧 kanban-batch-scrape.py 创建的 aggregator 仍在运行中，它将在本轮完成任务后自然结束。从下一轮 cron 起，`kanban-swarm.py` 会自动接管。不需要手动清理旧任务——swarm 的 idempotency 机制保证一天只创建一次 DAG。
+
+旧文件 `kanban-batch-scrape.py` 保留在 repo 中供参考，但不建议再使用。
 
 ### 监控（可选 — 查进度不阻塞）
 
@@ -260,8 +296,9 @@ python3 /home/liyifan/.local/bin/kanban-batch-scrape.py --confirm
 # 静态检查各状态的任务数量
 hermes kanban list | grep "scrape:" | awk '{print $2}' | sort | uniq -c | sort -rn
 
-# 查看 aggregator 状态（◻ todo = 还在等 scraper 完成）
-hermes kanban list | grep "aggregate:"
+# 查看 verifier + synthesizer 状态
+hermes kanban show <verifier_id> | grep "status\|parent"
+hermes kanban show <synthesizer_id> | grep "status\|parent"
 ```
 
 ### 进度停滞恢复
@@ -277,18 +314,18 @@ hermes kanban list | grep "aggregate:"
    done
    ```
 
-### 后四步（Step 6-9）— 由 aggregator kanban worker 自动执行
+### 后两步（Verifier → Synthesizer）— 由 swarm 调度器自动触发
 
-以上步骤创建完成后，cron session 即可安全退出。后续 **四步操作由 aggregator kanban worker 自动完成**，无需人工介入：
+以上步骤创建完成后，cron session 即可安全退出。后续 **由 kanban swarm 自动触发**，无需人工介入：
 
-| 步骤 | 操作 | 脚本 |
-|------|------|------|
-| Step 6 | 合并所有数据 → `scraped_raw.json` | `merge_scraped.py` |
-| Step 7 | 并发评分 + 中文总结 → `processed.json` | `process_reviews.py` |
-| Step 8 | 生成推荐 markdown → `recommend/{DATE}.md` | `generate_report.py` |
-| Step 9 | 清理 .py 文件 + git push | git commands |
+| 阶段 | 角色 | 操作 | 脚本 |
+|------|------|------|------|
+| 1 | **Verifier** | 合并所有数据 → `scraped_raw.json` + 质量检查 | `merge_scraped.py` |
+| 2 | **Synthesizer** | 并发评分 → 报告 → git push → Telegram → 归档 | `process_reviews.py` → `generate_report.py` → git |
 
-aggregator 的 task body 包含这些步骤的完整指令，kanban worker 读到后按序执行。详见 `kanban-batch-scrape.py` 中 aggregator body 模板。
+Verifier 和 Synthesizer 的 task body 包含了完整指令。详见 `bin/kanban-swarm.py` 中的 `VERIFIER_BODY` 和 `SYNTHESIZER_BODY` 常量。
+
+**关键区别**：与旧 aggregator（一个任务包办 4 步）不同，verifier 只做合并+质量检查并决定 gate pass/block。只有 verifier 放行后，synthesizer 才开始评分+推送全流程。这确保了"数据有问题就不浪费 LLM token"。
 
 ### 结果确认
 
@@ -591,7 +628,7 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | 评分+总结脚本 | `/home/liyifan/music-record/bin/process_reviews.py` |
 | 报告生成脚本 | `/home/liyifan/music-record/bin/generate_report.py` |
 | 站点配置 | `/home/liyifan/.minimax/music-sites/sites.json` |
-| batch 脚本 | `/home/liyifan/music-record/bin/kanban-batch-scrape.py` |
+| swarm 脚本 | `/home/liyifan/music-record/bin/kanban-swarm.py` |
 | skill 本文 | `/home/liyifan/.hermes/skills/music/music-daily-recs/SKILL.md` |
 | Camoufox 服务器 | `/home/liyifan/camofox-browser/camoufox_server.py` |
 | GitHub repo | `https://github.com/pty819/music-record` |
@@ -604,10 +641,11 @@ LLM 不一定返回干净 JSON，使用三层解析：
 
 | 症状 | 检查 | 处理 |
 |------|------|------|
-| Git push 失败 | `cd ~/music-record && git pull origin main` 解冲突 | resolve → push |
+| **Verifier 卡 todo** | `hermes kanban show <verifier_id>` — 检查 parent 是否有未完成的 scraper | 正常行为：verifier 等所有 worker done 才触发。如果所有 worker 都已 done 但仍 todo，手动 `hermes kanban dispatch` |
+| **Synthesizer 卡 todo** | `hermes kanban show <synthesizer_id>` — 检查 verifier 是否已完成且 gate=pass | 如果 verifier 已完成但 metadata.gate ≠ pass，synthesizer 不会解锁。检查 verifier 输出日志 |
+| **Verifier gate 未通过** | verifier 状态 done 但 synthesizer 仍 todo | `hermes kanban show <verifier_id>` 查看 metadata 是否含 `gate: pass`。如果 gate=block，手动重跑 merge_scraped.py 后 `hermes kanban edit <verifier_id> --add-metadata '{"gate":"pass"}'` 放行 |
 | Telegram 推送超时 | cron 状态为 ok 但 delivery failed | 手动 `send_message` 或 GitHub 查收 |
-| **Aggregator 卡 todo** | `hermes kanban show <task_id> | grep parent` — 查看是否有未完成的 parent scraper | 正常行为：aggregator 等所有 parent scraper done 才触发。如所有 scraper 已完成但仍 todo，手动 `hermes kanban dispatch` 触发调度 |
-| Cron 漏触发 | `last reboot` + `journalctl --user -u hermes-gateway` | `hermes cronjob run 6fd93b4a4c4c` |
+| Cron 漏触发 | `last reboot` + `journalctl --user -u hermes-gateway` | `hermes cronjob run ec5ea562d589` |
 | DB 损坏 | `PRAGMA integrity_check` | 用源 schema 重建空 kanban.db |
 | Scraper 全 fail | 查 scraper profile auth.json 是否只有 minimax-cn | 删除 minimax 国际版条目 |
 | Scraper 空结果 | 查该站 JSON 是 `[]` 还是 `{excerpt:""}` | 按 references/site-investigation-methodology.md 排查 |
@@ -634,3 +672,4 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | **Aggregator 不兼容 dict 格式（旧流程）** | 旧 `aggregate_reviews.py` 只认 `isinstance(data, list)` | **旧流程遗留** — `merge_scraped.py` 统一处理 dict/array 两种格式 |
 | RSS items 缺 _site 字段（旧流程） | 旧 aggregate_reviews.py 评分用 r.get("_site")，RSS 条目只有 site_id | **旧流程遗留** — 新 process_reviews.py 不依赖 _site 字段，LLM 直接按内容评分 |
 | **Cron session 0 条消息** | cron 启动后 agent 未输出任何内容。可能 cron prompt 与 skill 步骤不一致、gateway 异常、或 prompt 中的路径/命令错误 | `hermes cronjob run <id>` 手动触发；检查 cron prompt 是否仍引用旧 skill 步骤 |
+| **Cron 只跑了 Step 2-4，没到 Step 5** | RSS 和 HTML 数据有产出，但 kanban board 上无 scrape: 任务。cron session 正常退出但 pipeline 中断 | 手动走快速替代方案 B 补完：合并 → 评分 → 报告 → git push。根源可能为 cron agent 在 Step 2-4 耗时过长后已超限，未执行到 `kanban-swarm.py --confirm` |
