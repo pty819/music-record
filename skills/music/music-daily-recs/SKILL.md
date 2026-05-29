@@ -669,7 +669,7 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | **MiniMax 批处理耗时（旧流程）** | 旧 `aggregate_reviews.py` 串行跑 MiniMax，42 条 ~13 分钟 | **已解决**：`process_reviews.py` 线程池 5 并发，42 条 ≈ 15-20 秒 |
 | **Worker 输出格式不一致** | `kanban-batch-scrape.py` 模板曾输出裸 JSON 数组（缺 `body`、无 `{meta,items}` 包装），与 RSS/HTML 标准不符 | **✅ 已修复**：模板已改为 `{meta, items}` + 含 `body` 字段。下次 Camoufox 抓取起效。参见约束 #6 |
 | **Aggregator 不读 rss_merged.json（旧流程）** | 旧 `aggregate_reviews.py` 不读 rss_merged.json，只 glob `*_reviews.json` | **旧流程遗留** — 新流程用 `merge_scraped.py` 合并后再处理，不依赖个别文件名 |
-| **Aggregator 不兼容 dict 格式（旧流程）** | 旧 `aggregate_reviews.py` 只认 `isinstance(data, list)` | **旧流程遗留** — `merge_scraped.py` 统一处理 dict/array 两种格式 |
+| **Scraper 输出 pub_date 为 null** | v6.0 merge_scraped.py 排序时 `None < str` 崩溃 | 已修复：`r.get("pub_date") or ""`。AAJ 爬虫全部 5 条 pub_date=None 并含 404 页面——AAJ 爬虫需要单独修复 |
 | RSS items 缺 _site 字段（旧流程） | 旧 aggregate_reviews.py 评分用 r.get("_site")，RSS 条目只有 site_id | **旧流程遗留** — 新 process_reviews.py 不依赖 _site 字段，LLM 直接按内容评分 |
 | **Cron session 0 条消息** | cron 启动后 agent 未输出任何内容。可能 cron prompt 与 skill 步骤不一致、gateway 异常、或 prompt 中的路径/命令错误 | `hermes cronjob run <id>` 手动触发；检查 cron prompt 是否仍引用旧 skill 步骤 |
 | **Cron 只跑了 Step 2-4，没到 Step 5** | RSS 和 HTML 数据有产出，但 kanban board 上无 scrape: 任务。cron session 正常退出但 pipeline 中断 | 手动走快速替代方案 B 补完：合并 → 评分 → 报告 → git push。根源可能为 cron agent 在 Step 2-4 耗时过长后已超限，未执行到 `kanban-swarm.py --confirm` |
