@@ -1550,7 +1550,7 @@
         "ambient",
         "experimental"
       ],
-      "notes": "亚洲电子",
+      "notes": "亚洲电子 [走 scrape_mixmag_asia.py HTML 抓取，不走 Camoufox]",
       "startUrls": [
         "https://mixmag.asia/"
       ],
@@ -1585,7 +1585,8 @@
         "asian"
       ],
       "automationStatus": "fallback_only",
-      "crawl_strategy": "playwright_headless"
+      "crawl_strategy": "http_get",
+      "skipped": true
     },
     {
       "id": "syrphe",
