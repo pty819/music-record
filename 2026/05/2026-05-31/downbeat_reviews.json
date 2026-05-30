@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-31T04:06:00+08:00",
+    "cutoff_date": "~36h before scraped_at",
+    "note": "DownBeat reviews section only publishes monthly print magazine reviews (month/year dates). No reviews found within 36-hour window."
+  },
+  "items": []
+}

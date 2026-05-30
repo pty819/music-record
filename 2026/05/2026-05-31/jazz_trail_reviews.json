@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-30T20:21:10.057626+00:00",
+    "cutoff_date": "~36h前",
+    "site": "jazztrail.net",
+    "source": "RSS feed (https://jazztrail.net/blog?format=rss)",
+    "note": "RSS returned 20 entries, all older than 36h cutoff (newest: 2026-05-28 04:30 UTC)"
+  },
+  "items": []
+}

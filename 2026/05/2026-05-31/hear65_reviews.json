@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-31T00:00:00+08:00",
+    "cutoff_date": "~36h window ended May 30 16:00 UTC",
+    "site": "hear65",
+    "source": "rss",
+    "items_in_feed": 10,
+    "items_within_36h": 0
+  },
+  "items": []
+}

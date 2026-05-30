@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "total": 3,
+    "scraped_at": "2026-05-30T20:15:22.197894+00:00",
+    "cutoff_date": "~36h ago"
+  },
+  "items": [
+    {
+      "album": "Rafael “Pollo” Brito Leads Tribute to El Salvador on “Una Nueva Vida”",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/rafael-pollo-brito-leads-tribute-to-el-salvador-on-una-nueva-vida/",
+      "source": "World Music Central",
+      "pub_date": "2026-05-30T09:24:17+00:00",
+      "tags": [
+        "Music videos",
+        "Rafael “Pollo” Brito",
+        "Salvadoran music",
+        "world music"
+      ],
+      "excerpt": "Rafael “Pollo” Brito has released the music video for “Una Nueva Vida,” a tropical-inspired single issued worldwide by LatinWMG. The track forms part of Renacimiento:…",
+      "body": "Rafael “Pollo” Brito has released the music video for “ Una Nueva Vida ,” a tropical-inspired single issued worldwide by LatinWMG. The track forms part of Renacimiento: Música de El Salvador Reimaginada Vol. 1 , a project produced and directed by Salvadoran producer Samuel Quirós. The release follows earlier singles from the album, including “Reencuentro,” performed by Aymée Nuviola. In addition, the album features contributions from an international cast of artists, including Sandra Carrasco, E",
+      "site_id": "worldmusiccentral",
+      "crawl_status": "success",
+      "type": "feature"
+    },
+    {
+      "album": "Mànran Unveil New Studio Album To the Wind",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/manran-unveil-new-studio-album-to-the-wind/",
+      "source": "World Music Central",
+      "pub_date": "2026-05-30T08:51:00+00:00",
+      "tags": [
+        "New CDs and digital releases",
+        "Celtic music",
+        "folk-pop",
+        "Mànran",
+        "Scottish music",
+        "world music"
+      ],
+      "excerpt": "Scottish folk act Mànran have released To the Wind, their first studio album in four years. The record follows the singles Annie, Standing Still, and…",
+      "body": "Scottish folk act Mànran have released To the Wind , their first studio album in four years. The record follows the singles Annie, Standing Still, and Something That I Said, each of which received airplay on BBC Radio 2. Written and recorded in multiple locations while touring, the album reflects a broad stylistic range, including pop leaning songs, while maintaining the band’s established Scottish identity.",
+      "site_id": "worldmusiccentral",
+      "crawl_status": "success",
+      "type": "feature"
+    },
+    {
+      "album": "The Jembe: West Africa’s Famed Goblet Drum",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/the-jembe-west-africas-famed-goblet-drum/",
+      "source": "World Music Central",
+      "pub_date": "2026-05-29T11:54:08+00:00",
+      "tags": [
+        "Articles",
+        "Adama Dramé",
+        "Amazones: The Women Master Drummers of Guinea",
+        "Babara Bangoura",
+        "Badenya Les Frères Coulibaly",
+        "Ballet Djoliba",
+        "Ballet National du Burkina",
+        "Ballet National du Mali",
+        "Bolokada Conde",
+        "Burkinan music",
+        "Désiré Ouattara",
+        "djembe",
+        "Djiguiya",
+        "drumming",
+        "Ensemble Instrumental National du Mali",
+        "Famoudou Konaté",
+        "Farafina",
+        "Fodéba Keïta",
+        "Guinean music",
+        "jembe",
+        "Les Ballets Africains",
+        "Les Percussions de Guinée",
+        "Malian music",
+        "Mamady Keïta",
+        "Mohamed Bangoura",
+        "Moussa Traore",
+        "Nansady Keita",
+        "Nimbaya",
+        "Papa Ladji Camara",
+        "Salimata Diabaté",
+        "Seydou Dao",
+        "Soungalo Coulibaly",
+        "West African music",
+        "world fusion",
+        "world music"
+      ],
+      "excerpt": "(headline image: Badenya les Freres Coulibaly – Photo by Atelier images) The jembe is a rope-tuned, skin-headed goblet drum associated above all with Mandé cultural…",
+      "body": "(headline image: Badenya les Freres Coulibaly – Photo by Atelier images) The jembe is a rope-tuned, skin-headed goblet drum associated above all with Mandé cultural worlds in Mali, Guinea, Burkina Faso, Ivory Coast, Senegal, and Gambia. The instrument’s history is partly oral. Many accounts associate it with ancient Mandinka/Maninka blacksmith caste, or numu. Its distribution is often linked to the historical Mali Empire, founded in the thirteenth century, though firm dating remains difficult. A",
+      "site_id": "worldmusiccentral",
+      "crawl_status": "success",
+      "type": "feature"
+    }
+  ]
+}
