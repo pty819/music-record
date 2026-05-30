@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-05-30T04:44:00+00:00",
+    "cutoff_date": "~36h ago",
+    "site": "squidco.com",
+    "status": "blocked",
+    "reason": "Cloudflare challenge blocks headless browser access; all available reviews (newest: May 28, ~45h old) outside 36h window"
+  },
+  "items": []
+}

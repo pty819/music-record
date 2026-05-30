@@ -1,0 +1,329 @@
+{
+  "meta": {
+    "total": 20,
+    "scraped_at": "2026-05-29T20:41:17.081634+00:00",
+    "cutoff_date": "~36h ago"
+  },
+  "items": [
+    {
+      "album": "Ironclad and Palm Trees",
+      "artist": "Andervel",
+      "score": 6,
+      "url": "https://www.songlines.co.uk/review/ironclad-and-palm-trees",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Andervel"
+      ],
+      "excerpt": "Sometimes you hear a record that feels like it is inviting you into its world. Ironclad and Palm Trees, the...",
+      "body": "",
+      "site_id": "songlines_ironclad-and-palm-trees",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Ascending",
+      "artist": "Stevens & Pound with Robert Macfarlane",
+      "score": 7,
+      "url": "https://www.songlines.co.uk/review/ascending-0",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Idiom Records"
+      ],
+      "excerpt": "Good luck pigeonholing this debut from classically trained percussionist Delia Stevens and harmonica and melodeon player Will Pound. It draws...",
+      "body": "",
+      "site_id": "songlines_ascending-0",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Flame Folclòre",
+      "artist": "Cocanha",
+      "score": 9,
+      "url": "https://www.songlines.co.uk/review/flame-folclore",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Les Disques Bongo Joe"
+      ],
+      "excerpt": "Cocanha have done it again. Following their recent team-up with Los Sara Fontán and Tarta Relena on 4132314, the Occitan...",
+      "body": "",
+      "site_id": "songlines_flame-folclore",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Chamber Music",
+      "artist": "Conor Moore",
+      "score": 7,
+      "url": "https://www.songlines.co.uk/review/chamber-music-0",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Hollow Gesture Records"
+      ],
+      "excerpt": "It’s always good to see young guitarists coming through and flying the flag for acoustic instrumental music. Miami-based Conor Moore...",
+      "body": "",
+      "site_id": "songlines_chamber-music-0",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Cantigas",
+      "artist": "Nilza Costa",
+      "score": 7,
+      "url": "https://www.songlines.co.uk/review/cantigas",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Bruttere Moderne"
+      ],
+      "excerpt": "On Cantigas Nilza Costa takes a direct approach to music that is often exoticised or treated as ornament. Born in...",
+      "body": "",
+      "site_id": "songlines_cantigas",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Langs",
+      "artist": "Camilla Hole Trio",
+      "score": 8,
+      "url": "https://www.songlines.co.uk/review/langs",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Taragot Sounds"
+      ],
+      "excerpt": "This is a welcome third release from a trio with a distinctive approach to Norwegian folk music. With a core...",
+      "body": "",
+      "site_id": "songlines_langs",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Istem",
+      "artist": "Vegar Vårdal feat. Johannes Martens",
+      "score": 8,
+      "url": "https://www.songlines.co.uk/review/istem",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Melovitten"
+      ],
+      "excerpt": "Norwegian fiddler and pianist Vegar Vårdal has been performing for over 30 years and is an acclaimed teacher and composer...",
+      "body": "",
+      "site_id": "songlines_istem",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "The Path Before Us",
+      "artist": "Crossing",
+      "score": 4,
+      "url": "https://www.songlines.co.uk/review/the-path-before-us",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Circular Music Records"
+      ],
+      "excerpt": "Crossing is a trio that unites players from Burkina Faso and Italy, featuring Petit Solo Diabaté (kora, n’goni, balafon), Nino...",
+      "body": "",
+      "site_id": "songlines_the-path-before-us",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Sun in the Sands",
+      "artist": "Owen Spafford, Will Allen and Ben Filmer-Sankey",
+      "score": 9,
+      "url": "https://www.songlines.co.uk/review/sun-in-the-sands",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Scribe Records"
+      ],
+      "excerpt": "Last year fiddle player Owen Spafford created the wonderfully weird album Tomorrow Held with guitarist Louis Campbell. Now, he’s got...",
+      "body": "",
+      "site_id": "songlines_sun-in-the-sands",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Midnight Hurricane",
+      "artist": "Asher Brinson",
+      "score": 9,
+      "url": "https://www.songlines.co.uk/review/midnight-hurricane",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Brinson Records"
+      ],
+      "excerpt": "This is an impressive debut album from North Carolina’s teenage bluegrass prodigy. Asher Brinson is just 16 years old, but...",
+      "body": "",
+      "site_id": "songlines_midnight-hurricane",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Blood Sucking Maniacs",
+      "artist": "Blood Sucking Maniacs",
+      "score": 8,
+      "url": "https://www.songlines.co.uk/review/blood-sucking-maniacs",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Paradise of Bachelors"
+      ],
+      "excerpt": "In 1965, a young man from Wichita, Kansas, named Terry Allen performed ‘Red Bird’, the first song he ever wrote,...",
+      "body": "",
+      "site_id": "songlines_blood-sucking-maniacs",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "The Endless Dance",
+      "artist": "Hannah Peel & Beibei Wang",
+      "score": 7,
+      "url": "https://www.songlines.co.uk/review/the-endless-dance",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Real World Records"
+      ],
+      "excerpt": "A Northern Irish composer and a Chinese percussionist have developed their musical acquaintance into a propulsive, electro-percussive suite of experiments....",
+      "body": "",
+      "site_id": "songlines_the-endless-dance",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Eternal Life No End",
+      "artist": "Radwan Ghazi Moumneh & Frédéric D. Oberland",
+      "score": 8,
+      "url": "https://www.songlines.co.uk/review/eternal-life-no-end",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Constellation"
+      ],
+      "excerpt": "The debut album from Radwan Ghazi Moumneh and Frédéric D. Oberland is far from the duo’s first encounter. Their paths...",
+      "body": "",
+      "site_id": "songlines_eternal-life-no-end",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "A World of Our Own: The UK & Irish Folk Explosion of 1965",
+      "artist": "VARIOUS ARTISTS | Various Artists",
+      "score": 8,
+      "url": "https://www.songlines.co.uk/review/a-world-of-our-own-the-uk-and-irish-folk-explosion-of-1965",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Cherry Red Records"
+      ],
+      "excerpt": "This compilation marks out the year when folk exploded in the UK. Dylan had arrived (he did a major tour...",
+      "body": "",
+      "site_id": "songlines_a-world-of-our-own-the-uk-and-irish-folk-explosion-of-1965",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Grandpa’s Mill",
+      "artist": "Colton Bowlin",
+      "score": 7,
+      "url": "https://www.songlines.co.uk/review/grandpas-mill",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Thirty Tigers"
+      ],
+      "excerpt": "Growing up in Albany, Kentucky, a small town (pop. ~2,000) located on the central Tennessee border, Colton Bowlin worked six...",
+      "body": "",
+      "site_id": "songlines_grandpas-mill",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Syrr",
+      "artist": "Maryam Saleh",
+      "score": 7,
+      "url": "https://www.songlines.co.uk/review/syrr",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Simsara"
+      ],
+      "excerpt": "It’s been more than eight years since Maryam Saleh’s last album. A stalwart of the Egyptian alternative scene, many believed...",
+      "body": "",
+      "site_id": "songlines_syrr",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Where All Our Names Belong",
+      "artist": "Hannah James and Toby Kuhn",
+      "score": 8,
+      "url": "https://www.songlines.co.uk/review/where-all-our-names-belong",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "JigDoll Records"
+      ],
+      "excerpt": "The seemingly indefatigable singer, accordionist and percussive foot dancer Hannah James is involved in so many thrilling projects (including Lady...",
+      "body": "",
+      "site_id": "songlines_where-all-our-names-belong",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Modern Pop from Mauritania (1984–1989)",
+      "artist": "Yassine Nana",
+      "score": 8,
+      "url": "https://www.songlines.co.uk/review/modern-pop-from-mauritania-1984-1989",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Sofa Records / Les Disques Bongo Joe"
+      ],
+      "excerpt": "It’s fitting that this terrific compilation opens with the sound of people happily hanging out (on ‘Boustan El Achaar’) because...",
+      "body": "",
+      "site_id": "songlines_modern-pop-from-mauritania-1984-1989",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Maammo",
+      "artist": "Tuuletar",
+      "score": 8,
+      "url": "https://www.songlines.co.uk/review/maammo",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Nordic Notes"
+      ],
+      "excerpt": "Finnish “vocal folk hop” quartet Tuuletar are back with their breathy mix of Finno-Ugric close harmonies, beatboxing and sass. For...",
+      "body": "",
+      "site_id": "songlines_maammo",
+      "crawl_status": "paywalled",
+      "type": "review"
+    },
+    {
+      "album": "Luiza",
+      "artist": "LUIZA",
+      "score": 6,
+      "url": "https://www.songlines.co.uk/review/luiza",
+      "source": "songlines",
+      "pub_date": "2026-06-01T00:00:00+00:00",
+      "tags": [
+        "Chapter 2 Records / Wagram Records"
+      ],
+      "excerpt": "This self-titled offering from Franco-Brazilian singer LUIZA comes on the back of growing popularity and exposure that saw her 2025...",
+      "body": "",
+      "site_id": "songlines_luiza",
+      "crawl_status": "paywalled",
+      "type": "review"
+    }
+  ]
+}
