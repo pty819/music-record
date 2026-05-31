@@ -53,7 +53,7 @@ Step 5  创建 Kanban Swarm（一行 CLI 创建完整 DAG）
 
 | Swarm 角色 | 我们的 pipeline | 工作内容 |
 |-----------|---------------|---------|
-| **Workers** (21) | Camoufox 抓取 | 各站浏览器抓取，写入独立 `{site}_reviews.json` |
+| **Workers** (20) | Camoufox 抓取 | 各站浏览器抓取，写入独立 `{site}_reviews.json` |
 | **Verifier** (1) | 合并+质量检查 | `merge_scraped.py` → 验证数据完整性 → 放行/阻拦 |
 | **Synthesizer** (1) | 评分+报告+推送 | `process_reviews.py` → `generate_report.py` → git push → Telegram → 归档 |
 
@@ -142,12 +142,14 @@ bash /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/check-scraper-a
 cat /home/liyifan/.hermes/profiles/scraper/auth.json | grep minimax-cn | wc -l
 # 期望: 1（已删掉 minimax 国际版条目）
 
-# 关键预检: scraper profile gateway 必须运行（否则 kanban scheduler 无法 spawn worker）
-hermes gateway status scraper 2>&1 | grep -c "running"
-# 期望: 1（如果显示 stopped，先 `hermes gateway start scraper`）
-# ⚠️ 注意: 如果 default gateway (PID) 已在运行相同 token，scraper gateway 无法独立启动。
-#   此时 kanban dispatch 通过 default gateway 正常运作 — 只要 default gateway 是 running 状态，
-#   调度器可以正常 spawn worker。跳过启动 scraper gateway，直接进入 dispatch。
+# 关键预检: gateway 必须运行（否则 kanban scheduler 无法 spawn worker）
+# ⚠️ 注意: `hermes gateway status scraper` 在此 Hermes 版本不支持（unrecognized arguments）。
+#   改用系统级检查：
+systemctl --user is-active hermes-gateway
+# 期望输出: active
+#   或:
+hermes gateway status 2>&1 | grep -c "active (running)"
+# 期望: 1（如果显示 stopped，先 `hermes gateway run --replace`）
 ```
 
 ### Step 1 — 同步（仅 cron/自动化运行需要）
@@ -206,9 +208,9 @@ exec(open('/home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-
 ✅ 输出：`rss_merged.json` — 包含 27 个 RSS 站最近 2 天的全部文章
 无 kanban 任务、无 LLM、无浏览器。
 
-### Step 3 — HTML/curl 并行抓取（12 站，~120 秒）
+### Step 3 — HTML/curl 并行抓取（12 站，~180 秒）
 
-使用专用 Python 脚本抓取没有 RSS 但可直接 curl 的站（8 个 HTML 站 + 4 个混合站），全部并行运行。
+使用专用 Python 脚本抓取没有 RSS 但可直接 curl 的站（12 个），全部并行运行。
 
 **适用脚本列表**（位于 `music-record/bin/`）：
 ```
@@ -218,25 +220,72 @@ scrape_musique_machine  scrape_resident_advisor  scrape_sea_of_tranquility
 scrape_songlines        scrape_squids_ear     scrape_wild_city
 ```
 
+⚠️ **Hermes cron 环境注意事项**：shell `&`/`wait` 后台模式在 Hermes 的 terminal 工具中会被拒绝（"Foreground command uses '&' backgrounding"）。`execute_code` 在 cron 模式下也会被阻止。必须使用 **Python 脚本文件 + terminal** 方式并行执行。
+
+**正确的并行执行方式**（写入临时 Python 脚本，然后通过 terminal 运行）：
+
 ```bash
-DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
+DATE_DIR="/home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)"
 mkdir -p "$DATE_DIR"
 
-SCRIPTS="scrape_songlines scrape_all_about_jazz scrape_resident_advisor \
-         scrape_dark_entries scrape_free_jazz_blog scrape_jazz_trail \
-         scrape_squids_ear scrape_downbeat scrape_mixmag_asia \
-         scrape_musique_machine scrape_sea_of_tranquility scrape_wild_city"
+cat > /tmp/run_html_scrapers.py << 'PYEOF'
+#!/usr/bin/env python3
+import subprocess, os, json, datetime, sys
 
-for s in $SCRIPTS; do
-  timeout 120 python3 /home/liyifan/music-record/bin/${s}.py --days 1.5 \
-    > "$DATE_DIR/${s#scrape_}_reviews.json" 2>/dev/null &
-done
-wait
+DATE_DIR = f"/home/liyifan/music-record/2026/{datetime.date.today().strftime('%m')}/{datetime.date.today().strftime('%Y-%m-%d')}"
+SCRIPTS_DIR = "/home/liyifan/music-record/bin"
 
-echo "✅ HTML/curl 抓取完成"
-# 检查各站产出
-for f in "$DATE_DIR"/*_reviews.json; do
-  count=$(python3 -c "import json; d=json.load(open('$f')); print(len(d.get('items', d)) if isinstance(d, dict) else len(d) if isinstance(d, list) else '?')" 2>/dev/null || echo "0")
+scripts = [
+    "scrape_all_about_jazz", "scrape_dark_entries", "scrape_downbeat",
+    "scrape_free_jazz_blog", "scrape_jazz_trail", "scrape_mixmag_asia",
+    "scrape_musique_machine", "scrape_resident_advisor", "scrape_sea_of_tranquility",
+    "scrape_songlines", "scrape_squids_ear", "scrape_wild_city"
+]
+
+os.makedirs(DATE_DIR, exist_ok=True)
+
+procs = []
+for s in scripts:
+    outpath = os.path.join(DATE_DIR, f"{s.replace('scrape_', '')}_reviews.json")
+    cmd = ["timeout", "180", "python3", os.path.join(SCRIPTS_DIR, f"{s}.py"), "--days", "1.5"]
+    try:
+        fout = open(outpath, "w")
+        proc = subprocess.Popen(cmd, stdout=fout, stderr=subprocess.DEVNULL)
+        procs.append((proc, s, outpath, fout))
+    except Exception as e:
+        print(f"  ERROR starting {s}: {e}", file=sys.stderr)
+
+for proc, s, outpath, fout in procs:
+    try:
+        proc.wait(190)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+        print(f"  TIMEOUT: {s}", file=sys.stderr)
+    finally:
+        fout.close()
+
+# 检查结果
+print("\n=== HTML/curl 抓取结果 ===", file=sys.stderr)
+for _, s, outpath, _ in procs:
+    try:
+        with open(outpath) as f:
+            d = json.load(f)
+        items = d.get("items", []) if isinstance(d, dict) else (d if isinstance(d, list) else [])
+        print(f"  {os.path.basename(outpath)}: {len(items)} 条", file=sys.stderr)
+    except Exception as e:
+        print(f"  {os.path.basename(outpath)}: FAILED ({e})", file=sys.stderr)
+
+print("\n✅ HTML/curl 抓取完成", file=sys.stderr)
+PYEOF
+
+python3 /tmp/run_html_scrapers.py 2>&1
+```
+
+⚠️ **超时说明**：Songlines 产出 40 条时可能接近 180s 上限。所有脚本统一用 **180s timeout**（原 120s 对 Songlines 不足）。JazzTrail 会翻页很多次（59+ 页）但实际只产 1 条，`--days 1.5` 会正确过滤。Sea of Tranquility 偶尔空结果但也是正常行为。
+
+⚠️ **空文件处理**：如果某站输出空文件（0 字节），JSON 解析会失败。这是正常行为——表示该站 36 小时内无新文章。merge_scraped.py 会跳过无法解析的文件。
+
+✅ 输出：各站独立 `{site_id}_reviews.json` 文件，格式与 RSS 标准一致 `{meta, items}`。
   [ "$count" != "0" ] && echo "  $(basename $f): $count 条"
 done
 ```
@@ -260,7 +309,7 @@ python3 /home/liyifan/.local/bin/merge_scraped.py \
 ### Step 5 — 创建 Kanban Swarm（替代旧的 aggregator 模式）
 
 ```bash
-# 先用 dry run 预览（应显示 ~21 个 Camoufox 站，RSS 站已被过滤）
+# 先用 dry run 预览（应显示 ~20 个 Camoufox 站，RSS 站已被过滤）
 python3 /home/liyifan/music-record/bin/kanban-swarm.py
 
 # 确认无误后创建
@@ -273,7 +322,7 @@ python3 /home/liyifan/music-record/bin/kanban-swarm.py --confirm
 Swarm 创建完整 DAG：
 ```
 Root (done)
-  ├─ 21 workers (ready) — Camoufox 各站抓取
+  ├─ 20 workers (ready) — Camoufox 各站抓取
   ├─ Verifier (todo, parent=所有 worker)
   │    merge_scraped.py + 质量检查 → gate pass/block
   └─ Synthesizer (todo, parent=verifier)
@@ -322,6 +371,8 @@ hermes kanban show <synthesizer_id> | grep "status\|parent"
 |------|------|------|------|
 | 1 | **Verifier** | 合并所有数据 → `scraped_raw.json` + 质量检查 | `merge_scraped.py` |
 | 2 | **Synthesizer** | 并发评分 → 报告 → git push → Telegram → 归档 | `process_reviews.py` → `generate_report.py` → git |
+
+⚠️ **重要**：Synthesizer 生成 `recommend/{DATE}.md` 后，**必须**执行 `git push origin main` 推送到 GitHub。此步骤不可省略，确保 GitHub 上的推荐文件及时更新。
 
 Verifier 和 Synthesizer 的 task body 包含了完整指令。详见 `bin/kanban-swarm.py` 中的 `VERIFIER_BODY` 和 `SYNTHESIZER_BODY` 常量。
 
@@ -393,18 +444,77 @@ exec(open('/home/liyifan/.hermes/skills/music/music-daily-recs/scripts/fast-rss-
 " 2>&1
 ```
 
-### ② 并行跑 curl HTML 抓取脚本（8 个，每个 ~30-120s）
+### ② 并行跑 curl HTML 抓取脚本（12 个，每个 ~30-180s）
+
+⚠️ **Hermes cron 环境注意事项**：shell `&`/`wait` 后台模式在 Hermes 的 terminal 工具中会被拒绝（"Foreground command uses '&' backgrounding"）。必须使用 `execute_code` 的 Python subprocess 方式或每个脚本单独走 `terminal(background=true)` 来并行执行。以下给出两种可行方案。
+
+**适用脚本列表**（位于 `music-record/bin/`）：
+```
+scrape_all_about_jazz   scrape_dark_entries    scrape_downbeat
+scrape_free_jazz_blog   scrape_jazz_trail     scrape_mixmag_asia
+scrape_musique_machine  scrape_resident_advisor  scrape_sea_of_tranquility
+scrape_songlines        scrape_squids_ear     scrape_wild_city
+```
+
+**方案 A — `execute_code` 方式（推荐，cron 自动运行）**：
+
+```python
+import subprocess, os, json
+
+DATE_DIR = "/home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)"
+SCRIPTS_DIR = "/home/liyifan/music-record/bin"
+
+scripts = [
+    "scrape_all_about_jazz", "scrape_dark_entries", "scrape_downbeat",
+    "scrape_free_jazz_blog", "scrape_jazz_trail", "scrape_mixmag_asia",
+    "scrape_musique_machine", "scrape_resident_advisor", "scrape_sea_of_tranquility",
+    "scrape_songlines", "scrape_squids_ear", "scrape_wild_city"
+]
+
+procs = []
+for s in scripts:
+    outpath = os.path.join(DATE_DIR, f"{s.replace('scrape_', '')}_reviews.json")
+    cmd = ["timeout", "180", "python3", os.path.join(SCRIPTS_DIR, f"{s}.py"), "--days", "1.5"]
+    fout = open(outpath, "w")
+    proc = subprocess.Popen(cmd, stdout=fout, stderr=subprocess.DEVNULL)
+    procs.append((proc, s, outpath, fout))
+
+for proc, s, outpath, fout in procs:
+    proc.wait(190)
+    fout.close()
+
+# 检查各站产出
+for _, s, outpath, _ in procs:
+    try:
+        with open(outpath) as f:
+            d = json.load(f)
+        items = d.get("items", []) if isinstance(d, dict) else (d if isinstance(d, list) else [])
+        print(f"  {os.path.basename(outpath)}: {len(items)} 条")
+    except Exception as e:
+        print(f"  {os.path.basename(outpath)}: FAILED ({e})")
+```
+
+**方案 B — 逐个 `terminal(background=true)` 启动**：
 
 ```bash
 DATE_DIR="2026/$(date +%m)/$(date +%Y-%m-%d)"
-SCRIPTS="scrape_songlines scrape_all_about_jazz scrape_resident_advisor scrape_dark_entries scrape_free_jazz_blog scrape_jazz_trail scrape_squids_ear scrape_downbeat"
+mkdir -p "$DATE_DIR"
+
+SCRIPTS="scrape_songlines scrape_all_about_jazz scrape_resident_advisor \
+         scrape_dark_entries scrape_free_jazz_blog scrape_jazz_trail \
+         scrape_squids_ear scrape_downbeat scrape_mixmag_asia \
+         scrape_musique_machine scrape_sea_of_tranquility scrape_wild_city"
+
 for s in $SCRIPTS; do
-  timeout 120 python3 /home/liyifan/music-record/bin/${s}.py --days 1.5 > "$DATE_DIR/${s#scrape_}_reviews.json" 2>/dev/null &
+  timeout 180 python3 /home/liyifan/music-record/bin/${s}.py --days 1.5 \
+    > "$DATE_DIR/${s#scrape_}_reviews.json" 2>/dev/null &
 done
 wait
 ```
 
-⚠️ 注意：scrape 脚本只输出 stdout，不支持 `-o` 参数。
+（方案 B 仅适用于交互式 shell 环境；cron 环境必须用方案 A。）
+
+⚠️ **超时说明**：Songlines 产出 40 条时可能接近 180s 上限。所有脚本统一用 **180s timeout**（原 120s 对 Songlines 不足）。JazzTrail 会翻页很多次（59+ 页）但实际只产 1 条，`--days 1.5` 会正确过滤。Sea of Tranquility 偶尔空结果但也是正常行为。
 
 ### ③ 合并 RSS + HTML → scraped_raw.json
 
@@ -438,6 +548,8 @@ python3 bin/generate_report.py \
 
 # 校验已生成
 ls -la recommend/$(date +%Y-%m-%d).md
+
+⚠️ 重要：recommend 生成后必须立即 git push，确保 GitHub 同步。
 
 # git push
 git add -A "$DATE_DIR" recommend/$(date +%Y-%m-%d).md bin/process_reviews.py bin/generate_report.py
@@ -664,8 +776,10 @@ LLM 不一定返回干净 JSON，使用三层解析：
 | **Camoufox 站实际有 RSS** | scraper 走浏览器慢/挂，但该站实际有可用 RSS | 验证 RSS 后用 `fast-rss-scrape.py` 替代。改 sites.json 加 `has_rss: true` + `rss_url`；参考 `references/camoufox-to-rss-promotion.md` |
 | **Scraper body 缺 rss_url** | kanban worker 无法直接知道 RSS 地址，需自行发现 | 改 `kanban-batch-scrape.py:147` body 模板，加 `rss_url={site.get('rss_url','')}` |
 | **RSS 快速巡检** | 不想等 kanban，只要 RSS 站数据 | 用 `scripts/fast-rss-scrape.py`，<2 分钟出 27 站合并结果 |
+| **Step 3 shell `&`/`wait` 被拒绝** | terminal 工具报 "Foreground command uses '&' backgrounding" | 必须用 Python subprocess 并发（写入 .py 文件后 terminal 执行），参考 Step 3 正确方式 |
+| **`xargs -P` 并行失败** | exit code 123，部分脚本未执行 | `xargs` 不适合此场景；改用 Python subprocess 并发方案 |
 | **feedparser 挂起（ProgArchives/The Wire/Rest Is Noise）** | Step 2 `feedparser.parse()` 无限等待，阻塞全脚本 | 运行前设 `socket.setdefaulttimeout(15)`，用 exec() 包装脚本（见 Step 2 示例） |
-| **Scraper 脚本不支持 `-o` 参数** | 所有 12 个 scrape_*.py 只输出 stdout，不能写文件 | 重定向 stdout：`python3 bin/scrape_xxx.py --days 1.5 > output.json` |
+| **Songlines 超时（120s timeout 不够）** | `scrape_songlines.py --days 1.5` 产出 40 条需 ~120-180s | 统一用 `timeout 180`；cron 下 shell `&` 被拒绝时走 Python subprocess 方案 |
 | **MiniMax 批处理耗时（旧流程）** | 旧 `aggregate_reviews.py` 串行跑 MiniMax，42 条 ~13 分钟 | **已解决**：`process_reviews.py` 线程池 5 并发，42 条 ≈ 15-20 秒 |
 | **Worker 输出格式不一致** | `kanban-batch-scrape.py` 模板曾输出裸 JSON 数组（缺 `body`、无 `{meta,items}` 包装），与 RSS/HTML 标准不符 | **✅ 已修复**：模板已改为 `{meta, items}` + 含 `body` 字段。下次 Camoufox 抓取起效。参见约束 #6 |
 | **Aggregator 不读 rss_merged.json（旧流程）** | 旧 `aggregate_reviews.py` 不读 rss_merged.json，只 glob `*_reviews.json` | **旧流程遗留** — 新流程用 `merge_scraped.py` 合并后再处理，不依赖个别文件名 |
