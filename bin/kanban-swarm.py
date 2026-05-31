@@ -183,6 +183,8 @@ python3 bin/generate_report.py \\
 
 验证: recommend/$(date +%Y-%m-%d).md 存在
 
+⚠️ 重要：recommend 生成后必须立即执行下一步的 git push，确保 GitHub 同步。
+
 Step 3: git push 到 GitHub
 cd /home/liyifan/music-record
 rm -f "2026/$(date +%m)/$(date +%Y-%m-%d)"/*.py
