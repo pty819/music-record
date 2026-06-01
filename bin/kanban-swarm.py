@@ -191,9 +191,11 @@ rm -f "2026/$(date +%m)/$(date +%Y-%m-%d)"/*.py
 git add -A "2026/$(date +%m)/$(date +%Y-%m-%d)" "recommend/$(date +%Y-%m-%d).md" \\
   bin/process_reviews.py bin/generate_report.py bin/merge_scraped.py bin/kanban-swarm.py
 git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations (kanban swarm)" || true
-git push origin main 2>&1
+git push origin main 2>&1; PUSH_EXIT=$?
 
-如果 git push 失败（GFW），记录错误但继续下一步
+if [ "$PUSH_EXIT" != "0" ]; then
+  echo "⚠️ git push failed (exit $PUSH_EXIT). Do NOT attribute this to GFW — report the ACTUAL error message in the summary."
+fi
 
 Step 4: Telegram 推送
 读取 /home/liyifan/music-record/recommend/$(date +%Y-%m-%d).md 内容
