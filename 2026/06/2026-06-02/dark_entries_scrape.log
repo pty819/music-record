@@ -1,0 +1,7 @@
+[2026-06-02T04:52:54.163655] now=2026-06-01T20:52:54.163625+00:00 cutoff=2026-05-31T08:52:54.163625+00:00 hours=36
+[2026-06-02T04:52:54.163671] fetching RSS https://darkentries.be/recensies?format=feed&type=rss
+[2026-06-02T04:52:56.418901] RSS entries: 12
+[2026-06-02T04:52:56.419367]   fetch full: https://darkentries.be/recensies/contrastate-seven-flies-feeding-inside-the-tears-of-a-woman-s-eye
+[2026-06-02T04:52:58.792476]   ok: Contrastate:  Seven Flies Feeding Inside The Tears Of A Woman’s Eye (body 2353 chars)
+[2026-06-02T04:52:58.792515]   stop — pub 2026-05-29T04:03:24+00:00 < cutoff
+[2026-06-02T04:52:58.909252] wrote /home/liyifan/music-record/2026/06/2026-06-02/dark_entries_be_reviews.json (1 items)

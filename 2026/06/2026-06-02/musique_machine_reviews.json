@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-01T20:29:20.814008+00:00",
+    "cutoff_date": "2026-05-31",
+    "site": "Musique Machine",
+    "source": "rss",
+    "feed_url": "https://www.musiquemachine.com/feed.xml",
+    "notes": "Only 1 RSS entry in 36h window; filtered out as (Blu Ray) film. No music items."
+  },
+  "items": []
+}

@@ -44,7 +44,7 @@ if not API_KEY:
                 break
 
 BASE_URL = "https://api.minimaxi.com/anthropic"
-MODEL = "MiniMax-M2.7"
+MODEL = "Minimax-M3"
 MAX_TOKENS = 30000
 TIMEOUT = 120  # 单次调用超时（秒）
 RETRIES = 3

@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-01T20:14:02+00:00",
+    "cutoff_date": "2026-05-31T08:14:02+00:00",
+    "source": "A Strangely Isolated Place (https://www.astrangelyisolatedplace.com/)",
+    "feed": "https://www.astrangelyisolatedplace.com/blog?format=rss",
+    "site_id": "strangely_isolated_place",
+    "rss_entries_total": 20,
+    "rss_entries_within_36h": 0,
+    "rss_latest_entry": "2026-05-15T18:10:49+00:00 (Aspetuck / Immersion (ASIPV055))",
+    "note": "Blog has not posted in 36h window. Latest post is 17 days old. Site appears to be transitioning to a Substack (announcement bar: 'Sign up to our new Substack' -> https://astrangelyisolatedplace.substack.com). Sitemap confirms RSS picture: only blog/2026/5/15 and blog/2026/1/22 posts are present in 2026."
+  },
+  "items": []
+}

@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-01T20:21:21+00:00",
+    "cutoff_date": "2026-05-31T08:21:21+00:00",
+    "note": "DownBeat reviews section only publishes monthly print magazine issues. Latest visible 'Published January 2026' (3+ months stale, far outside 36h window). Reviews page otherwise shows past Editor's Picks archive (2024-2025). No RSS feed returns XML (returns HTML). No items within 36h window — per spec, empty result returns [] without retry."
+  },
+  "items": []
+}

@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-02T04:20:00Z",
+    "cutoff_date": "2026-05-31T~16:20:00Z (36h before now)",
+    "site": "progressor",
+    "site_url": "http://www.progressor.net/",
+    "hours_scanned": 36,
+    "note": "Site's homepage explicitly states 'Latest update: April 30, 2026 / Next update: May 31, 2026'. The most recent review batch (Mike Oldhill detailed + 9 short reviews) is dated 30.IV+ (April 30, 2026) — 33 days old, far outside the 36h window. No RSS feed (rss.xml and /feed/ both 404). News page (news.html) is stale June 2017 archive. General reviews index (review/general.html) is a 1990s-2000s historical archive. No content within 36h."
+  },
+  "items": []
+}

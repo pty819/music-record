@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "total": 2,
+    "scraped_at": "2026-06-02T04:28:00Z",
+    "cutoff_date": "2026-05-31T08:26:12Z",
+    "include_from_day": "2026-05-30",
+    "reviews_inspected": 3,
+    "listing_url": "https://www.seaoftranquility.org/reviews.php",
+    "rss_checked": "no working RSS feed found (404 on /rss.xml, /feed, /feed/, /atom.xml, /rss.php, /category/reviews/rss)",
+    "notes": "Site has no RSS feed; listing scanned via curl, individual review pages via curl. Top 2 reviews within 36h window kept; 3rd (Kruk 25541, 2026-05-25) was outside cutoff day, scanning stopped there per spec."
+  },
+  "items": [
+    {
+      "album": "Apocalypse",
+      "artist": "Crown Lands",
+      "score": 4.0,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25543",
+      "source": "seaoftranquility",
+      "pub_date": "2026-05-31T00:00:00Z",
+      "tags": [
+        "progressive",
+        "metal",
+        "ambient"
+      ],
+      "excerpt": "Well, they almost did it. The duo known as Crown Lands made an album that just about meets the hype it has received. Most people were sour on the two EPs they delivered after 2023’s acclaimed Fearless. I understand: Those works, the semi-ambient, semi-world music instrumental Ritual I and Ritual II, arguably weren’t particularly ambitious and they certainly strayed from Fearless. But I enjoyed them. With Apocalypse, they are largely back to the formula that so many loved on Fearless: Several short or mid-length tunes, along with an epic.",
+      "body": "Well, they almost did it. The duo known as Crown Lands made an album that just about meets the hype it has received. Most people were sour on the two EPs they delivered after 2023’s acclaimed Fearless. I understand: Those works, the semi-ambient, semi-world music instrumental Ritual I and Ritual II, arguably weren’t particularly ambitious and they certainly strayed from Fearless. But I enjoyed them. With Apocalypse, they are largely back to the formula that so many loved on Fearless: Several short or mid-length tunes, along with an epic.\r\n\r\nThere are two notable differences between the albums, one objective and one subjective to my ears. First, the objective: Apocalypse is 15 minutes shorter, clocking in at a concise 42 minutes. Second, the subjective: I don’t think Apocalypse is as traditionally “progressive” as Fearless. Rather, I view it as a bold and sometimes challenging hard-rock album that more resembles Led Zeppelin than Rush. I mean that not just in the vocals, which this time around sound more like Robert Plant than Geddy Lee, but also in the arrangements. We’re even given a couple tunes that recall hair metal in “Blackstar” and “The Fall,” the latter featuring some disco elements. The low point is \"The Revenants I\", a ballad that has been a consistent skip for me. Thankfully, it is followed by the majestic closer. At 19 minutes, the title track gives a Crown Lands fan pretty much all that they may want.\r\n\r\nThis album is excellent at times, but sags somewhat in the middle with tracks four, five, and especially six. So, I can’t quite give it 4.5 stars but, instead, 4 very strong stars.",
+      "site_id": "sot_25543",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Aaron Steelman",
+      "related_url": "https://crownlands.bandcamp.com/album/apocalypse-24-bit-hd-audio"
+    },
+    {
+      "album": "Ah, Les Vaches",
+      "artist": "Bushmen’s Revenge",
+      "score": 2.5,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25542",
+      "source": "seaoftranquility",
+      "pub_date": "2026-05-30T00:00:00Z",
+      "tags": [
+        "jazz",
+        "fusion"
+      ],
+      "excerpt": "Is It Jazz? Records the Norwegian imprint from the folks behind Karisma Records has already built a reputation for adventurous releases from bands like Krokofant and Soft Ffog. Now they’re set to release Bushmen’s Revenge’s twelfth album, Ah, Les Vaches, on May 29th, 2026. Somehow this is my first encounter with the band, and judging from the liner notes, the album draws inspiration from an eclectic cast of friends, pets, and assorted critters. Sure, why not?",
+      "body": "Is It Jazz? Records the Norwegian imprint from the folks behind Karisma Records has already built a reputation for adventurous releases from bands like Krokofant and Soft Ffog. Now they’re set to release Bushmen’s Revenge’s twelfth album, Ah, Les Vaches, on May 29th, 2026. Somehow this is my first encounter with the band, and judging from the liner notes, the album draws inspiration from an eclectic cast of friends, pets, and assorted critters. Sure, why not?\r\n\r\nThe opener, “Unholy Ghost,” hits like a brick: fuzzedout guitar, controlled chaos, and a punkleaning minimalism that sets the tone immediately. That raw, aggressive edge carries into “Velkommen Til Gards,” where the band unleashes a reckless (in the best way) burst of soloing over atmospheric guitar textures lurking in the background. It feels loose, improvisational, and alive.\r\n\r\n“And Guilt Was His NameO” shifts gears with a cleaner guitar tone almost surflike, drenched in reverb and vibrato, proving the band can be just as effective without the grit. Then comes “Radyrparet,” a slow-burning, atmospheric piece built on volume swells and a countrytinged slide feel. Even at its plodding pace, it finds pockets of intensity. Their take on Prince’s “Purple Rain” is… well, let’s just say it’s unrecognizable. If Prince weren’t credited, I’d never guess it was a cover. Its dirge-like pacing left me cold, and it highlights my main issue with the album: the meandering. When the band slows down, the momentum can evaporate entirely.\r\n\r\nThankfully, the fire returns with “One Small Step for Man, One Giant Mistake for Mankind,” a standout track full of subtle background atmospherics and renewed urgency.\r\nBushmen’s Revenge ultimately isn’t my cup of tea, but it’s clear they possess a wide sonic palette and can pivot between aggression and ambience with ease. They’re a fascinating band, even if their approach doesn’t always land for me.\r\n\r\nFavorite Track: One Small Step for Man, One Giant Mistake for Mankind",
+      "site_id": "sot_25542",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Eric Porter",
+      "related_url": "https://bushmansrevenge.bandcamp.com/album/ah-les-vaches"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-01T20:30:00+00:00",
+    "cutoff_date": "2026-05-31T08:30:00+00:00",
+    "site": "bandwagon_asia",
+    "feed_source": "https://www.bandwagon.asia/feeds/articles.atom",
+    "method": "rss",
+    "reason": "RSS feed has 10 entries, all dated 2026-05-29 (81-90h old, outside 36h window)"
+  },
+  "items": []
+}

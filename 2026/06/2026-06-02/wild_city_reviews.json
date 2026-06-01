@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-01T20:33:00+00:00",
+    "cutoff_date": "2026-05-31T08:33:00+00:00",
+    "site": "wild_city",
+    "method": "sitemap_listing_then_article_date",
+    "rss_available": false,
+    "rss_url": null,
+    "sitemap_url": "https://www.thewildcity.com/sitemap.xml",
+    "listings_scanned": 2,
+    "articles_inspected": 20,
+    "articles_in_window": 0,
+    "newest_article_date": "2026-05-29",
+    "newest_article_age_hours": 92.5,
+    "note": "Sitemap has no /news/ or /features/ entries; listing pages pulled (10 news + 10 features). All 20 inspected articles dated 2024-05 to 2026-05-29, latest 92.5h old, none within 36h cutoff."
+  },
+  "items": []
+}

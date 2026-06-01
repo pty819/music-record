@@ -1,0 +1,9 @@
+cutoff_utc=2026-05-31T08:26:12.585171+00:00  include_from_day=2026-05-30
+listing http 200 bytes 56307
+got 99 IDs; top: [25543, 25542, 25541, 25540, ...]
+id=25543 | Crown Lands - Apocalypse | 2026-05-31T00:00:00Z | score=4.0  (in window, KEPT)
+id=25542 | Bushmen's Revenge - Ah, Les Vaches | 2026-05-30T00:00:00Z | score=2.5  (in window, KEPT)
+id=25541 date 2026-05-25 < cutoff day, stop
+non-music filter: 2 -> 2
+Bushmen's Revenge body re-fetched from /tmp/sot_25542.html (full text including Favorite Track line)
+RSS check: 404 on /rss.xml /feed /feed/ /atom.xml /rss.php /category/reviews/rss
