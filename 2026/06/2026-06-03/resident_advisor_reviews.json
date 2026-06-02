@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-02T20:11:00+00:00",
+    "cutoff_date": "2026-06-01T08:11:00+00:00",
+    "site": "resident_advisor",
+    "hours_scanned": "36",
+    "scrape_method": "camoufox_spa",
+    "latest_review_id": 36355,
+    "latest_review_date": "2026-05-29",
+    "latest_review_title": "fakemink - Terrified",
+    "note": "No Resident Advisor reviews published within 36h window. Highest review ID 36355 (fakemink - Terrified, 2026-05-29) is ~70h old; 36356+ all return 404. RA review publication cadence is too low to surface items in a 36h scrape."
+  },
+  "items": []
+}

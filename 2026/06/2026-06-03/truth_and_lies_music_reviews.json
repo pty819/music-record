@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-02T20:18:58Z",
+    "cutoff_date": "2026-06-01T08:18:58Z",
+    "site": "truth_and_lies_music",
+    "site_url": "https://www.truthandliesmusic.com/",
+    "hours_scanned": 36,
+    "pages_scanned": 2,
+    "rss_available": false,
+    "note": "No items within 36h window. Truth & Lies Music is a low-frequency publication (DJs/label/blog). /magazine page 1 latest article is 2026-05-26 (8 days old); page 2 is from 2025. No RSS feed available (Squarespace ?feed=rss returns HTML). No further pages needed."
+  },
+  "items": []
+}

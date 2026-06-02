@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-06-02T20:48:00+00:00",
+    "cutoff_date": "2026-06-01T08:48:00+00:00",
+    "source": "sea_of_tranquility",
+    "hours_scanned": 36
+  },
+  "items": [
+    {
+      "album": "Different Voices",
+      "artist": "Wax Theatricks",
+      "title_raw": "Wax Theatricks: Different Voices",
+      "score": "4.0/5",
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25544",
+      "source": "sea_of_tranquility",
+      "pub_date": "2026-06-01T12:00:00+00:00",
+      "tags": [],
+      "excerpt": "The St. Louis band Earwacks emerged in the early Seventies and by 1979 was making big noise with an off-kilter indie-punk/new-waveish single titled “The Scrape.” Five years and one name change later, Wax Theatricks released 1984’s Different Voices , a punchy and oddly proggy \"art pop\" record that deserves some newfound love. This album is anchored by Dominic Schaeffer’s lead vocals, sax, flute and percussion, along with David Udell’s lead vocals, guitars, keys, thermin and trumpet. One of them s",
+      "body": "The St. Louis band Earwacks emerged in the early Seventies and by 1979 was making big noise with an off-kilter indie-punk/new-waveish single titled “The Scrape.” Five years and one name change later, Wax Theatricks released 1984’s Different Voices , a punchy and oddly proggy \"art pop\" record that deserves some newfound love. This album is anchored by Dominic Schaeffer’s lead vocals, sax, flute and percussion, along with David Udell’s lead vocals, guitars, keys, thermin and trumpet. One of them sounded like he should have been among the rotating singers in the Alan Parsons Project, while the other helped Wax Theatricks stay in touch with its Earwacks roots. It’s easy to understand why this band was embraced by such a diverse fanbase, given the horns, woodwinds and theremin -- combined with such Billy Joel-/Warren Zevon-like material as “Cold Wet Cat” and the David Bowie-/Gary Numan-esque “Conversations.” Among the more progressive tracks here are the bouncy instrumental “Aztec” (hello, theremin!) and the soaring “Debris,” while “The Scrape” and its b-side, the rousing instrumental “Dim,” close out this remastered release of a lost gem. Track Listing: 1. Fell in a Hole 2. Different Voices 3. Cold Wet Cat 4. Aztec 5. Conversations 6. Pleasure from Sadness 7. Come On 8. What To Do 9. Debris 10. You Still Can 11. The Scrape (bonus track) 12. Dim (Instrumental) (bonus track)",
+      "site_id": "sea_of_tranquility:25544",
+      "crawl_status": "ok",
+      "type": "review",
+      "reviewer": "Michael Popke",
+      "track_listing": "1. Fell in a Hole\n2. Different Voices\n3. Cold Wet Cat\n4. Aztec\n5. Conversations\n6. Pleasure from Sadness\n7. Come On\n8. What To Do\n9. Debris\n10. You Still Can\n11. The Scrape (bonus track)\n12. Dim (Instrumental) (bonus track)",
+      "related_link": "http://davidudell.bandcamp.com/album/different-voices"
+    }
+  ]
+}

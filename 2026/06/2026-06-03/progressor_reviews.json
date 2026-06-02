@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-03T04:21:00Z",
+    "cutoff_date": "2026-06-02T16:21:00Z",
+    "site": "progressor",
+    "site_url": "http://www.progressor.net/",
+    "note": "ProgressoR is abandoned; news index is June 2017, latest short review 2014, latest detailed review 2012. No RSS feeds exist (all 11 common endpoints return 404). No content within 36h window."
+  },
+  "items": []
+}

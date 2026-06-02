@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-02T20:50:00+00:00",
+    "cutoff_date": "2026-06-01T08:50:00+00:00",
+    "site": "downbeat",
+    "hours_scanned": 36,
+    "sources_checked": [
+      "https://downbeat.com/reviews (curl)",
+      "https://downbeat.com/news (curl)",
+      "https://downbeat.com/news/list/cat/new (curl)",
+      "https://downbeat.com/news/list/cat/live (curl)",
+      "https://downbeat.com/news/list/cat/from-the-magazine (curl)",
+      "https://www.downbeat.com/reviews/rss (returns HTML, not XML)"
+    ],
+    "notes": "No items within 36h. /reviews shows magazine issue dates only ('Published January 2026' or unlabeled print issues, no per-article web dates). /news latest entries are dated 2026-05-26 (~177h old). /reviews/rss returns HTML, not a feed. RSS path therefore not viable. Output [] per spec."
+  },
+  "items": []
+}

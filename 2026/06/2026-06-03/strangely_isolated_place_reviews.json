@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-02T15:20:00Z",
+    "cutoff_date": "2026-06-01T03:09:00Z",
+    "site": "astrangelyisolatedplace",
+    "note": "Squarespace-hosted ambient/electronica/modern-classical blog. No RSS feed (Squarespace default /feed and /rss both return 404 Page Not Found). Checked home, /blog, /news, and /sitemap.xml. Most recent post is 2026-05-15 (aspetuck - immersion ASIPV055); most recent sitemap lastmod is 2026-05-20. Both fall well outside the 36-hour window. Empty result per spec."
+  },
+  "items": []
+}
