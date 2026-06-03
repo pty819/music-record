@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-06-04T20:14:28Z",
+    "cutoff_date": "2026-06-03T08:14:28Z"
+  },
+  "items": [
+    {
+      "album": "Altered State: A conversation between author Matthew Collin & Justin Turford (Truth & Lies)",
+      "artist": "Matthew Collin & Justin Turford",
+      "score": null,
+      "url": "https://www.truthandliesmusic.com/magazine/altered-state-a-conversation-between-author-matthew-collin-amp-justin-turford-truth-amp-lies",
+      "source": "Truth & Lies Music",
+      "pub_date": "2026-06-03T12:39:07Z",
+      "tags": [
+        "Electronic Music",
+        "Talks",
+        "Rave"
+      ],
+      "excerpt": "Movers presents an evening celebrating the reissue of Matthew Collin’s legendary book \"Altered State: The Story of Ecstasy Culture and Acid House (Deep Cuts)\" via White Rabbit. Join Truth & Lies’ Justin Turford in conversation with Matthew Collin as together they trace the stories, politics and cultural shifts surrounding acid house, ecstasy culture and the underground scenes that changed Britain forever. Expect conversations, book signings and DJs taking things late into the night at Movers. FR",
+      "body": "<div class=\"sqs-layout sqs-grid-12 columns-12\" data-layout-label=\"Post Body\" data-type=\"item\" data-updated-on=\"1780490347111\" id=\"item-6a201ef1eb75fa727bdad000\"><div class=\"row sqs-row\"><div class=\"col sqs-col-12 span-12\"><div class=\"sqs-block html-block sqs-block-html\" data-block-type=\"2\" data-sqsp-block=\"text\" id=\"block-64deae6a3efae39cb10c\"><div class=\"sqs-block-content\">\n\n<div class=\"sqs-html-content\" data-sqsp-text-block-content>\n  <p class=\"\" style=\"white-space:pre-wrap;\">Movers presents an evening celebrating the reissue of Matthew Collin’s legendary book \"Altered State: The Story of Ecstasy Culture and Acid House (Deep Cuts)\" via White Rabbit. </p><p class=\"\" style=\"white-space:pre-wrap;\">Join Justin Turford (DJ &amp; Journalist) in conversation with Matthew Collin as together they trace the stories, politics and cultural shifts surrounding acid house, ecstasy culture and the underground scenes that changed Britain forever. </p><p class=\"\" style=\"white-space:pre-wrap;\">Expect conversations, book signings and DJs taking things late into the night at Movers. FREE ENTRY!</p><p class=\"\" style=\"white-space:pre-wrap;\">Movers, 15 Hockley, Nottingham NG1 1FH</p>\n</div>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n  \n\n\n\n</div></div><div class=\"sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block\" data-block-css=\"[&quot;https://definitions.sqspcdn.com/website-component-definition/static-assets/website.components.embed/8e684f9d-ccbd-40b6-a41a-c1e90f28f687_379/website.components.embed.styles.css&quot;]\" data-block-scripts=\"[&quot;https://definitions.sqspcdn.com/website-component-definition/static-assets/website.components.embed/8e684f9d-ccbd-40b6-a41a-c1e90f28f687_379/website.components.embed.visitor.js&quot;]\" data-block-type=\"1337\" data-definition-name=\"website.components.embed\" data-sqsp-block=\"embed\" data-website-component-id=\"yui_3_17_2_1_1780489879772_15591\" id=\"block-yui_3_17_2_1_1780489879772_15591\"><div class=\"sqs-block-content\"><div\n  class=\"sqs-embed-container\"\n  data-localized=\"{&quot;embedInvalid&quot;:&quot;Enter a valid embed URL or code.&quot;,&quot;embedTitle&quot;:&quot;Embed Block&quot;,&quot;embedUninitialized&quot;:&quot;Add an embed URL or code.&quot;,&quot;enableSafeModeButton&quot;:&quot;Preview in safe mode&quot;,&quot;enableSafeModeText&quot;:&quot;This block contains embedded scripts. Embedded scripts are disabled while you're logged in and editing your site.&quot;,&quot;enableSafeModeTitle&quot;:&quot;Embedded Scripts&quot;,&quot;exitSafeModeButton&quot;:&quot;Exit safe preview&quot;,&quot;exitSafeModeText&quot;:&quot;Please view the page after logging out for accurate rendering.&quot;,&quot;exitSafeModeTitle&quot;:&quot;Safe Preview&quot;,&quot;globalSafeMode&quot;:&quot;Embedded Code: This block contains embedded code that has been disabled.&quot;,&quot;invalidThumbnail&quot;:&quot;Custom featured images only available with embedded videos. Go back into embed settings to turn off featured images.&quot;,&quot;invalidVideo&quot;:&quot;Invalid video embed.&quot;,&quot;playButton&quot;:&quot;Play&quot;,&quot;scriptDisabled&quot;:&quot;Script Disabled&quot;}\"\n  \n>\n  \n  \n    \n    \n\n\n<div class=\"sqs-blockStatus\" >\n  \n  <div class=\"sqs-blockStatus-box\">\n    <div class=\"sqs-blockStatus-box-title\">Embed Block</div>\n    <div class=\"sqs-blockStatus-box-message\">\n      Add an embed URL or code.\n      \n    </div>\n  </div>\n</div>\n\n  \n</div>\n\n<!-- SQUARESPACE_JSONT_ERROR\n\nwebsite.components.embed\n\n(line/character offsets reference the template source code)\n\n  1: RuntimeError EXPRESSION_PARSE at line 2 character 1: Error parsing expression: Unexpected character at 22: ?\n\n--></div></div></div></div></div>",
+      "site_id": "truth_and_lies_music",
+      "crawl_status": "ok",
+      "type": "feature"
+    }
+  ]
+}

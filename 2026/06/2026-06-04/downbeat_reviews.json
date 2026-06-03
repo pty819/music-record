@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "total": 4,
+    "scraped_at": "2026-06-03T20:06:42Z",
+    "cutoff_date": "2026-06-02T08:06:42Z",
+    "note_reviews_stale": "All /reviews items show Published January 2026 (print issue dates, months old). Only /news articles within 36h included as features."
+  },
+  "items": [
+    {
+      "album": null,
+      "artist": "Anthony Wilson",
+      "score": null,
+      "url": "https://downbeat.com/news/detail/blindfold-test-anthony-wilson1",
+      "source": "downbeat.com/news",
+      "pub_date": "2026-06-02T18:25:00Z",
+      "tags": [
+        "interview",
+        "blindfold test"
+      ],
+      "excerpt": "Anthony Wilson Blindfold Test — guitarist reacts to tracks by Julian Lage, Ben Monder, Mary Halvorson, and others.",
+      "body": "Blindfold Test: Anthony Wilson\n\nAbout Anthony Wilson\n- Grammy-nominated guitarist and arranger who rose to notoriety in 1997 with his self-titled debut\n- Longtime guitarist for Diana Krall\n- Released critically acclaimed nonet albums\n- Returned to the nonet format in 2025 with House Of The Singing Blossoms (Sam First)\n\nSelections:\n1. Julian Lage — \"Ocala\" from Scenes From Above (Blue Note, 2026)\n2. Jimmy Smith/Wes Montgomery — \"13 (Death March)\" from Jimmy & Wes: The Dynamic Duo (Verve, 1966)\n3. Alan Ferber Nonet — \"Luteous Pangolin\" from The Compass (Fresh Sound New Talent, 2008)\n4. Miles Okazaki — \"Skippy\" from Work–The Complete Recordings Of Thelonious Monk (2018)\n5. Andrew Renfroe — \"Big Country\" from Pop Logic (2025)\n6. Ben Monder — \"Where Or When\" from Planetarium (Sunnyside, 2024)\n7. Mary Halvorson — \"About Ghosts\" from About Ghosts (Nonesuch, 2025)",
+      "site_id": "downbeat",
+      "crawl_status": "success",
+      "type": "feature"
+    },
+    {
+      "album": "Reflections",
+      "artist": "Jesse Davis",
+      "score": null,
+      "url": "https://downbeat.com/news/detail/jesse-davis-rediscovers-joy",
+      "source": "downbeat.com/news",
+      "pub_date": "2026-06-02T18:15:00Z",
+      "tags": [
+        "news",
+        "feature",
+        "album"
+      ],
+      "excerpt": "New Orleans-raised alto saxophonist Jesse Davis, 40 years into his career, reflects on his journey following his 60th birthday with a new album, Reflections (Cellar Music).",
+      "body": "Jesse Davis Rediscovers Joy\n\nNew Orleans-raised alto saxophonist Jesse Davis, 40 years into his career, reflects on his journey following his 60th birthday with a new album, Reflections (Cellar Music). The album represents a homecoming — both musically and personally — as Davis reconnects with the joy of playing jazz.\n\nQuote: \"Forty years into this career, I have come back to myself, and I feel the same joy I did the first time I opened that sax case every time I play.\"\n\nAlbums as bandleader: 10. Key collaborators: Clark Terry, Ray Brown, Milt Jackson, Benny Golson. 1980s prominence as part of the \"young lions\" movement spearheaded by Wynton Marsalis.\n\nThe Album: Reflections (Cellar Music)\n- \"Blue Autumn\" — sprightly, Latin-influenced opener exploring grief\n- \"Choctaw Alley\" — blues-inflected, evokes New Orleans roots\n- \"Reflections\" — Monk standard\n- \"Evidence\" — Monk standard\n\nMusicians: Jesse Davis (alto sax), Spike Wilner (piano), John Webber (bass), Lewis Nash (drums)",
+      "site_id": "downbeat",
+      "crawl_status": "success",
+      "type": "feature"
+    },
+    {
+      "album": null,
+      "artist": "Kabir Sehgal",
+      "score": null,
+      "url": "https://downbeat.com/news/detail/kabir-sehgals-community-of-curiosity",
+      "source": "downbeat.com/news",
+      "pub_date": "2026-06-02T18:00:00Z",
+      "tags": [
+        "news",
+        "feature",
+        "producer"
+      ],
+      "excerpt": "Profile of Kabir Sehgal — former finance executive turned 14-time Grammy-winning music producer and creator, pivoting toward personal creative work in meditative music.",
+      "body": "Kabir Sehgal's Community of Curiosity\n\nProfile of Kabir Sehgal — a former finance executive turned prolific Grammy-winning music producer and creator. On Feb. 1, Sehgal received his 14th Grammy Award as producer of the audiobook Meditations: The Reflections Of His Holiness The Dalai Lama.\n\nNotable collaborators: Ted Nash, Joe Alterman, Rufus Wainwright, Maggie Rogers, Andra Day, Arturo O'Farrill, Jonathan Batiste, Lil Jon.\n\nLatest Release: stars and static — 10-track, 30-minute lo-fi digital meditation combining field recordings of American locales with iconic American songs.\n\nCareer: Vice president of emerging markets at J.P. Morgan, published 4th book Coined, produced 30+ albums. Now pivoting from producer to creator.",
+      "site_id": "downbeat",
+      "crawl_status": "success",
+      "type": "feature"
+    },
+    {
+      "album": null,
+      "artist": null,
+      "score": null,
+      "url": "https://downbeat.com/news/detail/back-on-the-cutting-edge-trail-in-victoriaville",
+      "source": "downbeat.com/news",
+      "pub_date": "2026-06-02T16:08:00Z",
+      "tags": [
+        "live",
+        "festival"
+      ],
+      "excerpt": "Coverage of FIMAV (Festival du Musique Actuelle de Victoriaville) — returned with new director Scott Thomson and 20+ avant-garde performances.",
+      "body": "Back on the Cutting-Edge Trail, in Victoriaville\n\nCoverage of FIMAV (Festival du Musique Actuelle de Victoriaville), Quebec. The festival returned after near-absence the previous year under new director Scott Thomson.\n\nNotable performances:\n- Amirtha Kidambi's Elder Ones\n- Darius Jones Trio\n- Zubot Brothers (Joshua and Jesse)\n- John Oswald's \"PlunderphoniCoveralls\"\n- Queen Mab — Marilyn Lerner + Lori Freedman (40 years together)\n- Pat Thomas solo piano and with أحمد [Ahmed]\n- Rafael Toral (Portuguese electric guitarist)\n- Sarah Pagé's Voda with No Hay Banda\n- Eric Chenaux\n- Fanfare Pourpour (20-piece ensemble)\n\nThe 20-piece ensemble Fanfare Pourpour, which began life as a guerilla street band in Montreal in the '70s, closed the festival.",
+      "site_id": "downbeat",
+      "crawl_status": "success",
+      "type": "feature"
+    }
+  ]
+}

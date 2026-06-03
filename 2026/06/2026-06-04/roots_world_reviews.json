@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-04T04:17:00Z",
+    "cutoff_date": "~36h before scrape",
+    "site": "rootsworld",
+    "note": "RootsWorld does not publish per-article dates. All 49 reviews on homepage are -26.shtml (2026) but no dates exist to filter 36h window. Returned empty per protocol."
+  },
+  "items": []
+}

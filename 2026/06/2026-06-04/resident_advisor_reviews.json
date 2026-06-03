@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-03T20:18:33+00:00",
+    "cutoff_date": "2026-06-02T08:18:33+00:00",
+    "site": "resident_advisor",
+    "hours_scanned": "36",
+    "scrape_method": "camoufox_playwright",
+    "latest_review_id": 36355,
+    "latest_review_date": "2026-05-29",
+    "latest_review_title": "fakemink - Terrified",
+    "note": "No Resident Advisor reviews within 36h window. Latest review is fakemink - Terrified (ID 36355, 2026-05-29, ~5 days ago). All 9 visible reviews predate cutoff. RA review publication cadence is too low (<1 per 36h) to surface items in a 36h scrape window."
+  },
+  "items": []
+}

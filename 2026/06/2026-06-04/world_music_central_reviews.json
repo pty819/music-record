@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "total": 3,
+    "scraped_at": "2026-06-03T20:13:38Z",
+    "cutoff_date": "2026-06-02T08:13:38Z",
+    "source": "RSS feed https://worldmusiccentral.org/feed/",
+    "site": "world_music_central",
+    "window_hours": 36
+  },
+  "items": [
+    {
+      "album": "Ta Nisia [The Islands]",
+      "artist": "Estudiantina of Melbourne",
+      "score": null,
+      "url": "https://worldmusiccentral.org/estudiantina-of-melbournes-ta-nisia-greek-roots-continuity-and-transformation/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-03T08:57:00+00:00",
+      "tags": [
+        "Estudiantina of Melbourne",
+        "Greek music",
+        "rebetiko",
+        "smyrneika"
+      ],
+      "excerpt": "Estudiantina of Melbourne – Ta Nisia [The Islands] (self-release, 2026) Estudiantina Of Melbourne presents its second album, Ta Nisia (The Islands), an independently-released recording. The new work follows the ensemble’s debut, Journey to Rebetika, and arrives after two years of activity that included 26 concerts. The new album reflects both continuity and change. The group’s music remains rooted in captivating smyrneika and rebetiko, taking the listener on a tour of joyful Greek taverns and ni",
+      "body": "Estudiantina of Melbourne – Ta Nisia [The Islands] (self-release, 2026)\n\nEstudiantina Of Melbourne presents its second album, Ta Nisia (The Islands), an independently-released recording. The new work follows the ensemble’s debut, Journey to Rebetika, and arrives after two years of activity that included 26 concerts.\n\nThe new album reflects both continuity and change. The group’s music remains rooted in captivating smyrneika and rebetiko, taking the listener on a tour of joyful Greek taverns and nightclubs. At the same time, Ta Nisia also points to a broader musical direction. In turn, the title carries both a literal and symbolic meaning: each track stands on its own. Nevertheless, together, the pieces trace a larger story of migration, identity, growth, and belonging.\n\nThe lineup on the album features regular ensemble members Maria Antaras-Dalamagas on accordion and vocals; Vagelis Ginis on vocals; Camille El Feghali on kanun; Jenny Dixon on violin; Alex Petropoulos on guitar; Paul Karalis on bouzouki; Con Kalamaras on bouzouki and vocals; and Rosco Heck on percussion. Guest musicians Indra Buraczewska on double bass and Tim Meyen on cimbalom also appear on the release. Meyen’s instrument, a 145-string Austro-Hungarian cimbalom, adds an unusual, charming tonal element to the ensemble’s established sound.\n\nAt the same time, Ta Nisia reflects the cultural mix of Melbourne, where the group formed and developed its identity. \n\nMusicians: Alex Petropoulos on guitar, vocals, lavta; Camille El Feghali on kanun, zurna; Con Kalamaras on bouzouki, vocals, lavta; Jenny Dixon on violin; Maria AntarasonDalamagas on accordion, vocals; Paul Karalis on bouzouki, oud; Rosco Heck on percussion; Vagellis Ginis on vocals. Guest musicians: Indra Buraczewska on bass; and Tim Meyen on cimbalom.\n\nKieran McCoey, recording engineer. Recorded at 3MBS Studios Abbotsford Convent Melbourne 2025\nAlbum artwork by Matthew Revert.\n\nTrack Listing:\n\nΤα νησιά – Κώστας Ρούκουνας – The Islands\n\nΝαζιάρα μου – Ρίτα Αμπατζή & Στελλάκης Περπινιάδης – My flirty girl\n\nΚυρ Κωστάκη – Παραδοσιακό – Mr Kostaki\n\nΓια μένα δε σε μέλλει – Κώστας Καρίπης – You don’t care about me\n\nΣτο Βοτανικό – Κώστας Ρούκουνας – In Votanikos\n\nΑραπίνα μου σκερτσόζα – Ρόζα Εσκενάζη/Παραδοσιακό – My Playful Dark Beauty\n\nΚοντραμπατζήδες – Κώστας Ρούκουνας – Smugglers\n\nΠρέπει να σ΄αφήσω – Γιώργος Καμβύσης/ Παναγιώτης Τούντας – I Have to Leave You\n\nΠασαλιμανιώτισσα – Στελλάκης Περπινιάδης – The Woman from Pasalimani\n\nΜε ζουρνάδες και νταούλια – Παναγιώτης Τούντας – With Zournas and Drums\n\nΜου φαίνεται – Βαγγέλης Παπάζογλου – It shows\n\nΠρέπει να σ΄αφήσω ρεπρίζα – Εστουδιαντίνα της Μελβούρνης – I Have to Leave You reprise.\n\nAuthor: Tyler Bennet\n\n[image:Share]",
+      "site_id": "world_music_central",
+      "crawl_status": "ok",
+      "type": "review"
+    },
+    {
+      "album": "Tansihay",
+      "artist": "Hamida Ag Fano",
+      "score": null,
+      "url": "https://worldmusiccentral.org/desert-delight/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-02T09:54:48+00:00",
+      "tags": [
+        "blues",
+        "desert blues",
+        "Hamida Ag Fano",
+        "Tuareg music"
+      ],
+      "excerpt": "I’ve long agreed with the contention that blues music was born in Saharan Africa, and the most recent affirmation is courtesy of “Tansihay” by Hamida Ag Fano, a Malian Tuareg carrying on with the same sort of electrified roots that have emerged abundantly from West Africa in recent times. Author: Tom Orr Tom Orr is a California-based writer whose talent and mental stability are of an equally questionable nature. His hobbies include ignoring trends, striking dramatic poses in front of his ever-to",
+      "body": "I’ve long agreed with the contention that blues music was born in Saharan Africa, and the most recent affirmation is courtesy of “Tansihay” by Hamida Ag Fano, a Malian Tuareg carrying on with the same sort of electrified roots that have emerged abundantly from West Africa in recent times. \n\nAuthor: Tom Orr\nTom Orr is a California-based writer whose talent and mental stability are of an equally questionable nature. His hobbies include ignoring trends, striking dramatic poses in front of his ever-tolerant wife and watching helplessly as his kids surpass him in all desirable traits.\n\n[image:Share]",
+      "site_id": "world_music_central",
+      "crawl_status": "ok",
+      "type": "review"
+    },
+    {
+      "album": "In Moments",
+      "artist": "Slowe",
+      "score": null,
+      "url": "https://worldmusiccentral.org/slowes-in-moments-a-lovely-warm-and-glowing-recording/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-02T08:36:00+00:00",
+      "tags": [
+        "contemporary jazz",
+        "neosoul",
+        "Slowe"
+      ],
+      "excerpt": "Slowe – In Moments (Tru Thoughts TRU480D, 2026) Slowe’s In Moments glows with intimate and hard-earned clarity. The Bristol (UK) artist deepens the neo-soul and accessible jazz palette of her earlier work, Where The Mind Wanders, with fuller arrangements and rich instrumentation. The song “How Hard Can It Be?” sways with smoky confidence, while “Sundown” drifts through quiet resilience. “Puzzle” and “Mind/Body” linger like streetlights through rain-streaked windows. Elsewhere, “Pen to Paper” and",
+      "body": "Slowe – In Moments (Tru Thoughts TRU480D, 2026)\n\nSlowe’s In Moments glows with intimate and hard-earned clarity. The Bristol (UK) artist deepens the neo-soul and accessible jazz palette of her earlier work, Where The Mind Wanders, with fuller arrangements and rich instrumentation. The song “How Hard Can It Be?” sways with smoky confidence, while “Sundown” drifts through quiet resilience. “Puzzle” and “Mind/Body” linger like streetlights through rain-streaked windows. Elsewhere, “Pen to Paper” and “Rhyme or Reason” strip everything bare, exposing thoughts that feel almost too delicate to voice aloud.\n\nSlowe writes about adulthood with serenity. Anxiety, shifting relationships and the strange ache of self-awareness are conveyed in small, precise observations that cut deep. Her silky, lovely, delightful voice holds remarkable emotional gravity. \n\nWhat stays long after the final track fades is the album’s compassionate honesty. In Moments understands that change rarely arrives with triumph. More often, it slips quietly into ordinary days, leaving people startled by who they have become. Slowe captures that truth with rare elegance and radiant restraint.\n\nSlowe shared: “This album is a meditation on change: fearing it, needing it and learning to let it shape me. Across its songs run the threads of self-doubt, shifting relationships, quiet joys and the bittersweet weight of time. It’s about the laughter that erupts without reason, the sting of tears in the middle of happiness, the moments when the heart takes a step before the mind is ready.”\n\nBuy In Moments.\n\nAuthor: Madison Quinn\n\n[image:Share]",
+      "site_id": "world_music_central",
+      "crawl_status": "ok",
+      "type": "review"
+    }
+  ]
+}

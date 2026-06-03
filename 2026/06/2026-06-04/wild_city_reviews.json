@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-06-04T06:00:00Z",
+    "cutoff_date": "2026-06-02T18:00:00Z",
+    "site": "thewildcity.com",
+    "site_id": "wild_city"
+  },
+  "items": [
+    {
+      "album": null,
+      "artist": null,
+      "score": null,
+      "url": "https://www.thewildcity.com/news/21705-watch-delhi-s-synth-communities-represent-at-antariksh-records-kissa-in-store-radio",
+      "source": "thewildcity.com",
+      "pub_date": "2026-06-03",
+      "tags": ["VegNonVeg", "Antariksh Records"],
+      "excerpt": "A little over a month ago, New Delhi imprint Antariksh Records and prominent streetwear/sneaker retailers VegNonVeg joined forces to launch KISSA In-Store radio, livestreaming and archiving sets from the latter's Gurgaon store. With the aim of curating \"broadcasts for the curious\", the mix and radio series has featured the likes of Unnayanaa, Bombie, Farhan Rehman and flux vortex. As part of its aim to document and archive the current alternative listening practices around sound and amplification present in the city of Delhi-NCR, and International Synthesiser Day, KISSA In-Store Radio brought together the synth communities that have been quietly growing in the capital city.",
+      "body": "A little over a month ago, New Delhi imprint Antariksh Records and prominent streetwear/sneaker retailers VegNonVeg joined forces to launch KISSA In-Store radio, livestreaming and archiving sets from the latter's Gurgaon store. With the aim of curating \"broadcasts for the curious\", the mix and radio series has featured the likes of Unnayanaa, Bombie, Farhan Rehman and flux vortex.\n\nAs part of its aim to document and archive the current alternative listening practices around sound and amplification present in the city of Delhi-NCR, and International Synthesiser Day, KISSA In-Store Radio brought together the synth communities that have been quietly growing in the capital city.\n\nShiv Ahuja aka Songs For A Tired City took charge of the 3-hour special, representing Synth Hang, an organically growing group of synthesiser enthusiasts which started as informal at-home gatherings but has since evolved to involve the who's who of the city's synth acts with multi-faceted interactive live events and even internationally prominent figures like Laurie Anderson paying a visit. Alongside an interview, Ahuja performed a set based around the iconic synth Buchla Easel, weaving ambient and leftfield sounds to showcase Synth Hang's penchant for the same.\n\nShaurya Sarin aka Imerohi has been building the live event series, Alt Baithak. While not exclusively dedicated to synthesisers, Alt Baithak also fully dedicates itself to the experimental, both in terms of sound and event flow, as it features workshops, immersive rituals and film screenings besides live sets. Imerohi builds a similar sense to his KISSA In-Store Radio set, morphine his guitar and triggering synth patterns that traverse ambient, post-rock and club music.\n\nLastly, Ahuja brings in Aditya Ghosh who, as Angia, builds modules for Eurorack synthesiser systems and performs music for them. Doing the same for his set, Angia offers a pacier performance where four-to-the-floor grooves are teeming with arpeggios and melodies teeming with textures that cut through.\n\nHead here to stream more sets from KISSA In-Store Radio, and follow Antariksh Records to stay updated.",
+      "site_id": "wild_city",
+      "crawl_status": "ok",
+      "type": "feature"
+    }
+  ]
+}

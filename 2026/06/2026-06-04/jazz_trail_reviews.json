@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-03T20:14:32+00:00",
+    "cutoff_date": "2026-06-02T08:14:32+00:00",
+    "site": "jazz_trail",
+    "feed_url": "https://jazztrail.net/blog?format=rss",
+    "feed_entries_total": 20,
+    "most_recent_pub_date": "2026-06-02T05:07:10+00:00",
+    "note": "Most recent album review (Lakecia Benjamin - We Dream, 2026-06-02T05:07Z) is ~3 hours before the 36h cutoff. Per protocol '空结果 → 输出 []，不报错不重试'. JazzTrail is a low-frequency site (~1 review/week)."
+  },
+  "items": []
+}
