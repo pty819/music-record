@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-06-04T20:24:18.961855+00:00",
+    "cutoff_date": "2026-06-03T08:24:18.961855+00:00",
+    "site": "bandwagon_asia",
+    "source": "Bandwagon Asia",
+    "pages_fetched": 2,
+    "method": "rss_feedparser",
+    "hours_scanned": 36
+  },
+  "items": [
+    {
+      "album": null,
+      "artist": null,
+      "score": null,
+      "url": "https://www.bandwagon.asia/articles/iiso-unpacks-the-complications-of-love-in-best-friend-along-with-nostalgic-y2k-inspired-mv-watch",
+      "source": "Bandwagon Asia",
+      "pub_date": "2026-06-04T02:47:00+00:00",
+      "tags": [],
+      "excerpt": "iiso captures the carefree and complicated capabilities of love through her genre-blurring single 'Best Friend'. The evocative lyrics and textured rhythms breathe life into the wistful narrative behind the song.\n\nThe track follows the story of someone stuck between love and friendship after falling deeply in love with their best friend. While confessing their feelings would throw a wrench into the beautiful friendship they have built, keeping the bubbling emotions inside proves to be an agonisin",
+      "body": "iiso captures the carefree and complicated capabilities of love through her genre-blurring single 'Best Friend'. The evocative lyrics and textured rhythms breathe life into the wistful narrative behind the song.\n\nThe track follows the story of someone stuck between love and friendship after falling deeply in love with their best friend. While confessing their feelings would throw a wrench into the beautiful friendship they have built, keeping the bubbling emotions inside proves to be an agonising feat.\n\nThe lyrics capture the confusion and frustration of being unable to express the growing feelings as they say, \"We message every day, but babe, you don’t know me at all, can’t tell you anything, nothing, nothing, nothing, if I say that I’m into you, I can’t stay your best friend.\" produced by Mura Masa the UK garage and Y2K-inspired dance-pop beats pulse beneath each verse, the song's underlying sense of anxiety and yearning for reciprocated feelings comes to the surface.\n\nThe accompanying music video for the track captures the early 2000s vibe as director Lafic captures home video-style scenes of iiso pondering the right choice of either admitting her love or keeping it a secret forever.\n\nWith 'Best Friend', iiso transforms a universally relatable dilemma into a captivating blend of nostalgic dance-pop and heartfelt storytelling. Balancing the excitement of love with the fear of losing a cherished friendship, the track showcases her ability to capture complex emotions with honesty, charm, and irresistible melodies.",
+      "site_id": "bandwagon_asia",
+      "crawl_status": "scraped",
+      "type": "feature"
+    }
+  ]
+}

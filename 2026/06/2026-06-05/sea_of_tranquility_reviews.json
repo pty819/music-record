@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-04T20:15:00+00:00",
+    "cutoff_date": "2026-06-03T08:15:00+00:00",
+    "site": "seaoftranquility.org",
+    "url": "https://www.seaoftranquility.org/reviews.php",
+    "reason": "No reviews within 36h window — scraped the full 100-review index page and the most recent entry (Wax Theatricks: Different Voices, id=25544) is dated 2026-06-01, three days older than the 36h cutoff (2026-06-03). All 100 items on the index are dated <= 2026-06-01. The site's actual reviews.php URL (the task's /category/reviews URL returns 404). No RSS feed available. One transient 502 Bad Gateway on the body's innerText fetch for review #33 (Asia: Live In England) — re-fetched and confirmed its Added: date is April 10th 2026, also outside the window."
+  },
+  "items": []
+}

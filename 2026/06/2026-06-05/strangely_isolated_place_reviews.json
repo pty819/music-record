@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-04T20:13:00Z",
+    "cutoff_date": "2026-06-03T08:12:44Z",
+    "site": "astrangelyisolatedplace",
+    "site_url": "https://www.astrangelyisolatedplace.com/",
+    "hours_scanned": 36,
+    "notes": "No posts within 36h window. Latest blog post is aspetuck-immersion-asipv055 (2026-05-15, ~20 days old). Site is a slow-moving ambient/electronica label with monthly or less frequent release posts. RSS feed URL (https://www.astrangelyisolatedplace.com/feed → /blog/feed) currently 404s due to a Squarespace redirect loop. Sitemap parsed (2925 URLs), no recent activity in window."
+  },
+  "items": []
+}

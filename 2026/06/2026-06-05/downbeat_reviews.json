@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-04T20:09:37+00:00",
+    "cutoff_date": "2026-06-03T08:09:37+00:00",
+    "site": "downbeat.com",
+    "url": "https://downbeat.com/reviews",
+    "reason": "No reviews within 36h window — all reviews on listing (157 pages) are from April 2026 (Apr 10-18), more than 6 weeks old. DownBeat reviews are print magazine reviews with no per-article publish dates within the 36h window."
+  },
+  "items": []
+}
