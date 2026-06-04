@@ -61,7 +61,7 @@ Step 5  创建 Kanban Swarm（一行 CLI 创建完整 DAG）
 
 用户担心 synthesizer 和我们调 final summary 不太一样——确实。我们的 synthesizer **不只是** LLM 总结，而是**完整的生产线**：
 
-1. **并发评分 + 中文总结**（process_reviews.py 线程池调用 MiniMax M2.7）
+1. **并发评分 + 中文总结**（process_reviews.py 线程池调用 Minimax-M3）
 2. **生成推荐 markdown**（generate_report.py，零 API 调用）
 3. **Git push 到 GitHub**
 4. **Telegram 推送**
@@ -654,11 +654,11 @@ git push origin main 2>&1 || echo "⚠️ git push failed (TLS), manual retry la
 
 ## LLM 评分 + 中文总结（process_reviews.py）
 
-`process_reviews.py` 使用 MiniMax M2.7 进行评分和中文总结。评分和总结在**同一次 API 调用**中完成，线程池并发处理。
+`process_reviews.py` 使用 Minimax-M3 进行评分和中文总结。评分和总结在**同一次 API 调用**中完成，线程池并发处理。
 
 ### API 配置
 
-通过 **Anthropic SDK** 调用 `api.minimaxi.com` 的 MiniMax M2.7 模型：
+通过 **Anthropic SDK** 调用 `api.minimaxi.com` 的 Minimax-M3 模型：
 
 ```python
 import anthropic
@@ -679,7 +679,7 @@ client = anthropic.Anthropic(
 for attempt in range(3):
     try:
         message = client.messages.create(
-            model="MiniMax-M2.7",
+            model="Minimax-M3",
             max_tokens=30000,
             temperature=0.7,
             messages=[{"role": "user", "content": prompt}]
