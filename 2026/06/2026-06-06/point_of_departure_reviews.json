@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "site": "point_of_departure",
+    "site_id": "point_of_departure",
+    "total": 0,
+    "scraped_at": "2026-06-05T20:11:28+00:00",
+    "cutoff_date": "2026-06-04T08:11:28+00:00",
+    "hours_scanned": 36,
+    "rss_available": false,
+    "issues_seen": [
+      {"issue": "95", "label": "June 2026", "newest_article_last_modified": "2026-06-02T17:22:07+00:00"},
+      {"issue": "94", "label": "March 2026", "newest_article_last_modified": "unknown (archive only)"}
+    ],
+    "notes": "Point of Departure is a quarterly webzine (March/June/September/December). Current issue #95 (June 2026) was published around 2026-06-01 to 2026-06-02. No per-article publish dates; HTTP Last-Modified headers used as proxy. Every article in the current issue predates the 36h cutoff (2026-06-04T08:11:28Z) by 2-4 days. No RSS, no recent activity, no items in window. Listing pages checked: home, Content.html (issue index), PoD95PageOne, PoD95Hanes, PoD95Henkin, PoD95Ezz-thetics, PoD95BookCooks, PoD95MomentsNotice, PoD95MoreMoments2..5."
+  },
+  "items": []
+}

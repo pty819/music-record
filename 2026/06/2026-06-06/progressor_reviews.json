@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-06T04:25:00Z",
+    "cutoff_date": "2026-06-04T16:25:00Z",
+    "site": "progressor",
+    "site_url": "http://www.progressor.net/",
+    "window_hours": 36,
+    "scraper": "kanban-worker (plain HTTP, no RSS — feedparser path is N/A; site has no /feed/, /rss/, or /feed.rss endpoint; all common variants 404)",
+    "notes": "Site checked end-to-end. Most recent reviews are dated April 2026 (short reviews: mike_oldhill, abstracted, asia, big_big_train, daymoon, hiro_kawahara, realisea, vajra) and earlier 2026 reviews from history_short.html (kastning_and_raaberg, kastning_and_wertico, kevin_kastning, rigoni_manring_hamm, shallow_willow, solstice, wisdom_trip, anton_roolaart, clive_nolan, jeff_aug, alan_morse, camel — byline months Jan/Feb/Mar 2026). News page stuck at June 2017. /hifuture_reviews.html is a 'Forthcoming Reviews' wishlist with no dates. The 36-hour window therefore contains zero ProgressoR content — empty items list is correct per task spec."
+  },
+  "items": []
+}

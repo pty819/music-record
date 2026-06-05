@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-05T20:09:46+00:00",
+    "cutoff_date": "2026-06-04T08:09:46+00:00",
+    "site": "downbeat",
+    "reason": "no reviews published within 36h window; latest visible web-publish date is 2026-04-18 (print issue January 2026), ~48 days before cutoff. RSS at /reviews/rss returns HTML not XML. Listing page 2 returns identical content (no new items). Empty result per spec."
+  },
+  "items": []
+}

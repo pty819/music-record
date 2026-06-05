@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-05T20:19:27+00:00",
+    "cutoff_date": "2026-06-04T08:19:32+00:00",
+    "site": "squids_ear",
+    "status": "blocked",
+    "reason": "Cloudflare managed challenge blocks all access (curl, RSS, Camoufox headless) — challenge does not resolve after 5+ minutes. Site has been blocked for 5+ days (verified June 1-5)."
+  },
+  "items": []
+}

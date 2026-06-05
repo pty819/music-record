@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-06-05T20:21:07.948212+00:00",
+    "cutoff_date": "2026-06-04",
+    "site": "jazz_trail",
+    "note": "1 album review within 36h window. Sitemap shows lastmod=2026-06-04; only Florian Arbenz article published 2026-06-04 06:06 UTC. No RSS feed available (sitemap.xml is the discovery source)."
+  },
+  "items": [
+    {
+      "album": "Quiet Lights",
+      "artist": "Florian Arbenz feat. Bill Frisell and Greg Osby",
+      "score": null,
+      "url": "https://jazztrail.net/blog/florian-arbenz-quiet-lights-album-review",
+      "source": "JazzTrail",
+      "pub_date": "2026-06-04",
+      "tags": "florian arbenz, greg osby, bill frisell, quiet lights, album review, jazz, contemporary jazz, post bop",
+      "excerpt": "Swiss drummer and composer Florian Arbenz, known for his Conversation series, returns with Quiet Lights , featuring regular collaborator Greg Osby on saxophones and a new addition to his circle of musical associates: the remarkable Bill Frisell on guitar. Boasting a deep Americana feel, “ Homenaje ” is layered with percussive dexterity, a coherent saxophone narrative, and a blend of bluesy and folksy guitar textures. Osby and Frisell drift in and out of the musical landscape before gradually bri",
+      "body": "Label: Hammer Recordings, 2026 Personnel - Florian Arbenz: drums; Bill Frisell: guitar; Greg Osby: alto and soprano saxophone.\n\nSwiss drummer and composer Florian Arbenz, known for his Conversation series, returns with Quiet Lights , featuring regular collaborator Greg Osby on saxophones and a new addition to his circle of musical associates: the remarkable Bill Frisell on guitar. Boasting a deep Americana feel, “ Homenaje ” is layered with percussive dexterity, a coherent saxophone narrative, and a blend of bluesy and folksy guitar textures. Osby and Frisell drift in and out of the musical landscape before gradually bringing their lines into closer dialogue around the second minute. The trio becomes even more integrated as Frisell expands his chordal work, radiating beauty through his unmistakable tone. Osby responds with denser phrasing and a confident attack that heightens the tension, while the trio eventually plunges into a sleek, dance-like 12-beat rumba-inspired cycle. Also highlighting Arbenz’s affinity for Latin rhythms, “ Rhumba ” closes the album with a percussive pedal effect—emulating a bass line—and unexpected atmospheric gestures from Frisell, who subtly shapes the environment with electronics. The mysterious “ Chant ” is initially underpinned by a sparse, dark-hued drone that, gradually allows light to seep in. Soft guitar textures are joined by shimmering cymbal colors and reflective soprano saxophone musings. The title track, “ Quiet Lights ”, carries a vibing quality and ambient pulse, weaving an elegant and refined texture. Arbenz employs custom-made percussion instruments alongside the drum kit, and the piece proves immediately accessible to the ear, much like “ Lueget vo Berg und Tal ”, a heartfelt reinterpretation of a traditional Swiss song reharmonized with cultivated taste. On “ Jammin’ in the Children’s Corner ”, written by Arbenz for saxophonist Dave Liebman, the trio reveals especially compelling aspects of its chemistry. Here, rigorous preparation meets genuine spontaneity in an exhilarating journey marked by precise accentuation and a gravitational energy surrounding the alto saxophone lines over agile brushwork. Frisell’s punctuated observations emerge with sharp motivic instinct. “ The Barradas Opening ”, which alludes to Portuguese accordionist João Barradas, is a bluesy, groove-oriented slow burner distinguished by strong interplay and finely shaped unisons, bridging Americana and contemporary elements with ease. Quiet Lights doesn’t really pack a punch, but unfolds gracefully without ever needing to force its impact, offering a charming and often introspective listening experience.\n\nFavorite Tracks: 01 - Homenaje ► 02 - Chant ► 03 - Jammin’ in the Children’s Corner",
+      "site_id": "jazz_trail",
+      "crawl_status": "ok",
+      "type": "review"
+    }
+  ]
+}
