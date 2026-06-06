@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-07T04:10:30Z",
+    "cutoff_date": "2026-06-05T16:10:00+00:00",
+    "source": "https://jazztrail.net/blog?format=rss",
+    "note": "RSS feed and /blog listing both show latest post dated 2026-06-04 (~46h ago), just outside the 36h window. No items in window."
+  },
+  "items": []
+}

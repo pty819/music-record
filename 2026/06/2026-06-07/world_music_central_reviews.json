@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "total": 4,
+    "scraped_at": "2026-06-06T20:12:46.256123+00:00",
+    "cutoff_date": "2026-06-05",
+    "site": "world_music_central",
+    "source_url": "https://worldmusiccentral.org/feed/",
+    "pages_crawled": 1,
+    "note": "WMC has no rating system → score=null for all"
+  },
+  "items": [
+    {
+      "album": "Tres Amores",
+      "artist": "Gianluca Verrengia",
+      "score": null,
+      "url": "https://worldmusiccentral.org/love-in-triplicate/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-06T09:55:34+00:00",
+      "tags": "Music videos, Single reviews, Gianluca Verrengia, rumba flamenca, world music",
+      "excerpt": "Italian guitarist Gianluca Verrengia shows both finesse and fire throughout “Tres Amores,” an exemplary piece of flamenco rumba (rumba flamenca) that’s largely instrumental until choral",
+      "body": "Italian guitarist Gianluca Verrengia shows both finesse and fire throughout “ Tres Amores ,” an exemplary piece of flamenco rumba (rumba flamenca) that’s largely instrumental until choral vocals come in and make the whole thing even better.",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "review"
+    },
+    {
+      "album": null,
+      "artist": "Various Artists",
+      "score": null,
+      "url": "https://worldmusiccentral.org/notations-2026-to-bring-65-artists-to-yerevan-for-interdisciplinary-lab-and-festival/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-06T09:20:56+00:00",
+      "tags": "Events, Arman Peshtmaljyan, Armenia, Armenian music, Ben Wheeler, Hayk Karoyi, hosq, Notations 2026, Venera Kazarova, Yerevan",
+      "excerpt": "Armenian creative hub hosq will host the second edition of Notations this summer, bringing together 65 artists, musicians, performers, media makers, and researchers for a",
+      "body": "Armenian creative hub hosq will host the second edition of Notations this summer, bringing together 65 artists, musicians, performers, media makers, and researchers for a 12-day interdisciplinary laboratory followed by a public festival in Yerevan. Notations Lab 2026 will take place from July 20–31 under the theme “Rituals.” The program will explore ritual as a framework for artistic experimentation, collective engagement, and the development of new creative practices. Participants from a range of disciplines will collaborate through workshops, lectures, performances, and research-based activities. The laboratory will conclude with the Notations Festival , scheduled for August 1–2. The festival will present newly developed works through concerts, installations, performances, and interdisciplinary projects at the Armenian State Philharmonia and the National Gallery of Armenia. Created and curated by hosq, an international cultural platform based in Armenia, Notations aims to strengthen connections between local, regional, and international practitioners while supporting new forms of artistic collaboration. Notations Lab The 2026 curatorial team includes Arman Peshtmaljyan, whose work with the Armenian Navy Band received the BBC Radio 3 Award for World Music 2006; Ben Wheeler, co-founder of the Mountains of Tongues label; producer and multi-instrumentalist Hayk Karoyi; and performance artist Venera Kazarova. According to the 2024 State of Armenia’s Cultural and Creative Ecosystem report by the Armenian General Benevolent Union, Armenia’s creative industries account for 4.4% of national GDP, with the sector nearly doubling in value since 2014. Organizers view Yerevan’s expanding cultural landscape as a key factor behind the project’s international appeal. Applications for Notations Lab 2026 remain open through June 1. Artists and researchers with at least five years of professional experience in music, sound, visual arts, performance, movement, media, somatic practices, or related fields are eligible to apply. No institutional affiliation is required. Hosq will cover participation costs, accommodation, and meals for selected participants. Of the 65 participants, approximately 70% will come from Armenia and neighboring countries, including Georgia, while 30% of places will be reserved for international applicants. The laboratory program will feature collaborative sessions, artist talks, workshops, a field trip, and the return of its daily collective rave, a feature introduced during the inaugural edition in 2025. Last year’s Notations brought together 60 artists and 22 curators from nine countries. Inspired by Avet Terterian’s Symphony No. 3 , the project generated 37 new artistic works, along with a documentary film, a vinyl release, and six digital releases. More than 1,000 visitors attended the concluding festival at the Armenian State Philharmonia. Key Dates Notations Lab 2026: July 20–31, 2026 Notations Festival: August 1–2, 2026 Location: Yerevan, Armenia Applications: Open through June 1, 2026 Information and Applications: hosq Notations Open Call Website: hosq",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "feature"
+    },
+    {
+      "album": "Progress",
+      "artist": "Aidan Muse",
+      "score": null,
+      "url": "https://worldmusiccentral.org/aidan-muse-addresses-environmental-change-on-new-song-progress/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-05T09:21:22+00:00",
+      "tags": "Music videos, Aidan Muse, Bluegrass, world music",
+      "excerpt": "Bluegrass singer-songwriter Aidan Muse has released “Progress,” a new original song inspired by concerns over deforestation and the loss of farmland in his home state",
+      "body": "Bluegrass singer-songwriter Aidan Muse has released “ Progress ,” a new original song inspired by concerns over deforestation and the loss of farmland in his home state of Wisconsin. According to Muse, the track emerged after he witnessed forests cleared and land transferred away from local farmers at what he described as an alarming pace. The song examines the tension between economic development and environmental preservation, with lyrics that challenge the idea of progress when it comes at the expense of natural landscapes and agricultural communities. Throughout the song, Muse questions the long-term impact of large-scale development projects, arguing that promises of future growth often overlook present-day environmental consequences. “Progress” was entirely written, composed, arranged, and produced by Muse. Dave Dalton handled engineering, mixing, and mastering duties. The recording features contributions from Jon Muse on bass, Paul Breitenbach on guitar, Ernest Brusubardis IV on fiddle, Caleb Peters on mandolin, and Aidan Muse on lead vocals and banjo. Buy Progress .",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "feature"
+    },
+    {
+      "album": "Hope!!",
+      "artist": "Angelique Kidjo",
+      "score": null,
+      "url": "https://worldmusiccentral.org/angelique-kidjos-hope-brings-star-power-and-heart/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-05T08:36:00+00:00",
+      "tags": "Album reviews, Angelique Kidjo, world music",
+      "excerpt": "Angelique Kidjo – Hope!! (Parlophone/Warner Music, 2026) Angélique Kidjo’s Hope!!, her joyful 16-track Afropop set spiced with neosoul, Afrobeats and other popular music influences features",
+      "body": "Angelique Kidjo – Hope!! (Parlophone/Warner Music, 2026) Angélique Kidjo’s Hope!! , her joyful 16-track Afropop set spiced with neosoul, Afrobeats and other popular music influences features a wide range of collaborators, including Pharrell Williams, Quavo, Ayra Starr, Davido, Nile Rodgers, Charlie Wilson, IZA, and PJ Morton. Pharrell produced three songs. Their collaboration began after Pharrell invited Kidjo to perform at his Grace For The World concert in St. Peter’s Square in Vatican City in September 2025. That meeting led to three original songs written and produced in Pharrell’s Paris studio with Kidjo’s voice and style in mind. Among them, “For Me” features Charlie Wilson and focuses on self-celebration in the face of adversity. “No Stopping Us” grew out of a conversation between Kidjo and Pharrell about social change. Meanwhile, “Bando,” which also features Quavo and vocals from Pharrell, draws on the slang term for an abandoned house and points to the street origins of popular trends. Elsewhere, the album is dedicated to Kidjo’s late mother, Yvonne. According to Kidjo, her mother’s favorite song was the moving “Malaika,” which closes the album in an orchestral version arranged by Derrick Hodge and featuring French singer Florent Pagny. Recorded in Paris and Los Angeles over the past three years, Hope!! also includes contributions from The Cavemen on “I’m On Fire,” Fally Ipupa on “Nadi Balance,” Sheila Maurice-Grey of Kokoroko, Dadju on “Superwoman,” and Diamond Platnumz on “Kakua.” In addition, Brazilian artist IZA appears on the “Oyaya.” The album also features “Sunlight To My Soul,” written by Diane Warren, as well as performances by the Soweto Gospel Choir, who previously worked with Kidjo at a 2003 Nelson Mandela benefit concert. Kidjo said the project reflects a message of hope and human connection at a time of growing division. In that spirit, the album continues a career that has paired music with activism, including her work through the Batonga Foundation and as a UNICEF goodwill ambassador. Kidjo’s previous album was her 2021 Grammy-winning album Mother Nature . Buy Hope!!",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "review"
+    }
+  ]
+}

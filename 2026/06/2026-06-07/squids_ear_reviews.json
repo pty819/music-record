@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-07T04:20:00+08:00",
+    "cutoff_date": "~36h before scraped_at",
+    "status": "blocked",
+    "reason": "Cloudflare challenge (WAF) - Camoufox could not bypass after 45s wait"
+  },
+  "items": []
+}

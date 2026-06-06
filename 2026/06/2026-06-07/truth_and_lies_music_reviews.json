@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-06T20:11:46Z",
+    "cutoff_date": "2026-06-05T08:11:46Z",
+    "site": "truth_and_lies_music",
+    "site_url": "https://www.truthandliesmusic.com/",
+    "section": "/magazine",
+    "hours_scanned": 36,
+    "note": "No articles within 36h window. Most recent article is May 26, 2026 (~11 days before cutoff). Squarespace blog with no RSS feed; checked 2 listing pages via offset pagination."
+  },
+  "items": []
+}

@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-07T04:09:00Z",
+    "cutoff_date": "2026-06-05T16:09:00Z (36h window)",
+    "site": "A Strangely Isolated Place",
+    "site_id": "strangely_isolated_place",
+    "rss_url": "https://www.astrangelyisolatedplace.com/blog?format=rss",
+    "note": "Most recent post is 'isolatedmix 135 - Aspetuck' (2026-06-04 22:19 UTC) and 'Aspetuck / Immersion (ASIPV055)' (2026-05-15 18:10 UTC) — both outside the 36-hour window. Blog cadence is roughly one post per month."
+  },
+  "items": []
+}

@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-06-06T20:02:40.417344+00:00",
+    "cutoff_date": "2026-06-05"
+  },
+  "items": [
+    {
+      "album": "Prozorno Mesta",
+      "artist": "6YPAH",
+      "score": null,
+      "url": "https://darkentries.be/recensies/6ypah-prozorno-mesta",
+      "source": "Dark Entries",
+      "pub_date": "2026-06-05",
+      "tags": "dark,experimental,gothic-industrial",
+      "excerpt": "Nieuws Recensies Interviews Concerten & Reportages In Memoriam Foto's English",
+      "body": "Nieuws Recensies Interviews Concerten & Reportages In Memoriam Foto's English",
+      "site_id": "dark_entries",
+      "crawl_status": "success",
+      "type": "review"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-06T20:15:02+00:00",
+    "cutoff_date": "2026-06-05",
+    "note": "RSS feed /recensies?format=feed&type=rss returned 12 items; most recent is 6YPAH 'Prozorno Mesta' (Fri 05 Jun 2026 08:15:10 +0200 = 06:15:10 UTC, ~38h ago) — just outside 36h window. No browser fallback needed per spec (RSS has data, no cross-validation)."
+  },
+  "items": []
+}
