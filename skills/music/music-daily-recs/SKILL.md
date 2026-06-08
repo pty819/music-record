@@ -199,58 +199,18 @@ python3 /home/liyifan/.local/bin/fast-rss-scrape.py \
 DATE_DIR="/home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)"
 mkdir -p "$DATE_DIR"
 
-cat > /tmp/run_html_scrapers.py << 'PYEOF'
-#!/usr/bin/env python3
-import subprocess, os, json, sys
-from datetime import datetime
-
-DATE_DIR = f"/home/liyifan/music-record/2026/{datetime.now().strftime('%m')}/{datetime.now().strftime('%Y-%m-%d')}"
-SCRIPTS = [
-    ("scrape_all_about_jazz", "all_about_jazz"),
-    ("scrape_dark_entries", "dark_entries_be"),
-    ("scrape_downbeat", "downbeat"),
-    ("scrape_free_jazz_blog", "free_jazz_blog"),
-    ("scrape_jazz_trail", "jazz_trail"),
-    ("scrape_mixmag_asia", "mixmag_asia"),
-    ("scrape_musique_machine", "musique_machine"),
-    ("scrape_resident_advisor", "resident_advisor"),
-    ("scrape_sea_of_tranquility", "sea_of_tranquility"),
-    ("scrape_songlines", "songlines"),
-    ("scrape_squids_ear", "squids_ear"),
-    ("scrape_wild_city", "wild_city"),
-]
-os.makedirs(DATE_DIR, exist_ok=True)
-
-procs = []
-for script, site_id in SCRIPTS:
-    out = os.path.join(DATE_DIR, f"{site_id}_reviews.json")
-    cmd = ["timeout", "180", "python3",
-           f"/home/liyifan/.local/bin/{script}.py",
-           "--days", "1.5", "--out-dir", DATE_DIR]
-    fout = open(out, "w")
-    p = subprocess.Popen(cmd, stdout=fout, stderr=subprocess.DEVNULL)
-    procs.append((p, site_id, fout))
-
-for p, sid, fout in procs:
-    try:
-        p.wait(190)
-    except subprocess.TimeoutExpired:
-        p.kill()
-    finally:
-        fout.close()
-
-for _, sid, _ in procs:
-    out = os.path.join(DATE_DIR, f"{sid}_reviews.json")
-    try:
-        d = json.load(open(out))
-        n = len(d.get("items", []))
-        print(f"  {sid}: {n} 条", file=sys.stderr)
-    except Exception as e:
-        print(f"  {sid}: FAILED ({e})", file=sys.stderr)
-PYEOF
-
-python3 /tmp/run_html_scrapers.py 2>&1
+python3 /home/liyifan/.local/bin/scrape_html_parallel.py \
+  --out-dir "$DATE_DIR" \
+  --days 1.5 \
+  --timeout 180
 ```
+
+**Wrapper 设计**（`bin/scrape_html_parallel.py`，已 commit）：
+- 并行起 12 个 scrape 子进程，per-scraper timeout 180s
+- 11 个走 stdout 重定向到 `<site_id>_reviews.json`
+- `scrape_sea_of_tranquility` 走 `--out-dir` 模式（它自写文件，stdout 是日志）
+- 一个 scraper 失败不影响其他（`return 0` 让 pipeline 继续 Step 4）
+- **不再 heredoc 写 Python**——彻底消除 cron session 缩进丢失风险
 
 **输出**：12 个 `{site_id}_reviews.json`，schema 与 RSS 一致 `{meta, items}`
 
