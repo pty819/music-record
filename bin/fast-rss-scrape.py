@@ -14,9 +14,16 @@ import argparse
 import feedparser
 import json
 import re
+import socket
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+
+# Cloudflare/feedparser protection guard (ProgArchives, The Wire, Rest Is Noise PH,
+# etc. have been observed to hang on feedparser.parse() with no timeout). Set the
+# default socket timeout for all HTTP reads in this process. Callers can override
+# by re-calling socket.setdefaulttimeout() after import.
+socket.setdefaulttimeout(15)
 
 SITES_JSON = Path.home() / ".minimax" / "music-sites" / "sites.json"
 DEFAULT_DAYS = 1.5
@@ -53,11 +60,18 @@ TAG_MAP = {
 
 
 def load_sites():
+    """Load all RSS-enabled sites.
+
+    Selection rule: site has a usable RSS feed. The `has_rss` flag is the source
+    of truth — `crawl_strategy` is no longer consulted here. fluid_radio has
+    `crawl_strategy=skip` but `has_rss=True`; we still load it (its feed is
+    2013-2022 historical content, so it produces 0 items, which is fine).
+    """
     with open(SITES_JSON) as f:
         data = json.load(f)
     return [
         s for s in data["sites"]
-        if s.get("has_rss") and s.get("rss_url") and s.get("crawl_strategy") != "skip"
+        if s.get("has_rss") and s.get("rss_url")
     ]
 
 

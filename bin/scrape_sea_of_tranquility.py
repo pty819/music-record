@@ -1,456 +1,281 @@
 #!/usr/bin/env python3
 """
-scrape_sea_of_tranquility.py — Camoufox-based scraper for Sea of Tranquility reviews.
+scrape_sea_of_tranquility.py — Sea of Tranquility reviewer scraper.
 
-Extracts recent album reviews from https://www.seaoftranquility.org.
-The site is an old PHP/table-based site. Strategy:
+Direct urllib HTTP (no Camoufox), 36h cutoff, early-stop on consecutive
+out-of-window reviews, CLI args for limit/days/date.
 
-  1. POST /tabs to create a tab and navigate to the reviews index page
-     (https://www.seaoftranquility.org/reviews.php)
-  2. Extract the 100 most recent review links (op=showcontent&id=NNNNN)
-  3. For each review link, navigate to the review page and extract:
-     - Title (in "Artist: Album" or "Artist - Album" format)
-     - Date from "Added: ..." metadata line
-     - Score from star images (star_whole.gif=1, star_half.gif=0.5)
-     - Full body text from the review page
-     - Excerpt from first paragraph of review body
-  4. Close the tab via DELETE /tabs/{tabId}
-  5. Output structured JSON to stdout
-
-Output format:
-  {"meta": {"total": N, "scraped_at": "...", "cutoff_date": "..."}, "items": [
-    {album, artist, score, url, source, pub_date, tags, excerpt, body, site_id, crawl_status, type}
-  ]}
+Output schema (canonical, must match RSS + other HTML scripts):
+{
+  "meta": {"total": N, "scraped_at": "...", "cutoff_date": "..."},
+  "items": [
+    {album, artist, score, url, source, pub_date, tags, excerpt, body,
+     site_id, crawl_status, type}
+  ]
+}
 
 Usage:
-  python3 scrape_sea_of_tranquility.py [--limit N] [--days 2] [--date YYYY-MM-DD]
+  python3 scrape_sea_of_tranquility.py --days 1.5 --limit 30
+  python3 scrape_sea_of_tranquility.py --date 2026-06-08
 """
-
+import argparse
 import json
+import os
 import re
 import sys
-import argparse
-from datetime import datetime, timezone, timedelta
-from html import unescape
-
+import time
 import urllib.request
-import urllib.error
+from datetime import datetime, timezone, timedelta
 
-# ── Configuration ──────────────────────────────────────────────────────
-CAMOFOX_BASE = "http://127.0.0.1:9377"
-INDEX_URL = "https://www.seaoftranquility.org/reviews.php"
-BASE_URL = "https://www.seaoftranquility.org"
+BASE = 'https://www.seaoftranquility.org'
+DEFAULT_OUTPUT = '/home/liyifan/music-record/2026/06/2026-06-08'
+OUTFILE_NAME = 'sea_of_tranquility_reviews.json'
+SOURCE = 'Sea of Tranquility'
+SITE_ID = 'sea_of_tranquility'
+HTTP_TIMEOUT = 15          # single-fetch timeout (was 20 in v2, tightened)
+SLEEP_BETWEEN = 0.25       # polite delay between review fetches
+EARLY_STOP_AFTER = 5       # consecutive out-of-window reviews → break
 
-SITE_ID = "sea_of_tranquility"
-SOURCE = "Sea of Tranquility"
-TAGS = "progressive rock,progressive metal"
-USER_ID = "scraper_sea_of_tranquility"
-SESSION_KEY = "session_sot"
-
-# JS to get full body text from a review page
-GET_BODY_JS = """
-() => {
-    const article = document.querySelector('article');
-    if (article) return article.innerText.slice(0, 10000);
-    return document.body.innerText.slice(0, 10000);
+months_map = {
+    'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
+    'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12,
+    'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+    'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 10, 'Dec': 12,
 }
-"""
-
-# Date from index page — "May 21st 2026", "May 21, 2026", "5/21/2026"
-DATE_ADDED_PATTERN = re.compile(
-    r"Added:\s*(.+?)(?:<|$)"
-)
-MONTHS = {
-    "january": 1, "february": 2, "march": 3, "april": 4, "may": 5, "june": 6,
-    "july": 7, "august": 8, "september": 9, "october": 10, "november": 11, "december": 12,
-    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
-    "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
-}
-ORD_SUFFIX = re.compile(r"(st|nd|rd|th)")
 
 
-def _api(method: str, path: str, body: dict | None = None) -> dict:
-    """Make a JSON API call to the Camoufox REST server."""
-    url = f"{CAMOFOX_BASE}{path}"
-    data = json.dumps(body).encode("utf-8") if body else None
-    req = urllib.request.Request(
-        url,
-        data=data,
-        method=method,
-        headers={"Content-Type": "application/json"} if data else {},
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        body_text = e.read().decode()[:500]
-        sys.stderr.write(f"[ERROR] HTTP {e.code} on {method} {path}: {body_text}\n")
-        raise
-    except Exception as e:
-        sys.stderr.write(f"[ERROR] {method} {path}: {e}\n")
-        raise
+def parse_args():
+    p = argparse.ArgumentParser(
+        description="Sea of Tranquility scraper (urllib + 36h cutoff + early-stop)")
+    p.add_argument("--days", type=float, default=1.5,
+                   help="Max age in days (default 1.5 = 36h)")
+    p.add_argument("--date", type=str, default=None,
+                   help="Explicit cutoff date YYYY-MM-DD (overrides --days)")
+    p.add_argument("--limit", type=int, default=30,
+                   help="Max reviews to fetch from listing (default 30, was 100 in v2)")
+    p.add_argument("--out-dir", type=str,
+                   default=os.environ.get('HERMES_KANBAN_WORKSPACE', DEFAULT_OUTPUT),
+                   help="Output directory (defaults to $HERMES_KANBAN_WORKSPACE)")
+    p.add_argument("--dry-run", action="store_true",
+                   help="Print counts, do not write file")
+    return p.parse_args()
 
 
-def parse_added_date(text: str) -> str | None:
-    """Parse date string like 'May 21st 2026' or 'May 21, 2026' into ISO date."""
-    text = text.strip()
-    # Remove ordinal suffixes: 21st -> 21, 2nd -> 2, 3rd -> 3
-    text = ORD_SUFFIX.sub("", text)
-    # Try various formats
-    for fmt in ["%B %d %Y", "%b %d %Y", "%B %d, %Y", "%b %d, %Y", "%m/%d/%Y"]:
-        try:
-            dt = datetime.strptime(text, fmt)
-            return dt.date().isoformat()
-        except ValueError:
-            continue
-    # Try manual parsing
-    parts = text.replace(",", "").split()
-    if len(parts) >= 3:
-        month_name = parts[0].lower()
-        day_str = parts[1]
-        year_str = parts[2]
-        month = MONTHS.get(month_name)
-        if month and day_str.isdigit() and year_str.isdigit():
-            try:
-                dt = datetime(int(year_str), month, int(day_str))
-                return dt.date().isoformat()
-            except ValueError:
-                pass
+def parse_added_date(text):
+    """Parse 'Added: June 1st 2026' from text."""
+    m = re.search(r'Added:\s*([A-Za-z]+)\s+(\d+)(?:st|nd|rd|th)?,?\s*(\d{4})', text, re.IGNORECASE)
+    if m:
+        month = months_map.get(m.group(1))
+        day = int(m.group(2))
+        year = int(m.group(3))
+        if month and 1 <= day <= 31 and year > 2000:
+            return datetime(year, month, day, tzinfo=timezone.utc)
     return None
 
 
-def parse_star_score(html_snippet: str) -> float | None:
-    """Count star images: star_whole.gif = 1.0, star_half.gif = 0.5.
-    Returns total score out of 5."""
-    wholes = html_snippet.count("star_whole.gif")
-    halves = html_snippet.count("star_half.gif")
-    total = wholes + (halves * 0.5)
-    if total == 0:
-        return None
-    return total
+def parse_score(text):
+    """Extract score value (1-10)."""
+    for pat in (r'(?:Score|Rating)[:\s]*(\d+(?:\.\d+)?)\s*/?\s*(?:\d+)?',
+                r'(?:Score|Rating)[:\s]*(\d+(?:\.\d+)?)'):
+        m = re.search(pat, text, re.IGNORECASE)
+        if m:
+            val = float(m.group(1))
+            if 1 <= val <= 10:
+                return val
+    return None
 
 
-def parse_artist_album(title: str) -> tuple:
-    """
-    Split title into (artist, album).
-
-    Most titles are "Artist: Album" format.
-    Some use "Artist - Album" format.
-    Some are just "Album" with no artist.
-    Some use "Lastname, Firstname: Album" format.
-    """
-    title = title.strip()
-    # Try colon first (most common): "Artist: Album"
-    if ": " in title:
-        parts = title.split(": ", 1)
-        artist = parts[0].strip()
-        album = parts[1].strip()
-        # Handle "Lastname, Firstname" -> "Firstname Lastname" format
-        # e.g. "Hampton, Michael: Into the Public Domain" -> Michael Hampton
-        # But also legitimate comma use in band names like "Selecter, The"
-        if "," in artist and not artist.lower().startswith("the "):
-            # Could be "Last, First" format — check if second part is short
-            name_parts = artist.split(",", 1)
-            possible_first = name_parts[1].strip()
-            possible_last = name_parts[0].strip()
-            # If the "last name" part is a single word, it's likely "Last, First"
-            if len(possible_last.split()) == 1 and len(possible_first.split()) <= 3:
-                artist = f"{possible_first} {possible_last}"
-        return artist, album
-
-    # Try dash: "Artist - Album" 
-    m = re.match(r"^(.+?)\s*[—–-]\s*(.+)$", title)
-    if m:
-        return m.group(1).strip(), m.group(2).strip()
-
-    # No separator found — entire title is album, unknown artist
-    return "", title
+def strip_html(text):
+    text = re.sub(r'<script[^>]*>.*?</script>', '', text, flags=re.DOTALL)
+    text = re.sub(r'<style[^>]*>.*?</style>', '', text, flags=re.DOTALL)
+    text = re.sub(r'<[^>]+>', ' ', text)
+    text = re.sub(r'&nbsp;', ' ', text)
+    text = re.sub(r'&amp;', '&', text)
+    text = re.sub(r'&#39;', "'", text)
+    text = re.sub(r'&quot;', '"', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 
 
-# ── JS that extracts review index links ──────────────────────────────────
+def extract_body_best(html):
+    """Extract review body from HTML; <p> tags first, <td> fallback."""
+    html = re.sub(r'<script[^>]*>.*?</script>', '', html, flags=re.DOTALL)
+    html = re.sub(r'<style[^>]*>.*?</style>', '', html, flags=re.DOTALL)
+    ps = re.findall(r'<p[^>]*>(.*?)</p>', html, re.DOTALL)
+    body_parts = []
+    for p in ps:
+        text = strip_html(p)
+        if len(text) < 20:
+            continue
+        if any(kw in text.lower() for kw in ['click here', 'copyright', 'all logos',
+                                              'contact us', 'web destination',
+                                              'main menu', 'faq page',
+                                              'visit our friends', 'printer friendly']):
+            continue
+        body_parts.append(text)
+    if body_parts:
+        return '\n\n'.join(body_parts)
+    tds = re.findall(r'<td[^>]*>(.*?)</td>', html, re.DOTALL)
+    candidates = []
+    for td in tds:
+        text = strip_html(td)
+        if len(text) < 200:
+            continue
+        text_lower = text.lower()
+        if text_lower.startswith(('&middot;', '·', 'for information', 'all logos',
+                                   'click here', 'copyright', 'visit our', 'search',
+                                   'topics', 'sections', 'main menu')):
+            continue
+        text = re.sub(r'\s*\[?\s*Printer Friendly Page\s*\]?\s*\[?\s*Send to a Friend\s*\]?\s*$', '', text, flags=re.IGNORECASE)
+        candidates.append((len(text), text))
+    if candidates:
+        candidates.sort(key=lambda x: x[0], reverse=True)
+        return candidates[0][1]
+    return ''
 
-EXTRACT_INDEX_LINKS_JS = """
-() => {
-    const links = document.querySelectorAll("a[href*='reviews.php?op=showcontent&id=']");
-    return Array.from(links).map(a => ({
-        title: a.textContent.trim().replace(/\\\\u00a0/g, ' ').replace(/\\\\u2020/g, '').trim(),
-        href: a.href,
-        id: (a.href.match(/id=(\\\\d+)/) || [])[1] || ''
-    }));
-}
-"""
 
-# ── JS that extracts review detail page data ────────────────────────────
+def fetch(url, label=''):
+    """Single HTTP GET with HTTP_TIMEOUT. Returns latin-1 decoded HTML."""
+    req = urllib.request.Request(url, headers={
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
+    })
+    with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT) as resp:
+        return resp.read().decode('latin-1', errors='replace')
 
-EXTRACT_REVIEW_JS = """
-() => {
-    const body = document.body;
 
-    // Extract title from <font> with <b>
-    const titleEl = document.querySelector('font[size="4"] b') ||
-                    document.querySelector('font[size="4"] i b');
-    let title = '';
-    if (titleEl) {
-        title = titleEl.textContent.trim();
-    } else {
-        // Fallback: look for <b> in the content's <td>
-        const tds = document.querySelectorAll('td');
-        for (const td of tds) {
-            const b = td.querySelector('b');
-            if (b && b.textContent.includes(':')) {
-                title = b.textContent.trim();
-                break;
-            }
-        }
-    }
-
-    // Extract metadata - find the blockquote or td near "Added:"
-    const html = document.body.innerHTML;
-    const addedIdx = html.indexOf('<b>Added:');
-    let addedDate = '';
-    let scoreHtml = '';
-    if (addedIdx >= 0) {
-        const block = html.substring(addedIdx, addedIdx + 800);
-        // Date: <b>Added:</b> May 21st 2026<br>
-        const dateMatch = block.match(/<b>Added:<\\/b>\\s*([^<]+?)(?:<|$)/);
-        if (dateMatch) {
-            addedDate = dateMatch[1].trim();
-        }
-        // Score block
-        const scoreStart = block.indexOf('<b>Score:');
-        if (scoreStart >= 0) {
-            const scoreEnd = block.indexOf('<br', scoreStart);
-            if (scoreEnd >= 0) {
-                scoreHtml = block.substring(scoreStart, scoreEnd + 4);
-            } else {
-                scoreHtml = block.substring(scoreStart, Math.min(scoreStart + 300, block.length));
-            }
-        }
-    }
-
-    // Extract review text (excerpt) — first paragraph of actual review
-    // Find paragraph after the title but before Track Listing / Added:
-    let excerpt = '';
-    const pElements = document.querySelectorAll('p[align="justify"]');
-    if (pElements.length > 0) {
-        // First justified paragraph is usually the start of the review
-        excerpt = pElements[0].textContent.trim();
-    }
-    if (!excerpt) {
-        // Fallback: try blockquote p
-        const bq = document.querySelector('blockquote');
-        if (bq) {
-            const firstP = bq.querySelector('p');
-            if (firstP) {
-                excerpt = firstP.textContent.trim();
-            }
-        }
-    }
-
+def build_item(rid, title, page, is_new):
+    body = extract_body_best(page)
+    added_date = parse_added_date(page)
+    score = parse_score(page)
+    url = f'{BASE}/reviews.php?op=showcontent&id={rid}'
+    artist, album, rtype = '', title, 'review'
+    if ':' in title:
+        artist = title[:title.index(':')].strip()
+        album = title[title.index(':') + 1:].strip()
+    if not artist:
+        rtype = 'feature'
     return {
-        title: title,
-        added_date: addedDate,
-        score_html: scoreHtml,
-        excerpt: excerpt
-    };
-}
-"""
-
-
-# ── Main ───────────────────────────────────────────────────────────────
+        'album': album,
+        'artist': artist,
+        'score': score,
+        'url': url,
+        'source': SOURCE,
+        'pub_date': added_date.isoformat() if added_date else None,
+        'tags': ['new_this_week'] if is_new else [],
+        'excerpt': body[:500] if body else '',
+        'body': body,
+        'site_id': f'sot_review_{rid}',
+        'crawl_status': 'ok',
+        'type': rtype,
+    }
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Scrape Sea of Tranquility reviews"
-    )
-    parser.add_argument(
-        "--limit", type=int, default=100,
-        help="Max reviews to scrape (default: 100, max from index page)"
-    )
-    parser.add_argument(
-        "--days", type=float, default=1.5,
-        help="Max age in days for articles (default: 2)"
-    )
-    parser.add_argument(
-        "--date", type=str, default=None,
-        help="Explicit cutoff date (YYYY-MM-DD). Overrides --days."
-    )
-    args = parser.parse_args()
-    limit = min(args.limit, 100)
-
-    today = datetime.now(timezone.utc).date()
+    args = parse_args()
+    now = datetime.now(timezone.utc)
     if args.date:
-        try:
-            cutoff_date = datetime.strptime(args.date, "%Y-%m-%d").date()
-        except ValueError:
-            sys.stderr.write(f"ERROR: Invalid --date format '{args.date}'. Use YYYY-MM-DD.\n")
-            sys.exit(1)
+        cutoff_dt = datetime.strptime(args.date, '%Y-%m-%d').replace(tzinfo=timezone.utc)
     else:
-        cutoff_date = today - timedelta(days=args.days)
+        cutoff_dt = now - timedelta(days=args.days)
 
-    sys.stderr.write(
-        f"Sea of Tranquility scraper — Today: {today}, Cutoff: {cutoff_date}, "
-        f"Limit: {limit}, Days: {args.days}\n"
-    )
+    out_dir = args.out_dir
+    out_path = os.path.join(out_dir, OUTFILE_NAME)
 
-    # Step 1: Create tab and go to reviews index
-    sys.stderr.write(f"Creating tab and navigating to {INDEX_URL}...\n")
-    tab_resp = _api("POST", "/tabs", {
-        "userId": USER_ID,
-        "sessionKey": SESSION_KEY,
-        "url": INDEX_URL,
-    })
-    tab_id = tab_resp.get("tabId")
-    if not tab_id:
-        sys.stderr.write("ERROR: Failed to create tab\n")
-        result = {"meta": {"total": 0, "scraped_at": today.isoformat(), "cutoff_date": cutoff_date.isoformat()}, "items": []}
-        print(json.dumps(result, indent=2, ensure_ascii=False))
-        sys.exit(1)
+    print(f"SoT scraper — now={now.isoformat()} cutoff={cutoff_dt.isoformat()} "
+          f"limit={args.limit} days={args.days}", file=sys.stderr)
 
-    all_items = []
+    # 1. Fetch listing
+    print('1) Fetching listing...', file=sys.stderr)
+    listing_html = fetch(f'{BASE}/reviews.php', 'listing')
 
-    try:
-        # Step 2: Wait a moment then extract review links from index page
-        import time
-        time.sleep(1)
-        sys.stderr.write("Extracting review links from index page...\n")
-        links_resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-            "expression": EXTRACT_INDEX_LINKS_JS,
-        })
-        raw_links = links_resp.get("result") or []
-        sys.stderr.write(f"Found {len(raw_links)} review links\n")
+    # 2. Parse all review IDs and titles from listing
+    all_ids = []
+    for m in re.finditer(r'showcontent(?:&amp;|&)id=(\d+)', listing_html):
+        rid = int(m.group(1))
+        if rid not in all_ids:
+            all_ids.append(rid)
+    print(f'   Found {len(all_ids)} unique IDs', file=sys.stderr)
 
-        # Step 3: Visit each review page
-        for i, link in enumerate(raw_links):
-            if i >= limit:
-                break
+    new_ids = []
+    for m in re.finditer(r'showcontent(?:&amp;|&)id=(\d+)[^>]*>[^<]*?(?:<[^>]+>)*?(?:&nbsp;)*?<img src="[^"]*newblue', listing_html):
+        new_ids.append(int(m.group(1)))
 
-            review_url = link.get("href", "")
-            idx_title = link.get("title", "")
-            review_id = link.get("id", "")
+    raw_titles = {}
+    for m in re.finditer(r'showcontent(?:&amp;|&)id=(\d+)"[^>]*>(.*?)</a>', listing_html, re.DOTALL):
+        rid = int(m.group(1))
+        title = re.sub(r'<[^>]+>', '', m.group(2)).replace('&nbsp;', ' ').strip()
+        if rid not in raw_titles:
+            raw_titles[rid] = title
 
-            if not review_url:
-                continue
+    skip_pat = re.compile(r'\b(BLU-RAY|UHD|VOD|DVD|Blu-ray|4K)\b', re.IGNORECASE)
+    to_fetch = [(rid, raw_titles[rid]) for rid in all_ids
+                if rid in raw_titles and not skip_pat.search(raw_titles[rid])]
+    to_fetch = to_fetch[:args.limit]
+    print(f'   After non-music filter + limit: {len(to_fetch)} to fetch', file=sys.stderr)
 
-            sys.stderr.write(
-                f"  [{i+1}/{min(len(raw_links), limit)}] "
-                f"Scraping review #{review_id}: {idx_title[:60]}...\n"
-            )
+    # 3. Fetch each review, with early-stop
+    print(f'\n2) Fetching reviews (early-stop after {EARLY_STOP_AFTER} consecutive out-of-window)...',
+          file=sys.stderr)
+    results = []
+    in_window = 0
+    consecutive_miss = 0
 
-            try:
-                # Navigate to review page
-                _api("POST", f"/tabs/{tab_id}/navigate", {
-                    "url": review_url,
-                })
-                time.sleep(1)
-
-                # Extract review data
-                detail_resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-                    "expression": EXTRACT_REVIEW_JS,
-                })
-                detail = detail_resp.get("result") or {}
-
-                title = detail.get("title", "") or idx_title
-                added_date_str = detail.get("added_date", "")
-                score_html = detail.get("score_html", "")
-                excerpt = detail.get("excerpt", "")
-
-                # Fetch full body text
-                body_resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-                    "expression": GET_BODY_JS,
-                })
-                body = str(body_resp.get("result", "") or "").strip()[:10000]
-
-                # Parse score from star images
-                score = parse_star_score(score_html)
-
-                # Parse date
-                pub_date = None
-                if added_date_str:
-                    pub_date = parse_added_date(added_date_str)
-
-                # Parse artist/album from title
-                artist, album = parse_artist_album(title)
-
-                # If empty, use the index page title
-                if not album:
-                    artist, album = parse_artist_album(idx_title)
-
-                # Apply cutoff filter
-                if pub_date:
-                    try:
-                        item_date = datetime.strptime(pub_date, "%Y-%m-%d").date()
-                        if item_date < cutoff_date:
-                            sys.stderr.write(f"    SKIP — before cutoff ({pub_date})\n")
-                            continue
-                    except ValueError:
-                        pass
-
-                # Extract first ~500 chars of excerpt, clean HTML entities
-                if excerpt:
-                    excerpt = unescape(excerpt)[:500]
-
-                item = {
-                    "album": album,
-                    "artist": artist,
-                    "score": score,
-                    "url": review_url,
-                    "source": SOURCE,
-                    "pub_date": pub_date or today.isoformat(),
-                    "tags": TAGS,
-                    "excerpt": (excerpt or body)[:500],
-                    "body": body,
-                    "site_id": SITE_ID,
-                    "crawl_status": "success",
-                    "type": "review",
-                }
-                all_items.append(item)
-
-                sys.stderr.write(
-                    f"    OK — {artist or '?'} : {album or title[:40]}"
-                    f" ({pub_date or '?'}, score={score}, body: {len(body)} chars)\n"
-                )
-
-            except Exception as e:
-                sys.stderr.write(
-                    f"    ERROR scraping {review_url}: {e}\n"
-                )
-                all_items.append({
-                    "album": idx_title or "",
-                    "artist": "",
-                    "score": None,
-                    "url": review_url,
-                    "source": SOURCE,
-                    "pub_date": today.isoformat(),
-                    "tags": TAGS,
-                    "excerpt": "",
-                    "body": "",
-                    "site_id": SITE_ID,
-                    "crawl_status": "error",
-                    "type": "review",
-                })
-
-        # Step 4: Build output
-        result = {
-            "meta": {
-                "total": len(all_items),
-                "scraped_at": today.isoformat(),
-                "cutoff_date": cutoff_date.isoformat(),
-            },
-            "items": all_items,
-        }
-        print(json.dumps(result, indent=2, ensure_ascii=False))
-        sys.stderr.write(f"Total: {len(all_items)} reviews\n")
-
-    finally:
-        # Step 5: Always close the tab
+    for idx, (rid, title) in enumerate(to_fetch):
         try:
-            _api("DELETE", f"/tabs/{tab_id}")
-            sys.stderr.write(f"Closed tab {tab_id}\n")
+            page = fetch(f'{BASE}/reviews.php?op=showcontent&id={rid}', f'id={rid}')
         except Exception as e:
-            sys.stderr.write(f"WARNING: Failed to close tab: {e}\n")
+            print(f'   [{idx+1}/{len(to_fetch)}] id={rid} FETCH ERROR: {e}', file=sys.stderr)
+            consecutive_miss += 1
+            if consecutive_miss >= EARLY_STOP_AFTER:
+                print(f'   Early-stop: {EARLY_STOP_AFTER} consecutive fetch failures',
+                      file=sys.stderr)
+                break
+            continue
+
+        item = build_item(rid, title, page, is_new=(rid in new_ids))
+        added_date = parse_added_date(page)
+
+        if added_date and added_date < cutoff_dt:
+            # out of window: skip, but don't count toward early-stop (date-based)
+            # early-stop only triggers on actual out-of-window reviews with date
+            consecutive_miss += 1
+            if consecutive_miss >= EARLY_STOP_AFTER:
+                print(f'   Early-stop at idx={idx+1}: {EARLY_STOP_AFTER} consecutive '
+                      f'out-of-window reviews (latest pub_date={added_date.isoformat()})',
+                      file=sys.stderr)
+                break
+            continue
+
+        # In window (or no date available → include as feature)
+        consecutive_miss = 0
+        results.append(item)
+        if added_date and added_date >= cutoff_dt:
+            in_window += 1
+
+        if (idx + 1) % 10 == 0:
+            print(f'   Progress: {idx+1}/{len(to_fetch)}, kept={len(results)}', file=sys.stderr)
+        time.sleep(SLEEP_BETWEEN)
+
+    print(f'\n3) Results: {len(results)} items, in_window={in_window}', file=sys.stderr)
+
+    output = {
+        'meta': {
+            'total': len(results),
+            'scraped_at': now.isoformat(),
+            'cutoff_date': cutoff_dt.isoformat(),
+        },
+        'items': results,
+    }
+
+    if args.dry_run:
+        print(json.dumps(output['meta'], indent=2))
+        return
+
+    os.makedirs(out_dir, exist_ok=True)
+    with open(out_path, 'w') as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+    print(f'   Wrote {out_path}', file=sys.stderr)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

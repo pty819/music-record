@@ -55,33 +55,87 @@ class SwarmWorkerSpec:
     max_runtime_seconds: Optional[int] = None
 
 
+# Sites that have a dedicated HTML scraper in bin/ (priority over Camoufox).
+# This is the post-priority-resolution list — every site in HTML_SCRIPT_IDS
+# has its own scrape_*.py in bin/, so it is *not* assigned a Camoufox worker.
+HTML_SCRIPT_IDS = frozenset({
+    "all_about_jazz",       # scrape_all_about_jazz.py
+    "dark_entries_be",      # scrape_dark_entries.py
+    "downbeat",             # scrape_downbeat.py
+    "free_jazz_blog",       # scrape_free_jazz_blog.py
+    "jazz_trail",           # scrape_jazz_trail.py
+    "mixmag_asia",          # scrape_mixmag_asia.py
+    "musique_machine",      # scrape_musique_machine.py
+    "resident_advisor",     # scrape_resident_advisor.py
+    "sea_of_tranquility",   # scrape_sea_of_tranquility.py
+    "songlines",            # scrape_songlines.py
+    "squids_ear",           # scrape_squids_ear.py
+    "wild_city",            # scrape_wild_city.py
+})
+
+
 def get_sites():
-    """Load non-RSS Camoufox sites."""
+    """Load sites that must be scraped with Camoufox (post-priority-resolution).
+
+    Selection rule (priority order RSS > HTML > Camoufox):
+      1. RSS  — sites with has_rss=True go to fast-rss-scrape.py
+      2. HTML — sites in HTML_SCRIPT_IDS go to bin/scrape_<id>.py
+      3. Camoufox — everything left that has crawl_strategy=playwright_headless
+                    and is not skipped, and has no RSS, and is not in HTML_SCRIPT_IDS
+
+    Returns the 9 active Camoufox sites. Skipped/disabled sites are excluded.
+    """
     with open(SITES_FILE) as f:
         d = json.load(f)
-    return [
-        s for s in d["sites"]
-        if s.get("crawl_strategy") != "skip"
-        and not s.get("skipped")
-        and not s.get("has_rss")
-    ]
+    out = []
+    for s in d["sites"]:
+        if s.get("crawl_strategy") == "skip":
+            continue
+        if s.get("skipped"):
+            continue
+        if s.get("has_rss") and s.get("rss_url"):
+            continue  # RSS path
+        if s.get("id") in HTML_SCRIPT_IDS:
+            continue  # HTML script path
+        # Anything reaching here is the 9-site Camoufox tail.
+        out.append(s)
+    return out
 
 
 def build_scraper_body(site, date_dir):
-    """Build the scraper task body for one site."""
+    """Build the scraper task body for one site.
+
+    Worker is invoked with --days 1.5 explicitly so the cutoff is enforced by
+    the scraper itself, not by the worker's own reading of the body. The body
+    also instructs the worker to *check* for an RSS feed first — if found, the
+    worker should produce a "skipped: rss_available" status instead of opening
+    a browser (this enforces the RSS > HTML > Camoufox priority order at the
+    worker level).
+    """
     sid = site.get("id", site["name"].lower().replace(" ", "_"))
     name = site["name"]
     url = site.get("url") or site.get("reviews_url") or site.get("homepage", "")
+    rss_url = site.get("rss_url", "") or ""
     strategy = site.get("crawl_strategy", "playwright_headless")
     tags = ", ".join(site.get("tags", []))
     out_file = f"{date_dir}/{sid}_reviews.json"
 
+    rss_check_block = ""
+    if rss_url:
+        rss_check_block = f"""\
+0. RSS 优先检查（必做）→ 命中直接退出：
+   curl -fsS --max-time 10 {rss_url} | python3 bin/fast-rss-scrape.py --days 1.5 --site {sid} -
+   如果该 feed 里有 ≥1 条近 36h 文章 → 把 JSON 写到 {out_file}，跳过浏览器
+   如果 feed 空/超时/出错 → 继续 Step 1 浏览器
+"""
+
     return f"""**{name}** · {url} · {strategy} · {tags}
+RSS: {rss_url or "(none)"}
 
 🔒 约束
 ━━━━━━━━━━━━━━━━
-- 时间范围：只抓 36 小时内文章，超期停止
-- RSS 优先：有 RSS 就走 feedparser，不开浏览器
+- 时间窗口：1.5 天 = 36 小时，硬约束。CLI 必须传 --days 1.5
+- RSS 优先：先 curl + feedparser，有近期条目就不开浏览器
 - Cookie 墙：navigate 后点击 Accept/Agree
 - 非音乐过滤：跳过 (BLU-RAY)/(UHD)/(VOD)/(DVD)
 - 特稿/访谈 → type: feature, score: null
@@ -93,24 +147,23 @@ def build_scraper_body(site, date_dir):
 - 禁止写 Python 脚本测日期逻辑（模板里的 cutoff 是正确的）
 - 禁止 RSS 有数据还开浏览器交叉验证
 - 禁止翻超过前 2 页列表页
+- 禁止自行计算 cutoff 日期（直接用 --days 1.5）
 - 日志超过 100 行说明你在过度分析，超过 300 行说明你有问题
 
-✅ 步骤
+{rss_check_block}✅ 步骤
 ━━━━━━━━━━━━━━━━
-1. 检查 RSS → curl + feedparser，过滤 36 小时内条目
-   - CDATA 全文用 summary 字段获取，strip HTML 取前 500 字
-   - curl 超时（SSL 握手失败）→ 走 Camoufox 浏览器
-2. 无 RSS → Camoufox 浏览器访问列表页，只翻前 2 页
-3. Cookie 墙 → 检查并点击 Accept/Agree，等 1 秒
-4. 提取：album, artist, score, url, source, pub_date, excerpt, type
-5. 超 36 小时停止翻页
-6. 非音乐过滤：跳过含 (BLU-RAY)/(UHD)/(VOD)/(DVD) 条目
-7. kanban_complete
+1. Camoufox 浏览器访问列表页，只翻前 2 页
+2. Cookie 墙 → 检查并点击 Accept/Agree，等 1 秒
+3. 提取：album, artist, score, url, source, pub_date, excerpt, body, site_id, crawl_status, type
+4. 36 小时外停止翻页
+5. 非音乐过滤：跳过含 (BLU-RAY)/(UHD)/(VOD)/(DVD) 条目
+6. 写入 {out_file}
+7. kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}", "count": N, "hours_scanned": "36"}})
 
 📦 输出格式
 ━━━━━━━━━━━━━━━━
 写入 {out_file}，JSON 格式：
-{{"meta": {{"total": N, "scraped_at": "...", "cutoff_date": "~36h前"}},
+{{"meta": {{"total": N, "scraped_at": "...", "cutoff_date": "36h前"}},
   "items": [
     {{ "album", "artist", "score", "url", "source", "pub_date", "tags", "excerpt", "body", "site_id", "crawl_status", "type" }}
   ]
@@ -118,7 +171,7 @@ def build_scraper_body(site, date_dir):
 type: "review" | "feature" | "tracklist"
 ❗ 必须包含 body 字段（全文正文，不截断）
 ❗ 必须使用 {{meta, items}} 外包装，不是裸数组
-kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}", "count": N, "hours_scanned": "36"}})"""
+"""
 
 
 VERIFIER_BODY = """🔒 约束
