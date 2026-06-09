@@ -23,6 +23,16 @@ def parse_args():
     p = argparse.ArgumentParser(description="Scrape Jazz Trail blog reviews")
     p.add_argument("--days", type=float, default=1.5, help="Days back from reference date")
     p.add_argument("--date", help="Reference date YYYY-MM-DD (default: today)")
+    # Cap pagination. Jazz Trail's offset-paginated blog has ~thousands of
+    # posts back to 2016; with --days 1.5 the window fits in the first 1-2
+    # pages (page 1 is the /blog index = freshest; each subsequent page jumps
+    # ~100+ days back). 3 pages = generous safety margin under the 36h
+    # window while keeping the run under ~10s. Without this cap the script
+    # crawls 80+ pages / 250s+ for one in-window hit, which trips the
+    # scrape_html_parallel.py 180s per-scraper timeout.
+    p.add_argument("--max-pages", type=int, default=3,
+                   help="Hard cap on listing pages to fetch (default 3). "
+                        "Set higher if you widen --days substantially.")
     return p.parse_args()
 
 
@@ -201,7 +211,7 @@ def main():
     next_url = LIST_URL
     page_num = 0
 
-    while next_url:
+    while next_url and page_num < args.max_pages:
         page_num += 1
         html = fetch(next_url)
         if not html:
