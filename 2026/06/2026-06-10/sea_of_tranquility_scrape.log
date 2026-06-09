@@ -1,0 +1,47 @@
+SoT scraper — now=2026-06-09T20:18:52.806857+00:00 cutoff=2026-06-08T08:18:52.806857+00:00 limit=30 days=1.5
+1) Fetching listing...
+Traceback (most recent call last):
+  File "/home/liyifan/.local/bin/scrape_sea_of_tranquility.py", line 281, in <module>
+    main()
+  File "/home/liyifan/.local/bin/scrape_sea_of_tranquility.py", line 189, in main
+    listing_html = fetch(f'{BASE}/reviews.php', 'listing')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/bin/scrape_sea_of_tranquility.py", line 142, in fetch
+    with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT) as resp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 519, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 536, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 1391, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 1352, in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/http/client.py", line 1415, in getresponse
+    response.begin()
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/http/client.py", line 330, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/http/client.py", line 291, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/socket.py", line 718, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/ssl.py", line 1326, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/ssl.py", line 1178, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
