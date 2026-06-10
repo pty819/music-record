@@ -190,7 +190,7 @@ VERIFIER_BODY = """🔒 约束
 
 Step 1: 合并所有抓取数据 → scraped_raw.json
 cd /home/liyifan/music-record
-python3 /home/liyifan/.local/bin/merge_scraped.py \\
+python3 /home/liyifan/music-record/bin/merge_scraped.py \\
   --date-dir "$(pwd)/2026/$(date +%m)/$(date +%Y-%m-%d)" \\
   -o scraped_raw.json
 

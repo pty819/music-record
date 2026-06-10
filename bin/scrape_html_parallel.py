@@ -51,7 +51,7 @@ def parse_args():
     p.add_argument("--days", default="1.5")
     p.add_argument("--timeout", type=int, default=180,
                    help="Per-scraper timeout (default 180s)")
-    p.add_argument("--bin-dir", default=os.path.expanduser("~/.local/bin"))
+    p.add_argument("--bin-dir", default=str(Path(__file__).resolve().parent))
     return p.parse_args()
 
 
