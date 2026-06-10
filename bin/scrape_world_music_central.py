@@ -37,6 +37,8 @@ NON_MUSIC_RE = re.compile(r"\((?:BLU-RAY|BLU-RAY REVIEW|UHD|VOD|DVD)\)", re.I)
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--hours", type=float, default=36.0)
+    p.add_argument("--days", type=float, default=None,
+                   help="Cutoff in days (overrides --hours if set)")
     p.add_argument("--date", help="reference date YYYY-MM-DD (default: today UTC)")
     p.add_argument("--rss-only", action="store_true",
                    help="use only RSS summary, do not fetch full articles")
@@ -212,7 +214,7 @@ def main():
         ref = datetime.strptime(args.date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
     else:
         ref = datetime.now(timezone.utc)
-    cutoff = ref - timedelta(hours=args.hours)
+    cutoff = ref - timedelta(days=args.days) if args.days is not None else ref - timedelta(hours=args.hours)
     scraped_at = datetime.now(timezone.utc).isoformat()
 
     sys.stderr.write(f"reference: {ref.isoformat()}\n")
@@ -282,6 +284,7 @@ def main():
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
+    print(json.dumps(out, ensure_ascii=False, indent=2))
     sys.stderr.write(f"wrote {out_path} ({len(items)} items)\n")
 
     if not items:

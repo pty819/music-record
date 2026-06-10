@@ -355,7 +355,8 @@ def main():
         output_path = "/home/liyifan/music-record/2026/06/2026-06-10/truth_and_lies_music_reviews.json"
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(result, f, indent=2, ensure_ascii=False)
-        sys.stderr.write(f"\nTotal: {len(all_items)} items \u2014 written to {output_path}\n")
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+        sys.stderr.write(f"\nTotal: {len(all_items)} items — written to {output_path}\n")
 
     finally:
         try:

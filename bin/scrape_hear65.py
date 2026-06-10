@@ -126,9 +126,12 @@ def extract_artist_album_from_title(title: str) -> tuple[str, str]:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--hours", type=float, default=WINDOW_HOURS)
+    parser.add_argument("--days", type=float, default=None,
+                        help="Cutoff in days (overrides --hours if set)")
     args = parser.parse_args()
 
-    cutoff = TODAY - timedelta(hours=args.hours)
+    hours = args.days * 24 if args.days is not None else args.hours
+    cutoff = TODAY - timedelta(hours=hours)
     sys.stderr.write(f"Hear65 scraper — now: {TODAY.isoformat()}, cutoff: {cutoff.isoformat()}\n")
 
     # feedparser's default urllib HTTP/1.1 client gets RemoteDisconnected; the

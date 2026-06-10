@@ -285,8 +285,8 @@ def _is_soundbites_special(parsed: dict) -> bool:
     return "sound bite" in parsed["title"].lower() or parsed.get("slug_marker", False)
 
 
-def scrape(ref_date, max_pages: int = 1):
-    cutoff = ref_date - timedelta(hours=36)
+def scrape(ref_date, max_pages: int = 1, days: float = 1.5):
+    cutoff = ref_date - timedelta(days=days)
     sys.stderr.write(f"RootsWorld — ref={ref_date}, cutoff={cutoff.isoformat()}\n")
 
     list_html = fetch(LIST_URL)
@@ -416,6 +416,8 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--ref-date", help="Reference date YYYY-MM-DD (default: today UTC)")
     p.add_argument("--max-pages", type=int, default=1, help="Cap on listing pages (default 1)")
+    p.add_argument("--days", type=float, default=1.5,
+                   help="Cutoff window in days (default 1.5 = 36h)")
     args = p.parse_args()
 
     ref_date = (
@@ -423,7 +425,7 @@ def main():
         if args.ref_date
         else datetime.now(timezone.utc).date()
     )
-    result = scrape(ref_date, args.max_pages)
+    result = scrape(ref_date, args.max_pages, days=args.days)
     print(json.dumps(result, indent=2, ensure_ascii=False))
     sys.stderr.write(f"Done: {result['meta']['total']} items (cutoff={result['meta']['cutoff_date']})\n")
 
