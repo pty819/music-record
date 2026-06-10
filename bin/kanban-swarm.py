@@ -61,7 +61,6 @@ class SwarmWorkerSpec:
 HTML_SCRIPT_IDS = frozenset({
     "all_about_jazz",              # scrape_all_about_jazz.py
     "bandwagon_asia",              # scrape_bandwagon_asia.py
-    "boomkat",                     # scrape_boomkat.py
     "dark_entries_be",             # scrape_dark_entries.py
     "downbeat",                    # scrape_downbeat.py
     "free_jazz_blog",              # scrape_free_jazz_blog.py
@@ -69,7 +68,6 @@ HTML_SCRIPT_IDS = frozenset({
     "jazz_trail",                  # scrape_jazz_trail.py
     "mixmag_asia",                 # scrape_mixmag_asia.py
     "musique_machine",             # scrape_musique_machine.py
-    "point_of_departure",          # scrape_point_of_departure.py
     "resident_advisor",            # scrape_resident_advisor.py
     "roots_world",                 # scrape_roots_world.py
     "sea_of_tranquility",          # scrape_sea_of_tranquility.py
@@ -91,7 +89,7 @@ def get_sites():
       3. Camoufox — everything left that has crawl_strategy=playwright_headless
                     and is not skipped, and has no RSS, and is not in HTML_SCRIPT_IDS
 
-    Returns the active Camoufox sites (currently 0 — all sites are RSS or HTML).
+    Returns the active Camoufox sites (currently 3: boomkat, point_of_departure, progressor).
     """
     with open(SITES_FILE) as f:
         d = json.load(f)
