@@ -1,23 +1,54 @@
 {
   "meta": {
-    "total": 2,
-    "scraped_at": "2026-06-09T20:31:25.773668+00:00",
-    "cutoff_date": "2026-06-08T08:31:25.772473+00:00"
+    "total": 4,
+    "scraped_at": "2026-06-10T16:55:03.075681+00:00",
+    "cutoff_date": "2026-06-09T04:55:03.075657+00:00",
+    "reference_date": "2026-06-10T16:55:03.075657+00:00",
+    "site": "world_music_central",
+    "source": "World Music Central"
   },
   "items": [
+    {
+      "album": "Keeping Grandmothers Grand",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/keeping-grandmothers-grand/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-10T09:47:33+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "Congolese by birth and based in Toronto, Jonathan Nvita honors women of a certain age and status on \" Kaku \" (\"Grandma\"), which merges soukous with hints of modern jazz. Author: Tom Orr Tom Orr is a California-based writer whose talent and mental stability are of an equally questionable nature. His hobbies include ignoring trends, striking dramatic poses in front of his ever-tolerant wife and watching helplessly as his kids surpass him in all desirable traits.",
+      "body": "Congolese by birth and based in Toronto, Jonathan Nvita honors women of a certain age and status on \" Kaku \" (\"Grandma\"), which merges soukous with hints of modern jazz. Author: Tom Orr Tom Orr is a California-based writer whose talent and mental stability are of an equally questionable nature. His hobbies include ignoring trends, striking dramatic poses in front of his ever-tolerant wife and watching helplessly as his kids surpass him in all desirable traits.",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "review"
+    },
+    {
+      "album": "Insun Park & Generals Set Extensive North American Tour for Summer and Fall 2026",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/insun-park-generals-set-extensive-north-american-tour-for-summer-and-fall-2026/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-10T09:35:18+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "South Korean ensemble Insun Park & Generals will embark on a Summer/Fall 2026 North American tour, with performances scheduled in nearly 20 cities in the United States and Canada. Led by Gangnyeong Mask Dance master Insun Park, the group combines Korean traditional music, mask dance, vocal performance, and rock influences. The itinerary includes appearances at Winnipeg Folk Festival, Musikfest, San Jose Jazz Summer Fest, Grand Performances, Live at the Gantries, Levitt AMP Sheboygan Music Series",
+      "body": "South Korean ensemble Insun Park & Generals will embark on a Summer/Fall 2026 North American tour, with performances scheduled in nearly 20 cities in the United States and Canada. Led by Gangnyeong Mask Dance master Insun Park, the group combines Korean traditional music, mask dance, vocal performance, and rock influences. The itinerary includes appearances at Winnipeg Folk Festival, Musikfest, San Jose Jazz Summer Fest, Grand Performances, Live at the Gantries, Levitt AMP Sheboygan Music Series, the Museum of Fine Arts, Boston, and the Cleveland Museum of Art. Additional dates are expected to be announced. Their discography includes the recording Be Water, My Friend . Author: World Music Central News Room World music news from the editors at World Music Central",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "feature"
+    },
     {
       "album": "Orquesta Akokán Returns with New Single “No Me Voy” Featuring Carolina Oliveros",
       "artist": "",
       "score": null,
       "url": "https://worldmusiccentral.org/orquesta-akokan-returns-with-new-single-no-me-voy-featuring-carolina-oliveros/",
       "source": "World Music Central",
-      "pub_date": "2026-06-09T01:36:50+00:00",
-      "tags": "Music videos, Cuban music, Orquesta Akokán, world music",
-      "excerpt": "Orquesta Akokán has released “No Me Voy” (I&#8217;m not leaving), its first new single ahead of the band&#8217;s upcoming album América!. The track features Carolina&#8230;",
-      "body": "Orquesta Akokán has released “No Me Voy” (I&#8217;m not leaving), its first new single ahead of the band&#8217;s upcoming album América!. The track features Carolina&#8230;",
+      "pub_date": "2026-06-09T09:36:50+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "Orquesta Akokán has released \" No Me Voy \" (I'm not leaving), its first new single ahead of the band's upcoming album América! . The track features Carolina Oliveros of Combo Chimbita. It focuses on the immigrant experience with an emphasis on how cultural identity and personal roots endure despite physical distance from one's homeland. América! was recorded live to tape at Penrose Recorders with producer and engineer Gabriel Roth. The album introduces a new roster of vocal collaborators, includ",
+      "body": "Orquesta Akokán has released \" No Me Voy \" (I'm not leaving), its first new single ahead of the band's upcoming album América! . The track features Carolina Oliveros of Combo Chimbita. It focuses on the immigrant experience with an emphasis on how cultural identity and personal roots endure despite physical distance from one's homeland. América! was recorded live to tape at Penrose Recorders with producer and engineer Gabriel Roth. The album introduces a new roster of vocal collaborators, including Oliveros and Miriam Elhajli. This time, Orquesta Akokán expands beyond the historical styles that defined its earlier work. Consequently, América! explores the connections among Cuban music, American jazz, migration, and diasporic experiences. Author: World Music Central News Room World music news from the editors at World Music Central",
       "site_id": "world_music_central",
       "crawl_status": "success",
-      "type": "review"
+      "type": "feature"
     },
     {
       "album": "Songs of Kabir",
@@ -25,13 +56,13 @@
       "score": null,
       "url": "https://worldmusiccentral.org/pooja-goswami-pavan-interprets-kabirs-poetry-on-the-mind-ecstatic-songs-of-kabir/",
       "source": "World Music Central",
-      "pub_date": "2026-06-09T00:57:00+00:00",
-      "tags": "Album reviews, Indian classical music, Pooja Goswami Pavan, world music",
-      "excerpt": "Pooja Goswami Pavan &#8211; The Mind, Ecstatic – Songs of Kabir (Neuma Records, 2026) Hindustani vocalist, composer, and scholar Dr. Pooja Goswami Pavan latest work&#8230;",
-      "body": "Pooja Goswami Pavan &#8211; The Mind, Ecstatic – Songs of Kabir (Neuma Records, 2026) Hindustani vocalist, composer, and scholar Dr. Pooja Goswami Pavan latest work&#8230;",
+      "pub_date": "2026-06-09T08:57:00+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "Pooja Goswami Pavan – The Mind, Ecstatic – Songs of Kabir (Neuma Records, 2026) Hindustani vocalist, composer, and scholar Dr. Pooja Goswami Pavan latest work is The Mind, Ecstatic – Songs of Kabir . The seven-track album presents precious, enthralling and beautiful new musical interpretations of the poetry of 15th-century mystic Kabir. The Mind, Ecstatic – Songs of Kabir combines elements of Indian classical tradition with contemporary composition. Pavan composed five of the album's seven track",
+      "body": "Pooja Goswami Pavan – The Mind, Ecstatic – Songs of Kabir (Neuma Records, 2026) Hindustani vocalist, composer, and scholar Dr. Pooja Goswami Pavan latest work is The Mind, Ecstatic – Songs of Kabir . The seven-track album presents precious, enthralling and beautiful new musical interpretations of the poetry of 15th-century mystic Kabir. The Mind, Ecstatic – Songs of Kabir combines elements of Indian classical tradition with contemporary composition. Pavan composed five of the album's seven tracks, while two pieces were penned by her father and guru, Pandit Surendra Goswami. Ranjan Sharma provided the musical arrangements. Throughout the album you are treated to gorgeous vocals and equisite Indian instrumentation. The album opens with \"In the Cave of the Sky,\" which explores themes of inner reflection. From there, the collection addresses subjects that frequently appear in Kabir's work, including ego, mortality, wisdom, and spiritual inquiry. Tracks such as \"I Won't Come or Go,\" \"I'm Terrified and I'm Laughing,\" and \"The Wedding Sari Has Come\" examine contrasting emotional and philosophical perspectives. Meanwhile, the title track, \"The Mind, Ecstatic,\" serves as a focal point for the album's exploration of transcendence and self-awareness. Other selections include \"First Get Wise, Then Sing\" and \"This Body, a Beautiful Tambura,\" both of which reflect on embodiment, knowledge, and devotion through Kabir's poetry. In addition, the release features a foreword by Kabir scholar and translator Dr. Linda Hess, author of The Bijak of Kabir, Singing Emptiness, and Bodies of Song . In her accompanying notes, Hess highlights the role of singers in preserving Kabir's legacy throughout six centuries and connects the album's themes to the poet's enduring spiritual and philosophical ideas. Pavan is based in Minneapolis, Minnesota, and has trained in Hindustani classical music since childhood under the guidance of Pandit Surendra Goswami. She currently studies with her brother, Professor Shailendra Goswami. She holds a PhD in Indian Classical Music from the University of Delhi and has performed at venues including the Ordway Center, The Guthrie, and the India Habitat Center. Furthermore, she has also served on the faculty of the University of Minnesota and Macalester College. T he Mind, Ecstatic – Songs of Kabir is her fourth album of original compositions. Sharma, who is based in New Delhi, works as a composer, arranger, sound designer, and audio technologist. His credits encompass projects in film, television, and music software. Buy The Mind, Ecstatic – Songs of Kabir . Author: Angel Romero Angel Romero y Ruiz has dedicated his life to musical exploration. His efforts included the creation of two online portals, worldmusiccentral.org and musicasdelmundo.com . In addition, Angel is the co-founder of the Transglobal World Music Chart , a panel of world music DJs and writers that celebrates global sounds. Furthermore, he delved into the record business, producing world music studio albums and compilations. His works have appeared on Alula Records, Ellipsis Arts, Indígena Records and Music of the World.",
       "site_id": "world_music_central",
       "crawl_status": "success",
-      "type": "review"
+      "type": "feature"
     }
   ]
 }

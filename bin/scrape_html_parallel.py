@@ -51,7 +51,6 @@ SCRIPTS = [
     ("scrape_squids_ear",            "squids_ear",               "stdout"),
     ("scrape_strangely_isolated_place", "strangely_isolated_place", "stdout"),
     ("scrape_truth_and_lies_music",  "truth_and_lies_music",     "stdout"),
-    ("scrape_wild_city",             "wild_city",                "stdout"),
     ("scrape_world_music_central",   "world_music_central",      "stdout"),
 ]
 
