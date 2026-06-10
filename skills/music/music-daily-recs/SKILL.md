@@ -134,24 +134,8 @@ curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://daily.bandcamp.com/
 ```bash
 cd /home/liyifan/music-record && git pull origin main
 
-# 核心脚本
-for s in fast-rss-scrape.py merge_scraped.py process_reviews.py generate_report.py kanban-swarm.py scrape_html_parallel.py; do
-  cp bin/$s ~/.local/bin/
-  cp bin/$s ~/.hermes/skills/music/music-daily-recs/scripts/ 2>/dev/null || true
-done
-
-# HTML 16 脚本
-for s in scrape_all_about_jazz.py scrape_bandwagon_asia.py scrape_dark_entries.py \
-         scrape_downbeat.py scrape_free_jazz_blog.py scrape_hear65.py \
-         scrape_jazz_trail.py scrape_mixmag_asia.py scrape_musique_machine.py \
-         scrape_resident_advisor.py scrape_roots_world.py \
-         scrape_sea_of_tranquility.py scrape_songlines.py scrape_squids_ear.py \
-         scrape_strangely_isolated_place.py scrape_truth_and_lies_music.py \
-         scrape_world_music_central.py; do
-  cp bin/$s ~/.local/bin/
-done
-
-# SKILL.md + sites.json
+# scripts/ 已是 symlink → ~/music-record/bin/，无需复制
+# 只需同步 SKILL.md
 cp skills/music/music-daily-recs/SKILL.md ~/.hermes/skills/music/music-daily-recs/
 ```
 
@@ -163,7 +147,7 @@ cp skills/music/music-daily-recs/SKILL.md ~/.hermes/skills/music/music-daily-rec
 DATE_DIR="/home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)"
 mkdir -p "$DATE_DIR"
 
-python3 ~/.local/bin/fast-rss-scrape.py --days 1.5 -o "$DATE_DIR/rss_merged.json"
+python3 bin/fast-rss-scrape.py --days 1.5 -o "$DATE_DIR/rss_merged.json"
 ```
 
 输出：`rss_merged.json` — `{meta: {total, scraped_at, cutoff_date}, items: [...]}`
@@ -171,7 +155,7 @@ python3 ~/.local/bin/fast-rss-scrape.py --days 1.5 -o "$DATE_DIR/rss_merged.json
 ## Step 3 — HTML 并行抓取（16 站，~180s）
 
 ```bash
-python3 ~/.local/bin/scrape_html_parallel.py \
+python3 bin/scrape_html_parallel.py \
   --out-dir "$DATE_DIR" --days 1.5 --timeout 180
 ```
 
@@ -184,7 +168,7 @@ sea_of_tranquility 走 `--out-dir` 模式（自写文件），其余走 stdout �
 
 ```bash
 cd /home/liyifan/music-record
-python3 ~/.local/bin/merge_scraped.py \
+python3 bin/merge_scraped.py \
   --date-dir "$DATE_DIR" -o scraped_raw.json
 ```
 
