@@ -18,6 +18,7 @@ kanban-swarm.py — 使用 Kb Swarm API 创建音乐推荐抓取流程（无裸 
 
 import json
 import os
+from pathlib import Path
 import subprocess
 import sys
 from datetime import date
@@ -25,7 +26,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-SITES_FILE = "/home/liyifan/.minimax/music-sites/sites.json"
+SITES_FILE = str(Path(__file__).resolve().parent.parent / "data" / "sites.json")
 OUTPUT_DIR = "/home/liyifan/music-record/2026"
 TODAY = date.today()
 DATE = TODAY.strftime("%Y-%m-%d")

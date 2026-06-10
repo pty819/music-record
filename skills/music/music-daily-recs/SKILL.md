@@ -153,7 +153,6 @@ done
 
 # SKILL.md + sites.json
 cp skills/music/music-daily-recs/SKILL.md ~/.hermes/skills/music/music-daily-recs/
-mkdir -p ~/.minimax/music-sites && cp data/sites.json ~/.minimax/music-sites/
 ```
 
 ## Step 2 — RSS 批量抓取（29 站，300-700s）
@@ -341,7 +340,7 @@ hermes kanban list | grep "$(date +%Y-%m-%d)"
 | 评分 | `bin/process_reviews.py` |
 | 报告 | `bin/generate_report.py` |
 | Swarm 创建 | `bin/kanban-swarm.py` |
-| 站点配置 | `data/sites.json`（canonical） / `~/.minimax/music-sites/sites.json`（deployed） |
+| 站点配置 | `data/sites.json`（唯一源，git 管理） |
 | Skill | `~/.hermes/skills/music/music-daily-recs/SKILL.md` |
 | Camoufox 服务 | `systemctl --user hermes-camoufox.service` |
 | Cron job ID | `ec5ea562d589` |

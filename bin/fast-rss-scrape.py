@@ -19,7 +19,7 @@ from pathlib import Path
 
 socket.setdefaulttimeout(30)
 
-SITES_JSON = Path.home() / ".minimax" / "music-sites" / "sites.json"
+SITES_JSON = Path(__file__).resolve().parent.parent / "data" / "sites.json"
 DEFAULT_DAYS = 1.5
 
 TAG_MAP = {
