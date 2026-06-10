@@ -20,9 +20,9 @@ metadata:
 ```
 cron 04:00 → Step 0–5 (cron session)
    │
-   ├─ Step 2: RSS    (28 站, fast-rss-scrape.py, 300-700s, terminal timeout=900)
-   ├─ Step 3: HTML   (17 站, scrape_html_parallel.py, ~180s, per-scraper timeout=180)
-   ├─ Step 4: merge  (merge_scraped.py → scraped_raw.json)
+   ├─ Step 2: RSS    (28 站, 8 线程并发, 60-120s)
+   ├─ Step 3: HTML   (17 站子进程并发, ~150s, → html_reviews.json)
+   ├─ Step 4: merge  (rss + html + camoufox → scraped_raw.json)
    ├─ Step 5: kanban-swarm.py --confirm
    │
    ↓ cron session 退出，kanban 调度器接管
@@ -158,7 +158,7 @@ mkdir -p ~/.minimax/music-sites && cp data/sites.json ~/.minimax/music-sites/
 
 ## Step 2 — RSS 批量抓取（28 站，300-700s）
 
-`socket.setdefaulttimeout(30)`（VPN 下 TLS 握手 8-10s）。terminal 必须 `timeout=900`。
+8 线程并发，每线程 30s socket timeout。实测 60-120s 完成。
 
 ```bash
 DATE_DIR="/home/liyifan/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)"
@@ -237,7 +237,7 @@ body 步骤（`SYNTHESIZER_BODY` in kanban-swarm.py）：
 
 # 评分（v3 — LLM 直打）
 
-`process_reviews.py` 用 MiniMax M3（Anthropic SDK，api.minimaxi.com）。评分+中文总结同一次 API 调用，线程池 3 并发。
+`process_reviews.py` 用 hy3-preview (腾讯云 Anthropic 兼容)（Anthropic SDK，api.lkeap.cloud.tencent.com）。评分+中文总结同一次 API 调用，线程池 3 并发。
 
 6 维评分：口味匹配度（最高权重）、创新性、跨领域融合、地区特色、主流降权、评论质量。
 
