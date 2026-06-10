@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-scrape_html_parallel.py — Parallel runner for the 12 HTML/curl scrapers.
+scrape_html_parallel.py — Parallel runner for the 20 HTML/curl scrapers.
 
 Replaces the inline heredoc wrapper in SKILL.md Step 3. Lives in bin/ so
 cron sessions never need to write multi-line Python with nested for/if
@@ -35,18 +35,26 @@ from pathlib import Path
 #              (scrape_sea_of_tranquility is the only one; inconsistency
 #              is preserved here so we don't fork another working tree)
 SCRIPTS = [
-    ("scrape_all_about_jazz",     "all_about_jazz",     "stdout"),
-    ("scrape_dark_entries",       "dark_entries_be",    "stdout"),
-    ("scrape_downbeat",           "downbeat",           "stdout"),
-    ("scrape_free_jazz_blog",     "free_jazz_blog",     "stdout"),
-    ("scrape_jazz_trail",         "jazz_trail",         "stdout"),
-    ("scrape_mixmag_asia",        "mixmag_asia",        "stdout"),
-    ("scrape_musique_machine",    "musique_machine",    "stdout"),
-    ("scrape_resident_advisor",   "resident_advisor",   "stdout"),
-    ("scrape_sea_of_tranquility", "sea_of_tranquility", "out_dir"),
-    ("scrape_songlines",          "songlines",          "stdout"),
-    ("scrape_squids_ear",         "squids_ear",         "stdout"),
-    ("scrape_wild_city",          "wild_city",          "stdout"),
+    ("scrape_all_about_jazz",        "all_about_jazz",           "stdout"),
+    ("scrape_bandwagon_asia",        "bandwagon_asia",           "stdout"),
+    ("scrape_boomkat",               "boomkat",                  "stdout"),
+    ("scrape_dark_entries",          "dark_entries_be",          "stdout"),
+    ("scrape_downbeat",              "downbeat",                 "stdout"),
+    ("scrape_free_jazz_blog",        "free_jazz_blog",           "stdout"),
+    ("scrape_hear65",                "hear65",                   "stdout"),
+    ("scrape_jazz_trail",            "jazz_trail",               "stdout"),
+    ("scrape_mixmag_asia",           "mixmag_asia",              "stdout"),
+    ("scrape_musique_machine",       "musique_machine",          "stdout"),
+    ("scrape_point_of_departure",    "point_of_departure",       "stdout"),
+    ("scrape_resident_advisor",      "resident_advisor",         "stdout"),
+    ("scrape_roots_world",           "roots_world",              "stdout"),
+    ("scrape_sea_of_tranquility",    "sea_of_tranquility",       "out_dir"),
+    ("scrape_songlines",             "songlines",                "stdout"),
+    ("scrape_squids_ear",            "squids_ear",               "stdout"),
+    ("scrape_strangely_isolated_place", "strangely_isolated_place", "stdout"),
+    ("scrape_truth_and_lies_music",  "truth_and_lies_music",     "stdout"),
+    ("scrape_wild_city",             "wild_city",                "stdout"),
+    ("scrape_world_music_central",   "world_music_central",      "stdout"),
 ]
 
 
@@ -67,8 +75,8 @@ def parse_args() -> argparse.Namespace:
                    help="Per-scraper timeout in seconds (default 180)")
     p.add_argument("--bin-dir", default=os.path.expanduser("~/.local/bin"),
                    help="Where to find the scrape_*.py scripts (default ~/.local/bin)")
-    p.add_argument("--max-parallel", type=int, default=12,
-                   help="Max concurrent scrapers (default 12 = all at once)")
+    p.add_argument("--max-parallel", type=int, default=20,
+                   help="Max concurrent scrapers (default 20 = all at once)")
     return p.parse_args()
 
 

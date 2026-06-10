@@ -59,18 +59,26 @@ class SwarmWorkerSpec:
 # This is the post-priority-resolution list — every site in HTML_SCRIPT_IDS
 # has its own scrape_*.py in bin/, so it is *not* assigned a Camoufox worker.
 HTML_SCRIPT_IDS = frozenset({
-    "all_about_jazz",       # scrape_all_about_jazz.py
-    "dark_entries_be",      # scrape_dark_entries.py
-    "downbeat",             # scrape_downbeat.py
-    "free_jazz_blog",       # scrape_free_jazz_blog.py
-    "jazz_trail",           # scrape_jazz_trail.py
-    "mixmag_asia",          # scrape_mixmag_asia.py
-    "musique_machine",      # scrape_musique_machine.py
-    "resident_advisor",     # scrape_resident_advisor.py
-    "sea_of_tranquility",   # scrape_sea_of_tranquility.py
-    "songlines",            # scrape_songlines.py
-    "squids_ear",           # scrape_squids_ear.py
-    "wild_city",            # scrape_wild_city.py
+    "all_about_jazz",              # scrape_all_about_jazz.py
+    "bandwagon_asia",              # scrape_bandwagon_asia.py
+    "boomkat",                     # scrape_boomkat.py
+    "dark_entries_be",             # scrape_dark_entries.py
+    "downbeat",                    # scrape_downbeat.py
+    "free_jazz_blog",              # scrape_free_jazz_blog.py
+    "hear65",                      # scrape_hear65.py
+    "jazz_trail",                  # scrape_jazz_trail.py
+    "mixmag_asia",                 # scrape_mixmag_asia.py
+    "musique_machine",             # scrape_musique_machine.py
+    "point_of_departure",          # scrape_point_of_departure.py
+    "resident_advisor",            # scrape_resident_advisor.py
+    "roots_world",                 # scrape_roots_world.py
+    "sea_of_tranquility",          # scrape_sea_of_tranquility.py
+    "songlines",                   # scrape_songlines.py
+    "squids_ear",                  # scrape_squids_ear.py
+    "strangely_isolated_place",    # scrape_strangely_isolated_place.py
+    "truth_and_lies_music",        # scrape_truth_and_lies_music.py
+    "wild_city",                   # scrape_wild_city.py
+    "world_music_central",         # scrape_world_music_central.py
 })
 
 
@@ -83,7 +91,7 @@ def get_sites():
       3. Camoufox — everything left that has crawl_strategy=playwright_headless
                     and is not skipped, and has no RSS, and is not in HTML_SCRIPT_IDS
 
-    Returns the 9 active Camoufox sites. Skipped/disabled sites are excluded.
+    Returns the active Camoufox sites (currently 0 — all sites are RSS or HTML).
     """
     with open(SITES_FILE) as f:
         d = json.load(f)

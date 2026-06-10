@@ -21,9 +21,11 @@ from pathlib import Path
 
 # Cloudflare/feedparser protection guard (ProgArchives, The Wire, Rest Is Noise PH,
 # etc. have been observed to hang on feedparser.parse() with no timeout). Set the
-# default socket timeout for all HTTP reads in this process. Callers can override
-# by re-calling socket.setdefaulttimeout() after import.
-socket.setdefaulttimeout(15)
+# default socket timeout for all HTTP reads in this process. Meta VPN (28.0.0.x)
+# adds ~8-10s TLS handshake overhead per connection, so 15s is too tight — most
+# sites would timeout before any data arrives. 30s gives enough headroom.
+# Callers can override by re-calling socket.setdefaulttimeout() after import.
+socket.setdefaulttimeout(30)
 
 SITES_JSON = Path.home() / ".minimax" / "music-sites" / "sites.json"
 DEFAULT_DAYS = 1.5
