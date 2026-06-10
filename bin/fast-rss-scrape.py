@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """
-fast-rss-scrape.py — 遍历所有 RSS 站，抓取最近 N 天文章，
-输出统一 JSON 格式（与 scrape_*.py 一致）。
+fast-rss-scrape.py — 并发抓取所有 RSS 站，输出统一 JSON。
 
 用法:
-  python3 fast-rss-scrape.py
-  python3 fast-rss-scrape.py -o /tmp/out.json
-  python3 fast-rss-scrape.py --days 3
-  python3 fast-rss-scrape.py --date 2026-05-25
+  python3 fast-rss-scrape.py -o rss_merged.json
+  python3 fast-rss-scrape.py --days 3 --workers 16
 """
 
 import argparse
@@ -16,15 +13,10 @@ import json
 import re
 import socket
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-# Cloudflare/feedparser protection guard (ProgArchives, The Wire, Rest Is Noise PH,
-# etc. have been observed to hang on feedparser.parse() with no timeout). Set the
-# default socket timeout for all HTTP reads in this process. Meta VPN (28.0.0.x)
-# adds ~8-10s TLS handshake overhead per connection, so 15s is too tight — most
-# sites would timeout before any data arrives. 30s gives enough headroom.
-# Callers can override by re-calling socket.setdefaulttimeout() after import.
 socket.setdefaulttimeout(30)
 
 SITES_JSON = Path.home() / ".minimax" / "music-sites" / "sites.json"
@@ -62,19 +54,9 @@ TAG_MAP = {
 
 
 def load_sites():
-    """Load all RSS-enabled sites.
-
-    Selection rule: site has a usable RSS feed. The `has_rss` flag is the source
-    of truth — `crawl_strategy` is no longer consulted here. fluid_radio has
-    `crawl_strategy=skip` but `has_rss=True`; we still load it (its feed is
-    2013-2022 historical content, so it produces 0 items, which is fine).
-    """
     with open(SITES_JSON) as f:
         data = json.load(f)
-    return [
-        s for s in data["sites"]
-        if s.get("has_rss") and s.get("rss_url")
-    ]
+    return [s for s in data["sites"] if s.get("has_rss") and s.get("rss_url")]
 
 
 def parse_rss_date(entry):
@@ -87,8 +69,6 @@ def parse_rss_date(entry):
 
 
 def get_body(entry):
-    """获取完整正文：优先 content:encoded，其次 summary/description。
-    只去 HTML 标签，不做截断。"""
     body = ""
     if hasattr(entry, "content") and entry.content:
         body = entry.content[0].value if entry.content[0].value else ""
@@ -96,19 +76,14 @@ def get_body(entry):
         body = entry.summary
     if not body and hasattr(entry, "description"):
         body = entry.description
-    # 去掉 HTML 标签，保留纯文本
     body = re.sub(r"<[^>]+>", "", body)
     body = re.sub(r"\s+", " ", body).strip()
-    # 解码常见 HTML entities
     body = body.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
     body = body.replace("&quot;", '"').replace("&#39;", "'").replace("&#8230;", "…")
     return body
 
 
 def parse_artist_album(title):
-    """Parse title to extract artist and album.
-    Try splitting on common separators: ' — ', ' – ', ' - '.
-    Returns (artist, album)."""
     for sep in [" — ", " – ", " - "]:
         parts = title.split(sep, 1)
         if len(parts) == 2:
@@ -121,27 +96,21 @@ def scrape_site(site, cutoff_date):
     name = site["name"]
     rss_url = site["rss_url"]
 
-    print(f"  [{site_id}] {rss_url}", file=sys.stderr)
-
     feed = feedparser.parse(rss_url)
     entries = feed.entries if hasattr(feed, "entries") else []
     if not entries:
         print(f"  [{site_id}] 0 条", file=sys.stderr)
-        return []
+        return site_id, []
 
     tags = TAG_MAP.get(site_id, "")
-
     items = []
     for entry in entries:
         pub_date = parse_rss_date(entry)
         if pub_date is None or pub_date < cutoff_date:
             continue
-
         title = entry.get("title", "").strip()
         artist, album = parse_artist_album(title)
         body = get_body(entry)
-        excerpt = body[:500]
-
         items.append({
             "album": album,
             "artist": artist,
@@ -150,40 +119,44 @@ def scrape_site(site, cutoff_date):
             "source": name,
             "pub_date": pub_date.isoformat(),
             "tags": tags,
-            "excerpt": excerpt,
+            "excerpt": body[:500],
             "body": body,
             "site_id": site_id,
             "crawl_status": "success",
             "type": "review",
         })
 
-    print(f"  [{site_id}] {len(items)} 条 (≥ {cutoff_date})", file=sys.stderr)
-    return items
+    print(f"  [{site_id}] {len(items)} 条", file=sys.stderr)
+    return site_id, items
 
 
 def main():
-    parser = argparse.ArgumentParser(description="快速 RSS 抓取 — 统一 JSON 输出格式")
-    parser.add_argument("-o", "--output", help="输出 JSON 文件路径（缺省输出到 stdout）")
-    parser.add_argument("--days", type=float, default=DEFAULT_DAYS,
-                        help=f"抓取最近 N 天（缺省 {DEFAULT_DAYS}）")
-    parser.add_argument("--date", help="指定基准日期 YYYY-MM-DD（缺省今天）")
+    parser = argparse.ArgumentParser(description="RSS 并发抓取 → 统一 JSON")
+    parser.add_argument("-o", "--output", help="输出 JSON 文件（缺省 stdout）")
+    parser.add_argument("--days", type=float, default=DEFAULT_DAYS)
+    parser.add_argument("--date", help="基准日期 YYYY-MM-DD（缺省今天）")
+    parser.add_argument("--workers", type=int, default=8,
+                        help="并发线程数（default 8，VPN 下不宜太高）")
     args = parser.parse_args()
 
-    ref_date = datetime.strptime(args.date, "%Y-%m-%d").date() if args.date \
-               else datetime.now(timezone.utc).date()
+    ref_date = (datetime.strptime(args.date, "%Y-%m-%d").date()
+                if args.date else datetime.now(timezone.utc).date())
     cutoff_date = ref_date - timedelta(days=args.days)
 
     sites = load_sites()
-    print(f"RSS 站数: {len(sites)}", file=sys.stderr)
-    print(f"基准日期: {ref_date}  过滤: ≥ {cutoff_date}", file=sys.stderr)
-    print(file=sys.stderr)
+    print(f"RSS: {len(sites)} 站, {args.workers} 线程, cutoff ≥ {cutoff_date}",
+          file=sys.stderr)
 
     all_items = []
-    for site in sites:
-        try:
-            all_items.extend(scrape_site(site, cutoff_date))
-        except Exception as e:
-            print(f"  [{site['id']}] 💥 {e}", file=sys.stderr)
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+        futures = {pool.submit(scrape_site, s, cutoff_date): s["id"]
+                   for s in sites}
+        for future in as_completed(futures):
+            try:
+                _site_id, items = future.result()
+                all_items.extend(items)
+            except Exception as e:
+                print(f"  [{futures[future]}] 💥 {e}", file=sys.stderr)
 
     all_items.sort(key=lambda r: r["pub_date"], reverse=True)
 
@@ -197,7 +170,6 @@ def main():
     }
 
     output = json.dumps(result, indent=2, ensure_ascii=False)
-
     if args.output:
         Path(args.output).write_text(output, encoding="utf-8")
         print(f"\n✅ {len(all_items)} 条 → {args.output}", file=sys.stderr)

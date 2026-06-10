@@ -43,8 +43,8 @@ if not API_KEY:
                 API_KEY = line.split("=", 1)[1].strip().strip("'\"")
                 break
 
-BASE_URL = "https://api.minimaxi.com/anthropic"
-MODEL = "Minimax-M3"
+BASE_URL = "https://api.lkeap.cloud.tencent.com/plan/anthropic"
+MODEL = "hy3-preview"
 MAX_TOKENS = 30000
 TIMEOUT = 120  # 单次调用超时（秒）
 RETRIES = 3

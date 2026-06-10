@@ -1,24 +1,13 @@
 #!/usr/bin/env python3
 """
-scrape_html_parallel.py — Parallel runner for the 18 HTML/curl scrapers.
+scrape_html_parallel.py — 并发运行所有 HTML scrape 脚本，合并为一个 JSON。
 
-Replaces the inline heredoc wrapper in SKILL.md Step 3. Lives in bin/ so
-cron sessions never need to write multi-line Python with nested for/if
-blocks (which has failed in past runs due to leading-whitespace stripping).
+每个 scrape_*.py 作为子进程运行，stdout 捕获 JSON 结果。
+所有结果在内存中合并，直接写出一个 html_reviews.json。
 
-Behavior:
-- Spawns all 12 scrapers in parallel via subprocess.Popen
-- Each scraper runs with --days 1.5 (36h cutoff, hard per spec)
-- Per-scraper timeout: 180s (matches SKILL.md default)
-- Stdout redirected to <site_id>_reviews.json in --out-dir
-- stderr silenced (noisy Cloudflare/SSL warnings)
-- Waits for all to finish, prints one summary line per scraper to stderr
-- Returns exit 0 even if some scrapers fail (downstream merge is tolerant)
-
-Usage:
-    python3 scrape_html_parallel.py [--out-dir DIR] [--days 1.5] [--timeout 180]
-
-Default --out-dir: $HERMES_KANBAN_WORKSPACE/YYYY/MM/YYYY-MM-DD  (the music-record path)
+用法:
+  python3 scrape_html_parallel.py --out-dir /path/to/date-dir
+  python3 scrape_html_parallel.py --out-dir /path --days 1.5 --timeout 180
 """
 import argparse
 import json
@@ -29,11 +18,6 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-# (script_basename, site_id, mode) — mode is either:
-#   "stdout"   scraper writes JSON to stdout (most of them)
-#   "out_dir"  scraper takes --out-dir and writes its own file
-#              (scrape_sea_of_tranquility is the only one; inconsistency
-#              is preserved here so we don't fork another working tree)
 SCRIPTS = [
     ("scrape_all_about_jazz",        "all_about_jazz",           "stdout"),
     ("scrape_bandwagon_asia",        "bandwagon_asia",           "stdout"),
@@ -56,116 +40,105 @@ SCRIPTS = [
 
 
 def default_out_dir() -> str:
-    """<music-record>/2026/MM/YYYY-MM-DD unless HERMES_KANBAN_WORKSPACE is set."""
     ws = os.environ.get("HERMES_KANBAN_WORKSPACE", "/home/liyifan/music-record")
     now = datetime.now()
     return f"{ws}/2026/{now.strftime('%m')}/{now.strftime('%Y-%m-%d')}"
 
 
-def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Parallel HTML scraper runner for music-daily-recs Step 3")
-    p.add_argument("--out-dir", default=default_out_dir(),
-                   help="Where to write <site_id>_reviews.json (default: $HERMES_KANBAN_WORKSPACE/2026/MM/YYYY-MM-DD)")
-    p.add_argument("--days", default="1.5",
-                   help="Cutoff in days passed to each scraper (default 1.5 = 36h, hard per spec)")
+def parse_args():
+    p = argparse.ArgumentParser(description="并发 HTML 抓取 → 单个 JSON")
+    p.add_argument("--out-dir", default=default_out_dir())
+    p.add_argument("--days", default="1.5")
     p.add_argument("--timeout", type=int, default=180,
-                   help="Per-scraper timeout in seconds (default 180)")
-    p.add_argument("--bin-dir", default=os.path.expanduser("~/.local/bin"),
-                   help="Where to find the scrape_*.py scripts (default ~/.local/bin)")
-    p.add_argument("--max-parallel", type=int, default=18,
-                   help="Max concurrent scrapers (default 18 = all at once)")
+                   help="Per-scraper timeout (default 180s)")
+    p.add_argument("--bin-dir", default=os.path.expanduser("~/.local/bin"))
     return p.parse_args()
 
 
-def main() -> int:
+def run_scraper(script, site_id, mode, bin_dir, out_dir, days, timeout):
+    """Run one scraper subprocess, return (site_id, items_list, error_str)."""
+    script_path = os.path.join(bin_dir, f"{script}.py")
+    cmd = ["timeout", str(timeout), "python3", script_path, "--days", str(days)]
+
+    if mode == "out_dir":
+        cmd.extend(["--out-dir", str(out_dir)])
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 10)
+        # sea_of_tranquility writes its own file — read it back
+        out_file = Path(out_dir) / f"{site_id}_reviews.json"
+        if out_file.exists() and out_file.stat().st_size > 5:
+            try:
+                data = json.loads(out_file.read_text())
+                items = data.get("items", []) if isinstance(data, dict) else []
+                return site_id, items, None
+            except json.JSONDecodeError as e:
+                return site_id, [], f"JSON parse error: {e}"
+        return site_id, [], f"no output file (rc={result.returncode})"
+    else:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 10)
+        stdout = result.stdout.strip()
+        if not stdout:
+            stderr_tail = result.stderr.strip()[-200:] if result.stderr else ""
+            return site_id, [], f"empty stdout (rc={result.returncode}) {stderr_tail}"
+        try:
+            data = json.loads(stdout)
+            items = data.get("items", []) if isinstance(data, dict) else []
+            return site_id, items, None
+        except json.JSONDecodeError as e:
+            return site_id, [], f"JSON parse error: {e}"
+
+
+def main():
     args = parse_args()
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    launched = []
-    for script, site_id, mode in SCRIPTS:
-        script_path = os.path.join(args.bin_dir, f"{script}.py")
-        out_file = out_dir / f"{site_id}_reviews.json"
-        cmd = [
-            "timeout", str(args.timeout),
-            "python3", script_path,
-            "--days", str(args.days),
-        ]
-        if mode == "stdout":
-            # Most scrapers: JSON on stdout, redirect to file. Truncate so a
-            # re-run doesn't see stale content.
-            try:
-                fout = open(out_file, "w", buffering=1)  # line-buffered
-            except OSError as e:
-                print(f"  {site_id}: cannot open {out_file} ({e})", file=sys.stderr, flush=True)
-                continue
-            try:
-                p = subprocess.Popen(cmd, stdout=fout, stderr=subprocess.DEVNULL)
-                launched.append((p, site_id, out_file, fout, time.monotonic()))
-                print(f"  launched {site_id} (pid {p.pid}) -> {out_file.name}", file=sys.stderr, flush=True)
-            except OSError as e:
-                fout.close()
-                print(f"  {site_id}: Popen failed ({e})", file=sys.stderr, flush=True)
-        elif mode == "out_dir":
-            # scrape_sea_of_tranquility writes its own file; pass --out-dir,
-            # swallow stdout (it's a log line, not JSON), capture stderr to
-            # a sibling log file for debugging.
-            cmd.extend(["--out-dir", str(out_dir)])
-            log_file = out_dir / f"{site_id}_scrape.log"
-            try:
-                flog = open(log_file, "w", buffering=1)
-            except OSError as e:
-                print(f"  {site_id}: cannot open log {log_file} ({e})", file=sys.stderr, flush=True)
-                continue
-            try:
-                p = subprocess.Popen(cmd, stdout=flog, stderr=flog)
-                launched.append((p, site_id, out_file, flog, time.monotonic()))
-                print(f"  launched {site_id} (pid {p.pid}) -> {out_file.name} (writes itself)", file=sys.stderr, flush=True)
-            except OSError as e:
-                flog.close()
-                print(f"  {site_id}: Popen failed ({e})", file=sys.stderr, flush=True)
+    print(f"HTML: {len(SCRIPTS)} 脚本, timeout={args.timeout}s, days={args.days}",
+          file=sys.stderr)
 
-    # Wait for all, with a small grace period past timeout to allow cleanup.
-    grace = 10
-    deadline_per = args.timeout + grace
-    print(f"\nWaiting on {len(launched)} scrapers (timeout {args.timeout}s each)...", file=sys.stderr, flush=True)
+    # Run all scrapers concurrently via ThreadPoolExecutor
+    from concurrent.futures import ThreadPoolExecutor, as_completed
 
-    for p, site_id, out_file, fout, t0 in launched:
-        try:
-            rc = p.wait(timeout=deadline_per - (time.monotonic() - t0))
-        except subprocess.TimeoutExpired:
-            p.kill()
-            try:
-                p.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                pass
-            fout.close()
-            print(f"  {site_id}: TIMEOUT after {deadline_per}s", file=sys.stderr, flush=True)
-            continue
-        finally:
-            try:
-                fout.close()
-            except Exception:
-                pass
-        elapsed = int(time.monotonic() - t0)
-        # Try to count items if the JSON is well-formed
-        items = "?"
-        try:
-            with open(out_file) as f:
-                data = json.load(f)
-            if isinstance(data, list):
-                items = len(data)
-            elif isinstance(data, dict):
-                items = len(data.get("items", []) or data.get("reviews", []))
-        except (OSError, json.JSONDecodeError):
-            items = "?"
-        status = "ok" if rc == 0 else f"rc={rc}"
-        print(f"  {site_id}: {status} items={items} elapsed={elapsed}s", file=sys.stderr, flush=True)
+    all_items = []
+    errors = []
+    t0 = time.monotonic()
 
-    print(f"\nDone. Output in: {out_dir}", file=sys.stderr, flush=True)
-    # Don't fail the cron step on individual scraper errors — downstream
-    # merge tolerates missing or empty _reviews.json files. Returning 0
-    # lets the pipeline continue to Step 4 (merge) and Step 5 (swarm).
+    with ThreadPoolExecutor(max_workers=len(SCRIPTS)) as pool:
+        futures = {
+            pool.submit(run_scraper, script, site_id, mode,
+                        args.bin_dir, str(out_dir), args.days, args.timeout): site_id
+            for script, site_id, mode in SCRIPTS
+        }
+        for future in as_completed(futures):
+            site_id = futures[future]
+            try:
+                sid, items, err = future.result()
+                if err:
+                    print(f"  {sid}: ❌ {err}", file=sys.stderr)
+                    errors.append((sid, err))
+                else:
+                    print(f"  {sid}: ✅ {len(items)} items", file=sys.stderr)
+                    all_items.extend(items)
+            except Exception as e:
+                print(f"  {site_id}: 💥 {e}", file=sys.stderr)
+                errors.append((site_id, str(e)))
+
+    elapsed = int(time.monotonic() - t0)
+    all_items.sort(key=lambda r: r.get("pub_date") or "", reverse=True)
+
+    result = {
+        "meta": {
+            "total": len(all_items),
+            "scraped_at": datetime.now().isoformat(),
+            "sources": len(SCRIPTS),
+            "errors": len(errors),
+        },
+        "items": all_items,
+    }
+
+    out_file = out_dir / "html_reviews.json"
+    out_file.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"\n✅ {len(all_items)} 条 ({len(errors)} errors, {elapsed}s) → {out_file}",
+          file=sys.stderr)
     return 0
 
 
