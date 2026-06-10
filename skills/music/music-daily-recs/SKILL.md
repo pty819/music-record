@@ -118,9 +118,6 @@ syrphe, textura
 # DB 完整性
 python3 -c "import sqlite3; c=sqlite3.connect('/home/liyifan/.hermes/kanban.db'); print('DB:' + c.execute('PRAGMA integrity_check').fetchone()[0]); c.close()"
 
-# Auth
-bash /home/liyifan/.hermes/skills/music/music-daily-recs/scripts/check-scraper-auth.sh
-
 # Gateway
 systemctl --user is-active hermes-gateway
 
