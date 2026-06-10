@@ -20,8 +20,8 @@ metadata:
 ```
 cron 04:00 → Step 0–5 (cron session)
    │
-   ├─ Step 2: RSS    (28 站, 8 线程并发, 60-120s)
-   ├─ Step 3: HTML   (17 站子进程并发, ~150s, → html_reviews.json)
+   ├─ Step 2: RSS    (29 站, 8 线程并发, 60-120s)
+   ├─ Step 3: HTML   (16 站子进程并发, ~150s, → html_reviews.json)
    ├─ Step 4: merge  (rss + html + camoufox → scraped_raw.json)
    ├─ Step 5: kanban-swarm.py --confirm
    │
@@ -40,14 +40,14 @@ cron 04:00 → Step 0–5 (cron session)
 
 ---
 
-# 站点分发（51 站 = 28 RSS + 17 HTML + 4 Camoufox + 2 skip）
+# 站点分发（51 站 = 29 RSS + 16 HTML + 4 Camoufox + 2 skip）
 
 优先级：RSS > HTML > Camoufox > skip。每个站只走一层。
 
 | 层 | 数量 | 实现 |
 |---|---|---|
-| RSS | 28 | `fast-rss-scrape.py` — `has_rss=True AND rss_url` 非空的站 |
-| HTML | 17 | `scrape_html_parallel.py` — `HTML_SCRIPT_IDS` 集合里的站 |
+| RSS | 29 | `fast-rss-scrape.py` — `has_rss=True AND rss_url` 非空的站 |
+| HTML | 16 | `scrape_html_parallel.py` — `HTML_SCRIPT_IDS` 集合里的站 |
 | Camoufox | 4 | `kanban-swarm.py` — 剩余站（无 RSS、非 HTML、非 skip） |
 | skip | 2 | syrphe, textura（fluid_radio 归 RSS 因为 has_rss=True） |
 
@@ -55,13 +55,13 @@ cron 04:00 → Step 0–5 (cron session)
 - RSS 筛选：`bin/fast-rss-scrape.py:load_sites()`
 - HTML/Camoufox 分配：`bin/kanban-swarm.py:HTML_SCRIPT_IDS` + `get_sites()`
 
-## 28 RSS
+## 29 RSS
 
 the_wire, the_quietus, a_closer_listen, avant_music_news, bandcamp_daily, igloo_magazine, fluid_radio, icareifyoulisten, jazztimes, sequenza21, van_magazine, rhythm_passport, progarchives, rest_is_noise_ph, attn_magazine, chain_dlk, hhv_mag, new_music_buff, jazz_journal, five_against_four, modern_classical_music, the_classic_review, froots, prog_mistress, side_line, post_punk_com, i_die_you_die, peek_a_boo_magazine
 
 注：fluid_radio 的 feed 灌的是 2013-2022 历史存档，预期 0 条新内容。
 
-## 17 HTML
+## 16 HTML
 
 | 站 | 脚本 | 备注 |
 |---|---|---|
@@ -103,7 +103,7 @@ syrphe, textura
 所有抓取源统一 cutoff：`--days 1.5`。
 
 - `fast-rss-scrape.py` 默认 `--days 1.5`
-- 17 个 HTML 脚本全部接受 `--days 1.5`
+- 16 个 HTML 脚本全部接受 `--days 1.5`
 - Kanban worker body 显式传 `--days 1.5`
 
 **禁止**：自行计算 cutoff 日期、RSS 走通后开浏览器"交叉验证"、翻超过前 2 页列表页。
@@ -140,7 +140,7 @@ for s in fast-rss-scrape.py merge_scraped.py process_reviews.py generate_report.
   cp bin/$s ~/.hermes/skills/music/music-daily-recs/scripts/ 2>/dev/null || true
 done
 
-# HTML 17 脚本
+# HTML 16 脚本
 for s in scrape_all_about_jazz.py scrape_bandwagon_asia.py scrape_dark_entries.py \
          scrape_downbeat.py scrape_free_jazz_blog.py scrape_hear65.py \
          scrape_jazz_trail.py scrape_mixmag_asia.py scrape_musique_machine.py \
@@ -156,7 +156,7 @@ cp skills/music/music-daily-recs/SKILL.md ~/.hermes/skills/music/music-daily-rec
 mkdir -p ~/.minimax/music-sites && cp data/sites.json ~/.minimax/music-sites/
 ```
 
-## Step 2 — RSS 批量抓取（28 站，300-700s）
+## Step 2 — RSS 批量抓取（29 站，300-700s）
 
 8 线程并发，每线程 30s socket timeout。实测 60-120s 完成。
 
@@ -169,7 +169,7 @@ python3 ~/.local/bin/fast-rss-scrape.py --days 1.5 -o "$DATE_DIR/rss_merged.json
 
 输出：`rss_merged.json` — `{meta: {total, scraped_at, cutoff_date}, items: [...]}`
 
-## Step 3 — HTML 并行抓取（17 站，~180s）
+## Step 3 — HTML 并行抓取（16 站，~180s）
 
 ```bash
 python3 ~/.local/bin/scrape_html_parallel.py \
@@ -335,7 +335,7 @@ hermes kanban list | grep "$(date +%Y-%m-%d)"
 | 用途 | 路径 |
 |---|---|
 | RSS 抓取 | `bin/fast-rss-scrape.py` |
-| HTML 17 脚本 | `bin/scrape_*.py`（不含 scrape_wild_city.py） |
+| HTML 16 脚本 | `bin/scrape_*.py`（不含 scrape_wild_city.py） |
 | HTML 并行 wrapper | `bin/scrape_html_parallel.py` |
 | 合并 | `bin/merge_scraped.py` |
 | 评分 | `bin/process_reviews.py` |

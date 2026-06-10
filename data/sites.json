@@ -1262,7 +1262,7 @@
       "homepage": "https://worldmusiccentral.org/",
       "rss_url": "https://worldmusiccentral.org/feed/",
       "reviews_url": "https://worldmusiccentral.org/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "A",
       "crawl_frequency": "every_2_days",
       "parser_hint": {
@@ -1273,7 +1273,7 @@
         "traditional music",
         "world fusion"
       ],
-      "notes": "全球 roots/融合",
+      "notes": "全球 roots/融合。已迁移到 RSS (fast-rss-scrape.py)，不再走 HTML 脚本。",
       "startUrls": [
         "https://worldmusiccentral.org/"
       ],
@@ -1309,7 +1309,7 @@
         "roots"
       ],
       "automationStatus": "default_on",
-      "crawl_strategy": "playwright_headless"
+      "crawl_strategy": "http_get"
     },
     {
       "id": "rhythm_passport",
