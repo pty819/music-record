@@ -1,139 +1,105 @@
 #!/usr/bin/env python3
 """
-scrape_resident_advisor.py — Scrape Resident Advisor reviews (ra.co/reviews)
-Fetches list page, then visits each article for full body text.
-Outputs standardized JSON with excerpt + body fields.
+scrape_resident_advisor.py — Scrape Resident Advisor reviews via GraphQL API.
+
+RA is a Next.js SPA — HTML parsing doesn't work. Their public GraphQL endpoint
+at ra.co/graphql returns structured review data directly.
 """
+import argparse
 import json
 import re
 import sys
 import urllib.request
 from datetime import datetime, timezone, timedelta
-from bs4 import BeautifulSoup
 
+GRAPHQL_URL = "https://ra.co/graphql"
 BASE = "https://ra.co"
+
+QUERY = """{ reviews(type: ALL) {
+    id title date blurb content contentUrl label recommended
+    author { name }
+    artists { name }
+} }"""
 
 
 def parse_args():
-    import argparse
     p = argparse.ArgumentParser(description="Scrape Resident Advisor reviews")
-    p.add_argument("--days", type=float, default=1.5, help="Days back from reference date")
+    p.add_argument("--days", type=float, default=1.5)
     p.add_argument("--date", help="Reference date YYYY-MM-DD (default: today)")
     return p.parse_args()
 
 
-def fetch(url):
-    req = urllib.request.Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36"
+def graphql(query):
+    body = json.dumps({"query": query}).encode()
+    req = urllib.request.Request(GRAPHQL_URL, data=body, headers={
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36",
     })
-    with urllib.request.urlopen(req, timeout=20) as r:
-        return r.read().decode("utf-8", errors="replace")
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.loads(r.read().decode())
 
 
-def parse_date(text):
-    text = text.strip()
-    for fmt in ["%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y"]:
-        try:
-            return datetime.strptime(text, fmt).date()
-        except ValueError:
-            pass
-    return None
-
-
-def fetch_article_body(article_url):
-    """Fetch full article page and extract body text, return (body, excerpt)."""
-    try:
-        html = fetch(article_url)
-        soup = BeautifulSoup(html, "lxml")
-        # Remove non-content elements
-        for tag in soup(["script", "style", "nav", "header", "footer", "noscript"]):
-            tag.decompose()
-
-        # Try to find the main article content area
-        body_el = (
-            soup.find("article")
-            or soup.find("main")
-            or soup.find("div", class_=re.compile(r"content|body|post|entry|review", re.I))
-            or soup.find("section", class_=re.compile(r"content|body|post|entry|review", re.I))
-        )
-        if not body_el:
-            body_el = soup
-
-        body = body_el.get_text(" ", strip=True)
-        body = re.sub(r"\s+", " ", body).strip()
-        excerpt = body[:500]
-        return body, excerpt
-    except Exception:
-        return "", ""
+def strip_html(text):
+    return re.sub(r"<[^>]+>", " ", text).strip()
 
 
 def main():
     args = parse_args()
-    ref_date = datetime.strptime(args.date, "%Y-%m-%d").date() if args.date else datetime.now(timezone.utc).date()
+    ref_date = (datetime.strptime(args.date, "%Y-%m-%d").date()
+                if args.date else datetime.now(timezone.utc).date())
     cutoff = ref_date - timedelta(days=args.days)
 
-    list_url = f"{BASE}/reviews"
-    html = fetch(list_url)
-    soup = BeautifulSoup(html, "lxml")
+    resp = graphql(QUERY)
+    reviews = resp.get("data", {}).get("reviews", [])
+    print(f"RA: fetched {len(reviews)} reviews from GraphQL", file=sys.stderr)
 
     items = []
-    seen = set()
-    for card in soup.find_all("div", class_=re.compile(r"review|article-card|card", re.I)):
-        link = card.find("a", href=True)
-        if not link:
-            continue
-        href = link.get("href", "")
-        full_url = f"{BASE}{href}" if href.startswith("/") else href
-        if not full_url.startswith("http") or full_url in seen:
-            continue
-        seen.add(full_url)
-
-        title = (link.get_text(strip=True) or "").strip()
-        if not title or len(title) < 3:
+    for r in reviews:
+        # Parse date
+        raw_date = r.get("date", "")
+        try:
+            pub_dt = datetime.fromisoformat(raw_date.replace("Z", "+00:00"))
+            pub_date = pub_dt.date()
+        except (ValueError, AttributeError):
             continue
 
-        # Date
-        date_text = ""
-        date_el = card.find("time") or card.find(class_=re.compile(r"date|time", re.I))
-        if date_el:
-            date_text = date_el.get_text(strip=True)
-        else:
-            m = re.search(
-                r"(January|February|March|April|May|June|July|August|"
-                r"September|October|November|December)\s+\d+,\s+\d{4}",
-                card.get_text(),
-            )
-            if m:
-                date_text = m.group(0)
-        pub_date = parse_date(date_text) if date_text else None
-        if pub_date and pub_date < cutoff:
+        if pub_date < cutoff:
             continue
 
-        # Fetch full article body
-        body, excerpt = fetch_article_body(full_url)
+        title = (r.get("title") or "").strip()
+        label_name = (r.get("label") or "").strip()
+        recommended = r.get("recommended", False)
 
-        # If body fetch failed, fallback to list-page excerpt
-        if not body:
-            text = card.get_text(" ", strip=True)
-            excerpt = text.replace(title, "", 1).strip()[:500].replace("\n", " ")
-            body = ""
-
-        # Artist from title (RA format: "Artist - Title")
+        # Artist from title ("Artist - Album")
         artist = ""
+        album = title
         if " - " in title:
-            parts = title.split(" - ", 1)
-            artist = parts[0].strip()
-            album = parts[1].strip()
-        else:
-            album = title
+            artist, album = title.split(" - ", 1)
+
+        # Artists list
+        artist_names = [a["name"] for a in (r.get("artists") or []) if a.get("name")]
+        if artist_names and not artist:
+            artist = ", ".join(artist_names)
+
+        # Author
+        author = ""
+        if r.get("author") and r["author"].get("name"):
+            author = r["author"]["name"]
+
+        # Body / excerpt from GraphQL content field
+        raw_body = r.get("content") or r.get("blurb") or ""
+        body = strip_html(raw_body)
+        excerpt = body[:500]
+
+        url = f"{BASE}{r['contentUrl']}" if r.get("contentUrl") else ""
 
         items.append({
-            "album": album,
-            "artist": artist,
+            "album": album.strip(),
+            "artist": artist.strip(),
             "score": None,
-            "url": full_url,
+            "url": url,
             "source": "Resident Advisor",
-            "pub_date": pub_date.isoformat() if pub_date else "",
+            "pub_date": pub_date.isoformat(),
             "tags": "electronic",
             "excerpt": excerpt,
             "body": body,

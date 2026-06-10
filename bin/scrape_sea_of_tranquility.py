@@ -40,7 +40,7 @@ months_map = {
     'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
     'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12,
     'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
-    'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 10, 'Dec': 12,
+    'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12,
 }
 
 
@@ -62,7 +62,8 @@ def parse_args():
 
 
 def parse_added_date(text):
-    """Parse 'Added: June 1st 2026' from text."""
+    """Parse 'Added: June 1st 2026' from text (handles raw HTML)."""
+    text = strip_html(text)
     m = re.search(r'Added:\s*([A-Za-z]+)\s+(\d+)(?:st|nd|rd|th)?,?\s*(\d{4})', text, re.IGNORECASE)
     if m:
         month = months_map.get(m.group(1))

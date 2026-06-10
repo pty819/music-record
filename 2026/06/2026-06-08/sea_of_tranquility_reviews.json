@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-06-10T17:41:45.621172+00:00",
+    "cutoff_date": "2026-06-03T17:41:45.621172+00:00"
+  },
+  "items": [
+    {
+      "album": "Principle",
+      "artist": "Atlas, Dennis",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25545",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-06-08T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Atlas, Dennis: Principle Keyboardist and vocalist Dennis Atlas-now part of Totoâs 2024 touring lineup-returns with his latest solo effort, Principle. The guest list is undeniably impressive: Marco Minnemann, Bumblefoot, and Toto bandmate Steve Lukather all make appearances. Unfortunately, their presence ends up being the most compelling thing about the album.",
+      "body": "Atlas, Dennis: Principle Keyboardist and vocalist Dennis Atlas-now part of Totoâs 2024 touring lineup-returns with his latest solo effort, Principle. The guest list is undeniably impressive: Marco Minnemann, Bumblefoot, and Toto bandmate Steve Lukather all make appearances. Unfortunately, their presence ends up being the most compelling thing about the album.",
+      "site_id": "sot_review_25545",
+      "crawl_status": "ok",
+      "type": "review"
+    }
+  ]
+}
