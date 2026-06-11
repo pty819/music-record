@@ -425,6 +425,11 @@ def main():
         "--date", type=str, default=None,
         help="Explicit cutoff date (YYYY-MM-DD). Overrides --days."
     )
+    parser.add_argument(
+        "--max-items", type=int, default=20,
+        help="Max number of product pages to fetch body text (default: 20). "
+             "Capped to avoid iteration budget exhaustion in kanban."
+    )
     args = parser.parse_args()
 
     today = datetime.now(timezone.utc).date()
@@ -520,14 +525,16 @@ def main():
             close_tab(tab_id3)
 
     # Phase 4: Fetch full body for each review by navigating to its URL
-    sys.stderr.write(f"\nPhase 4: Fetching full body for {len(all_reviews)} reviews...\n")
+    # Cap items to avoid iteration budget exhaustion in kanban
+    max_items = min(args.max_items, 20)
+    sys.stderr.write(f"\nPhase 4: Fetching full body for up to {max_items} reviews...\n")
     body_tab_id = create_tab(TARGET_URL)
     if not body_tab_id:
         sys.stderr.write("ERROR: Failed to create tab for body fetching\n")
         body_tab_id = None
 
     items = []
-    url_list = list(all_reviews.items())
+    url_list = list(all_reviews.items())[:max_items]
     for idx, (url, review) in enumerate(url_list):
         title = review.get("title", "")
         excerpt = review.get("excerpt", "")

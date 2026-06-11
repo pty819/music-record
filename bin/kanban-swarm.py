@@ -107,15 +107,33 @@ def get_sites():
     return out
 
 
+BOOMKAT_EARLY_EXIT = """\
+🚨 CF 拦截快速退出（Boomkat 专用）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Boomkat 每次新 tab 都会触发 Cloudflare Turnstile 隐形验证码，
+会在 ~5-15s 后自动解除，但如果 IP 段/ASN 被标记则永远不解。
+
+步骤：
+1. 创建 Camoufox tab 访问 {url}
+2. 等待 15 秒
+3. 用以下 JS 检查是否仍在 CF challenge 页面：
+   document.title + '|' + document.querySelectorAll('.listing2__product').length
+4. 如果 title 含 "Just a moment" 或 products==0：
+   → 立即写入 {out_file} = {{"meta":{{"total":0,"scraped_at":"...","cutoff_date":"36h前","cf_blocked":true,"site":"boomkat"}},"items":[]}}
+   → kanban_complete(summary="boomkat CF blocked, 0 items", metadata={{"site":"boomkat","count":0,"cf_blocked":true}})
+   → 立即停止，不要再开新 tab，不要重试
+5. 如果 title 正常且 products>0：继续正常抓取流程
+"""
+
 def build_scraper_body(site, date_dir):
     """Build the scraper task body for one site.
 
     Worker is invoked with --days 1.5 explicitly so the cutoff is enforced by
-    the scraper itself, not by the worker's own reading of the body. The body
-    also instructs the worker to *check* for an RSS feed first — if found, the
-    worker should produce a "skipped: rss_available" status instead of opening
-    a browser (this enforces the RSS > HTML > Camoufox priority order at the
-    worker level).
+    the scraper itself, not by the worker's own reading of the body. The
+    body also instructs the worker to *check* for an RSS feed first — if found,
+    the worker should produce a "skipped: rss_available" status instead of
+    opening a browser (this enforces the RSS > HTML > Camoufox priority
+    order at the worker level).
     """
     sid = site.get("id", site["name"].lower().replace(" ", "_"))
     name = site["name"]
@@ -133,6 +151,9 @@ def build_scraper_body(site, date_dir):
    如果该 feed 里有 ≥1 条近 36h 文章 → 把 JSON 写到 {out_file}，跳过浏览器
    如果 feed 空/超时/出错 → 继续 Step 1 浏览器
 """
+
+    # Boomkat gets its own early-exit CF checkpoint
+    cf_early_exit = BOOMKAT_EARLY_EXIT.format(url=url, out_file=out_file) if sid == "boomkat" else ""
 
     return f"""**{name}** · {url} · {strategy} · {tags}
 RSS: {rss_url or "(none)"}
@@ -154,8 +175,9 @@ RSS: {rss_url or "(none)"}
 - 禁止翻超过前 2 页列表页
 - 禁止自行计算 cutoff 日期（直接用 --days 1.5）
 - 日志超过 100 行说明你在过度分析，超过 300 行说明你有问题
+- Boomkat 禁止：CF 拦截后继续开新 tab 重试（直接用早期退出）
 
-{rss_check_block}✅ 步骤
+{rss_check_block}{cf_early_exit}✅ 步骤
 ━━━━━━━━━━━━━━━━
 1. Camoufox 浏览器访问列表页，只翻前 2 页
 2. Cookie 墙 → 检查并点击 Accept/Agree，等 1 秒
