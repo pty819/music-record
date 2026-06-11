@@ -178,7 +178,21 @@ def main():
     output = json.dumps(result, indent=2, ensure_ascii=False)
     if args.output:
         Path(args.output).write_text(output, encoding="utf-8")
-        print(f"\n✅ {len(all_items)} 条 → {args.output}", file=sys.stderr)
+        print(f"\n✅ {len(all_items)} 条 → {args.output    "mikiki": "japanese music jazz rock electronic pop",
+    "jazztokyo": "jazz free improvisation free jazz japanese jazz",
+    "sanacol": "jazz world music avant-garde experimental",
+    "musicircus": "jazz avant-garde contemporary music",
+    "suigyu": "contemporary music avant-garde improvisation japanese experimental",
+    "arban": "jazz free improvisation international culture",
+    "hosoda_note": "free improvisation avant-garde sound art japanese experimental",
+    "jazzbrat": "free jazz eastern european jazz russian jazz improvisation",
+    "hiroyasu_tangerine": "record review experimental avant-garde improvisation",
+    "ontomo": "classical contemporary music jazz improvisation world music",
+    "freude": "contemporary classical new music post-classical improvisation",
+    "mercure_des_arts": "classical contemporary music improvisation",
+    "cinra": "culture music art improvisation",
+    "artscape": "art sound art contemporary music improvisation",
+}", file=sys.stderr)
     else:
         print(output)
 

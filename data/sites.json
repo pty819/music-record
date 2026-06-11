@@ -2633,6 +2633,258 @@
       ],
       "automationStatus": "default_on",
       "crawl_strategy": "http_get"
+    },
+    {
+      "id": "suigyu",
+      "name": "水牛 Suigyu",
+      "homepage": "https://suigyu.com",
+      "rss_url": "https://suigyu.com/feed/",
+      "reviews_url": "https://suigyu.com",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "japanese experimental",
+        "contemporary music",
+        "avant-garde",
+        "improvisation"
+      ],
+      "notes": "日本当代音乐/前卫媒体，作曲家高桥悠治等投稿，即兴/实验音乐内容丰富",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "arban",
+      "name": "ARBAN",
+      "homepage": "https://arban-mag.com",
+      "rss_url": "https://arban-mag.com/feed/",
+      "reviews_url": "https://arban-mag.com",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "jazz",
+        "free improvisation",
+        "international culture"
+      ],
+      "notes": "日本爵士/国际文化杂志，搜索即興可找到即兴演奏内容",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "hosoda_note",
+      "name": "細田成嗣 note",
+      "homepage": "https://note.com/hosodanarushi/",
+      "rss_url": "https://note.com/hosodanarushi/rss/",
+      "reviews_url": "https://note.com/hosodanarushi/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "free improvisation",
+        "avant-garde",
+        "sound art",
+        "japanese experimental"
+      ],
+      "notes": "日本即兴/前卫/音响艺术核心评论家细田成嗣的note专栏，每日短评",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "jazzbrat",
+      "name": "岡島豊樹 東欧ロシアジャズの部屋",
+      "homepage": "https://jazzbrat.exblog.jp/",
+      "rss_url": "https://jazzbrat.exblog.jp/atom.xml",
+      "reviews_url": "https://jazzbrat.exblog.jp/",
+      "has_rss": true,
+      "tier": "C",
+      "crawl_frequency": "daily",
+      "tags": [
+        "free jazz",
+        "eastern european jazz",
+        "russian jazz",
+        "improvisation"
+      ],
+      "notes": "专注东欧/俄罗斯自由爵士的个人博客，含即兴演奏内容",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "hiroyasu_tangerine",
+      "name": "偏愛的収集記",
+      "homepage": "http://hiroyasu-tangerine.blogspot.com/",
+      "rss_url": "http://hiroyasu-tangerine.blogspot.com/atom.xml",
+      "reviews_url": "http://hiroyasu-tangerine.blogspot.com/",
+      "has_rss": true,
+      "tier": "C",
+      "crawl_frequency": "daily",
+      "tags": [
+        "record review",
+        "experimental",
+        "avant-garde",
+        "improvisation"
+      ],
+      "notes": "唱片/CD/录音评论博客，含大量即兴/前卫音乐内容，档案丰富",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "ontomo",
+      "name": "ONTOMO",
+      "homepage": "https://ontomo-mag.com/",
+      "rss_url": "https://ontomo-mag.com/feed/",
+      "reviews_url": "https://ontomo-mag.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "classical",
+        "contemporary music",
+        "jazz",
+        "improvisation",
+        "world music"
+      ],
+      "notes": "音楽之友社运营的大型音乐杂志，搜索即興可找到即兴/前卫内容",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "freude",
+      "name": "FREUDE",
+      "homepage": "https://freudemedia.com/",
+      "rss_url": "https://freudemedia.com/feed/",
+      "reviews_url": "https://freudemedia.com/",
+      "has_rss": true,
+      "tier": "C",
+      "crawl_frequency": "daily",
+      "tags": [
+        "contemporary classical",
+        "new music",
+        "post-classical",
+        "improvisation"
+      ],
+      "notes": "当代古典/现代音乐媒体，覆盖跨类型音乐人（含即兴演奏者）",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "mercure_des_arts",
+      "name": "Mercure des Arts",
+      "homepage": "http://mercuredesarts.com",
+      "rss_url": "http://mercuredesarts.com/feed/",
+      "reviews_url": "http://mercuredesarts.com",
+      "has_rss": true,
+      "tier": "C",
+      "crawl_frequency": "daily",
+      "tags": [
+        "classical",
+        "contemporary music",
+        "improvisation"
+      ],
+      "notes": "古典/当代音乐web杂志，偶尔覆盖即兴演奏活动",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "cinra",
+      "name": "CINRA",
+      "homepage": "https://cinra.net",
+      "rss_url": "https://cinra.net/feed/",
+      "reviews_url": "https://cinra.net",
+      "has_rss": true,
+      "tier": "C",
+      "crawl_frequency": "daily",
+      "tags": [
+        "culture",
+        "music",
+        "art",
+        "improvisation"
+      ],
+      "notes": "日本综合文化媒体，有即兴场景艺术家的采访和评论",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "artscape",
+      "name": "artscape",
+      "homepage": "https://artscape.jp",
+      "rss_url": "https://artscape.jp/feed",
+      "reviews_url": "https://artscape.jp",
+      "has_rss": true,
+      "tier": "C",
+      "crawl_frequency": "daily",
+      "tags": [
+        "art",
+        "sound art",
+        "contemporary music",
+        "improvisation"
+      ],
+      "notes": "日本艺术媒体，有即兴/声音艺术相关内容和关键词索引",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "mikiki",
+      "name": "Mikiki",
+      "homepage": "https://mikiki.tokyo.jp",
+      "rss_url": null,
+      "reviews_url": "https://mikiki.tokyo.jp/list/review",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "japanese music",
+        "jazz",
+        "rock",
+        "electronic",
+        "pop",
+        "reviews"
+      ],
+      "notes": "日本音乐全般媒体，覆盖major到indie，有专门的评论/采访板块",
+      "crawl_strategy": "html_scrape"
+    },
+    {
+      "id": "jazztokyo",
+      "name": "JazzTokyo",
+      "homepage": "https://jazztokyo.org/",
+      "rss_url": null,
+      "reviews_url": "https://jazztokyo.org/",
+      "has_rss": false,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "jazz",
+        "free improvisation",
+        "free jazz",
+        "japanese jazz"
+      ],
+      "notes": "日本爵士/即兴核心媒体，有大友良英等深度评论和现场报道。415反爬，需Camoufox",
+      "crawl_strategy": "camoufox"
+    },
+    {
+      "id": "sanacol",
+      "name": "サナコレ",
+      "homepage": "https://mochizukisana.com",
+      "rss_url": null,
+      "reviews_url": "https://mochizukisana.com",
+      "has_rss": false,
+      "tier": "C",
+      "crawl_frequency": "daily",
+      "tags": [
+        "jazz",
+        "world music",
+        "avant-garde",
+        "experimental"
+      ],
+      "notes": "个人音乐评论博客，覆盖极广（major到underground），日语。HTTPS超时，需Camoufox",
+      "crawl_strategy": "camoufox"
+    },
+    {
+      "id": "musicircus",
+      "name": "musicircus",
+      "homepage": "http://musicircus.on.coocan.jp",
+      "rss_url": null,
+      "reviews_url": "http://musicircus.on.coocan.jp",
+      "has_rss": false,
+      "tier": "C",
+      "crawl_frequency": "daily",
+      "tags": [
+        "jazz",
+        "avant-garde",
+        "contemporary music"
+      ],
+      "notes": "爵士/前卫/当代音乐评论，独特视角（如东欧爵士）。Vue渲染，需Camoufox",
+      "crawl_strategy": "camoufox"
     }
   ],
   "crawl_priority": {
