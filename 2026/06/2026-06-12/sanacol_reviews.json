@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-12T08:00:00Z",
+    "cutoff_date": "36h前",
+    "site": "sanacol",
+    "url": "https://mochizukisana.com",
+    "status": "blocked",
+    "reason": "site not accessible from this network — DNS via Meta VPN resolves to 28.0.0.82 (IPs have open ports but terminate TLS immediately); real IP 157.7.107.37 also unreachable with SSLEOFError"
+  },
+  "items": []
+}

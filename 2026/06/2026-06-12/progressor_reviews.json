@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-11T20:05:19.496465+00:00",
+    "cutoff_date": "2026-06-10T08:05:19.496465+00:00",
+    "site": "progressor",
+    "note": "Site unreachable: Camoufox NS_ERROR_NET_RESET on every attempt (site may be down). Status: blocked."
+  },
+  "items": []
+}

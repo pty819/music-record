@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-12",
+    "cutoff_date": "36h ago (2026-06-10)",
+    "status": "blocked",
+    "reason": "SSL/TLS handshake failure — www.thewildcity.com unreachable from this machine"
+  },
+  "items": []
+}
