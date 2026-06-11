@@ -50,6 +50,12 @@ TAG_MAP = {
     "post_punk_com": "post-punk goth darkwave industrial synth",
     "i_die_you_die": "industrial EBM goth dark electro post-punk",
     "peek_a_boo_magazine": "alternative underground gothic industrial darkwave",
+    "noise_not_music": "experimental avant-garde noise",
+    "the_noise_beneath_the_snow": "noise gothic industrial metal dark ambient neofolk",
+    "can_this_even_be_called_music": "experimental underground avant-garde",
+    "the_elite_extremophile": "progressive experimental avant-garde",
+    "heavy_blog_is_heavy": "progressive experimental avant-garde metal noise",
+    "record_crates_united": "experimental underground cult",
 }
 
 

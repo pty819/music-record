@@ -1,9 +1,9 @@
 {
   "meta": {
     "version": "0.1",
-    "updated": "2026-04-20",
+    "updated": "2026-06-11",
     "maintainer": "hermes-agent",
-    "description": "前卫/实验/学院派爵士/电子/世界音乐评论站站点配置表。has_rss=true 则优先用 RSS；has_rss=false 则用 Playwright headless+stealth（默认），CF JS 挑战时降级 headed。"
+    "description": "前卫/实验/学院派爵士/电子/世界音乐评论站站点配置表。当前共57个站点。has_rss=true 则优先用 RSS；has_rss=false 则用 Playwright headless+stealth（默认），CF JS 挑战时降级 headed。"
   },
   "sites": [
     {
@@ -2243,6 +2243,396 @@
       },
       "automationStatus": "default_on",
       "crawl_strategy": "playwright_headless"
+    },
+    {
+      "id": "noise_not_music",
+      "name": "Noise Not Music",
+      "homepage": "https://noisenotmusic.com/",
+      "rss_url": "https://noisenotmusic.com/feed/",
+      "reviews_url": "https://noisenotmusic.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "noisenotmusic.com/",
+        "list_selector": "article h2 a, .entry-title a",
+        "album_selector": "article h1, .entry-title",
+        "author_selector": ".author a, .entry-meta a",
+        "body_selector": "article .entry-content p, .post-content p",
+        "genre_selector": ".entry-meta a, .cat-links a"
+      },
+      "tags": [
+        "experimental",
+        "avant-garde",
+        "noise",
+        "reviews"
+      ],
+      "notes": "专注于实验/前卫音乐评论，风格多样，更新稳定",
+      "startUrls": [
+        "https://noisenotmusic.com/"
+      ],
+      "allowUrlPatterns": [
+        "/review",
+        "/album",
+        "/ep"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact",
+        "/category"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".post",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".entry-date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".entry-title a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "avant-garde",
+        "noise"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "the_noise_beneath_the_snow",
+      "name": "The Noise Beneath The Snow",
+      "homepage": "https://thenoisebeneaththesnow.wordpress.com/",
+      "rss_url": "https://thenoisebeneaththesnow.wordpress.com/feed/",
+      "reviews_url": "https://thenoisebeneaththesnow.wordpress.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "thenoisebeneaththesnow.wordpress.com/",
+        "list_selector": "article h2 a, .entry-title a",
+        "album_selector": "article h1, .entry-title",
+        "author_selector": ".author a, .entry-meta a",
+        "body_selector": "article .entry-content p, .post-content p",
+        "genre_selector": ".entry-meta a, .cat-links a"
+      },
+      "tags": [
+        "noise",
+        "gothic",
+        "industrial",
+        "metal",
+        "dark ambient",
+        "neofolk"
+      ],
+      "notes": "噪音、哥特/工业、金属、黑暗氛围、新民谣评论，多风格覆盖",
+      "startUrls": [
+        "https://thenoisebeneaththesnow.wordpress.com/"
+      ],
+      "allowUrlPatterns": [
+        "/review",
+        "/album",
+        "/ep"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact",
+        "/category"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".post",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".entry-date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".entry-title a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "noise",
+        "gothic",
+        "industrial",
+        "dark ambient"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "can_this_even_be_called_music",
+      "name": "Can This Even Be Called Music?",
+      "homepage": "https://canthisevenbecalledmusic.com/",
+      "rss_url": "https://canthisevenbecalledmusic.com/feed/",
+      "reviews_url": "https://canthisevenbecalledmusic.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "canthisevenbecalledmusic.com/",
+        "list_selector": "article h2 a, .entry-title a",
+        "album_selector": "article h1, .entry-title",
+        "author_selector": ".author a, .entry-meta a",
+        "body_selector": "article .entry-content p, .post-content p",
+        "genre_selector": ".entry-meta a, .cat-links a"
+      },
+      "tags": [
+        "experimental",
+        "underground",
+        "avant-garde"
+      ],
+      "notes": "独立地下乐队和艺术家评论，发现新音乐的好地方",
+      "startUrls": [
+        "https://canthisevenbecalledmusic.com/"
+      ],
+      "allowUrlPatterns": [
+        "/review",
+        "/album",
+        "/ep"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact",
+        "/category"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".post",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".entry-date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".entry-title a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "underground",
+        "avant-garde"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "the_elite_extremophile",
+      "name": "The Elite Extremophile",
+      "homepage": "https://theeliteextremophile.com/",
+      "rss_url": "https://theeliteextremophile.com/feed/",
+      "reviews_url": "https://theeliteextremophile.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "theeliteextremophile.com/",
+        "list_selector": "article h2 a, .entry-title a",
+        "album_selector": "article h1, .entry-title",
+        "author_selector": ".author a, .entry-meta a",
+        "body_selector": "article .entry-content p, .post-content p",
+        "genre_selector": ".entry-meta a, .cat-links a"
+      },
+      "tags": [
+        "progressive",
+        "experimental",
+        "avant-garde"
+      ],
+      "notes": "前卫和实验音乐特色，更新稳定",
+      "startUrls": [
+        "https://theeliteextremophile.com/"
+      ],
+      "allowUrlPatterns": [
+        "/review",
+        "/album",
+        "/ep"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact",
+        "/category"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".post",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".entry-date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".entry-title a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "progressive",
+        "experimental",
+        "avant-garde"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "heavy_blog_is_heavy",
+      "name": "Heavy Blog Is Heavy",
+      "homepage": "https://www.heavyblogisheavy.com/",
+      "rss_url": "https://www.heavyblogisheavy.com/feed/",
+      "reviews_url": "https://www.heavyblogisheavy.com/reviews/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "heavyblogisheavy.com/",
+        "list_selector": "article h2 a, .post-title a",
+        "album_selector": "article h1, .post-title",
+        "author_selector": ".author a, .post-meta a",
+        "body_selector": "article .post-content p, .entry-content p",
+        "genre_selector": ".post-tags a, .tag-links a"
+      },
+      "tags": [
+        "progressive",
+        "experimental",
+        "avant-garde metal",
+        "noise"
+      ],
+      "notes": "覆盖前卫金属、实验音乐等，更新频繁，质量稳定",
+      "startUrls": [
+        "https://www.heavyblogisheavy.com/reviews/"
+      ],
+      "allowUrlPatterns": [
+        "/review",
+        "/album",
+        "/ep"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact",
+        "/category"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".post",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".post-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".post-date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".post-title a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "progressive",
+        "experimental",
+        "avant-garde metal"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "record_crates_united",
+      "name": "Record Crates United",
+      "homepage": "https://recordcratesunited.com/",
+      "rss_url": "https://recordcratesunited.com/feed/",
+      "reviews_url": "https://recordcratesunited.com/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "parser_hint": {
+        "article_url_pattern": "recordcratesunited.com/",
+        "list_selector": "article h2 a, .entry-title a",
+        "album_selector": "article h1, .entry-title",
+        "author_selector": ".author a, .entry-meta a",
+        "body_selector": "article .entry-content p, .post-content p",
+        "genre_selector": ".entry-meta a, .cat-links a"
+      },
+      "tags": [
+        "experimental",
+        "underground",
+        "cult"
+      ],
+      "notes": "值得 cult 追随的艺术家评论，发现小众佳作",
+      "startUrls": [
+        "https://recordcratesunited.com/"
+      ],
+      "allowUrlPatterns": [
+        "/review",
+        "/album",
+        "/ep"
+      ],
+      "denyUrlPatterns": [
+        "/about",
+        "/contact",
+        "/category"
+      ],
+      "parserHints": {
+        "articleSelectors": [
+          "article",
+          ".post",
+          "main"
+        ],
+        "titleSelectors": [
+          "h1",
+          ".entry-title"
+        ],
+        "dateSelectors": [
+          "time",
+          ".entry-date"
+        ],
+        "linkRowSelectors": [
+          "article a",
+          "h2 a",
+          ".entry-title a"
+        ]
+      },
+      "fallbackSearchTerms": [
+        "experimental",
+        "underground",
+        "cult"
+      ],
+      "automationStatus": "default_on",
+      "crawl_strategy": "http_get"
     }
   ],
   "crawl_priority": {
