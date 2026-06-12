@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-13T04:41:12+08:00",
+    "cutoff_date": "36h前",
+    "site": "サナコレ",
+    "url": "https://mochizukisana.com",
+    "note": "Site unreachable: DNS via Meta VPN resolves to 28.0.0.199 (non-routable DoD reserved IP); TLS handshake fails with SSL_ERROR_UNKNOWN"
+  },
+  "items": []
+}
