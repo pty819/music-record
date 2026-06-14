@@ -1,13 +1,13 @@
 ---
 name: music-daily-recs
-description: 每日巡检 51 个音乐评论站，三层抓取 (RSS → HTML → Camoufox) + Kanban Swarm 评分推送 GitHub + Telegram
+description: 每日巡检 75 个音乐评论站，三层抓取 (RSS → HTML → Camoufox) + Kanban Swarm 评分推送 GitHub + Telegram
 category: music
 cron_job: ec5ea562d589（每天 04:00 北京时间）
 author: hermes-agent
-version: 7.3
+version: 7.8
 license: MIT
 created: 2026-05-07
-updated: 2026-06-10
+updated: 2026-06-14
 trigger_condition: cron 每天 04:00 自动，或手动 `hermes cron run ec5ea562d589`
 metadata:
   hermes:
@@ -20,16 +20,17 @@ metadata:
 ```
 cron 04:00 → Step 0–5 (cron session)
    │
-   ├─ Step 2: RSS    (29 站, 8 线程并发, 60-120s)
-   ├─ Step 3: HTML   (16 站子进程并发, ~150s, → html_reviews.json)
+   ├─ Step 2: RSS    (50 站, 8 线程并发, 60-120s)
+   ├─ Step 3: HTML   (18 站子进程并发, ~180s, → html_reviews.json)
    ├─ Step 4: merge  (rss + html + camoufox → scraped_raw.json)
    ├─ Step 5: kanban-swarm.py --confirm
    │
    ↓ cron session 退出，kanban 调度器接管
 ┌─────────────────────────────────────────────┐
 │ Root (done, shared blackboard)              │
-│   ├─ 4 Camoufox workers (boomkat, PoD,     │
-│   │    progressor, wild_city)               │
+│   ├─ 6 Camoufox workers (boomkat, PoD,     │
+│   │    progressor, wild_city, jazztokyo,    │
+│   │    musicircus)                          │
 │   ├─ Verifier (todo, parent=workers+root)   │
 │   │    merge_scraped.py + 质量门            │
 │   └─ Synthesizer (todo, parent=verifier)    │
@@ -40,28 +41,28 @@ cron 04:00 → Step 0–5 (cron session)
 
 ---
 
-# 站点分发（51 站 = 29 RSS + 16 HTML + 4 Camoufox + 2 skip）
+站点分发（75 站 = 50 RSS + 18 HTML + 6 Camoufox + 1 skip）
 
 优先级：RSS > HTML > Camoufox > skip。每个站只走一层。
 
 | 层 | 数量 | 实现 |
 |---|---|---|
-| RSS | 29 | `fast-rss-scrape.py` — `has_rss=True AND rss_url` 非空的站 |
-| HTML | 16 | `scrape_html_parallel.py` — `HTML_SCRIPT_IDS` 集合里的站 |
-| Camoufox | 4 | `kanban-swarm.py` — 剩余站（无 RSS、非 HTML、非 skip） |
+| RSS | 50 | `fast-rss-scrape.py` — `has_rss=True AND rss_url` 非空的站 |
+| HTML | 18 | `scrape_html_parallel.py` — `HTML_SCRIPT_IDS` 集合里的站 |
+| Camoufox | 6 | `kanban-swarm.py` — 剩余站（无 RSS、非 HTML、非 skip） |
 | skip | 2 | syrphe, textura（fluid_radio 归 RSS 因为 has_rss=True） |
 
 **代码位置**：
 - RSS 筛选：`bin/fast-rss-scrape.py:load_sites()`
 - HTML/Camoufox 分配：`bin/kanban-swarm.py:HTML_SCRIPT_IDS` + `get_sites()`
 
-## 29 RSS
+## 50 RSS
 
 the_wire, the_quietus, a_closer_listen, avant_music_news, bandcamp_daily, igloo_magazine, fluid_radio, icareifyoulisten, jazztimes, sequenza21, van_magazine, rhythm_passport, progarchives, rest_is_noise_ph, attn_magazine, chain_dlk, hhv_mag, new_music_buff, jazz_journal, five_against_four, modern_classical_music, the_classic_review, froots, prog_mistress, side_line, post_punk_com, i_die_you_die, peek_a_boo_magazine
 
 注：fluid_radio 的 feed 灌的是 2013-2022 历史存档，预期 0 条新内容。
 
-## 16 HTML
+## 18 HTML
 
 | 站 | 脚本 | 备注 |
 |---|---|---|
@@ -83,7 +84,7 @@ the_wire, the_quietus, a_closer_listen, avant_music_news, bandcamp_daily, igloo_
 | truth_and_lies_music | scrape_truth_and_lies_music.py | 小而精 |
 | world_music_central | scrape_world_music_central.py | 全球 roots/融合 |
 
-## 4 Camoufox（kanban worker，需 Camoufox 服务）
+## 6 Camoufox（kanban worker，需 Camoufox 服务）
 
 | 站 | 备注 |
 |---|---|
@@ -91,12 +92,14 @@ the_wire, the_quietus, a_closer_listen, avant_music_news, bandcamp_daily, igloo_
 | point_of_departure | JS 渲染站，脚本调 Camoufox REST API |
 | progressor | 冷门 prog/fusion，无独立 scrape 脚本 |
 | wild_city | 印度/南亚电子，脚本调 Camoufox REST API |
+| jazztokyo | 日本爵士，需 JS 渲染 |
+| musicircus | 日本先锋/即兴音乐 |
 
-## 2 skip
+注：サナコレ (sanacol) 因 DNS 解析到 DoD 保留地址 (28.0.0.199) 已移除。水牛 Suigyu、岡島豊樹 jazzbrat 因 RSS 已死/长期停更已移除（2026-06-13）。
 
-syrphe, textura
+## 1 skip
 
----
+syrphe
 
 # 时间窗口 — 1.5 天 = 36 小时（硬约束）
 
@@ -136,7 +139,7 @@ cd /home/liyifan/music-record && git pull origin main
 cp skills/music/music-daily-recs/SKILL.md ~/.hermes/skills/music/music-daily-recs/
 ```
 
-## Step 2 — RSS 批量抓取（29 站，300-700s）
+## Step 2 — RSS 批量抓取（50 站，300-700s）
 
 8 线程并发，每线程 30s socket timeout。实测 60-120s 完成。
 
@@ -149,14 +152,14 @@ python3 bin/fast-rss-scrape.py --days 1.5 -o "$DATE_DIR/rss_merged.json"
 
 输出：`rss_merged.json` — `{meta: {total, scraped_at, cutoff_date}, items: [...]}`
 
-## Step 3 — HTML 并行抓取（16 站，~180s）
+## Step 3 — HTML 并行抓取（18 站，~180s）
 
 ```bash
 python3 bin/scrape_html_parallel.py \
   --out-dir "$DATE_DIR" --days 1.5 --timeout 180
 ```
 
-`scrape_html_parallel.py` 并行起 17 个子进程。一个失败不影响其他。
+`scrape_html_parallel.py` 并行起 18 个子进程。一个失败不影响其他。
 sea_of_tranquility 走 `--out-dir` 模式（自写文件），其余走 stdout 重定向。
 
 输出：17 个 `{site_id}_reviews.json`
@@ -180,7 +183,7 @@ python3 /home/liyifan/music-record/bin/kanban-swarm.py --confirm
 创建：
 ```
 Root (done, idempotency_key=music-recs-swarm-YYYY-MM-DD)
-  ├─ Camoufox workers (4 个: boomkat, PoD, progressor, wild_city)
+  ├─ Camoufox workers (6 个: boomkat, PoD, progressor, wild_city, jazztokyo, musicircus)
   ├─ Verifier (todo, parent=workers+root)
   └─ Synthesizer (todo, parent=verifier)
 ```
@@ -191,7 +194,7 @@ Root (done, idempotency_key=music-recs-swarm-YYYY-MM-DD)
 
 # Kanban Swarm 内部
 
-## Camoufox Workers（4 个）
+## Camoufox Workers（6 个）
 
 由 kanban-swarm.py 自动创建。每个 worker 的 body 包含站点 URL、`--days 1.5` 约束、180 iteration budget。worker 完成后输出 `_reviews.json`。
 
@@ -210,7 +213,7 @@ body 步骤（`SYNTHESIZER_BODY` in kanban-swarm.py）：
 2. `generate_report.py` → `recommend/{DATE}.md`
 3. `git push origin main`
 4. Telegram 推送（≤4000 字符全文，否则精简 + GitHub 链接）
-5. `hermes kanban archive` 归档本轮任务
+5. `hermes kanban list --tenant music --status done | awk '{print $2}' | xargs hermes kanban archive` 归档本轮已完成任务（仅 music tenant）
 6. `kanban_complete`
 
 ---
@@ -343,5 +346,6 @@ hermes kanban list | grep "$(date +%Y-%m-%d)"
 | **Synthesizer 卡 todo** | verifier gate ≠ pass | `hermes kanban edit <verifier_id> --add-metadata '{"gate":"pass"}'` |
 | **Camoufox 静默退出** | 进程消失 task 留 running | `hermes kanban complete <id>` |
 | **Songlines 180s timeout** | 40+ 条需 120-180s | 如仍超时升 240s |
+| **Songlines 详情页 paywall** | `/review/xxx` 需免费注册才能看全文，curl 返回 "Register now to continue reading" → LLM 评分看到注册引导文字 → 全部 1/10。**免费账号每月只能看 2 篇**，对 scraper 无用（每次要抓 10-20 篇）。paywall 是 JS 渲染的，curl 永远被拦截 | 列表页已有摘要（~150字），可直接用于评分；如需全文需付费订阅 |
 | **MiniMax 429** | 并发过高 | `--max-workers 3`（已默认） |
 | **bandwagon_asia/strangely_isolated_place 间歇 rc=2** | 17 脚本并行时资源竞争（单独跑正常） | merger 容忍单脚本失败 |

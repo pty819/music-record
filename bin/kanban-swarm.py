@@ -284,13 +284,15 @@ Step 4: Telegram 推送
 如果 >4000 字符，发送前 30 行 + '...' + 完整推荐 GitHub 链接
 如果 send_message 不可用（profile 没权限），跳过此步
 
-Step 5: 归档本轮 scraper 任务
-hermes kanban list | grep "done.*scrape:" | awk '{print $2}' | while read tid; do
+Step 5: 归档本轮已完成任务（仅 music tenant）
+hermes kanban list --tenant music --status done | awk '{print $2}' | while read tid; do
   hermes kanban archive "$tid"
 done
 
-📌 注意: hermes kanban list 的输出格式是 {icon} {task_id} ...
-     用 awk '{print $2}' 取 task_id，$1 是图标
+📌 注意:
+- 必须用 --tenant music，只归档音乐任务，不动其他业务的 done 任务
+- hermes kanban list 输出格式: {icon} {task_id} {status} {assignee} {title}
+- 用 awk '{print $2}' 取 task_id
 
 Step 6: 完成任务
 kanban_complete(summary="music-recs $(date +%Y-%m-%d): merge → score → report → push → telegram → archive")
