@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "total": 2,
+    "scraped_at": "2026-06-13T20:02:03.290233+00:00",
+    "cutoff_date": "2026-06-12T08:02:03.290217+00:00",
+    "reference_date": "2026-06-13T20:02:03.290217+00:00",
+    "site": "world_music_central",
+    "source": "World Music Central"
+  },
+  "items": [
+    {
+      "album": "A Fania Favorite",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/a-fania-favorite/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-13T09:50:50+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "Senegalese singer Fania Niang has been making noteworthy music for over two decades. Her recent track \"l empreinte\" is a hypnotic combination of lightly husky vocals, a serpentine rhythm and dub-like echoes. Author: Tom Orr Tom Orr is a California-based writer whose talent and mental stability are of an equally questionable nature. His hobbies include ignoring trends, striking dramatic poses in front of his ever-tolerant wife and watching helplessly as his kids surpass him in all desirable trait",
+      "body": "Senegalese singer Fania Niang has been making noteworthy music for over two decades. Her recent track \"l empreinte\" is a hypnotic combination of lightly husky vocals, a serpentine rhythm and dub-like echoes. Author: Tom Orr Tom Orr is a California-based writer whose talent and mental stability are of an equally questionable nature. His hobbies include ignoring trends, striking dramatic poses in front of his ever-tolerant wife and watching helplessly as his kids surpass him in all desirable traits.",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "review"
+    },
+    {
+      "album": "RANT Brings Glasgow Home",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/rant-brings-glasgow-home/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-12T08:37:00+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "Scottish fiddle quartet RANT rolled out Live In Glasgow , earlier this year. This is their fifth album, recorded during a performance at Cottiers Theatre in Glasgow in September. The group features Bethany Reid of Shetland, Anna Massie and Lauren MacColl of the Black Isle, and Gillian Frame of Arran. Together, the four musicians draw on material from archival collections as well as original contemporary compositions. RANT are known for a spacious, richly detailed approach that still preserves th",
+      "body": "Scottish fiddle quartet RANT rolled out Live In Glasgow , earlier this year. This is their fifth album, recorded during a performance at Cottiers Theatre in Glasgow in September. The group features Bethany Reid of Shetland, Anna Massie and Lauren MacColl of the Black Isle, and Gillian Frame of Arran. Together, the four musicians draw on material from archival collections as well as original contemporary compositions. RANT are known for a spacious, richly detailed approach that still preserves the earthy spark closely associated with Scottish fiddle music. In turn, Live In Glasgow captures that balance in a concert setting, with the ensemble's interplay at the center of the performance. Author: World Music Central News Room World music news from the editors at World Music Central",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "review"
+    }
+  ]
+}

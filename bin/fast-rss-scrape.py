@@ -56,6 +56,22 @@ TAG_MAP = {
     "the_elite_extremophile": "progressive experimental avant-garde",
     "heavy_blog_is_heavy": "progressive experimental avant-garde metal noise",
     "record_crates_united": "experimental underground cult",
+    "fluid_radio": "electronic ambient experimental",
+    "arban": "jazz free improvisation international culture",
+    "hosoda_note": "free improvisation avant-garde sound art japanese experimental",
+    "hiroyasu_tangerine": "record review experimental avant-garde improvisation",
+    "ontomo": "classical contemporary music jazz improvisation world music",
+    "freude": "contemporary classical new music post-classical improvisation",
+    "mercure_des_arts": "classical contemporary music improvisation",
+    "cinra": "culture music art improvisation",
+    "artscape": "art sound art contemporary music improvisation",
+    "varelser": "japanese experimental noise improvisation avant-garde",
+    "noisenotmusic": "experimental noise improvisation reviews",
+    "ajazznoise": "free jazz japanese improvisation noise experimental",
+    "kansai_studies": "kansai noise experimental live japanese",
+    "prtcll": "experimental underground cassette indie label",
+    "komekyo510": "experimental avant-garde noise reviews",
+    "leap250": "japanese music indie alternative monthly roundup",
 }
 
 
@@ -178,21 +194,7 @@ def main():
     output = json.dumps(result, indent=2, ensure_ascii=False)
     if args.output:
         Path(args.output).write_text(output, encoding="utf-8")
-        print(f"\n✅ {len(all_items)} 条 → {args.output    "mikiki": "japanese music jazz rock electronic pop",
-    "jazztokyo": "jazz free improvisation free jazz japanese jazz",
-    "sanacol": "jazz world music avant-garde experimental",
-    "musicircus": "jazz avant-garde contemporary music",
-    "suigyu": "contemporary music avant-garde improvisation japanese experimental",
-    "arban": "jazz free improvisation international culture",
-    "hosoda_note": "free improvisation avant-garde sound art japanese experimental",
-    "jazzbrat": "free jazz eastern european jazz russian jazz improvisation",
-    "hiroyasu_tangerine": "record review experimental avant-garde improvisation",
-    "ontomo": "classical contemporary music jazz improvisation world music",
-    "freude": "contemporary classical new music post-classical improvisation",
-    "mercure_des_arts": "classical contemporary music improvisation",
-    "cinra": "culture music art improvisation",
-    "artscape": "art sound art contemporary music improvisation",
-}", file=sys.stderr)
+        print(f"\n✅ {len(all_items)} 条 → {args.output}", file=sys.stderr)
     else:
         print(output)
 

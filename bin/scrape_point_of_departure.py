@@ -142,13 +142,23 @@ PAGE_JS = r"""
 
 # ── Parsing helpers ────────────────────────────────────────────────────
 def normalize_href(href: str) -> str:
-    """Return a fully-qualified PoD URL for a Content.html-relative href."""
+    """Return a fully-qualified PoD URL for a Content.html-relative href.
+
+    The listing emits hrefs like `PoD95/PoD95PageOne.html` (relative) and
+    the issue lives at `/PoD95/`. We must avoid prepending `/PoD95/` when
+    the href already includes the `PoD95/` directory.
+    """
     if not href:
         return ""
     if href.startswith("http://") or href.startswith("https://"):
         return href
     if href.startswith("/"):
         return f"{SITE_BASE}{href}"
+    # href is relative. If it already starts with "PoD95/" (or any
+    # subdirectory), resolve against SITE_BASE root, not against /PoD95/.
+    if "/" in href:
+        return f"{SITE_BASE}/{href}"
+    # Bare filename like "PoD95MomentsNotice.html" — assume it's a PoD95 asset
     if href.startswith("PoD95"):
         return f"{SITE_BASE}/PoD95/{href}"
     return f"{SITE_BASE}/PoD95/{href}"
@@ -414,28 +424,66 @@ def parse_book_review_page(paragraphs: list[dict], page_url: str, page_title: st
     Layout (observed):
         P0: "The Book Cooks\nExcerpt from"
         P1: "Book Title:\nSubtitle\nAuthor\n(Publisher; City)"
-        P2: blank
+        P2: blank (&nbsp;)
         P3+: body sections separated by "***" markers
         Pn-2: "© 2026 Author"
         Pn-1: blank
         Pn:   "> Order Book Here"
         Pn+1: "> back to The Book Cooks"
+
+    P1 is rendered by innerText as a single space-joined string, so we
+    parse the raw HTML instead and split on `<br>` to recover title /
+    subtitle / author / publisher lines.
     """
     artist, album, label, reviewer = "", "", "", ""
-    body_paras = []
+    body_paras: list[str] = []
 
-    # P1 holds the book header: lines are title, author, (publisher; city)
     if len(paragraphs) >= 2:
-        h_text = paragraphs[1]["text"]
-        lines = [ln.strip() for ln in h_text.split("\n") if ln.strip()]
-        if lines:
-            album = lines[0]  # book title becomes "album" field
-            # The author line(s) — any line that doesn't end with a year and isn't parenthetical
-            for ln in lines[1:]:
-                if ln.startswith("(") and ln.endswith(")"):
-                    label = ln.strip("()")
-                elif not reviewer:
-                    reviewer = ln
+        h_html = paragraphs[1]["html"]
+        # Split header HTML on <br> tags, then strip remaining HTML.
+        parts = re.split(r"<br\s*/?>", h_html, flags=re.I)
+        lines: list[str] = []
+        for pt in parts:
+            t = re.sub(r"<[^>]+>", "", pt).strip()
+            if t:
+                lines.append(t)
+        # Heuristic for Book Cooks header:
+        #   - Lines inside <strong>/<em> are title fragments
+        #     (PoD often splits the title across <br>s for line wrap)
+        #   - Lines after the closing </strong>/</em> are author lines
+        #   - Lines that look like "(publisher; city)" are the label
+        # Recover the title block directly from the HTML: everything
+        # between the outermost <strong>...</strong> tags.
+        title_lines: list[str] = []
+        author_lines: list[str] = []
+        pub_lines: list[str] = []
+        # Find the title from the <strong> block in HTML (handles <br>s)
+        m_strong = re.search(r"<strong[^>]*>(.*?)</strong>", h_html, re.S | re.I)
+        if m_strong:
+            title_html = m_strong.group(1)
+            # Strip nested tags (<em>, <br>) and split on <br>
+            for pt in re.split(r"<br\s*/?>", title_html, flags=re.I):
+                t = re.sub(r"<[^>]+>", "", pt).strip()
+                if t:
+                    title_lines.append(t)
+        # After the </strong>, the next non-empty line(s) before any
+        # parenthetical are the author.
+        # Find the slice of h_html after </strong>
+        if m_strong:
+            tail = h_html[m_strong.end():]
+        else:
+            tail = h_html
+        for pt in re.split(r"<br\s*/?>", tail, flags=re.I):
+            t = re.sub(r"<[^>]+>", "", pt).strip()
+            if not t:
+                continue
+            if t.startswith("(") and t.endswith(")"):
+                pub_lines.append(t.strip("()"))
+            else:
+                author_lines.append(t)
+        album = " ".join(title_lines).strip()
+        reviewer = " ".join(author_lines).strip()
+        label = " ".join(pub_lines).strip()
 
     for p in paragraphs:
         text = p["text"]
@@ -629,23 +677,28 @@ def main() -> None:
 
             # Branch on page type
             if is_aggregator_url(url):
-                # Multi-review aggregator OR single-review Moment's Notice page
-                # (MomentsNotice.html is structurally a single review — detect
-                # by counting how many <em>Artist<br><strong>Album</strong>...
-                # headers we find; if only 1, treat as single review).
-                reviews = parse_aggregator_page(paragraphs, url)
-                # If the aggregator yielded just one review, it's MomentsNotice
-                if len(reviews) == 1:
-                    r = reviews[0]
+                # Multi-review aggregator OR single-review Moment's Notice page.
+                # Detect which: a single-review page has exactly ONE
+                # `<em>...<strong>Album</strong>...</em>` header. Use that
+                # signal — the previous "len(reviews) == 1" heuristic misfired
+                # because the parser would split on a stray blank <p> between
+                # the header and body and produce 2 chunks instead.
+                header_re = re.compile(r"<em[^>]*>.*?<strong[^>]*>", re.S | re.I)
+                header_count = sum(
+                    1 for p in paragraphs if header_re.search(p["html"])
+                )
+                if header_count <= 1:
+                    parsed = parse_single_review_page(paragraphs, url, title)
                     item = build_item(
                         url=url, item_type="review",
-                        artist=r["artist"], album=r["album"],
-                        label=r["label"], reviewer=r["reviewer"],
-                        body=r["body"],
+                        artist=parsed["artist"], album=parsed["album"],
+                        label=parsed["label"], reviewer=parsed["reviewer"],
+                        body=parsed["body"],
                     )
                     if item:
                         all_items.append(item)
                 else:
+                    reviews = parse_aggregator_page(paragraphs, url)
                     for r in reviews:
                         item = build_item(
                             url=url, item_type="review",

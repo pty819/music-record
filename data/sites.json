@@ -2635,24 +2635,6 @@
       "crawl_strategy": "http_get"
     },
     {
-      "id": "suigyu",
-      "name": "水牛 Suigyu",
-      "homepage": "https://suigyu.com",
-      "rss_url": "https://suigyu.com/feed/",
-      "reviews_url": "https://suigyu.com",
-      "has_rss": true,
-      "tier": "B",
-      "crawl_frequency": "daily",
-      "tags": [
-        "japanese experimental",
-        "contemporary music",
-        "avant-garde",
-        "improvisation"
-      ],
-      "notes": "日本当代音乐/前卫媒体，作曲家高桥悠治等投稿，即兴/实验音乐内容丰富",
-      "crawl_strategy": "http_get"
-    },
-    {
       "id": "arban",
       "name": "ARBAN",
       "homepage": "https://arban-mag.com",
@@ -2685,24 +2667,6 @@
         "japanese experimental"
       ],
       "notes": "日本即兴/前卫/音响艺术核心评论家细田成嗣的note专栏，每日短评",
-      "crawl_strategy": "http_get"
-    },
-    {
-      "id": "jazzbrat",
-      "name": "岡島豊樹 東欧ロシアジャズの部屋",
-      "homepage": "https://jazzbrat.exblog.jp/",
-      "rss_url": "https://jazzbrat.exblog.jp/atom.xml",
-      "reviews_url": "https://jazzbrat.exblog.jp/",
-      "has_rss": true,
-      "tier": "C",
-      "crawl_frequency": "daily",
-      "tags": [
-        "free jazz",
-        "eastern european jazz",
-        "russian jazz",
-        "improvisation"
-      ],
-      "notes": "专注东欧/俄罗斯自由爵士的个人博客，含即兴演奏内容",
       "crawl_strategy": "http_get"
     },
     {
@@ -2852,24 +2816,6 @@
       "crawl_strategy": "camoufox"
     },
     {
-      "id": "sanacol",
-      "name": "サナコレ",
-      "homepage": "https://mochizukisana.com",
-      "rss_url": null,
-      "reviews_url": "https://mochizukisana.com",
-      "has_rss": false,
-      "tier": "C",
-      "crawl_frequency": "daily",
-      "tags": [
-        "jazz",
-        "world music",
-        "avant-garde",
-        "experimental"
-      ],
-      "notes": "个人音乐评论博客，覆盖极广（major到underground），日语。HTTPS超时，需Camoufox",
-      "crawl_strategy": "camoufox"
-    },
-    {
       "id": "musicircus",
       "name": "musicircus",
       "homepage": "http://musicircus.on.coocan.jp",
@@ -2885,6 +2831,126 @@
       ],
       "notes": "爵士/前卫/当代音乐评论，独特视角（如东欧爵士）。Vue渲染，需Camoufox",
       "crawl_strategy": "camoufox"
+    },
+    {
+      "id": "varelser",
+      "name": "S (Varelser)",
+      "homepage": "https://note.com/varelser",
+      "rss_url": "https://note.com/varelser/rss",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "daily",
+      "tags": [
+        "japanese experimental",
+        "noise",
+        "free improvisation",
+        "avant-garde"
+      ],
+      "notes": "日本噪音/实验/即兴深度评论，更新活跃",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "noisenotmusic",
+      "name": "Noise Not Music",
+      "homepage": "https://noisenotmusic.com",
+      "rss_url": "https://noisenotmusic.com/feed/",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "daily",
+      "tags": [
+        "experimental",
+        "noise",
+        "improvisation",
+        "reviews"
+      ],
+      "notes": "实验/噪音/即兴专辑评论，覆盖全球含日本",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "ajazznoise",
+      "name": "aJazzNoise",
+      "homepage": "https://ajazznoise.com",
+      "rss_url": "https://ajazznoise.com/feed/",
+      "has_rss": true,
+      "tier": "A",
+      "crawl_frequency": "daily",
+      "tags": [
+        "free jazz",
+        "japanese improvisation",
+        "noise",
+        "experimental"
+      ],
+      "notes": "非美国爵士/即兴/噪音，频繁覆盖日本艺术家",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "kansai_studies",
+      "name": "kansai_studies",
+      "homepage": "https://note.com/kansai_studies",
+      "rss_url": "https://note.com/kansai_studies/rss",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "kansai",
+        "noise",
+        "experimental",
+        "live",
+        "japanese"
+      ],
+      "notes": "关西实验/噪音/自制乐器/现场记录",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "prtcll",
+      "name": "prtcll (Leo Okagawa)",
+      "homepage": "https://note.com/prtcll",
+      "rss_url": "https://note.com/prtcll/rss",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "experimental",
+        "underground",
+        "cassette",
+        "indie label"
+      ],
+      "notes": "实验/地下音乐、独立厂牌、卡带文化",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "komekyo510",
+      "name": "米教タルタル",
+      "homepage": "https://note.com/komekyo510",
+      "rss_url": "https://note.com/komekyo510/rss",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "experimental",
+        "avant-garde",
+        "noise",
+        "reviews"
+      ],
+      "notes": "实验/先锋专辑评论，产量小质量高",
+      "crawl_strategy": "http_get"
+    },
+    {
+      "id": "leap250",
+      "name": "Leap250's Blog",
+      "homepage": "https://leap250.blog",
+      "rss_url": "https://leap250.blog/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "japanese music",
+        "indie",
+        "alternative",
+        "monthly roundup"
+      ],
+      "notes": "日本音乐月度推荐，含indie/alternative/experimental",
+      "crawl_strategy": "http_get"
     }
   ],
   "crawl_priority": {

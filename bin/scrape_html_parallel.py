@@ -27,6 +27,7 @@ SCRIPTS = [
     ("scrape_hear65",                "hear65",                   "stdout"),
     ("scrape_jazz_trail",            "jazz_trail",               "stdout"),
     ("scrape_mixmag_asia",           "mixmag_asia",              "stdout"),
+    ("scrape_mikiki",                "mikiki",                   "stdout"),
     ("scrape_musique_machine",       "musique_machine",          "stdout"),
     ("scrape_resident_advisor",      "resident_advisor",         "stdout"),
     ("scrape_roots_world",           "roots_world",              "stdout"),
