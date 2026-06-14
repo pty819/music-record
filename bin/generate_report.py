@@ -61,9 +61,10 @@ def generate_markdown(items, output_date, min_score=1, top_k=None):
             score = item.get("total_score", 0)
             album = item.get("album", "未知专辑") or "未知专辑"
             artist = item.get("artist", "") or ""
-            source = item.get("source", "未知来源") or "未知来源"
+            source = item.get("source", "未知来源") or ""
             url = item.get("url", "") or ""
             summary = item.get("_cn_summary", "") or ""
+            genre = item.get("_genre", "") or ""
             tags = item.get("tags", "") or ""
             site_id = item.get("site_id", "") or ""
 
@@ -71,6 +72,8 @@ def generate_markdown(items, output_date, min_score=1, top_k=None):
             score_display = "⭐" * max(1, score // 2) + ("½" if score % 2 else "")
 
             lines.append(f"### {album}{artist_str}")
+            if genre and genre != "unknown":
+                lines.append(f"**风格**: {genre}")
             lines.append(f"**评分**: {score}/10  {score_display}")
             lines.append(f"**来源**: [{source}]({url})")
 

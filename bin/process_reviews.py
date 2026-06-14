@@ -91,21 +91,28 @@ SCORING_RUBRIC = """## 用户口味背景
 
 你必须输出**严格有效的 JSON 对象**，不要包含其他文字、注释或 markdown 代码块标记。必须使用以下 JSON 格式：
 
-{"total_score": <整数 1-10>, "cn_summary": "<150-300 字中文综述>"}
+{"total_score": <整数 1-10>, "genre": "<英文音乐风格，3-6个词，用 / 分隔>", "cn_summary": "<150-300 字中文综述>"}
 
-"cn_summary" 要求：
+### genre 字段要求
+- 用英文提取文章中描述的音乐风格/类型
+- 3-6 个风格词，用 " / " 分隔
+- 按主要到次要排序
+- 示例: "free jazz / improvisation / avant-garde", "ambient / field recording / drone", "post-punk / darkwave / shoegaze"
+
+### cn_summary 字段要求
 - 150-300 字
-- 客观描述音乐风格、亮点和定位
+- 专注描述乐评内容：这张专辑做了什么、怎么做的、为什么值得听
+- 不要重复 genre 已经表达的风格信息
 - 不要用"令人惊叹""必听""不容错过"等主观评价词
 - 不要包含评分细则的讨论
 - 纯中文，不含英文
 
 ## 评分示例
-- 高质量实验爵士+电子融合，欧洲小众厂牌 → {"total_score": 8, "cn_summary": "实验爵士与电子声响的深度融合，即兴与编程的边界在此消融"}
-- 有趣但不够创新的独立摇滚 → {"total_score": 5, "cn_summary": "独立摇滚的扎实之作，编曲工整但缺乏突破性实验元素"}
-- 标准商业流行制作 → {"total_score": 3, "cn_summary": "商业流行制作，偏向主流听众，与实验/前卫路线距离较大"}
-- 先锋暗潮+工业电子，极具原创性 → {"total_score": 9, "cn_summary": "暗潮与工业电子的前卫融合，声响设计极具侵略性与独创性"}
-- 信息不足或纯新闻稿 → {"total_score": 1, "cn_summary": "内容信息不足，无法评估"}
+- 高质量实验爵士+电子融合，欧洲小众厂牌 → {"total_score": 8, "genre": "experimental jazz / electronic / fusion", "cn_summary": "即兴与编程的边界在此消融，萨克斯与合成器形成对话"}
+- 有趣但不够创新的独立摇滚 → {"total_score": 5, "genre": "indie rock / alternative", "cn_summary": "编曲工整但缺乏突破性实验元素，吉他音墙扎实"}
+- 标准商业流行制作 → {"total_score": 3, "genre": "pop / mainstream", "cn_summary": "商业流行制作，偏向主流听众，与实验路线距离较大"}
+- 先锋暗潮+工业电子 → {"total_score": 9, "genre": "darkwave / industrial / electronic", "cn_summary": "声响设计极具侵略性与独创性，合成器层叠构建压迫感"}
+- 信息不足或纯新闻稿 → {"total_score": 1, "genre": "unknown", "cn_summary": "内容信息不足，无法评估"}
 """
 
 
@@ -136,7 +143,7 @@ def build_prompt(item):
 
 
 def call_minimax(prompt_text):
-    """Call MiniMax API and return parsed (score, summary). Returns (None, None) on failure."""
+    """Call MiniMax API and return parsed (score, genre, summary). Returns (None, None, None) on failure."""
     client = anthropic.Anthropic(
         api_key=API_KEY,
         base_url=BASE_URL,
@@ -195,11 +202,12 @@ def call_minimax(prompt_text):
                 continue
 
             score = int(result.get("total_score", 0))
+            genre = (result.get("genre") or "unknown").strip()
             summary = (result.get("cn_summary") or "").strip()
 
             score = max(1, min(10, score))
 
-            return score, summary
+            return score, genre, summary
 
         except Exception as e:
             if attempt < RETRIES - 1:
@@ -208,23 +216,25 @@ def call_minimax(prompt_text):
                 time.sleep(delay)
                 continue
             print(f"    [fail after {RETRIES} retries] {e}", file=sys.stderr)
-            return None, None
+            return None, None, None
 
-    return None, None
+    return None, None, None
 
 
 def process_single(item):
     """Process one review item: call API, parse result, update item in-place."""
     album = item.get("album", "?")[:50]
     prompt_text = build_prompt(item)
-    score, summary = call_minimax(prompt_text)
+    score, genre, summary = call_minimax(prompt_text)
 
     if score is not None:
         item["total_score"] = score
+        item["_genre"] = genre
         item["_cn_summary"] = summary
         return {"status": "ok", "album": album, "score": score}
     else:
         item["total_score"] = 0
+        item["_genre"] = "unknown"
         item["_cn_summary"] = "（评分失败）"
         return {"status": "fail", "album": album}
 
