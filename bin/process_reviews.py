@@ -29,7 +29,7 @@ except ImportError:
     sys.exit(1)
 
 # ── 配置 ────────────────────────────────────────────────
-_API_KEY_PATH = "/home/liyifan/.config/music-recs/minimax_key"
+_API_KEY_PATH = "/home/liyifan/.config/music-recs/minimax_cn_key"
 API_KEY = ""
 if os.path.exists(_API_KEY_PATH):
     API_KEY = Path(_API_KEY_PATH).read_text(encoding="utf-8").strip()
@@ -43,9 +43,9 @@ if not API_KEY:
                 API_KEY = line.split("=", 1)[1].strip().strip("'\"")
                 break
 
-BASE_URL = "https://api.lkeap.cloud.tencent.com/plan/anthropic"
-MODEL = "hy3-preview"
-MAX_TOKENS = 30000
+BASE_URL = "https://api.minimaxi.com/anthropic"
+MODEL = "MiniMax-M3"
+MAX_TOKENS = 4096
 TIMEOUT = 120  # 单次调用超时（秒）
 RETRIES = 3
 
@@ -143,7 +143,7 @@ def build_prompt(item):
 
 
 def call_minimax(prompt_text):
-    """Call MiniMax API and return parsed (score, genre, summary). Returns (None, None, None) on failure."""
+    """Call MiniMax M3 API and return parsed (score, genre, summary). Returns (None, None, None) on failure."""
     client = anthropic.Anthropic(
         api_key=API_KEY,
         base_url=BASE_URL,
@@ -189,7 +189,7 @@ def call_minimax(prompt_text):
 
             # Strategy 3: find {...} with total_score
             if result is None:
-                m = re.search(r'({[^{}]*"total_score"\s*:\s*\d+[^{}]*})', text, re.DOTALL)
+                m = re.search(r'(\{[^{}]*"total_score"\s*:\s*\d+[^{}]*\})', text, re.DOTALL)
                 if m:
                     try:
                         result = json.loads(m.group(1))
