@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-16",
+    "cutoff_date": "36h 前",
+    "hours_scanned": 36,
+    "status": "blocked",
+    "reason": "NS_ERROR_NET_INTERRUPT - site unreachable, all HTTP/HTTPS requests to www.thewildcity.com fail with TLS/network interrupt"
+  },
+  "items": []
+}

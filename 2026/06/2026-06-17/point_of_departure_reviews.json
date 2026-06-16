@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-17T04:05:00Z",
+    "cutoff_date": "36h前",
+    "site": "point_of_departure",
+    "crawl_status": "blocked",
+    "crawl_error": "pointofdeparture.org unreachable: NS_ERROR_NET_INTERRUPT (DNS resolves to 28.0.0.133, TLS handshake fails, site appears down)",
+    "source": "Point of Departure"
+  },
+  "items": []
+}

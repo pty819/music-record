@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-16",
+    "cutoff_date": "36h前",
+    "cf_blocked": true,
+    "cf_error": "Cloudflare Error 1005 - ASN 12876 banned",
+    "site": "boomkat"
+  },
+  "items": []
+}

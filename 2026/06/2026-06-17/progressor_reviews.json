@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-16T20:06:22.718181+00:00",
+    "cutoff_date": "2026-06-15T08:06:22.718181+00:00",
+    "site": "progressor",
+    "pages_crawled": 2,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "fetch_errors": 2,
+    "note": "ProgressoR server unreachable — HTTP connections actively reset (NS_ERROR_NET_RESET). Python urllib and Camoufox/Firefox both fail. Site appears down. Zero items scraped."
+  },
+  "items": []
+}
