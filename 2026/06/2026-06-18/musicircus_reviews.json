@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-18T04:05:00+00:00",
+    "cutoff_date": "2026-06-16T16:05:00+00:00",
+    "hours_scanned": 36,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "note": "musicircus (musicircus.on.coocan.jp) — Japanese personal site covering jazz/avant-garde/contemporary music. No RSS feed. Home page 'Update' table's most recent dated entries are 2025.12.9 (rovamimi information 008), 2025.9.3, 2025.7.12, 2025.7.6, 2025.7.3, 2024.12.16 — all well outside the 36-hour cutoff window. Top of page shows 2026年5月/6月/7月 event announcement (not a disc review, no album/artist). No disc reviews within the 36h cutoff. Per spec (空结果 → 输出 [], 不报错不重试)."
+  },
+  "items": []
+}
