@@ -41,6 +41,7 @@ from datetime import datetime, timezone, timedelta
 
 # ── Configuration ──────────────────────────────────────────────────────
 CAMOFOX_BASE = "http://127.0.0.1:9377"
+CAMOFOX_API_KEY = "ed63901c7aca4a85bba34ac6ccf6833e"
 SITE_BASE = "https://pointofdeparture.org"
 LIST_URL = f"{SITE_BASE}/Content.html"
 
@@ -78,12 +79,15 @@ AGGREGATOR_PAGES = [
 
 # ── Camoufox REST helpers ──────────────────────────────────────────────
 def _api(method: str, path: str, body: dict | None = None, timeout: int = 90) -> dict:
-    """Single JSON request to the Camoufox REST server."""
+    """Single JSON request to the Camoufox REST server with Bearer auth."""
     url = f"{CAMOFOX_BASE}{path}"
     data = json.dumps(body).encode("utf-8") if body else None
+    headers = {"Authorization": f"Bearer {CAMOFOX_API_KEY}"}
+    if data:
+        headers["Content-Type"] = "application/json"
     req = urllib.request.Request(
         url, data=data, method=method,
-        headers={"Content-Type": "application/json"} if data else {},
+        headers=headers,
     )
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
@@ -99,8 +103,9 @@ def _api(method: str, path: str, body: dict | None = None, timeout: int = 90) ->
 
 # ── JS expressions (run inside the browser) ────────────────────────────
 # JS to enumerate article links from /Content.html
+# Wrapped as IIFE so Playwright evaluates and returns the result
 LISTING_JS = r"""
-() => {
+(() => {
     const anchors = document.querySelectorAll('a[href]');
     const out = [];
     for (const a of anchors) {
@@ -111,13 +116,14 @@ LISTING_JS = r"""
         });
     }
     return out;
-}
+})()
 """
 
 # JS to extract a page's structured paragraph dump.
 # Returns: { title, paragraphs: [{i, html, text, is_blank}], href }
+# Wrapped as IIFE so Playwright evaluates and returns the result
 PAGE_JS = r"""
-() => {
+(() => {
     const ps = document.querySelectorAll('p');
     const out = [];
     for (let i = 0; i < ps.length; i++) {
@@ -136,7 +142,7 @@ PAGE_JS = r"""
         url: location.href,
         paragraphs: out
     };
-}
+})()
 """
 
 
@@ -610,7 +616,7 @@ def main() -> None:
         time.sleep(2)
 
         # ── Step 2: enumerate article URLs from the listing ────────────
-        resp = _api("POST", f"/tabs/{tab_id}/evaluate", {"expression": LISTING_JS})
+        resp = _api("POST", f"/tabs/{tab_id}/evaluate", {"expression": LISTING_JS, "userId": USER_ID})
         anchors = resp.get("result") or []
         sys.stderr.write(f"Found {len(anchors)} anchors on listing page\n")
 
@@ -654,10 +660,10 @@ def main() -> None:
         for i, url in enumerate(article_urls):
             sys.stderr.write(f"\n[{i + 1}/{len(article_urls)}] {url}\n")
             try:
-                _api("POST", f"/tabs/{tab_id}/navigate", {"url": url})
+                _api("POST", f"/tabs/{tab_id}/navigate", {"url": url, "userId": USER_ID})
                 time.sleep(2.5)
                 resp = _api("POST", f"/tabs/{tab_id}/evaluate",
-                            {"expression": PAGE_JS})
+                            {"expression": PAGE_JS, "userId": USER_ID})
             except Exception as e:
                 sys.stderr.write(f"  ERROR fetching {url}: {e}\n")
                 blocked = build_item(
@@ -747,7 +753,7 @@ def main() -> None:
 
     finally:
         try:
-            _api("DELETE", f"/tabs/{tab_id}")
+            _api("DELETE", f"/tabs/{tab_id}", {"userId": USER_ID})
             sys.stderr.write(f"Closed tab {tab_id}\n")
         except Exception as e:
             sys.stderr.write(f"WARNING: failed to close tab: {e}\n")

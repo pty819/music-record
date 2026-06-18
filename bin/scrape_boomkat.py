@@ -29,6 +29,7 @@ from html import unescape
 
 # ── Configuration ──────────────────────────────────────────────────────
 CAMOFOX_BASE = "http://127.0.0.1:9377"
+CAMOFOX_API_KEY = "ed63901c7aca4a85bba34ac6ccf6833e"
 NEW_RELEASES_URL = "https://boomkat.com/new-releases"
 
 SITE_ID = "boomkat"
@@ -50,10 +51,18 @@ NON_MUSIC_RE = re.compile(r'\(BLU-RAY\)|\(UHD\)|\(VOD\)|\(DVD\)', re.IGNORECASE)
 def _api(method: str, path: str, body: dict | None = None) -> dict:
     """Make a JSON API call to the Camoufox REST server."""
     url = f"{CAMOFOX_BASE}{path}"
-    data = json.dumps(body).encode("utf-8") if body else None
+    # Inject auth into every request body
+    if body is None:
+        body = {}
+    if "userId" not in body and "sessionKey" not in body:
+        body = {**body, "userId": USER_ID, "sessionKey": SESSION_KEY}
+    data = json.dumps(body).encode("utf-8")
     req = urllib.request.Request(
         url, data=data, method=method,
-        headers={"Content-Type": "application/json"} if data else {},
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {CAMOFOX_API_KEY}",
+        },
     )
     try:
         with urllib.request.urlopen(req, timeout=60) as resp:

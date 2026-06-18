@@ -44,6 +44,7 @@ from datetime import datetime, timezone, timedelta
 
 # ── Configuration ──────────────────────────────────────────────────────
 CAMOFOX_BASE = "http://127.0.0.1:9377"
+CAMOFOX_API_KEY = "ed63901c7aca4a85bba34ac6ccf6833e"
 SITE_BASE = "https://jazztokyo.org"
 HOME_URL = f"{SITE_BASE}/"
 
@@ -71,7 +72,10 @@ def _api(method, path, body=None, timeout=60):
     data = json.dumps(body).encode("utf-8") if body else None
     req = urllib.request.Request(
         url, data=data, method=method,
-        headers={"Content-Type": "application/json"} if data else {},
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {CAMOFOX_API_KEY}",
+        } if data else {"Authorization": f"Bearer {CAMOFOX_API_KEY}"},
     )
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
@@ -151,10 +155,11 @@ def extract_post_links(html_or_eval_result):
 def scrape_listing(tab_id, page_url):
     """Navigate to a listing page and return candidate post links."""
     sys.stderr.write(f"\n=== Listing {page_url} ===\n")
-    _api("POST", f"/tabs/{tab_id}/navigate", {"url": page_url})
+    _api("POST", f"/tabs/{tab_id}/navigate", {"url": page_url, "userId": USER_ID})
     time.sleep(3)
     eval_resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-        "expression": "() => { const a = Array.from(document.querySelectorAll('a[href]')); const out = []; const seen = new Set(); for (const x of a) { let h = x.getAttribute('href') || ''; if (!h || h.startsWith('#')) continue; const t = (x.innerText || '').trim(); const path = h.startsWith('http') ? new URL(h).pathname : h; if (!/^\\/[\\w-]+(\\/[\\w-]+)?\\/post-\\d+\\/?$/.test(path)) continue; const full = h.startsWith('http') ? h : ('https://jazztokyo.org' + path); if (seen.has(full)) continue; seen.add(full); out.push({h: full, t: t.slice(0, 200)}); } return out; }"
+        "userId": USER_ID,
+        "expression": "(() => { const a = Array.from(document.querySelectorAll('a[href]')); const out = []; const seen = new Set(); for (const x of a) { let h = x.getAttribute('href') || ''; if (!h || h.startsWith('#')) continue; const t = (x.innerText || '').trim(); const path = h.startsWith('http') ? new URL(h).pathname : h; if (!/^\\/[\\w-]+(\\/[\\w-]+)?\\/post-\\d+\\/?$/.test(path)) continue; const full = h.startsWith('http') ? h : ('https://jazztokyo.org' + path); if (seen.has(full)) continue; seen.add(full); out.push({h: full, t: t.slice(0, 200)}); } return out; })()"
     })
     links = extract_post_links(eval_resp)
     sys.stderr.write(f"  found {len(links)} post links\n")
@@ -166,10 +171,11 @@ def scrape_listing(tab_id, page_url):
 def parse_article(tab_id, url):
     """Fetch an article page; return dict with title, time, time_attr, body_text."""
     sys.stderr.write(f"  fetch: {url}\n")
-    _api("POST", f"/tabs/{tab_id}/navigate", {"url": url})
+    _api("POST", f"/tabs/{tab_id}/navigate", {"url": url, "userId": USER_ID})
     time.sleep(2)
     resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-        "expression": "() => { const art = document.querySelector('article') || document.querySelector('.entry-content') || document.querySelector('.post') || document.body; const h1s = Array.from(document.querySelectorAll('article h1, .entry-title, h1.post-title, h1')); const t = h1s.length ? h1s.reduce((a,b)=>(b.innerText||'').length>(a.innerText||'').length?b:a) : null; const time = document.querySelector('time'); const cat = document.querySelector('.cat-links a, .category a, .post-categories a'); return { title: t && (t.innerText||'').trim(), timeAttr: time && time.getAttribute('datetime'), timeText: time && (time.innerText||'').trim(), category: cat && (cat.innerText||'').trim(), body: art ? (art.innerText||'') : '' }; }"
+        "userId": USER_ID,
+        "expression": "(() => { const art = document.querySelector('article') || document.querySelector('.entry-content') || document.querySelector('.post') || document.body; const h1s = Array.from(document.querySelectorAll('article h1, .entry-title, h1.post-title, h1')); const t = h1s.length ? h1s.reduce((a,b)=>(b.innerText||'').length>(a.innerText||'').length?b:a) : null; const time = document.querySelector('time'); const cat = document.querySelector('.cat-links a, .category a, .post-categories a'); return { title: t && (t.innerText||'').trim(), timeAttr: time && time.getAttribute('datetime'), timeText: time && (time.innerText||'').trim(), category: cat && (cat.innerText||'').trim(), body: art ? (art.innerText||'') : '' }; })()"
     })
     res = resp.get("result") or {}
     body = res.get("body") or ""
@@ -406,7 +412,7 @@ def main():
 
     finally:
         try:
-            _api("DELETE", f"/tabs/{tid}")
+            _api("DELETE", f"/tabs/{tid}?userId={USER_ID}")
         except Exception as e:
             sys.stderr.write(f"WARN: failed to close tab: {e}\n")
 

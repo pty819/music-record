@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "total": 3,
+    "scraped_at": "2026-06-14T20:01:05.453821+00:00",
+    "cutoff_date": "2026-06-13T08:01:05.453775+00:00",
+    "reference_date": "2026-06-14T20:01:05.453775+00:00",
+    "site": "world_music_central",
+    "source": "World Music Central"
+  },
+  "items": [
+    {
+      "album": "Ken & Brad Kolodner Celebrate 15 Years of Musical Partnership with New Single “Hand’s Cove”",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/ken-brad-kolodner-celebrate-15-years-of-musical-partnership-with-new-single-hands-cove/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-14T13:08:51+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "Baltimore-based father-son duo Ken & Brad Kolodner have released \" Hand's Cove ,\" the title track and first single from their forthcoming fifth studio album. The album will be available July 10 and coincides with the pair's 15th year of making music together. What began as informal jam sessions between Ken Kolodner and his teenage son has evolved into a longstanding musical partnership. Over the years, the duo has developed a distinctive sound by pairing clawhammer banjo and hammered dulcimer. K",
+      "body": "Baltimore-based father-son duo Ken & Brad Kolodner have released \" Hand's Cove ,\" the title track and first single from their forthcoming fifth studio album. The album will be available July 10 and coincides with the pair's 15th year of making music together. What began as informal jam sessions between Ken Kolodner and his teenage son has evolved into a longstanding musical partnership. Over the years, the duo has developed a distinctive sound by pairing clawhammer banjo and hammered dulcimer. Ken and Brad Kolodner have pursued a broad musical approach that incorporates additional instruments such as gourd banjo and hammered mbira alongside twin fiddles and stringband influences. \"Hand's Cove\" was inspired by a secluded inlet on Vermont's Lake Champlain near the family's multigenerational cabin, known as The Camp. The location also carries historical significance as the site where Ethan Allen and the Green Mountain Boys reportedly concealed themselves before crossing the lake to capture Fort Ticonderoga during the early stages of the American Revolution. On the track, Brad Kolodner's gourd banjo leads the song, while Ken Kolodner's hammered dulcimer underscores the atmosphere of anticipation associated with the historic crossing. Author: World Music Central News Room World music news from the editors at World Music Central",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "feature"
+    },
+    {
+      "album": "Traveler Amalgamates Rock and Global Traditions on Out of the Dust",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/traveler-amalgamates-rock-and-global-traditions-on-out-of-the-dust/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-14T09:47:42+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "Traveler — Out of the Dust (2019) Traveler released Out of the Dust in 2019. It is a studio album designed to capture the energy and immediacy of the band's live performances. The world music project was recorded live in the studio with minimal overdubs. Violinist, vocalist, and band leader Scott Jeffers composed most of the material during travels through Egypt, Jordan, and Scotland in 2019. As a result, the album combines electric rock with acoustic instrumentation. Jeffers' world fusion explo",
+      "body": "Traveler — Out of the Dust (2019) Traveler released Out of the Dust in 2019. It is a studio album designed to capture the energy and immediacy of the band's live performances. The world music project was recorded live in the studio with minimal overdubs. Violinist, vocalist, and band leader Scott Jeffers composed most of the material during travels through Egypt, Jordan, and Scotland in 2019. As a result, the album combines electric rock with acoustic instrumentation. Jeffers' world fusion explores Middle Eastern, Celtic, Greek, Turkish, and Romani traditions, weaving them into a colorful, borderless sound. With Traveler, he brings together the Turkish oud, Moroccan lutar, Greek bouzouki, and even the haunting call of a Moroccan sheep horn. Fierce fiddle lines, powerful percussion, and rock-infused vocals meet centuries-old instruments, creating music that feels restless, rooted in tradition and always in motion. Meanwhile, the band's reputation has grown through a strong touring presence. Traveler headlined festivals in Turkey, Alaska, Montana, Texas, Utah, Colorado, and Canada in recent years. The Arizona-based group also maintains a regular performance schedule in its home state. Scott Jeffers on violin, vocals, oud, saz, lutar, viola, darbuka, Persian daf, riq; Tyler Mount on guitar, sanshin, backing vocals; Jason Wiedman on drums, dumber, war drum, backing vocals; and Mark Niemeyer on electric bass, upright bass, and backing vocals. Guest: Charbel Azzi on dahola, darbuka and riq. Buy Out of the Dust . Author: Ryan Emmert",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "review"
+    },
+    {
+      "album": "A Fania Favorite",
+      "artist": "",
+      "score": null,
+      "url": "https://worldmusiccentral.org/a-fania-favorite/",
+      "source": "World Music Central",
+      "pub_date": "2026-06-13T09:50:50+00:00",
+      "tags": "world music,traditional,world fusion",
+      "excerpt": "Senegalese singer Fania Niang has been making noteworthy music for over two decades. Her recent track \"l empreinte\" is a hypnotic combination of lightly husky vocals, a serpentine rhythm and dub-like echoes. Author: Tom Orr Tom Orr is a California-based writer whose talent and mental stability are of an equally questionable nature. His hobbies include ignoring trends, striking dramatic poses in front of his ever-tolerant wife and watching helplessly as his kids surpass him in all desirable trait",
+      "body": "Senegalese singer Fania Niang has been making noteworthy music for over two decades. Her recent track \"l empreinte\" is a hypnotic combination of lightly husky vocals, a serpentine rhythm and dub-like echoes. Author: Tom Orr Tom Orr is a California-based writer whose talent and mental stability are of an equally questionable nature. His hobbies include ignoring trends, striking dramatic poses in front of his ever-tolerant wife and watching helplessly as his kids surpass him in all desirable traits.",
+      "site_id": "world_music_central",
+      "crawl_status": "success",
+      "type": "review"
+    }
+  ]
+}

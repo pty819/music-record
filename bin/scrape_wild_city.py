@@ -34,6 +34,7 @@ Usage:
 
 import argparse
 import json
+import os
 import re
 import sys
 import time
@@ -43,6 +44,7 @@ from datetime import datetime, timezone, timedelta
 
 # ── Configuration ──────────────────────────────────────────────────────
 CAMOFOX_BASE = "http://127.0.0.1:9377"
+CAMOFOX_API_KEY = os.environ.get("CAMOFOX_API_KEY", "")
 # /features carries the full sidebar feed; /home does too
 TARGET_URL = "https://www.thewildcity.com/features"
 
@@ -66,8 +68,11 @@ def _api(method: str, path: str, body: dict | None = None) -> dict:
         url,
         data=data,
         method=method,
-        headers={"Content-Type": "application/json"} if data else {},
     )
+    if data:
+        req.add_header("Content-Type", "application/json")
+    if CAMOFOX_API_KEY:
+        req.add_header("Authorization", f"Bearer {CAMOFOX_API_KEY}")
     try:
         with urllib.request.urlopen(req, timeout=120) as resp:
             return json.loads(resp.read().decode("utf-8"))
@@ -83,7 +88,7 @@ def close_tab(tab_id: str) -> None:
     """Safely close a Camoufox tab."""
     if tab_id:
         try:
-            _api("DELETE", f"/tabs/{tab_id}")
+            _api("DELETE", f"/tabs/{tab_id}?userId={USER_ID}")
             sys.stderr.write(f"  Closed tab {tab_id}\n")
         except Exception as e:
             sys.stderr.write(f"  WARNING: Failed to close tab: {e}\n")
@@ -113,7 +118,8 @@ def create_tab(url: str) -> str | None:
 def evaluate_js(tab_id: str, expression: str):
     """Evaluate JS expression in a Camoufox tab. Returns the result value."""
     try:
-        resp = _api("POST", f"/tabs/{tab_id}/evaluate", {"expression": expression})
+        resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
+            "userId": USER_ID, "expression": expression})
         return resp.get("result")
     except Exception as e:
         sys.stderr.write(f"  ERROR evaluating JS: {e}\n")
@@ -127,7 +133,7 @@ def navigate(tab_id: str, url: str) -> bool:
     new tab (server ignores the tabId field). Critical for body fetch.
     """
     try:
-        _api("POST", f"/tabs/{tab_id}/navigate", {"url": url})
+        _api("POST", f"/tabs/{tab_id}/navigate", {"userId": USER_ID, "url": url})
         sys.stderr.write(f"  Navigated to {url[:80]}...\n")
         time.sleep(6)
         return True
@@ -138,13 +144,9 @@ def navigate(tab_id: str, url: str) -> bool:
 
 def fetch_body(tab_id: str) -> str:
     """Fetch full body text from the current page via JS evaluation."""
-    js = """
-    () => {
-        const article = document.querySelector('article');
-        if (article) return article.innerText.slice(0, 12000);
-        return document.body.innerText.slice(0, 12000);
-    }
-    """
+    # NOTE: must be a plain expression, not a function definition.
+    # page.evaluate(string) evals as JS expr — arrow function would be returned as object, not called.
+    js = "document.querySelector('article')?.innerText?.slice(0, 12000) || document.body?.innerText?.slice(0, 12000) || ''"
     try:
         result = evaluate_js(tab_id, js)
         if result is None:
@@ -305,31 +307,29 @@ def extract_artist_album(title: str) -> tuple:
 
 # Extract all sidebar feed items with their data-date, href, title
 EXTRACT_FEED_JS = """
-() => {
-    const items = [];
-    const seen = new Set();
-    const els = document.querySelectorAll('a.box[data-date]');
-    for (const el of els) {
-        const href = el.getAttribute('href') || '';
-        if (!href || seen.has(href)) continue;
-        seen.add(href);
-        const date = el.getAttribute('data-date') || '';
-        // Title is the first line of innerText (sometimes a tag comes first)
-        const text = (el.innerText || '').trim();
-        const lines = text.split('\\n').map(l => l.trim()).filter(Boolean);
-        let title = lines[0] || '';
-        // Sometimes there's a tag pill like "Review" or "Podcast" before the title
-        if (lines.length > 1 && /^(review|podcast|feature|tracklist|interview|news)$/i.test(lines[0])) {
-            title = lines[1] || title;
-        }
-        items.push({
-            url: href.startsWith('http') ? href : 'https://www.thewildcity.com' + href,
-            date: date,
-            title: title,
-        });
+const items = [];
+const seen = new Set();
+const els = document.querySelectorAll('a.box[data-date]');
+for (const el of els) {
+    const href = el.getAttribute('href') || '';
+    if (!href || seen.has(href)) continue;
+    seen.add(href);
+    const date = el.getAttribute('data-date') || '';
+    // Title is the first line of innerText (sometimes a tag comes first)
+    const text = (el.innerText || '').trim();
+    const lines = text.split('\\n').map(l => l.trim()).filter(Boolean);
+    let title = lines[0] || '';
+    // Sometimes there's a tag pill like "Review" or "Podcast" before the title
+    if (lines.length > 1 && /^(review|podcast|feature|tracklist|interview|news)$/i.test(lines[0])) {
+        title = lines[1] || title;
     }
-    return items;
+    items.push({
+        url: href.startsWith('http') ? href : 'https://www.thewildcity.com' + href,
+        date: date,
+        title: title,
+    });
 }
+items;
 """
 
 
@@ -429,10 +429,6 @@ def main():
     # Phase 3: Fetch full body for each candidate
     max_items = min(args.max_items, 20)
     sys.stderr.write(f"\nPhase 3: Fetching full body for up to {max_items} items...\n")
-    body_tab_id = create_tab("https://www.thewildcity.com/")
-    if not body_tab_id:
-        sys.stderr.write("ERROR: Failed to create tab for body fetching\n")
-        body_tab_id = None
 
     items = []
     url_list = candidates[:max_items]
@@ -452,15 +448,14 @@ def main():
         else:
             artist, album = "", title
 
-        # Fetch body
+        # Fetch body — create a fresh tab per URL instead of navigating
+        # (POST /tabs/{id}/navigate is unreliable — crashes the server)
         body = ""
-        if body_tab_id:
-            ok = navigate(body_tab_id, url)
-            if ok:
-                body = fetch_body(body_tab_id)
-                # Sanity: if body is too short, navigation may have failed
-                if len(body) < 200:
-                    sys.stderr.write(f"  WARN: body too short ({len(body)} chars) for {url}\n")
+        body_tab = create_tab(url)
+        if body_tab:
+            time.sleep(5)  # extra wait for page render
+            body = fetch_body(body_tab)
+            close_tab(body_tab)
 
         excerpt = (body[:500] if body else title)
 
@@ -484,9 +479,6 @@ def main():
             f"{artist or '?'} : {(album or title)[:60]}"
             f" ({pub_date}, body: {len(body)} chars)\n"
         )
-
-    if body_tab_id:
-        close_tab(body_tab_id)
 
     # Sort by date descending (most recent first)
     items.sort(key=lambda it: it.get("pub_date", "") or "0000-00-00", reverse=True)

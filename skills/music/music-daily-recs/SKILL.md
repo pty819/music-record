@@ -220,7 +220,9 @@ body 步骤（`SYNTHESIZER_BODY` in kanban-swarm.py）：
 
 # 评分（v3 — LLM 直打）
 
-`process_reviews.py` 用 hy3-preview (腾讯云 Anthropic 兼容)（Anthropic SDK，api.lkeap.cloud.tencent.com）。评分+中文总结同一次 API 调用，线程池 3 并发。
+`process_reviews.py` 用 MiniMax-M3 (MiniMax 国内版)（Anthropic SDK，api.minimaxi.com/anthropic）。评分+中文总结同一次 API 调用，线程池 3 并发。
+
+> 迁移记录：`references/2026-06-15-api-provider-migration.md`（从 Tencent Cloud hy3 迁移到 MiniMax M3）。
 
 6 维评分：口味匹配度（最高权重）、创新性、跨领域融合、地区特色、主流降权、评论质量。
 
