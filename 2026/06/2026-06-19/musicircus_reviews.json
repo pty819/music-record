@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-19T04:10:00+00:00",
+    "cutoff_date": "2026-06-17T08:10:00+00:00",
+    "hours_scanned": 36,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "note": "musicircus (musicircus.on.coocan.jp) — Japanese personal site covering jazz/avant-garde/contemporary music. No RSS feed. Home page shows: event announcements for 2026/5/24, 2026/6/14, 2026/7/18 (松江夜話 series — live listening events, not album reviews); 'rovamimi information 008' publication entry; and dated event reports from 2025.8.17 and 2025.7.5 — all well outside the 36-hour cutoff. No disc reviews within the 36h window. Per spec (空结果 → 输出 [], 不报错不重试)."
+  },
+  "items": []
+}
