@@ -269,8 +269,7 @@ python3 bin/generate_report.py \\
 Step 3: git push 到 GitHub
 cd /home/liyifan/music-record
 rm -f "2026/$(date +%m)/$(date +%Y-%m-%d)"/*.py
-git add -A "2026/$(date +%m)/$(date +%Y-%m-%d)" "recommend/$(date +%Y-%m-%d).md" \\
-  bin/process_reviews.py bin/generate_report.py bin/merge_scraped.py bin/kanban-swarm.py
+git add -A
 git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations (kanban swarm)" || true
 git push origin main 2>&1; PUSH_EXIT=$?
 
