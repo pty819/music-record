@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-20T20:20:29+00:00",
+    "cutoff_date": "2026-06-19T08:20:29+00:00",
+    "site": "point_of_departure",
+    "hours_scanned": 36,
+    "notes": "Current issue PoD95 (June 2026) is dated 2026-06-01 — ~20 days old, well outside the 36-hour cutoff. PoD is a monthly journal with no per-article publication dates on the website; the only newer-than-cutoff content would require a new issue. Within the 36-hour window, nothing new has been published. Returning empty per spec ('空结果 → 输出 []')."
+  },
+  "items": []
+}

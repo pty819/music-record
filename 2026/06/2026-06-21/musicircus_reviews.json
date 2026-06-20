@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-20T20:12:30+00:00",
+    "cutoff_date": "2026-06-19T08:12:30.287241+00:00",
+    "hours_scanned": 36,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "blocked",
+    "note": "musicircus (musicircus.on.coocan.jp) — Japanese personal site covering avant-garde/jazz/experimental music on coocan.jp free hosting. No RSS. Today (2026-06-21) the coocan.jp host is dropping connections from this host: Camoufox shows 'Problem loading page' (NS_ERROR_NET_RESET equivalent) with bodyLen=0 indefinitely. web_extract backend confirms the site is reachable via an alternate path; its homepage summary shows the most recent live report is 2025.8.17 and the next update is a 2026.6.14 event announcement, both far outside the 36h cutoff. No review content within the window. Per spec: empty result → output [], no retry (Boomkat-style: connection-reset equivalent to blocked)."
+  },
+  "items": []
+}

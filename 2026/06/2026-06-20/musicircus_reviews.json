@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-19T20:10:00+00:00",
+    "cutoff_date": "2026-06-18T08:10:00+00:00",
+    "hours_scanned": 36,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "note": "musicircus (musicircus.on.coocan.jp) — Japanese personal site covering avant-garde/jazz/experimental music on coocan.jp free hosting. No RSS feed. Site is accessible via HTTP, but Camoufox fails with NS_ERROR_NET_RESET (server connection reset). Homepage content retrieved via web_extract shows 'Recent Updates' table: entries from 2025.12.9, 2025.9.3, 2025.7.12, 2025.7.6 — all well outside the 36-hour cutoff (2026-06-18). 2026 references are future event announcements (2026/5/24, 2026/6/14, 2026/7/18 — scheduled performances, not published reviews). No review content within the 36h window. Per spec: empty result → output [], no retry."
+  },
+  "items": []
+}

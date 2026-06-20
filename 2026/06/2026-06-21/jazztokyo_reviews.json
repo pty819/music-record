@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-20T20:18:00+00:00",
+    "cutoff_date": "2026-06-19T08:18:00+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "no_date_skipped": 0,
+    "fetch_errors": 0,
+    "crawl_status": "blocked",
+    "note": "Site unreachable from this network (jazztokyo.org → 198.38.76.14, 10s TCP timeout, no HTTP response). Camoufox tab opens but Firefox shows 'Problem loading page' after ~60s. Direct curl from this host times out the same way. RSS endpoint /feed/ also unreachable. Same network condition as 2026-06-17 (then labeled 'DNS hijack (28.0.0.120)')."
+  },
+  "items": []
+}

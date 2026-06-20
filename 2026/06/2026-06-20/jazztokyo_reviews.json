@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-19T20:10:37.105116+00:00",
+    "cutoff_date": "2026-06-18T08:10:37.105116+00:00",
+    "site": "jazztokyo",
+    "note": "Tab creation failed: HTTP 500 on POST /tabs: {\"error\":\"Internal server error\"}"
+  },
+  "items": []
+}

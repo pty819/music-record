@@ -1,0 +1,212 @@
+[04:23:36] Start. userId=boomkat-1781987016 cutoff_date=2026-06-19 NOW=2026-06-20T20:23:36.237779+00:00
+[04:23:36] Creating tab + navigating to /new-releases?show=100 ...
+[04:23:37]   tab_id=053f105a-f1f3-49ff-b79e-4d34d7bcc05d
+[04:23:37] Waiting 15s for CF challenge ...
+[04:23:52]   probe: {"title":"Boomkat","products":50,"url":"https://boomkat.com/new-releases?show=100"}
+[04:23:52]   page ready: title='Boomkat' products=50
+[04:23:52]   page 1: 50 products
+[04:23:52]   navigating to page 2 ...
+[04:23:56]   navigate p2: {'ok': True, 'tabId': '053f105a-f1f3-49ff-b79e-4d34d7bcc05d', 'url': 'https://boomkat.com/new-releases?show=100&page=2', 'refsAvailable': True}
+[04:23:59]   page 2: 49 products
+[04:23:59] Total unique products: 99
+[04:23:59] After filter: 99 candidates
+[04:23:59] === Visiting 99 product pages ===
+[04:23:59]   [1/99] X14 : By The End of Today, You're Going to Nee
+[04:24:03]     body: 1867 chars
+[04:24:03]   [2/99] TIRZAH : trip9love...???
+[04:24:07]     body: 1637 chars
+[04:24:07]   [3/99] John Also Bennett : Sacred House (Versions)
+[04:24:11]     body: 1703 chars
+[04:24:11]   [4/99] DX2OV : Tonegues
+[04:24:14]     body: 1845 chars
+[04:24:14]   [5/99] ARTHUR RUSSELL : Love is Overtaking Me (Remastered/Redux)
+[04:24:18]     body: 2146 chars
+[04:24:34]   [6/99] Brannten Schnüre : Geträumt hab ich vom Martinszug
+[04:24:41]     body: 3154 chars
+[04:24:41]   [7/99] Hans Reichel : Dalbergia Retusa
+[04:24:45]     body: 3327 chars
+[04:24:45]   [8/99] Serokolo 7 : Maramfa Musik Pro
+[04:24:49]     body: 3307 chars
+[04:24:49]   [9/99] BILEEBOB : Call Me
+[04:24:53]     body: 701 chars
+[04:24:53]   [10/99] Prostitute : Attempted Martyr
+[04:24:57]     body: 2257 chars
+[04:24:57]   [11/99] DYNAREC : Vaporwave I
+[04:25:01]     body: 717 chars
+[04:25:01]   [12/99] Filippo Testa : Antologica 1977 - 1990
+[04:25:06]     body: 3182 chars
+[04:25:06]   [13/99] Zachary Paul & Celia Eydeland : The Echoing Green
+[04:25:09]     body: 610 chars
+[04:25:09]   [14/99] Max Romeo & The Upsetters : War Ina Babylon
+[04:25:12]     body: 880 chars
+[04:25:12]   [15/99] Yushh : Full Body AXY
+[04:25:16]     body: 986 chars
+[04:25:16]   [16/99] Keith Hudson : Playing It Cool & Playing It Right
+[04:25:23]     body: 2142 chars
+[04:25:23]   [17/99] DJ Scott feat. Mc Stompin, Mc Jet & Mc Nat : HANGAR 13 v Uprising 24th May 2004
+[04:25:26]     body: 977 chars
+[04:25:26]   [18/99] SURGEON : Crash Recoil
+[04:25:30]     body: 1581 chars
+[04:25:30]   [19/99] JEFF MILLS : Live at Liquid Room
+[04:25:34]     body: 1270 chars
+[04:25:34]   [20/99] Lee "Scratch" Perry and Mouse On Mars : Spatial, No Problem.
+[04:25:38]     body: 1348 chars
+[04:25:38]   [21/99] Your Brother’s Keeper & Gary Bartz : Where Rivers Meet
+[04:25:41]     body: 1502 chars
+[04:25:41]   [22/99] Economy Of Meaning : Mind Sink
+[04:25:45]     body: 975 chars
+[04:25:45]   [23/99] DYNAREC : Vaporwave II
+[04:25:48]     body: 705 chars
+[04:25:48]   [24/99] Kelan Phil Cohran & Legacy : African Skies
+[04:25:53]     body: 2744 chars
+[04:25:53]   [25/99] Dewa Alit & Gamelan Salukat : Baur Bentur
+[04:25:56]     body: 1940 chars
+[04:25:56]   [26/99] EZEKIEL HONIG : Surfaces Of A Broken Marching Band (2026
+[04:26:01]     body: 1481 chars
+[04:26:01]   [27/99] Sully : Flock
+[04:26:05]     body: 888 chars
+[04:26:05]   [28/99] Shy One : Mali
+[04:26:08]     body: 1693 chars
+[04:26:08]   [29/99] Pascal Comelade : Métaphysique Du Hit-Parade
+[04:26:12]     body: 1145 chars
+[04:26:12]   [30/99] Christopher Tignor : Bleeding Past the Edges
+[04:26:16]     body: 942 chars
+[04:26:16]   [31/99] Pye Corner Audio : More Songs About the Sun
+[04:26:20]     body: 1467 chars
+[04:26:20]   [32/99] BASIC feat. Chris Forsyth, Douglas McCombs & Mikel Patrick Avery : BASIC
+[04:26:24]     body: 1555 chars
+[04:26:24]   [33/99] OREN AMBARCHI : Hubris (10th Anniversary Remaster)
+[04:26:28]     body: 1771 chars
+[04:26:28]   [34/99] Jejune : Wait A Lifetime
+[04:26:32]     body: 1051 chars
+[04:26:32]   [35/99] Judith Hamann, James Rushford : Midmeste
+[04:26:36]     body: 2847 chars
+[04:26:36]   [36/99] TUJIKO NORIKO : PON
+[04:26:40]     body: 3271 chars
+[04:26:40]   [37/99] Sun Ra : East Two + 7
+[04:26:44]     body: 1566 chars
+[04:26:44]   [38/99] Lifted : Movie
+[04:26:48]     body: 2645 chars
+[04:26:48]   [39/99] Wally Badarou : Echoes
+[04:26:51]     body: 1441 chars
+[04:26:51]   [40/99] Adrian Rew : Slot Machine Music, Vol. 1 & 2: Field Re
+[04:26:55]     body: 3707 chars
+[04:26:55]   [41/99] Kahn : Past Life
+[04:26:59]     body: 1688 chars
+[04:26:59]   [42/99] Carlton and the Shoes : Love Me Forever / Never Let Go
+[04:27:02]     body: 792 chars
+[04:27:02]   [43/99] Bot1500 : The Black Sea
+[04:27:06]     body: 1628 chars
+[04:27:06]   [44/99] DJ Patwa : Harara Baile
+[04:27:10]     body: 2644 chars
+[04:27:10]   [45/99] AUTECHRE : Incunabula
+[04:27:15]     body: 473 chars
+[04:27:15]   [46/99] EARTH : Pentastar: In The Style Of Demons (30th 
+[04:27:19]     body: 1318 chars
+[04:27:19]   [47/99] Monolake : Interstate
+[04:27:22]     body: 1875 chars
+[04:27:22]   [48/99] PHILL NIBLOCK : Touch Three
+[04:27:26]     body: 1581 chars
+[04:27:26]   [49/99] Meat Beat Manifesto & Merzbow : Extinct
+[04:27:29]     body: 1775 chars
+[04:27:29]   [50/99] Celer : Capri (Remastered Deluxe Edition)
+[04:27:34]     body: 3000 chars
+[04:27:34]   [51/99] JEFF MILLS : The Trip To Vega
+[04:27:37]     body: 2440 chars
+[04:27:37]   [52/99] Tapetud Rott : See mees
+[04:27:41]     body: 770 chars
+[04:27:41]   [53/99] OREN AMBARCHI : Grapes From The Estate
+[04:27:45]     body: 1729 chars
+[04:27:45]   [54/99] Dawn Penn / Jackie Mittoo : No No No / Ghetto Organ
+[04:27:48]     body: 685 chars
+[04:27:48]   [55/99] Marcia Griffiths / Dub Specialist : Feel Like Jumping
+[04:27:51]     body: 717 chars
+[04:27:51]   [56/99] Freddie McGregor / Dub Specialist : Bobby Bobylon / Hi Fashion Dub
+[04:27:54]     body: 649 chars
+[04:27:54]   [57/99] Robert Hood : Master Builder
+[04:27:58]     body: 575 chars
+[04:27:58]   [58/99] FKA twigs : EUSEXUA Afterglow
+[04:28:03]     body: 1433 chars
+[04:28:03]   [59/99] Bim Sherman : Ghetto Dub
+[04:28:07]     body: 1573 chars
+[04:28:07]   [60/99] Emily A. Sprague : Double Moon
+[04:28:11]     body: 560 chars
+[04:28:11]   [61/99] Steve Rachmad : 3-6-9 EP
+[04:28:15]     body: 634 chars
+[04:28:15]   [62/99] MATIAS AGUAYO : Anenoa
+[04:28:19]     body: 1628 chars
+[04:28:19]   [63/99] DJ Haram & Sha Ray : Critical Thot
+[04:28:23]     body: 2159 chars
+[04:28:23]   [64/99] Nurse With Wound : Rock ‘N’ Roll Redux
+[04:28:27]     body: 1264 chars
+[04:28:27]   [65/99] Brannten Schnüre : Sommer Im Pfirsichhain
+[04:28:31]     body: 1598 chars
+[04:28:31]   [66/99] Parasite Jazz : ♫
+[04:28:36]     body: 1075 chars
+[04:28:36]   [67/99] evilgiane : #HEAVENSGATE VOL. 2
+[04:28:40]     body: 3622 chars
+[04:28:40]   [68/99] Walter Verdin : Walter Verdin - Minimalize Your Reworks
+[04:28:43]     body: 1559 chars
+[04:28:43]   [69/99] Various Artists : Re-Form Ver-1.0
+[04:28:48]     body: 718 chars
+[04:28:48]   [70/99] Elena Colombi : Elena Colombi With The Hastings Queer Hi
+[04:28:52]     body: 1781 chars
+[04:28:52]   [71/99] Dorothy Ashby : Plays For Beautiful People
+[04:28:55]     body: 626 chars
+[04:28:55]   [72/99] THE SKATALITES : Guns Of Navarone
+[04:29:00]     body: 620 chars
+[04:29:00]   [73/99] panasonic : Muuntaja / Murtaja
+[04:29:03]     body: 1031 chars
+[04:29:03]   [74/99] Three 6 Mafia : Underground Volume 1
+[04:29:07]     body: 833 chars
+[04:29:07]   [75/99] Pedro Vian, Ustad Nawab Khan & Naved Nawab Khan : The Bubble of Love
+[04:29:10]     body: 4214 chars
+[04:29:10]   [76/99] ALVA NOTO : Wave Weave - Sono Obi
+[04:29:14]     body: 1744 chars
+[04:29:14]   [77/99] Michael F. Hunt : Passage Of Time: The Music Of Michael F.
+[04:29:17]     body: 237 chars
+[04:29:17]   [78/99] John Coltrane : Ascension (Edition I & II) (Verve Vault)
+[04:29:21]     body: 1332 chars
+[04:29:21]   [79/99] Lena Willikens X Elena Colombi : Live At Lux Fragil, 2026 (DJ Mix)
+[04:29:25]     body: 799 chars
+[04:29:25]   [80/99] Ricardo Villalobos x goat (JP) : Without References / Cindy van Acker (Ri
+[04:29:29]     body: 1146 chars
+[04:29:29]   [81/99] CLARK : Opponent Stims
+[04:29:33]     body: 430 chars
+[04:29:33]   [82/99] Devon Russell : Move on Up / Darker Than Blue
+[04:29:37]     body: 642 chars
+[04:29:37]   [83/99] Hünter : Mica
+[04:29:41]     body: 2666 chars
+[04:29:41]   [84/99] Mark Flash : King of Light
+[04:29:46]     body: 750 chars
+[04:29:46]   [85/99] HORTENSE ELLIS : People Make The World Go Round
+[04:29:50]     body: 360 chars
+[04:29:50]   [86/99] Wild Up, Christopher Rountree and Julius Eastman : Julius Eastman Vol. 5: Gay Guerrilla
+[04:29:54]     body: 2137 chars
+[04:29:54]   [87/99] Casi : CASI
+[04:29:57]     body: 818 chars
+[04:29:57]   [88/99] Johnny Deep : Orions Gate
+[04:30:01]     body: 863 chars
+[04:30:01]   [89/99] David A Jaycock : Children of the Cold War: Phase 7
+[04:30:07]     body: 393 chars
+[04:30:07]   [90/99] Ocoeur : Greener grass, clearer water
+[04:30:11]     body: 2491 chars
+[04:30:11]   [91/99] Slacker & georg-i : Brittle Forms
+[04:30:15]     body: 866 chars
+[04:30:15]   [92/99] Love Is Yes : Ghost and More Ghosts
+[04:30:18]     body: 3106 chars
+[04:30:18]   [93/99] Stolen Velour, FLOCO & Aria SL : Underlight
+[04:30:22]     body: 700 chars
+[04:30:22]   [94/99] Mollono.bass : Bass In Your Face
+[04:30:26]     body: 1074 chars
+[04:30:26]   [95/99] Jordan Patterson : Songs From A Valley Girl
+[04:30:30]     body: 1427 chars
+[04:30:30]   [96/99] Karl Hector & The Malcouns : Yolek
+[04:30:33]     body: 3101 chars
+[04:30:33]   [97/99] RAN BLAKE : Voices
+[04:30:37]     body: 395 chars
+[04:30:37]   [98/99] The Black Dog : Music For Real Airports - The One Escape
+[04:30:41]     body: 395 chars
+[04:30:41]   [99/99] Read the News : Little Jaguar
+[04:30:45]     body: 647 chars
+[04:30:45] DONE. final_items=99
