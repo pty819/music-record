@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-21T20:10:03.257661+00:00",
+    "cutoff_date": "2026-06-20T08:10:03.257661+00:00",
+    "hours_scanned": 36,
+    "site": "progressor",
+    "notes": "Site unreachable: TLS protocol too old (SSL_ERROR_UNSUPPORTED_VERSION). Wayback latest snapshot 2026-04-30 (53d old, outside 36h window). No RSS feed ever existed per archive.org CDX. No /reviews captures in 2026."
+  },
+  "items": []
+}
