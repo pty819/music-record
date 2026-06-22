@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-22T20:10:17+00:00",
+    "cutoff_date": "2026-06-21T00:00:00+00:00",
+    "site": "point_of_departure",
+    "issue": "PoD95",
+    "issue_date": "June2026",
+    "crawl_status": "blocked",
+    "block_reason": "site_unreachable",
+    "block_detail": "pointofdeparture.org TLS handshake fails with PR_END_OF_FILE_ERROR / SSL_ERROR_SYSCALL — site appears down. Camoufox tab opens to chrome's 'Problem loading page' (12 paragraphs). Direct curl, openssl s_client, and Firefox/Camoufox all fail at TLS read. Other sites (google.com) reachable. Yesterday's successful scrape of PoD95 stored at 2026-06-22/point_of_departure_reviews.json (10 items).",
+    "previous_run_items": 10,
+    "previous_run_path": "/home/liyifan/music-record/2026/06/2026-06-22/point_of_departure_reviews.json"
+  },
+  "items": []
+}

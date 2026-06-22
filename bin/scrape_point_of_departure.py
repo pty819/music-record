@@ -78,8 +78,17 @@ AGGREGATOR_PAGES = [
 
 
 # ── Camoufox REST helpers ──────────────────────────────────────────────
-def _api(method: str, path: str, body: dict | None = None, timeout: int = 90) -> dict:
-    """Single JSON request to the Camoufox REST server with Bearer auth."""
+def _api(method: str, path: str, body: dict | None = None, timeout: int = 90,
+         _retries: int = 0) -> dict:
+    """Single JSON request to the Camoufox REST server with Bearer auth.
+
+    POST /tabs occasionally returns HTTP 500 from the Playwright handshake
+    even though the tab is actually created (quirk of @askjo/camofox-browser
+    server.js — the race between tabId allocation and the page-load
+    bootstrap). Recover by listing tabs filtered by userId and reusing the
+    orphan. Retry POST /tabs at most twice on 500 before falling back to
+    GET /tabs?userId=...
+    """
     url = f"{CAMOFOX_BASE}{path}"
     data = json.dumps(body).encode("utf-8") if body else None
     headers = {"Authorization": f"Bearer {CAMOFOX_API_KEY}"}
@@ -94,11 +103,94 @@ def _api(method: str, path: str, body: dict | None = None, timeout: int = 90) ->
             return json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
         body_text = e.read().decode()[:500]
+        # Retry POST /tabs once on 500 — usually succeeds second try
+        if e.code == 500 and method == "POST" and path == "/tabs" and _retries < 2:
+            sys.stderr.write(f"[WARN] POST /tabs 500'd; retry {_retries + 1}/2\n")
+            time.sleep(1)
+            return _api(method, path, body, timeout, _retries=_retries + 1)
         sys.stderr.write(f"[ERROR] HTTP {e.code} on {method} {path}: {body_text}\n")
         raise
     except Exception as e:
         sys.stderr.write(f"[ERROR] {method} {path}: {e}\n")
         raise
+
+
+def _close_tab(tab_id: str) -> None:
+    """Best-effort tab close (ignore errors)."""
+    try:
+        _api("DELETE", f"/tabs/{tab_id}", {"userId": USER_ID})
+    except Exception as e:
+        sys.stderr.write(f"[WARN] failed to close tab {tab_id}: {e}\n")
+
+
+def _sanity_check_tab(tab_id: str) -> bool:
+    """Probe a tab with /evaluate to see if it's still alive.
+
+    A 500/403 from /evaluate means the session is dead and we need a
+    fresh tab — per @askjo/camofox-browser quirk #2.
+    """
+    try:
+        resp = _api("POST", f"/tabs/{tab_id}/evaluate",
+                    {"expression": "1+1", "userId": USER_ID}, timeout=15)
+        return resp.get("ok") is True or "result" in resp
+    except Exception as e:
+        sys.stderr.write(f"[WARN] tab {tab_id} sanity-check failed: {e}\n")
+        return False
+
+
+def _get_or_create_tab(url: str, max_attempts: int = 3) -> str | None:
+    """Create a fresh tab, recovering from 500s by listing existing tabs.
+
+    Quirks handled (from camofox-server experience):
+      1) POST /tabs can 500 even though the tab is created — fall back to
+         GET /tabs?userId=<USER_ID>&sessionKey=<SESSION_KEY> and reuse it.
+         BUT the recovered tab may be from a torn-down session; if its
+         /evaluate fails we close it and try a fresh POST with a NEW
+         userId so we never collide with the stale session.
+      2) If GET also fails, try a brand-new userId so we never collide
+         with a stale session.
+    """
+    last_err = None
+    # Track userIds we've already used so we don't reuse a stale session
+    used_user_ids: list[str] = []
+    for attempt in range(max_attempts):
+        user_id = USER_ID if attempt == 0 else f"{USER_ID}_v{attempt + 1}"
+        used_user_ids.append(user_id)
+        # First try POST /tabs
+        try:
+            tab_resp = _api("POST", "/tabs", {
+                "userId": user_id,
+                "sessionKey": SESSION_KEY,
+                "url": url,
+            })
+            tab_id = tab_resp.get("tabId")
+            if tab_id:
+                if _sanity_check_tab(tab_id):
+                    return tab_id
+                sys.stderr.write(f"[WARN] fresh tab {tab_id} failed sanity check; closing\n")
+                _close_tab(tab_id)
+                continue
+            sys.stderr.write(f"[WARN] POST /tabs attempt {attempt + 1}: no tabId in {tab_resp}\n")
+        except Exception as e:
+            last_err = e
+            sys.stderr.write(f"[WARN] POST /tabs attempt {attempt + 1} failed: {e}\n")
+            time.sleep(1)
+            # Recover: a tab might have been created despite the 500
+            try:
+                lst = _api("GET", f"/tabs?userId={user_id}", timeout=10)
+                tabs = lst.get("tabs") or []
+                if tabs:
+                    tid = tabs[0].get("tabId")
+                    if tid and _sanity_check_tab(tid):
+                        sys.stderr.write(f"[INFO] Recovered tab {tid} via GET /tabs\n")
+                        return tid
+                    if tid:
+                        sys.stderr.write(f"[WARN] recovered tab {tid} failed sanity; closing\n")
+                        _close_tab(tid)
+            except Exception as e2:
+                sys.stderr.write(f"[WARN] GET /tabs recovery failed: {e2}\n")
+    sys.stderr.write(f"[ERROR] All {max_attempts} tab-creation attempts failed: {last_err}\n")
+    return None
 
 
 # ── JS expressions (run inside the browser) ────────────────────────────
@@ -595,15 +687,14 @@ def main() -> None:
         f"Cutoff: {cutoff_iso}, Days: {args.days}\n"
     )
 
-    # ── Step 1: open a tab on the listing page ─────────────────────────
-    tab_resp = _api("POST", "/tabs", {
-        "userId": USER_ID,
-        "sessionKey": SESSION_KEY,
-        "url": LIST_URL,
-    })
-    tab_id = tab_resp.get("tabId")
-    if not tab_id:
-        sys.stderr.write("ERROR: Failed to create tab\n")
+    # ── Step 1: open a tab on the listing page (just to enumerate URLs) ───
+    # NOTE: per camofox-server quirk, POST /tabs/{id}/navigate often
+    # 500s on session-timeout — it's much more reliable to use a FRESH
+    # tab for every URL we visit. So we use this initial tab ONLY to
+    # enumerate the listing, then create fresh tabs for each article.
+    list_tab_id = _get_or_create_tab(LIST_URL)
+    if not list_tab_id:
+        sys.stderr.write("ERROR: Failed to create listing tab\n")
         result = {"meta": {"total": 0, "scraped_at": now.isoformat(),
                             "cutoff_date": cutoff_iso, "site": SITE_ID,
                             "issue": ISSUE, "issue_date": ISSUE_DATE},
@@ -612,11 +703,13 @@ def main() -> None:
         sys.exit(1)
 
     all_items: list[dict] = []
+    # Track every tab we open so we can clean up at the end
+    open_tab_ids: list[str] = [list_tab_id]
     try:
         time.sleep(2)
 
         # ── Step 2: enumerate article URLs from the listing ────────────
-        resp = _api("POST", f"/tabs/{tab_id}/evaluate", {"expression": LISTING_JS, "userId": USER_ID})
+        resp = _api("POST", f"/tabs/{list_tab_id}/evaluate", {"expression": LISTING_JS, "userId": USER_ID})
         anchors = resp.get("result") or []
         sys.stderr.write(f"Found {len(anchors)} anchors on listing page\n")
 
@@ -656,16 +749,33 @@ def main() -> None:
         for u in article_urls:
             sys.stderr.write(f"  - {u}\n")
 
-        # ── Step 3: navigate to each article and parse ──────────────────
+        # ── Step 3: open a FRESH tab for each article ──────────────────
+        # Per camofox-server quirk, POST /tabs/{id}/navigate often 500s
+        # mid-session. Reusing the listing tab for navigation is fragile.
+        # Open a new tab per article instead — slightly more overhead but
+        # much more reliable.
         for i, url in enumerate(article_urls):
             sys.stderr.write(f"\n[{i + 1}/{len(article_urls)}] {url}\n")
+            article_tab_id = _get_or_create_tab(url, max_attempts=2)
+            if not article_tab_id:
+                sys.stderr.write(f"  ERROR: could not open tab for {url}\n")
+                blocked = build_item(
+                    url=url, item_type="feature",
+                    artist="", album="", label="", reviewer="",
+                    body="",
+                )
+                if blocked is not None:
+                    blocked["crawl_status"] = "blocked"
+                    all_items.append(blocked)
+                continue
+            open_tab_ids.append(article_tab_id)
+
             try:
-                _api("POST", f"/tabs/{tab_id}/navigate", {"url": url, "userId": USER_ID})
                 time.sleep(2.5)
-                resp = _api("POST", f"/tabs/{tab_id}/evaluate",
+                resp = _api("POST", f"/tabs/{article_tab_id}/evaluate",
                             {"expression": PAGE_JS, "userId": USER_ID})
             except Exception as e:
-                sys.stderr.write(f"  ERROR fetching {url}: {e}\n")
+                sys.stderr.write(f"  ERROR evaluating {url}: {e}\n")
                 blocked = build_item(
                     url=url, item_type="feature",
                     artist="", album="", label="", reviewer="",
@@ -683,12 +793,6 @@ def main() -> None:
 
             # Branch on page type
             if is_aggregator_url(url):
-                # Multi-review aggregator OR single-review Moment's Notice page.
-                # Detect which: a single-review page has exactly ONE
-                # `<em>...<strong>Album</strong>...</em>` header. Use that
-                # signal — the previous "len(reviews) == 1" heuristic misfired
-                # because the parser would split on a stray blank <p> between
-                # the header and body and produce 2 chunks instead.
                 header_re = re.compile(r"<em[^>]*>.*?<strong[^>]*>", re.S | re.I)
                 header_count = sum(
                     1 for p in paragraphs if header_re.search(p["html"])
@@ -752,11 +856,12 @@ def main() -> None:
         sys.stderr.write(f"\nTotal: {len(all_items)} items\n")
 
     finally:
-        try:
-            _api("DELETE", f"/tabs/{tab_id}", {"userId": USER_ID})
-            sys.stderr.write(f"Closed tab {tab_id}\n")
-        except Exception as e:
-            sys.stderr.write(f"WARNING: failed to close tab: {e}\n")
+        for tid in open_tab_ids:
+            try:
+                _api("DELETE", f"/tabs/{tid}", {"userId": USER_ID})
+            except Exception as e:
+                sys.stderr.write(f"WARNING: failed to close tab {tid}: {e}\n")
+        sys.stderr.write(f"Closed {len(open_tab_ids)} tabs\n")
 
 
 def _emit(result: dict, out_file: str | None) -> None:

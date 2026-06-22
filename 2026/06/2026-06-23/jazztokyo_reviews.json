@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-22T20:11:00+00:00",
+    "cutoff_date": "2026-06-21T08:11:00+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "in_window_count": 0,
+    "crawl_status": "blocked",
+    "blocked_reason": "site unreachable — both curl and Camoufox browser hit PR_END_OF_FILE_ERROR / SSL_ERROR_SYSCALL on jazztokyo.org (DNS hijack to 28.0.0.117 no longer serving valid TLS, changed from transparent mirror seen on prior days)",
+    "crawl_mode": "rss-then-camoufox",
+    "rss_attempt": "feedparser returned 0 entries (feed unreachable)",
+    "camoufox_attempt": "POST /tabs recovered tab on about:blank; navigation to https://jazztokyo.org/ stuck on 'Problem loading page' (PR_END_OF_FILE_ERROR) even after 25s wait; same error on /feed/",
+    "fetch_errors": 0
+  },
+  "items": []
+}

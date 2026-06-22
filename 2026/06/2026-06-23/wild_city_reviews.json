@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-23",
+    "cutoff_date": "2026-06-21",
+    "hours_scanned": 36,
+    "site": "wild_city",
+    "site_outage": true,
+    "outage_reason": "thewildcity.com TLS handshake fails (PR_END_OF_FILE_ERROR / SSL_ERROR_SYSCALL) — site globally unreachable as of 2026-06-23 crawl. Verified via curl + Camoufox; both fail identically.",
+    "cf_blocked": false
+  },
+  "items": []
+}

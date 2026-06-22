@@ -32,7 +32,7 @@ from datetime import datetime, timezone, timedelta
 CAMOFOX_BASE = "http://127.0.0.1:9377"
 CAMOFOX_API_KEY = os.environ.get("CAMOFOX_API_KEY", "")
 
-TARGET_URL = "http://musicircus.on.coocan.jp"
+TARGET_URL = "https://musicircus.on.coocan.jp/"
 
 SITE_ID = "musicircus"
 SOURCE = "musicircus.on.coocan.jp"
@@ -94,7 +94,7 @@ def create_tab(url: str) -> str | None:
             sys.stderr.write("  ERROR: No tabId in response\n")
             return None
         sys.stderr.write(f"  Tab {tab_id} created, waiting for page load...\n")
-        time.sleep(8)
+        time.sleep(12)
         return tab_id
     except Exception as e:
         sys.stderr.write(f"  ERROR creating tab: {e}\n")
@@ -125,19 +125,26 @@ def navigate(tab_id: str, url: str) -> bool:
 
 
 def fetch_body(tab_id: str) -> str:
-    """Fetch full body text from the current page via JS evaluation."""
-    js = """
-    () => {
-        const article = document.querySelector('article');
-        if (article) return article.innerText.slice(0, 12000);
-        return document.body.innerText.slice(0, 12000);
-    }
-    """
+    """Fetch full body text from the current page via JS evaluation.
+    Uses IIFE + JSON.stringify for camoufox reliability."""
+    js = """(function() {
+        try {
+            var article = document.querySelector('article');
+            var text = article ? article.innerText : document.body.innerText;
+            return JSON.stringify(String(text || '').slice(0, 12000));
+        } catch (e) {
+            return JSON.stringify('');
+        }
+    })()"""
     try:
         result = evaluate_js(tab_id, js)
         if result is None:
             return ""
-        return str(result).strip()
+        s = str(result)
+        try:
+            return json.loads(s)
+        except Exception:
+            return s.strip().strip('"')
     except Exception as e:
         sys.stderr.write(f"  ERROR fetching body: {e}\n")
         return ""
@@ -205,10 +212,17 @@ def parse_musicircus_date(text: str) -> str | None:
 
 
 def get_page_html(tab_id: str) -> str:
-    """Get the full page HTML via JS."""
-    js = """() => document.documentElement.outerHTML"""
+    """Get the full page HTML via JS. Use JSON.stringify to avoid camoufox
+    flaky object serialization (returns undefined for raw object/arrow returns)."""
+    js = """() => JSON.stringify({html: document.documentElement.outerHTML, readyState: document.readyState})"""
     result = evaluate_js(tab_id, js)
-    return str(result) if result else ""
+    if not result:
+        return ""
+    try:
+        obj = json.loads(str(result))
+        return obj.get("html", "")
+    except Exception:
+        return ""
 
 
 # ── Main ────────────────────────────────────────────────────────────────
@@ -241,8 +255,16 @@ def main():
         check_consent(tab_id)
 
         # 3. Get the page HTML and look for Update table / recent entries
+        # Wrap in try/eval JSON.stringify to work around camoufox flaky object serialization
+        sys.stderr.write("  Waiting 2s before probing DOM...\n")
+        time.sleep(2)
         html = get_page_html(tab_id)
         sys.stderr.write(f"  Page HTML length: {len(html)} chars\n")
+        if len(html) < 1000:
+            sys.stderr.write("  WARN: HTML suspiciously short, retrying with longer wait...\n")
+            time.sleep(8)
+            html = get_page_html(tab_id)
+            sys.stderr.write(f"  Page HTML length (retry): {len(html)} chars\n")
 
         # musicircus home page has an "Update" table. Entries look like:
         # <tr><td>2025.12.9</td><td><a href="..." title="...">some text</a></td></tr>
@@ -253,62 +275,70 @@ def main():
         # Extract: date, title, url
 
         # First, try to find the Update table
-        extract_js = """() => {
-            const updates = [];
-
-            // Find tables on the page
-            const tables = document.querySelectorAll('table');
-            for (const table of tables) {
-                const rows = table.querySelectorAll('tr');
-                for (const row of rows) {
-                    const cells = row.querySelectorAll('td, th');
-                    if (cells.length < 2) continue;
-
-                    const firstCell = cells[0].textContent.trim();
-                    // Try to parse as date YYYY.M.D or YYYY/M/D
-                    const dateMatch = firstCell.match(/^(\\d{4})[./](\\d{1,2})[./](\\d{1,2})/);
-                    if (!dateMatch) continue;
-
-                    const dateStr = firstCell;
-                    const link = cells[1].querySelector('a');
-                    if (!link) continue;
-
-                    updates.push({
-                        date: dateStr,
-                        url: link.href,
-                        title: (link.textContent || link.title || '').trim(),
-                        allText: cells[1].textContent.trim()
-                    });
+        # Use IIFE + JSON.stringify to work around camoufox flaky arrow-fn object returns
+        extract_js = """(function() {
+            try {
+                var updates = [];
+                var tables = document.querySelectorAll('table');
+                for (var i = 0; i < tables.length; i++) {
+                    var table = tables[i];
+                    var rows = table.querySelectorAll('tr');
+                    for (var r = 0; r < rows.length; r++) {
+                        var row = rows[r];
+                        var cells = row.querySelectorAll('td, th');
+                        if (cells.length < 2) continue;
+                        var firstCell = (cells[0].textContent || '').trim();
+                        var dateMatch = firstCell.match(/^(\\d{4})[./](\\d{1,2})[./](\\d{1,2})/);
+                        if (!dateMatch) continue;
+                        var link = cells[1].querySelector('a');
+                        if (!link) continue;
+                        updates.push({
+                            date: firstCell,
+                            url: link.href,
+                            title: (link.textContent || link.title || '').trim(),
+                            allText: (cells[1].textContent || '').trim()
+                        });
+                    }
                 }
-            }
-
-            // If no table found, try harder — look for any links with date-like preceding text
-            if (updates.length === 0) {
-                const allLinks = document.querySelectorAll('a');
-                for (const link of allLinks) {
-                    const parent = link.parentElement;
-                    if (!parent) continue;
-                    const prev = parent.previousElementSibling || parent.parentElement?.previousElementSibling;
-                    if (!prev) continue;
-
-                    const prevText = prev.textContent.trim();
-                    const dateMatch = prevText.match(/^(\\d{4})[./](\\d{1,2})[./](\\d{1,2})/);
-                    if (!dateMatch) continue;
-
-                    updates.push({
-                        date: prevText,
-                        url: link.href,
-                        title: (link.textContent || link.title || '').trim(),
-                        allText: parent.textContent.trim()
-                    });
+                if (updates.length === 0) {
+                    var allLinks = document.querySelectorAll('a');
+                    for (var j = 0; j < allLinks.length; j++) {
+                        var link = allLinks[j];
+                        var parent = link.parentElement;
+                        if (!parent) continue;
+                        var prev = parent.previousElementSibling;
+                        if (!prev) {
+                            var pp = parent.parentElement;
+                            if (pp) prev = pp.previousElementSibling;
+                        }
+                        if (!prev) continue;
+                        var prevText = (prev.textContent || '').trim();
+                        var dm2 = prevText.match(/^(\\d{4})[./](\\d{1,2})[./](\\d{1,2})/);
+                        if (!dm2) continue;
+                        updates.push({
+                            date: prevText,
+                            url: link.href,
+                            title: (link.textContent || link.title || '').trim(),
+                            allText: (parent.textContent || '').trim()
+                        });
+                    }
                 }
+                return JSON.stringify(updates);
+            } catch (e) {
+                return 'ERR:' + (e && e.message ? e.message : String(e));
             }
-
-            return updates;
-        }"""
-        entries = evaluate_js(tab_id, extract_js)
-        if entries is None:
-            entries = []
+        })()"""
+        entries_raw = evaluate_js(tab_id, extract_js)
+        entries = []
+        if entries_raw:
+            s = str(entries_raw)
+            if s.startswith("ERR:"):
+                sys.stderr.write(f"  EXTRACT ERROR: {s}\n")
+            else:
+                try:
+                    entries = json.loads(s)
+                except Exception as e:
+                    sys.stderr.write(f"  JSON parse error: {e}\n")
 
         sys.stderr.write(f"  Found {len(entries)} entries in Update table\n")
 

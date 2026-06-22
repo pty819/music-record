@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-22T20:13:10.761701+00:00",
+    "cutoff_date": "2026-06-21T08:13:10.761701+00:00",
+    "hours_scanned": 36,
+    "site": "progressor",
+    "notes": "Site unreachable. DNS resolves (28.0.0.135/136) but port 80 closes TCP without HTTP response (RemoteDisconnected) and port 443 hangs then closes TLS handshake (PR_END_OF_FILE_ERROR / UNEXPECTED_EOF_WHILE_READING). Both Camoufox Firefox and Python urllib fail identically on http:// and https:// variants. Wayback CDX also remote-closed on three retries so cannot confirm latest archive snapshot. Site has been continuously down since at least 2026-06-21 (same TLS reset reported yesterday on 2026-06-22 run). Returning []."
+  },
+  "items": []
+}
