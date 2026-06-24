@@ -81,7 +81,10 @@ def close_tab(tab_id: str) -> None:
 
 
 def create_tab(url: str) -> str | None:
-    """Create a Camoufox tab and navigate to URL. Returns tab_id or None."""
+    """Create a Camoufox tab and navigate to URL. Returns tab_id or None.
+    Handles the common HTTP 500 false-failure: POST may 500 but tab IS created.
+    Recovers by checking existing tabs for our userId.
+    """
     sys.stderr.write(f"  Creating tab for {url[:80]}...\n")
     try:
         tab_resp = _api("POST", "/tabs", {
@@ -96,6 +99,24 @@ def create_tab(url: str) -> str | None:
         sys.stderr.write(f"  Tab {tab_id} created, waiting for page load...\n")
         time.sleep(12)
         return tab_id
+    except urllib.error.HTTPError as e:
+        if e.code == 500:
+            sys.stderr.write(f"  Got 500 on tab create — checking existing tabs for recovery...\n")
+            try:
+                tabs_resp = _api("GET", f"/tabs?userId={USER_ID}")
+                tabs = tabs_resp.get("tabs") if isinstance(tabs_resp, dict) else None
+                if tabs and len(tabs) > 0:
+                    # Pick the last tab (most recently created)
+                    tab_id = tabs[-1].get("tabId")
+                    if tab_id:
+                        sys.stderr.write(f"  Recovered: using existing tab {tab_id}\n")
+                        time.sleep(10)
+                        return tab_id
+                sys.stderr.write("  No existing tabs found for recovery\n")
+            except Exception as e2:
+                sys.stderr.write(f"  Recovery check also failed: {e2}\n")
+        sys.stderr.write(f"  ERROR creating tab: {e}\n")
+        return None
     except Exception as e:
         sys.stderr.write(f"  ERROR creating tab: {e}\n")
         return None

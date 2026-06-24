@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-24T20:31:15+00:00",
+    "cutoff_date": "2026-06-23T08:31:15+00:00",
+    "hours_scanned": 36,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "note": "musicircus home page lists 8 entries dated 2024-01-28 to 2025-12-09 — newest (2025-12-09) is 6+ months before cutoff. No entries within 36h window."
+  },
+  "items": []
+}
