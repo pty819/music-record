@@ -106,8 +106,21 @@ def parse_date_dd_mm_yyyy(text):
 
 
 def extract_artist_album(title):
-    """Simplified: only used for 'Review:' items; for others caller passes empty."""
-    return "", title
+    """Pull artist/album from 'Review: ...' titles.
+
+    Examples that should work:
+      "Review: Gorkhali Takeover — A Compilation Honouring South Asian Diaspora" -> ("", "Gorkhali Takeover ...")
+      "Review: Anoushka Shankar — Chapter II: How Dark It Is Before The Dawn" -> ("Anoushka Shankar", "Chapter II: ...")
+      "Review: Arooj Aftab — Night Reign" -> ("Arooj Aftab", "Night Reign")
+    """
+    text = re.sub(r"^review:\s*", "", title.strip(), flags=re.IGNORECASE)
+    if "—" in text:
+        parts = [p.strip() for p in text.split("—", 1)]
+        return parts[0], parts[1]
+    if " - " in text:
+        parts = [p.strip() for p in text.split(" - ", 1)]
+        return parts[0], parts[1]
+    return "", text
 
 
 def fetch_body(tab_id):
@@ -218,7 +231,10 @@ def main():
         is_review = title.lower().startswith("review:")
         item_type = "review" if is_review else "feature"
         score = None
-        artist, album = ("extract_artist_album(title)" if is_review else ("", title))
+        if is_review:
+            artist, album = extract_artist_album(title)
+        else:
+            artist, album = "", title
 
         sys.stderr.write(f"  [{idx+1}] fetching body for {url[:80]}...\n")
         body_tab = create_tab_resilient(
