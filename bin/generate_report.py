@@ -61,6 +61,13 @@ def generate_markdown(items, output_date, min_score=1, top_k=None):
             score = item.get("total_score", 0)
             album = item.get("album", "未知专辑") or "未知专辑"
             artist = item.get("artist", "") or ""
+            # Fallback for feature articles with no extractable title:
+            # use the first line of the excerpt/article subject.
+            if album == "未知专辑":
+                excerpt = item.get("excerpt", "") or item.get("body", "") or ""
+                first_line = excerpt.split("\n")[0].strip()[:80]
+                if first_line:
+                    album = first_line
             source = item.get("source", "未知来源") or ""
             url = item.get("url", "") or ""
             summary = item.get("_cn_summary", "") or ""

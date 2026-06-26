@@ -31,6 +31,7 @@ Output JSON shape:
   { "meta": {...}, "items": [...] }
 """
 import argparse
+import html as html_mod
 import json
 import re
 import sys
@@ -467,21 +468,40 @@ def parse_feature_page(paragraphs: list[dict], page_title: str) -> dict:
     Ezz-thetics.
 
     Layout:
-        P0: page title (also <title>)
-        P1: "by X" or "a column by\nX"
-        P2: blank or subtitle
+        P0: column name in <strong> (e.g. "Page One", "Bass on Top")
+        P1: byline ("by X" or "a column by\nX")
+        P2: article title in <strong> (e.g. "Miles & Trane") — optional,
+            some pages go straight to body after P1
         P3..Pn-1: body
         Pn-1 / Pn: "© 2026 X" then "> back to contents"
+
+    The article title (P2 <strong>) is returned as ``album`` so feature
+    items get meaningful titles instead of "未知专辑".
     """
     body_paras = []
     reviewer = ""
+    article_title = ""
+    # P0 is usually a short column name ("Page One", "Bass on Top", etc.)
+    # but on Hanes-style pages P0 IS the article title (longer <strong>).
+    # Sniff it here so the loop body can distinguish.
+    _p0_is_long_title = False
+    if paragraphs and "<strong" in paragraphs[0].get("html", "").lower():
+        p0_len = len(paragraphs[0].get("text", ""))
+        # Column names are ≤25 chars ("The Book Cooks" = 15);
+        # article titles are longer.
+        _p0_is_long_title = p0_len > 25
+
     for p in paragraphs:
         text = p["text"]
         html = p["html"]
 
-        # Skip the title
+        # Skip the column-name row (P0) unless P0 is itself the article title
+        # (Hanes-style: "Simon Hanes: Transgressive Obsession").
         if p["i"] == 0:
-            continue
+            if not _p0_is_long_title:
+                continue
+            # For Hanes-style pages P0 IS the article title — fall through
+            # to the article-title detection below instead of continue.
 
         # Skip navigation
         if text.startswith(">") and ("back to" in text.lower() or "more" in text.lower()):
@@ -499,6 +519,17 @@ def parse_feature_page(paragraphs: list[dict], page_title: str) -> dict:
             reviewer = cleaned.split("\n")[0].strip()
             continue
 
+        # Article title: the first <strong> paragraph that isn't the
+        # column name (P0) or the byline, and is short enough to be a
+        # title (≤120 chars).  Use it as ``album``.
+        if not article_title and "<strong" in html.lower() and len(text) < 120:
+            # Strip any leading/trailing <strong> wrappers for clean output
+            article_title = re.sub(r"<[^>]+>", "", html).strip()
+            # Decode HTML entities (&amp; → & etc.)
+            article_title = html_mod.unescape(article_title)
+            # Avoid re-treating this as body text
+            continue
+
         # Copyright line at end
         if "©" in text and re.match(r"^©\s*\d{4}", text):
             continue
@@ -508,7 +539,7 @@ def parse_feature_page(paragraphs: list[dict], page_title: str) -> dict:
     body = "\n\n".join(body_paras).strip()
     return {
         "artist": "",
-        "album": "",
+        "album": article_title,
         "label": "",
         "reviewer": reviewer,
         "body": body,
