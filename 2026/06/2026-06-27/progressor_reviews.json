@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-06-26T20:13:51.770529+00:00",
+    "cutoff_date": "2026-06-25T08:13:51.770529+00:00",
+    "site": "progressor",
+    "list_pages_walked": [
+      "http://www.progressor.net/",
+      "http://www.progressor.net/review/short.html"
+    ],
+    "candidates_checked": 61,
+    "in_window_count": 0,
+    "fetch_errors": 3,
+    "note": "Camoufox incompatible (TLS 1.0 + self-signed cert on old IIS box); used direct HTTP. Walked all 17 review slugs surfaced on the homepage; all dated May 2026 — newest is roughly 4-5 weeks before the 36h cutoff. List pages (short.html, detailed.html) contain only reviews up to ~2018. No news updates since 2017. Result is empty."
+  },
+  "items": []
+}
