@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-01T04:12:30+00:00",
+    "cutoff_date": "2026-06-29T16:12:30+00:00",
+    "site": "jazztokyo",
+    "notes": "JazzTokyo monthly magazine; feed (/feed/, 100 entries parsed via feedparser — task spec says RSS=none but the feed is reachable) had only 1 entry in the 36h window: a documentary film screening announcement (post-123295, 2026-06-29T08:25Z) about 『三角屋の交差点で』 (東日本大震災/原発事故から15年) at 大宮 OttO + 下高井戸シネマ. Categorized as feature but content is non-music (film screening, no jazz music). Skipped as out-of-domain per spec 'jazz, free improvisation, free jazz, japanese jazz' focus. Next in-window music items were 2026-06-27 (Satoko Fujii CD release feature, BlueNoteTokyo NJP concert listing) — outside the 36h window. Camoufox listing-pages skipped because RSS already covered the window.",
+    "crawl_mode": "rss",
+    "feed_url": "https://jazztokyo.org/feed/",
+    "feed_entries_total": 100,
+    "in_window_count": 1,
+    "non_music_skipped": 1,
+    "old_skipped": 1,
+    "no_date_skipped": 0,
+    "skipped_in_window": [
+      {
+        "url": "https://jazztokyo.org/news/post-123295/",
+        "title": "7/03~ ドキュメンタリー映画「三角屋の交差点で」東日本大震災／原発事故から15年",
+        "pub_date": "2026-06-29T08:25:06+00:00",
+        "reason": "non-music: documentary film screening announcement, no jazz content"
+      }
+    ]
+  },
+  "items": []
+}
