@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-02T20:17:40.641214+00:00",
+    "cutoff_date": "2026-07-01T00:00:00+00:00",
+    "site": "point_of_departure",
+    "issue": "PoD95",
+    "issue_date": "June2026",
+    "reason": "no_new_issue_within_36h"
+  },
+  "items": []
+}

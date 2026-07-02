@@ -1,0 +1,14 @@
+[1/6] Create tab + navigate to https://boomkat.com/
+  Tab: 22c7f4b1-6b78-448f-8782-123a9d6a93f3
+[2/6] Wait 15s for CF challenge to auto-resolve
+[3/6] CF check
+  PASS (title='Boomkat: Independent Music Specialist selling Vinyl, CD’s, Cassettes and Downloads worldwide', products=40)
+[4/6] Cookie wall
+[5/6] Scrape listings (max 2 pages)
+  Page 1: https://boomkat.com/
+  Page 1: 40 products
+  Page 2: /new-releases?page=2
+  Page 2 CF blocked: empty page (title='Boomkat', products=0)
+  Total raw: 40
+[6/6] Build output + write
+  Unique by URL: 40

@@ -1,0 +1,15 @@
+[1/8] Open /features (carries same sidebar feed as /home, 15 items)
+  Tab: b267d194-3916-4805-a15d-2a1c13c988f3
+[2/8] Wait for body stable (sidebar feed must render)
+  Body stable at 4425 chars
+[3/8] Cookie wall dismiss (best-effort)
+[4/8] Extract sidebar feed a.box[data-date]
+  Raw sidebar items: 15
+[5/8] Filter (cutoff 36h, skip /podcasts/, skip video-only)
+  Candidates within 36h: 1
+[6/8] Fetch article bodies (fresh tab per URL)
+  [1/1] https://www.thewildcity.com/news/21735-anoushka-maskey-bamboy-rudy-mukta-more-fe
+    body 3294 chars
+[7/8] Final: 1 items
+[8/8] Write output
+  Wrote /home/liyifan/music-record/2026/07/2026-07-03/wild_city_reviews.json
