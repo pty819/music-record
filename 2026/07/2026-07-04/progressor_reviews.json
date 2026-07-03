@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-04T04:10:00+00:00",
+    "cutoff_date": "2026-07-02T16:10:00+00:00",
+    "site": "progressor",
+    "pages_crawled": 1,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "fetch_errors": 0,
+    "note": "Static HTML archive site (1998). Reviews organized alphabetically only, no chronological index. Newest news page dates to July 2022. RSS feed (https://www.progressor.net/feed/) returns 404. Site accessible via direct HTTP — no Camoufox needed but irrelevant as no recent content exists. Latest published update: May 31, 2026 (homepage timestamp) — far outside the 36h cutoff."
+  },
+  "items": []
+}

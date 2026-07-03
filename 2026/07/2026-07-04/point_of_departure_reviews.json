@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-04T04:11:42+00:00",
+    "cutoff_date": "2026-07-02T16:11:42+00:00",
+    "site": "point_of_departure",
+    "issue": "PoD95",
+    "issue_date": "June2026",
+    "note": "Point of Departure publishes ~quarterly. Latest issue = PoD95 (June 2026); archive ends at PoD94 (March 2026). No Issue 96 / July 2026 directory exists. 36h cutoff misses all current content. Same conclusion as 23h-ago attempt."
+  },
+  "items": []
+}

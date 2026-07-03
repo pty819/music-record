@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-03T20:32:23.836370+00:00",
+    "cutoff_date": "2026-07-02T08:32:23.836370+00:00",
+    "site": "jazztokyo",
+    "pages_crawled": 2,
+    "candidates_checked": 34,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 34,
+    "fetch_errors": 0,
+    "newest_observed_pub_date": "2026-06-22T00:27:54+00:00",
+    "note": "No posts within 36h window. All 34 candidates on pages 1-2 are dated 2026-06-22 or earlier; resilient scraper fetched first 6 articles confirming dates 2026-06-20 (5) and 2021-12-04 (1). Cutoff 2026-07-02T08:32Z is ~10 days newer than newest post. Same finding as 2026-07-03 run."
+  },
+  "items": []
+}

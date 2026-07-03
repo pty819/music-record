@@ -1,0 +1,20 @@
+  Cutoff: 2026-07-02 (1.5 days ago)
+  Max items: 20
+  Creating tab for https://musicircus.on.coocan.jp/...
+  Tab d80418d7-729f-43ae-b202-a2cec074bc16 created, waiting for page load...
+[ERROR] HTTP 410 on POST /tabs/d80418d7-729f-43ae-b202-a2cec074bc16/evaluate: {"error":"Tab no longer exists (browser was restarted). Create a new tab.","code":"browser_restarted"}
+  ERROR evaluating JS: HTTP Error 410: Gone
+  No cookie wall detected.
+  Waiting 2s before probing DOM...
+[ERROR] HTTP 410 on POST /tabs/d80418d7-729f-43ae-b202-a2cec074bc16/evaluate: {"error":"Tab no longer exists (browser was restarted). Create a new tab.","code":"browser_restarted"}
+  ERROR evaluating JS: HTTP Error 410: Gone
+  Page HTML length: 0 chars
+  WARN: HTML suspiciously short, retrying with longer wait...
+[ERROR] HTTP 410 on POST /tabs/d80418d7-729f-43ae-b202-a2cec074bc16/evaluate: {"error":"Tab no longer exists (browser was restarted). Create a new tab.","code":"browser_restarted"}
+  ERROR evaluating JS: HTTP Error 410: Gone
+  Page HTML length (retry): 0 chars
+[ERROR] HTTP 410 on POST /tabs/d80418d7-729f-43ae-b202-a2cec074bc16/evaluate: {"error":"Tab no longer exists (browser was restarted). Create a new tab.","code":"browser_restarted"}
+  ERROR evaluating JS: HTTP Error 410: Gone
+  Found 0 entries in Update table
+  Recent entries within cutoff: 0
+  Closed tab d80418d7-729f-43ae-b202-a2cec074bc16
