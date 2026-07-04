@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-04T20:09:10+00:00",
+    "cutoff_date": "2026-07-03T08:09:10+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 33,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 12,
+    "no_date_skipped": 4,
+    "fetch_errors": 0,
+    "articles_processed_before_timeout": 16,
+    "newest_observed_pub_date": "2026-06-20T00:00:00+00:00",
+    "oldest_observed_pub_date": "2021-12-04T00:00:00+00:00",
+    "note": "No posts within 36h window. Listings pages 1-2 returned 33 unique candidates (29 from page 1, 12 from page 2). Process fetched 16 articles before the 600s terminal cap; of those 12 had parseable dates all <=2026-06-20 and 4 had no extractable date. Newest observed 2026-06-20 is 13 days before cutoff 2026-07-03T08:09Z. Site still stale, same finding as 2026-07-03 and 2026-07-04 runs. Empty envelope written early per the 空结果→输出[] rule; remaining 17 candidates would likewise be 2026-06-20 or earlier (their listing positions are after the 16 already verified)."
+  },
+  "items": []
+}

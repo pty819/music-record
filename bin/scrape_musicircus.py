@@ -122,12 +122,21 @@ def create_tab(url: str) -> str | None:
         return None
 
 
-def evaluate_js(tab_id: str, expression: str):
-    """Evaluate JS expression in a Camoufox tab. Returns the result value."""
+def evaluate_js(tab_id: str, expression: str, retry: bool = True):
+    """Evaluate JS expression in a Camoufox tab. Returns the result value.
+    On 410 (browser_restarted), returns a special marker '__tab_dead__' so the
+    caller can decide whether to retry with a fresh tab.
+    """
     try:
         resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
             "userId": USER_ID, "expression": expression})
         return resp.get("result")
+    except urllib.error.HTTPError as e:
+        if e.code == 410 and retry:
+            sys.stderr.write(f"  WARN: tab {tab_id} died (410 browser_restarted)\n")
+            return "__tab_dead__"
+        sys.stderr.write(f"  ERROR evaluating JS: {e}\n")
+        return None
     except Exception as e:
         sys.stderr.write(f"  ERROR evaluating JS: {e}\n")
         return None
@@ -272,6 +281,16 @@ def main():
             sys.stderr.write("  FATAL: Could not create tab\n")
             sys.exit(1)
 
+        # 1a. Probe tab; if 410 (browser restarted mid-create), make a fresh tab.
+        probe = evaluate_js(tab_id, "() => 1+1")
+        if probe == "__tab_dead__":
+            sys.stderr.write("  Tab died during initial load — creating a fresh one...\n")
+            close_tab(tab_id)
+            tab_id = create_tab(TARGET_URL)
+            if not tab_id:
+                sys.stderr.write("  FATAL: Could not create recovery tab\n")
+                sys.exit(1)
+
         # 2. Check for cookie wall
         check_consent(tab_id)
 
@@ -286,6 +305,20 @@ def main():
             time.sleep(8)
             html = get_page_html(tab_id)
             sys.stderr.write(f"  Page HTML length (retry): {len(html)} chars\n")
+
+        # If still empty after retries and tab died in the meantime, try one recovery tab
+        if len(html) < 1000:
+            sys.stderr.write("  HTML still empty — re-probing tab liveness...\n")
+            live = evaluate_js(tab_id, "() => 1+1")
+            if live == "__tab_dead__":
+                sys.stderr.write("  Tab is dead — creating one fresh recovery tab...\n")
+                close_tab(tab_id)
+                tab_id = create_tab(TARGET_URL)
+                if tab_id:
+                    check_consent(tab_id)
+                    time.sleep(3)
+                    html = get_page_html(tab_id)
+                    sys.stderr.write(f"  Page HTML length (after recovery): {len(html)} chars\n")
 
         # musicircus home page has an "Update" table. Entries look like:
         # <tr><td>2025.12.9</td><td><a href="..." title="...">some text</a></td></tr>

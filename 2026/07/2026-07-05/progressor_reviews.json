@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-04T20:10:17+00:00",
+    "cutoff_date": "2026-07-03T08:10:17+00:00",
+    "site": "progressor",
+    "pages_crawled": 0,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "fetch_errors": 1,
+    "note": "ProgressoR is a static archive (1998-era) with no chronological review index and no RSS feed. Direct HTTPS access fails: server presents a TLS configuration that OpenSSL 3.0.13 / modern Firefox reject (SSL_ERROR_UNSUPPORTED_PROTOCOL — site requires pre-TLS-1.2 ciphers). Browser navigation in Camoufox returns the Firefox 'Warning: Security Risk' net-error page (body innerHTML = '<net-error-card></net-error-card>'). Wayback Machine snapshot from 2026-07-02 confirms the latest published-update stamp on the homepage is 'Latest update: May 31, 2026' with 'Next update: June 30, 2026' — both well outside the 36h cutoff (2026-07-03T08:10Z). No 2026 news page exists (latest news07_2022.html is from July 2022). The 2026-dated reviews visible on the homepage are part of the May 31 monthly update batch and predate the cutoff by ~33 days. Empty result is correct; the site has had no review activity within the 36h window."
+  },
+  "items": []
+}
