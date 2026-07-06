@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "total": 2,
+    "scraped_at": "2026-07-06T04:06:03.996616",
+    "sources": 18,
+    "errors": 5
+  },
+  "items": [
+    {
+      "album": "Number_iが神宮寺勇太プロデュースの新曲“BUGS LIFE”を配信リリース　フォンクを採用したスリリングなビートに注目",
+      "artist": "",
+      "score": null,
+      "url": "https://mikiki.tokyo.jp/articles/-/45437",
+      "source": "Mikiki",
+      "pub_date": "2026-07-13",
+      "tags": "邦楽 邦楽ポップ／ロック 映画／映像 邦楽 書籍 書籍 Number_i 神宮寺勇太 平野紫耀 岸優太",
+      "excerpt": "Number_iが、新曲“BUGS LIFE”を2026年7月13日（月）にデジタルリリースする。 神宮寺勇太がプロデュースを務めた同楽曲は、デジタル音像をキーとして〈デジタルというものは何か〉というテーマを紐解いていくことから制作がスタートした。自分たちがファンの前で歌っている奇跡的な状況や、いくつもの偶然が重なり合って現在があることをシステムにおける一瞬の〈バグ〉に例え、そこから着想を得て歌詞の世界観を作っていったという。 楽曲のベースとなるジャンルには、激しいサウンドが特徴のフォンクを採用。通常のフォンク特有の速いBPMをあえて抑えめに設定し、Number_iの魅力である〈ダンス〉をしっかりと魅せる構成となっている。随所にアフリカンビートやラテンビートを取り入れ、Number_iらしい、いきなりビートが切り替わるスリリングな展開にも注目だ。 なお、アスキーアートを使用した“BUGS LIFE”のティザー動画も公開されたほか、楽曲の世界観に合わせた新たなアーティスト写真も解禁されている。",
+      "body": "Number_iが、新曲“BUGS LIFE”を2026年7月13日（月）にデジタルリリースする。 神宮寺勇太がプロデュースを務めた同楽曲は、デジタル音像をキーとして〈デジタルというものは何か〉というテーマを紐解いていくことから制作がスタートした。自分たちがファンの前で歌っている奇跡的な状況や、いくつもの偶然が重なり合って現在があることをシステムにおける一瞬の〈バグ〉に例え、そこから着想を得て歌詞の世界観を作っていったという。 楽曲のベースとなるジャンルには、激しいサウンドが特徴のフォンクを採用。通常のフォンク特有の速いBPMをあえて抑えめに設定し、Number_iの魅力である〈ダンス〉をしっかりと魅せる構成となっている。随所にアフリカンビートやラテンビートを取り入れ、Number_iらしい、いきなりビートが切り替わるスリリングな展開にも注目だ。 なお、アスキーアートを使用した“BUGS LIFE”のティザー動画も公開されたほか、楽曲の世界観に合わせた新たなアーティスト写真も解禁されている。",
+      "site_id": "mikiki",
+      "crawl_status": "success",
+      "type": "review"
+    },
+    {
+      "album": "Eterno Retorno",
+      "artist": "Diavol Strâin",
+      "score": null,
+      "url": "https://darkentries.be/recensies/diavol-strain-eterno-retorno",
+      "source": "Dark Entries",
+      "pub_date": "2026-07-04",
+      "tags": "dark,experimental,gothic-industrial",
+      "excerpt": "Nieuws Recensies Interviews Concerten & Reportages In Memoriam Foto's English",
+      "body": "Nieuws Recensies Interviews Concerten & Reportages In Memoriam Foto's English",
+      "site_id": "dark_entries",
+      "crawl_status": "success",
+      "type": "review"
+    }
+  ]
+}
