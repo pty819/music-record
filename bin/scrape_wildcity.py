@@ -17,6 +17,7 @@ Usage:
 
 import argparse
 import json
+import os
 import re
 import sys
 import time
@@ -26,6 +27,7 @@ from datetime import datetime, timezone, timedelta
 from html import unescape
 
 CAMOFOX_BASE = "http://127.0.0.1:9377"
+CAMOFOX_API_KEY = os.environ.get("CAMOFOX_API_KEY", "ed63901c7aca4a85bba34ac6ccf6833e")
 NEWS_URL = "https://www.thewildcity.com/news"
 
 SITE_ID = "wild_city"
@@ -47,9 +49,12 @@ NON_MUSIC_RE = re.compile(r'\(BLU-RAY\)|\(UHD\)|\(VOD\)|\(DVD\)', re.IGNORECASE)
 def _api(method, path, body=None):
 	url = f"{CAMOFOX_BASE}{path}"
 	data = json.dumps(body).encode("utf-8") if body else None
+	headers = {"Authorization": f"Bearer {CAMOFOX_API_KEY}"}
+	if data:
+		headers["Content-Type"] = "application/json"
 	req = urllib.request.Request(
 		url, data=data, method=method,
-		headers={"Content-Type": "application/json"} if data else {},
+		headers=headers,
 	)
 	try:
 		with urllib.request.urlopen(req, timeout=60) as resp:
@@ -61,6 +66,48 @@ def _api(method, path, body=None):
 	except Exception as e:
 		sys.stderr.write(f"[ERROR] {method} {path}: {e}\n")
 		raise
+
+
+def create_tab_resilient(user_id, session_key, url):
+	"""Create a tab, tolerating the POST /tabs 500 (which can mean the tab
+	was actually created on a delayed timeout). Returns (tab_id, list_item_id)
+	or raises if no tab was created within the retry budget.
+	"""
+	# Wipe any prior session for this user_id first.
+	try:
+		_api("DELETE", f"/sessions/{user_id}?userId={user_id}")
+	except Exception:
+		pass
+	for attempt in range(3):
+		try:
+			resp = _api("POST", "/tabs", {
+				"userId": user_id,
+				"sessionKey": session_key,
+				"url": url,
+			})
+			tab_id = resp.get("tabId")
+			if tab_id:
+				return tab_id, resp.get("listItemId")
+		except urllib.error.HTTPError as e:
+			if e.code == 500:
+				# Maybe a delayed timeout — the tab may exist. Check.
+				time.sleep(2)
+				try:
+					tabs = _api("GET", f"/tabs?userId={user_id}")
+					for t in (tabs.get("tabs") or []):
+						if "thewildcity.com" in (t.get("url") or "") and t.get("listItemId") == session_key:
+							return t["tabId"], t.get("listItemId")
+				except Exception:
+					pass
+				# No recoverable tab — wipe and retry.
+				try:
+					_api("DELETE", f"/sessions/{user_id}?userId={user_id}")
+				except Exception:
+					pass
+			else:
+				raise
+		time.sleep(1)
+	raise RuntimeError("Failed to create tab after 3 attempts")
 
 
 def parse_date(date_str):
@@ -86,22 +133,63 @@ def parse_date(date_str):
 	return None
 
 
-EXTRACT_LISTING_JS = """
+def parse_dd_mm_yyyy(s):
+	"""Parse DD/MM/YYYY (sidebar data-date format) into a date or None."""
+	if not s:
+		return None
+	m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})", s.strip())
+	if not m:
+		return None
+	try:
+		return datetime(int(m.group(3)), int(m.group(2)), int(m.group(1))).date()
+	except ValueError:
+		return None
+
+
+EXTRACT_LISTING_JS = r"""
 () => {
 	const results = [];
 	const seen = new Set();
+	const NEWS_PATH = /\/news\/(\d+)-/;
+	const MIXES_PATH = /\/mixes\/(\d+)-/;
+	const FEATURES_PATH = /\/features\/(\d+)-/;
+	const PODCASTS_PATH = /\/podcasts\/(\d+)-/;
+	const SECTION_FOR = (url) => {
+		if (NEWS_PATH.test(url)) return 'news';
+		if (MIXES_PATH.test(url)) return 'mixes';
+		if (FEATURES_PATH.test(url)) return 'features';
+		if (PODCASTS_PATH.test(url)) return 'podcasts';
+		return null;
+	};
+	const NUM_FOR = (url) => {
+		let m = url.match(NEWS_PATH) || url.match(MIXES_PATH) || url.match(FEATURES_PATH) || url.match(PODCASTS_PATH);
+		return m ? parseInt(m[1]) : null;
+	};
+	// Strategy 1: sidebar feed with data-date (most recent dates, reliable).
+	const sidebarItems = [];
+	document.querySelectorAll('a[data-date]').forEach(a => {
+		const href = a.href || '';
+		const section = SECTION_FOR(href);
+		if (!section) return;
+		const id = NUM_FOR(href);
+		if (!id) return;
+		const date = (a.getAttribute('data-date') || '').trim();
+		const text = a.textContent.trim().split(/[\r\n]+/)[0].trim().slice(0, 250);
+		sidebarItems.push({ id, url: href, title: text, date, source: 'sidebar' });
+	});
+	// Strategy 2: any in-page anchor with a section-prefixed numeric slug,
+	// picking up the first paragraph text near the anchor as a title fallback.
 	document.querySelectorAll('a').forEach(a => {
 		const href = a.href || '';
-		const m = href.match(/\\/news\\/(\\d+)-/);
-		if (!m) return;
-		const id = m[1];
-		if (seen.has(id)) return;
+		const section = SECTION_FOR(href);
+		if (!section) return;
+		const id = NUM_FOR(href);
+		if (!id || seen.has(id)) return;
 		seen.add(id);
-		const text = a.textContent.trim();
-		const title = text.split(/\\n/)[0].trim().slice(0,250);
-		results.push({ id: parseInt(id), url: href, title: title });
+		const text = a.textContent.trim().split(/[\r\n]+/)[0].trim().slice(0, 250);
+		results.push({ id, url: href, title: text, source: 'anchor' });
 	});
-	return results;
+	return { sidebar: sidebarItems, anchors: results };
 }
 """
 
@@ -149,12 +237,14 @@ def main():
 	)
 
 	sys.stderr.write("Creating tab and navigating to /news...\n")
-	tab_resp = _api("POST", "/tabs", {
-		"userId": USER_ID,
-		"sessionKey": SESSION_KEY,
-		"url": NEWS_URL,
-	})
-	tab_id = tab_resp.get("tabId")
+	try:
+		tab_id, _ = create_tab_resilient(USER_ID, SESSION_KEY, NEWS_URL)
+	except Exception as e:
+		sys.stderr.write(f"ERROR: Failed to create tab: {e}\n")
+		result = {"meta": {"total":0, "scraped_at": today.isoformat(), "cutoff_date": cutoff_date.isoformat()}, "items": []}
+		print(json.dumps(result, indent=2, ensure_ascii=False))
+		sys.exit(1)
+
 	if not tab_id:
 		sys.stderr.write("ERROR: Failed to create tab\n")
 		result = {"meta": {"total":0, "scraped_at": today.isoformat(), "cutoff_date": cutoff_date.isoformat()}, "items": []}
@@ -164,7 +254,7 @@ def main():
 	all_items = []
 	try:
 		time.sleep(2)
-		all_articles_raw = []
+		all_articles_raw = []  # {id, url, title, date?, source_sidebar}
 		seen_ids = set()
 
 		for page_num in range(1, pages +1):
@@ -176,39 +266,88 @@ def main():
 			sys.stderr.write(f"\n=== Listing page {page_num}: {url} ===\n")
 
 			if page_num >1:
-				_api("POST", f"/tabs/{tab_id}/navigate", {"url": url})
+				_api("POST", f"/tabs/{tab_id}/navigate", {"url": url, "userId": USER_ID})
 				time.sleep(2)
 
 			resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
 				"expression": EXTRACT_LISTING_JS,
+				"userId": USER_ID,
 			})
-			articles = resp.get("result") or []
-			sys.stderr.write(f"Found {len(articles)} articles on page {page_num}\n")
+			payload = resp.get("result") or {}
+			sidebar = payload.get("sidebar") or []
+			anchors = payload.get("anchors") or []
+			sys.stderr.write(f"Found {len(sidebar)} sidebar items, {len(anchors)} anchors on page {page_num}\n")
 
-			for art in articles:
-				if art["id"] not in seen_ids:
-					seen_ids.add(art["id"])
-					all_articles_raw.append(art)
+			# Index sidebar by id for date lookup
+			sidebar_by_id = {item["id"]: item for item in sidebar}
 
-		sys.stderr.write(f"\nTotal unique articles: {len(all_articles_raw)}\n")
+			# First add sidebar items (have date)
+			for item in sidebar:
+				if item["id"] in seen_ids:
+					continue
+				seen_ids.add(item["id"])
+				if "/podcasts/" in item["url"]:
+					continue
+				if NON_MUSIC_RE.search(item.get("title", "")):
+					continue
+				date = parse_dd_mm_yyyy(item.get("date", ""))
+				if date and date < cutoff_date:
+					continue  # out of window
+				all_articles_raw.append({
+					"id": item["id"],
+					"url": item["url"],
+					"title": item["title"],
+					"date": date.isoformat() if date else None,
+				})
+			# Then anchor-only items (no sidebar entry yet)
+			for item in anchors:
+				if item["id"] in seen_ids:
+					continue
+				seen_ids.add(item["id"])
+				if "/podcasts/" in item["url"]:
+					continue
+				if NON_MUSIC_RE.search(item.get("title", "")):
+					continue
+				all_articles_raw.append({
+					"id": item["id"],
+					"url": item["url"],
+					"title": item["title"],
+					"date": None,
+				})
+
+		sys.stderr.write(f"\nTotal unique article candidates (after date/podcast/non-music filters): {len(all_articles_raw)}\n")
 
 		if not args.no_article_pages:
 			for i, art in enumerate(all_articles_raw):
 				url = art["url"]
-				sys.stderr.write(f"\n[{i+1}/{len(all_articles_raw)}] id={art['id']} {url}\n")
+				known_date = art.get("date")  # may be None — we'll fall through to body parsing
+				sys.stderr.write(f"\n[{i+1}/{len(all_articles_raw)}] id={art['id']} {url} (known_date={known_date})\n")
 
-				item_type = "feature" if "/features/" in url else "review"
-
-				if NON_MUSIC_RE.search(art.get("title", "")):
-					sys.stderr.write(" SKIP (non-music title)\n")
-					continue
+				# type: review only when title explicitly says "Review:" — Wild City
+				# runs feature-style writeups almost everywhere (news/mixes/features).
+				title_lower = art.get("title", "").lower()
+				if title_lower.startswith("review:") or " review:" in title_lower[:20]:
+					item_type = "review"
+				else:
+					item_type = "feature"
 
 				try:
-					_api("POST", f"/tabs/{tab_id}/navigate", {"url": url})
+					# Skip items already filtered to be outside the window via sidebar date.
+					if known_date:
+						try:
+							kd = datetime.strptime(known_date, "%Y-%m-%d").date()
+							if kd < cutoff_date:
+								sys.stderr.write(f" SKIP (sidebar date {known_date} before cutoff {cutoff_date})\n")
+								continue
+						except ValueError:
+							pass
+
+					_api("POST", f"/tabs/{tab_id}/navigate", {"url": url, "userId": USER_ID})
 					time.sleep(1.5)
 
 					resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
 						"expression": GET_ARTICLE_BODY_JS,
+						"userId": USER_ID,
 					})
 					detail = resp.get("result") or {}
 					if not detail.get("found"):
@@ -219,17 +358,24 @@ def main():
 					body = (detail.get("body") or "").strip()
 					date_text = (detail.get("dateText") or "").strip()
 
-					pub_date = parse_date(date_text) if date_text else None
-					if pub_date:
-						try:
-							item_date = datetime.strptime(pub_date, "%Y-%m-%d").date()
-							if item_date < cutoff_date:
-								sys.stderr.write(f" SKIP (date {pub_date} before cutoff {cutoff_date})\n")
-								continue
-						except ValueError:
-							pass
+					if known_date:
+						pub_date = known_date
+					elif date_text:
+						pub_date = parse_date(date_text)
+						if pub_date:
+							try:
+								item_date = datetime.strptime(pub_date, "%Y-%m-%d").date()
+								if item_date < cutoff_date:
+									sys.stderr.write(f" SKIP (body date {pub_date} before cutoff {cutoff_date})\n")
+									continue
+							except ValueError:
+								pass
 					else:
-						pub_date = today.isoformat() # fallback if no parseable date
+						pub_date = None
+
+					# Final fallback: today
+					if not pub_date:
+						pub_date = today.isoformat()
 
 					score = None
 					excerpt = body[:500] if body else ""
@@ -256,14 +402,19 @@ def main():
 					continue
 		else:
 			for art in all_articles_raw:
-				item_type = "feature" if "/features/" in art["url"] else "review"
+				title_lower = art.get("title", "").lower()
+				if title_lower.startswith("review:") or " review:" in title_lower[:20]:
+					item_type = "review"
+				else:
+					item_type = "feature"
+				pub_date = art.get("date") or today.isoformat()
 				item = {
 					"album": art["title"][:250],
 					"artist": "Wild City Editors",
 					"score": None,
 					"url": art["url"],
 					"source": SOURCE,
-					"pub_date": today.isoformat(),
+					"pub_date": pub_date,
 					"tags": TAGS_DEFAULT,
 					"excerpt": "",
 					"body": "",
@@ -286,7 +437,7 @@ def main():
 
 	finally:
 		try:
-			_api("DELETE", f"/tabs/{tab_id}")
+			_api("DELETE", f"/tabs/{tab_id}?userId={USER_ID}")
 			sys.stderr.write(f"Closed tab {tab_id}\n")
 		except Exception as e:
 			sys.stderr.write(f"WARNING: Failed to close tab: {e}\n")
