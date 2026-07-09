@@ -434,7 +434,8 @@ def main():
             "old_skipped": skipped_old,
             "fetch_errors": fetch_errors,
             "note": "Camoufox incompatible (TLS 1.0 + self-signed cert); used direct HTTP. "
-            "Latest site update is May 31, 2026 — outside the 36h cutoff.",
+            "Homepage banner reads 'Latest update: <DATE> / Next update: <DATE>' — "
+            "all visible reviews are outside the 36h cutoff (most recent is from the prior month).",
         },
         "items": results,
     }

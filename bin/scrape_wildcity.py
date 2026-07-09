@@ -147,7 +147,7 @@ def parse_dd_mm_yyyy(s):
 
 
 EXTRACT_LISTING_JS = r"""
-() => {
+(() => {
 	const results = [];
 	const seen = new Set();
 	const NEWS_PATH = /\/news\/(\d+)-/;
@@ -190,11 +190,11 @@ EXTRACT_LISTING_JS = r"""
 		results.push({ id, url: href, title: text, source: 'anchor' });
 	});
 	return { sidebar: sidebarItems, anchors: results };
-}
+})()
 """
 
 GET_ARTICLE_BODY_JS = """
-() => {
+(() => {
 	const article = document.querySelector('article.layout-article');
 	if (!article) return { found: false };
 	const rows = article.querySelectorAll('.row');
@@ -209,7 +209,7 @@ GET_ARTICLE_BODY_JS = """
 	const h1 = document.querySelector('h1');
 	const title = h1 ? h1.textContent.trim() : '';
 	return { found: true, dateText: dateText, body: body, title: title };
-}
+})()
 """
 
 
@@ -425,13 +425,14 @@ def main():
 				all_items.append(item)
 
 		result = {
-			"meta": {
-				"total": len(all_items),
-				"scraped_at": datetime.now(timezone.utc).isoformat(),
-				"cutoff_date": cutoff_date.isoformat(),
-			},
-			"items": all_items,
-		}
+				"meta": {
+					"total": len(all_items),
+					"scraped_at": datetime.now(timezone.utc).isoformat(),
+					"cutoff_date": cutoff_date.isoformat(),
+					"hours_scanned": int(args.days * 24),
+				},
+				"items": all_items,
+			}
 		print(json.dumps(result, indent=2, ensure_ascii=False))
 		sys.stderr.write(f"\nTotal: {len(all_items)} items\n")
 

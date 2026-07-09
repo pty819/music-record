@@ -1,0 +1,31 @@
+HTML: 18 脚本, timeout=180s, days=1.5
+  squids_ear: ✅ 0 items
+  hear65: ✅ 0 items
+  world_music_central: ✅ 0 items
+  free_jazz_blog: ✅ 1 items
+  musique_machine: ❌ empty stdout (rc=1) -linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 503: Service Unavailable
+  songlines: ✅ 0 items
+  resident_advisor: ❌ empty stdout (rc=1) hon3.11/urllib/request.py", line 1351, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)>
+  sea_of_tranquility: ✅ 0 items
+  jazz_trail: ✅ 0 items
+  mixmag_asia: ❌ empty stdout (rc=1) -linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 503: Service Unavailable
+  mikiki: ✅ 17 items
+  all_about_jazz: ❌ empty stdout (rc=1) on-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+  truth_and_lies_music: ❌ empty stdout (rc=1) on-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+  dark_entries_be: ✅ 2 items
+  downbeat: ✅ 0 items
+  roots_world: ✅ 30 items
+  bandwagon_asia: ✅ 0 items
+  strangely_isolated_place: ✅ 0 items
+
+✅ 50 条 (5 errors, 120s) → /home/liyifan/music-record/2026/07/2026-07-10/html_reviews.json
