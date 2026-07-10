@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-10T20:09:33+00:00",
+    "cutoff_date": "2026-07-09T08:09:33.800717+00:00",
+    "hours_scanned": 36.0,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "notes": "Home page probed via Camoufox. Update table entries found but newest is 2025-12-09, well outside the 36h cutoff (2026-07-09). Home remains section-nav layout with no date-ordered feed. Site genuinely posts rarely — daily 36h scrape continues to return 0 for extended stretches."
+  },
+  "items": []
+}

@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-10T20:08:44.879530+00:00",
+    "cutoff_date": "2026-07-09T08:08:44.879530+00:00",
+    "site": "progressor",
+    "pages_crawled": 2,
+    "candidates_checked": 119,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 6,
+    "fetch_errors": 2,
+    "note": "Camoufox incompatible (TLS 1.0 + self-signed cert); used direct HTTP. Homepage banner reads 'Latest update: <DATE> / Next update: <DATE>' — all visible reviews are outside the 36h cutoff (most recent is from the prior month)."
+  },
+  "items": []
+}
