@@ -1,0 +1,102 @@
+[04:15:09] Boomkat scraper — Today: 2026-07-12, Cutoff: 2026-07-10, Pages: 2
+[04:15:09] CF check: navigating to https://boomkat.com/ ...
+[04:15:39] CF check: navigate code=500 body={'error': '{"error":"Internal server error"}'}
+[04:15:39] CF blocked — wrote empty file
+[04:18:12] Today: 2026-07-11, Cutoff: 2026-07-10
+
+[04:18:21] Created tab aa827f34-7329-49f6-ac2a-b91794d1d62b
+
+[04:18:26] Waiting for CF clearance + first page...
+
+[04:18:27]   [1s] page empty (title='', body=0)
+
+[04:18:28]   [2s] page empty (title='', body=0)
+
+[04:18:29]   [3s] page empty (title='', body=0)
+
+[04:18:30]   [4s] page empty (title='', body=0)
+
+[04:18:31]   [5s] page empty (title='', body=0)
+
+[04:18:32]   [6s] page empty (title='', body=0)
+
+[04:18:33]   [7s] page empty (title='', body=0)
+
+[04:18:35]   [8s] page empty (title='', body=0)
+
+[04:18:36]   [9s] page empty (title='', body=0)
+
+[04:18:37]   [10s] page empty (title='', body=0)
+
+[04:18:38]   [11s] page empty (title='', body=0)
+
+[04:18:39]   [12s] page empty (title='', body=0)
+
+[04:18:40]   [13s] page empty (title='', body=0)
+
+[04:18:41]   [14s] page empty (title='', body=0)
+
+[04:18:42]   [15s] page empty (title='', body=0)
+
+[04:18:43]   [16s] page empty (title='', body=0)
+
+[04:18:44]   [17s] page empty (title='', body=0)
+
+[04:18:45]   [18s] page empty (title='', body=0)
+
+[04:18:46]   [19s] page empty (title='', body=0)
+
+[04:18:47]   [20s] page empty (title='', body=0)
+
+[04:18:48]   [21s] page empty (title='', body=0)
+
+[04:18:49]   [22s] page empty (title='', body=0)
+
+[04:18:50]   [23s] page empty (title='', body=0)
+
+[04:18:51]   [24s] page empty (title='', body=0)
+
+[04:18:52]   [25s] page empty (title='', body=0)
+
+[04:18:53]   [26s] page empty (title='', body=0)
+
+[04:18:54]   [27s] page empty (title='', body=0)
+
+[04:18:55]   [28s] page empty (title='', body=0)
+
+[04:18:56]   [29s] page empty (title='', body=0)
+
+[04:18:57]   [30s] page empty (title='', body=0)
+
+[04:18:58]   [31s] page empty (title='', body=0)
+
+[04:18:59]   [32s] page empty (title='', body=0)
+
+[04:19:00]   [33s] page empty (title='', body=0)
+
+[04:19:01]   [34s] page empty (title='', body=0)
+
+[04:19:02]   [35s] page empty (title='', body=0)
+
+[04:19:03]   [36s] page empty (title='', body=0)
+
+[04:19:04]   [37s] page empty (title='', body=0)
+
+[04:19:05]   [38s] page empty (title='', body=0)
+
+[04:19:06]   [39s] page empty (title='', body=0)
+
+[04:19:07]   [40s] page empty (title='', body=0)
+
+[04:19:08]   [41s] page empty (title='', body=0)
+
+[04:19:09]   [42s] page empty (title='', body=0)
+
+[04:19:10]   [43s] page empty (title='', body=0)
+
+[04:19:11]   [44s] page empty (title='', body=0)
+
+[04:19:13]   [45s] page empty (title='', body=0)
+
+[04:19:13] CF BLOCKED (title='', products=0, body=0) — wrote empty result
+

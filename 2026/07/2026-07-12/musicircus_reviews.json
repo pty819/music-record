@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-11T20:05:18+00:00",
+    "cutoff_date": "2026-07-10T08:05:18.839161+00:00",
+    "hours_scanned": 36.0,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "notes": "Update table scanned via Camoufox; only 2 entries found total, none within the 36h cutoff. Site remains section-nav layout with no date-ordered feed; daily 36h scrape continues to return 0 for extended stretches. Clean scrape — no CF/consent wall."
+  },
+  "items": []
+}

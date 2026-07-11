@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-11T20:30:02.013881+00:00",
+    "cutoff_date": "2026-07-10T08:30:02+00:00",
+    "site": "jazztokyo",
+    "pages_crawled": 2,
+    "candidates_checked": 33,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 29,
+    "fetch_errors": 4,
+    "notes": "Site is low-frequency; no posts fall within the 2026-07-10 36h window. 33 candidates across 2 listing pages: 29 confirmed-out-of-window (newest: 2026-07-10 T 06:27+09:00 = 2026-07-09 21:27 UTC, ~11h past today's 36h cutoff), 4 transient camofox 500/503 on tab creation during the listing->article traversal. Yesterday's in-window item (post-123561) is now ~23h past cutoff, correctly excluded."
+  },
+  "items": []
+}

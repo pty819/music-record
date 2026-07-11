@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-11T20:05:11.196903+00:00",
+    "cutoff_date": "2026-07-10T08:05:11.196903+00:00",
+    "site": "progressor",
+    "pages_crawled": 2,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "fetch_errors": 2,
+    "note": "Camoufox incompatible (TLS 1.0 + self-signed cert); used direct HTTP. Both listing endpoints (homepage + history_short) failed: homepage = 'Remote end closed connection without response', history_short = timed out. Site appears unreachable from this host today; wrote empty envelope per task spec (no retry)."
+  },
+  "items": []
+}
