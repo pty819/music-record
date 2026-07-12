@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-12T20:05:01+00:00",
+    "cutoff_date": "2026-07-11T08:05:01.170151+00:00",
+    "hours_scanned": 36.0,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok"
+  },
+  "items": []
+}
