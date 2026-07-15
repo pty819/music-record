@@ -1,0 +1,143 @@
+JazzTokyo (resilient) — now=2026-07-15T20:06:11.741825+00:00 cutoff=2026-07-14T08:06:11.741825+00:00
+
+=== Listing https://jazztokyo.org/ ===
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab a40692c5-64d9-4761-bec1-bc9c6115a773 url=about:blank
+  [tab] using recovered tab a40692c5-64d9-4761-bec1-bc9c6115a773 (will wait for body)
+  [list] found 0 post links
+
+=== Listing https://jazztokyo.org/page/2/ ===
+  [tab] created OK (720b0258-83a4-4339-ad2d-b3e414d66fa3)
+  [list] found 29 post links
+
+Total unique candidates: 29
+  [art] https://jazztokyo.org/column/post-122803/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab e5cf0a7a-993d-47cd-bf0a-ed6c75731f73 url=about:blank
+  [tab] using recovered tab e5cf0a7a-993d-47cd-bf0a-ed6c75731f73 (will wait for body)
+ [1/29] SKIP no-date: https://jazztokyo.org/column/post-122803/
+  [art] https://jazztokyo.org/column/sugawara/post-71934/
+  [tab] created OK (942362a0-cc32-488c-b40b-4e61ffbdb22b)
+ [2/29] SKIP old (pub=2021-12-04): 菅原光博 ジャズを撮る！ #11 ソニー・ロリンズ Sonny Rollins
+  [art] https://jazztokyo.org/reviews/live-report/post-122851/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab c5425f82-90ce-41bc-9e9e-5808c44f7ad3 url=about:blank
+  [tab] using recovered tab c5425f82-90ce-41bc-9e9e-5808c44f7ad3 (will wait for body)
+ [3/29] SKIP no-date: https://jazztokyo.org/reviews/live-report/post-122851/
+  [art] https://jazztokyo.org/interviews/post-122777/
+  [tab] POST /tabs returned 503: {"error":"Browser session expired. Retry to get a fresh session.","code":"session_expired"}
+  [tab] checking existing tabs...
+ [4/29] FETCH ERROR: https://jazztokyo.org/interviews/post-122777/
+  [art] https://jazztokyo.org/reviews/cd-dvd-review/post-122450/
+  [tab] created OK (2becc2f5-62f7-435c-8002-904adcc52224)
+ [5/29] SKIP old (pub=2026-06-20): #2445 『サニー・マレイ＆豊住芳三郎／太陽の恵み』
+『Sunny Murray & Sabu T
+  [art] https://jazztokyo.org/reviews/cd-dvd-review/post-122478/
+  [tab] created OK (e1532b74-2ab0-499a-a8fa-92e0fdb9fcdf)
+ [6/29] SKIP old (pub=2026-06-20): #2444 『佐藤恭子セプテット / Echoes Of Longing, Memories Of 
+  [art] https://jazztokyo.org/reviews/cd-dvd-review/post-122759/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab 148b51c3-a627-47b8-b40a-757c5982011d url=about:blank
+  [tab] using recovered tab 148b51c3-a627-47b8-b40a-757c5982011d (will wait for body)
+ [7/29] SKIP no-date: https://jazztokyo.org/reviews/cd-dvd-review/post-122759/
+  [art] https://jazztokyo.org/reviews/cd-dvd-review/post-122482/
+  [tab] created OK (41ce91df-be0e-4855-8b4a-5090a3d25982)
+ [8/29] SKIP old (pub=2026-06-20): #2442 『マリリン・クリスペル＆アンデルス・ヨルミン／メメント』
+  [art] https://jazztokyo.org/interviews/post-122689/
+  [tab] created OK (8c030b03-3265-413f-b317-ba598dec2a16)
+ [9/29] SKIP old (pub=2026-06-20): Interview (Archive) 増尾好秋、ソニー・ロリンズを語る
+  [art] https://jazztokyo.org/interviews/improviser/post-122539/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab 4cf20099-bfae-40c3-82d0-21f079857fe2 url=about:blank
+  [tab] using recovered tab 4cf20099-bfae-40c3-82d0-21f079857fe2 (will wait for body)
+ [10/29] SKIP no-date: https://jazztokyo.org/interviews/improviser/post-122539/
+  [art] https://jazztokyo.org/reviews/sound-check/post-122558/
+  [tab] created OK (a2a1b8c6-ccb8-4b4b-ae15-db5422b497c1)
+ [11/29] SKIP old (pub=2026-06-20): #23 『Han H / Silent Wisdom』
+『ハン H. / サイレント・ウィズダム』
+  [art] https://jazztokyo.org/column/my-shot/post-122803/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab 651e0fb7-f186-4c00-b94b-3be62275eeda url=about:blank
+  [tab] using recovered tab 651e0fb7-f186-4c00-b94b-3be62275eeda (will wait for body)
+ [12/29] SKIP no-date: https://jazztokyo.org/column/my-shot/post-122803/
+  [art] https://jazztokyo.org/column/live-after-live/post-122631/
+  [tab] created OK (5152468c-7c51-4d78-a086-9003e1c11134)
+ [13/29] SKIP old (pub=2026-06-20): 小野健彦のLive after Live #541~546
+  [art] https://jazztokyo.org/column/kaze-wo-aruku/post-122517/
+  [tab] created OK (6841d225-25f0-4316-b5dd-68c43a9a721f)
+ [14/29] SKIP old (pub=2026-06-20): 風巻隆「風を歩く」からVol.49 神蔵香芳さん～「月と遊園地」〜
+  [art] https://jazztokyo.org/column/waka-to-jazz/post-122411/
+  [tab] created OK (8445e547-bab3-4d73-bbea-58ad0c3ed9e7)
+ [15/29] SKIP old (pub=2026-06-20): S-008 和泉式部と「恋に恋して」
+  [art] https://jazztokyo.org/reviews/live-report/post-122766/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab b1c5b670-df49-48e2-a3e0-c741c780e882 url=https://jazztokyo.org/reviews/live-report/post-122766/
+  [tab] using recovered tab b1c5b670-df49-48e2-a3e0-c741c780e882 (will wait for body)
+ [16/29] SKIP no-date: https://jazztokyo.org/reviews/live-report/post-122766/
+  [art] https://jazztokyo.org/reviews/live-report/post-122585/
+  [tab] created OK (d3b022ca-19a9-4598-9ff6-cce2f59b7f07)
+ [17/29] SKIP old (pub=2026-06-20): #1414 大阪松竹座 さよなら公演「御名残五月大歌舞伎」夜の部
+  [art] https://jazztokyo.org/reviews/live-report/post-122525/
+  [tab] created OK (014a7681-8367-4f78-b152-47299d130e47)
+ [18/29] SKIP old (pub=2026-06-20): # 1413 エグベルト・ジスモンチ＆ダニエル・ムハイ ジャパン・ツアー2026、青森コンサート
+  [art] https://jazztokyo.org/reviews/live-report/post-122805/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab 0c98a292-e92e-47ab-b197-3b1dc5a62811 url=about:blank
+  [tab] using recovered tab 0c98a292-e92e-47ab-b197-3b1dc5a62811 (will wait for body)
+ [19/29] SKIP no-date: https://jazztokyo.org/reviews/live-report/post-122805/
+  [art] https://jazztokyo.org/reviews/live-report/post-122418/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab 3cddce60-5be0-4915-8b90-26e31b4bacb2 url=about:blank
+  [tab] using recovered tab 3cddce60-5be0-4915-8b90-26e31b4bacb2 (will wait for body)
+ [20/29] SKIP no-date: https://jazztokyo.org/reviews/live-report/post-122418/
+  [art] https://jazztokyo.org/news/post-123202/
+  [tab] created OK (961a3ac6-adb2-43af-9085-0423d9ac6813)
+ [21/29] SKIP old (pub=2026-06-21): 9/25&26 Jazz in Hokutopia
+石若駿とトニーニョ・オルタを中心に
+  [art] https://jazztokyo.org/news/post-123146/
+  [tab] created OK (81c0e2b1-4f84-4c13-9d67-c31f1ad39861)
+ [22/29] SKIP old (pub=2026-06-21): 9/17~10/03 San Gennaro Japan Tour 2026
+サン・ジェンナーロ・ジ
+  [art] https://jazztokyo.org/news/post-123015/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab 6ac1d228-becd-4905-9701-f0a2da9e9d45 url=about:blank
+  [tab] using recovered tab 6ac1d228-becd-4905-9701-f0a2da9e9d45 (will wait for body)
+ [23/29] SKIP no-date: https://jazztokyo.org/news/post-123015/
+  [art] https://jazztokyo.org/news/post-123256/
+  [tab] created OK (d87fa555-68c1-4590-882b-a23d48232298)
+ [24/29] SKIP old (pub=2026-07-04): 7/18 関西発、森定道広によるポリフォニー作品に焦点を当てた新グループの初公演
+  [art] https://jazztokyo.org/news/post-121676/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab 5576515a-c4ce-41e5-aa22-f6f5c1b78f1b url=about:blank
+  [tab] using recovered tab 5576515a-c4ce-41e5-aa22-f6f5c1b78f1b (will wait for body)
+ [25/29] SKIP no-date: https://jazztokyo.org/news/post-121676/
+  [art] https://jazztokyo.org/interviews/post-93239/
+  [tab] created OK (c2835398-66f2-4446-9b91-d8cd4044c485)
+ [26/29] SKIP old (pub=2023-11-04): Interview #271 『パリの空の下ジャズは流れる』宇田川悟インタヴュー
+  [art] https://jazztokyo.org/news/post-119878/
+  [tab] created OK (f69ec592-c038-4848-a3bd-3ef2fd212bc8)
+ [27/29] SKIP old (pub=2026-02-07): 5/24-29 エグベルト・ジスモンチ＆ダニエル・ムハイ
+Egberto Gismonti & Da
+  [art] https://jazztokyo.org/news/post-121992/
+  [tab] created OK (6647f9db-b20e-4e6d-b87b-5149a620afa0)
+ [28/29] SKIP old (pub=2026-05-15): 7/03~ 映画『ビトゥーカ ミルトン・ナシメント フェアウェル・ツアー』
+  [art] https://jazztokyo.org/news/post-121449/
+  [tab] POST /tabs returned 500: {"error":"Internal server error"}
+  [tab] checking existing tabs...
+  [tab] recovered existing tab 1935b474-773b-48f5-b895-d2b983cc44f1 url=about:blank
+  [tab] using recovered tab 1935b474-773b-48f5-b895-d2b983cc44f1 (will wait for body)
+ [29/29] SKIP no-date: https://jazztokyo.org/news/post-121449/
+
+Results: total=0 in_window=0 non_music=0 old=17 no_date=11 errors=1
+Wrote /home/liyifan/music-record/2026/07/2026-07-16/jazztokyo_reviews.json (0 items)
