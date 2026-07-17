@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-17T20:04:32.902707+00:00",
+    "cutoff_date": "2026-07-16T08:04:32.902707+00:00",
+    "site": "progressor",
+    "pages_crawled": 2,
+    "candidates_checked": 119,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 6,
+    "fetch_errors": 0,
+    "note": "Camoufox incompatible (TLS 1.0 + self-signed cert); used direct HTTP. Most recent site update is June 2026 (pub_date 2026-06-01, ~46 days old) — well outside the 36h cutoff. Next update is monthly-cadence so likely end of July."
+  },
+  "items": []
+}

@@ -1,0 +1,13 @@
+Wild City — Today: 2026-07-17, Cutoff: 2026-07-16
+  POST /tabs returned 500: {"error":"Internal server error"}
+  checking for existing tab...
+  recovered existing tab 3dd62b11-0437-498e-af4a-024a59767e54 (url=https://www.thewildcity.com/features)
+  found 15 feed items
+  candidates: 1 (skip old=14 podcast=0 non_music=0)
+  [1] fetching body for https://www.thewildcity.com/news/21756-purple-cassette-s-new-single-waiting-on-n...
+  POST /tabs returned 500: {"error":"Internal server error"}
+  checking for existing tab...
+  recovered existing tab e151d360-3532-49eb-b728-fcec4a8c4ed4 (url=https://www.thewildcity.com/news/21756-purple-cassette-s-new-single-waiting-on-nothing-is-clich-d-but-fun)
+  [1] feature https://www.thewildcity.com/news/21756-purple-cassette-s-new-single-waiting-on-nothing-is-clich-d-but-fun (874 chars)
+
+Total: 1 items — wrote /home/liyifan/music-record/2026/07/2026-07-18/wild_city_reviews.json

@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "total": 2,
+    "scraped_at": "2026-07-17T20:01:58.027564+00:00",
+    "cutoff_date": "2026-07-16T08:01:58.027564+00:00"
+  },
+  "items": [
+    {
+      "album": "A Glimpse Through The Event Horizon",
+      "artist": "Lumnos",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25561",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-07-17T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Lumnos: A Glimpse Through The Event Horizon Lumnos is the alter ego of Brazilian multi-instrumentalist Putrefactus. Lumnos is billed as a black metal/ambient project which certainly had me intrigued to just what this music will actually bring. Also getting my attention is the title of the latest album A Glimpse Through The Event Horizon . Coming from a science background anything space related gets my imagination running in high gear. Especially the mysterious nature of black holes which forms t",
+      "body": "Lumnos: A Glimpse Through The Event Horizon Lumnos is the alter ego of Brazilian multi-instrumentalist Putrefactus. Lumnos is billed as a black metal/ambient project which certainly had me intrigued to just what this music will actually bring. Also getting my attention is the title of the latest album A Glimpse Through The Event Horizon . Coming from a science background anything space related gets my imagination running in high gear. Especially the mysterious nature of black holes which forms the theme of the album.",
+      "site_id": "sot_review_25561",
+      "crawl_status": "ok",
+      "type": "review"
+    },
+    {
+      "album": "Sever   &dagger;",
+      "artist": "Inhalo",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25030",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-07-17T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Inhalo: Sever The cover art of the Inhalo debut Sever says a lot about what youâll experience as you traverse this albumâs intention. Deep, dark, and containing more depth than initially obvious, the crumpled, smoke filled, flame flicking image that then reveals a tortured face, catches the eye and âOmniscient Beingâ opens this effort in equally uncompromising style. Immediately you know you are in a twisted world inhabited by the likes of Tool, Porcupine Tree, Opeth, Karnivool and many ",
+      "body": "Inhalo: Sever The cover art of the Inhalo debut Sever says a lot about what youâll experience as you traverse this albumâs intention. Deep, dark, and containing more depth than initially obvious, the crumpled, smoke filled, flame flicking image that then reveals a tortured face, catches the eye and âOmniscient Beingâ opens this effort in equally uncompromising style. Immediately you know you are in a twisted world inhabited by the likes of Tool, Porcupine Tree, Opeth, Karnivool and many more. The band comprises Fons Heder on vocals, Roy Willems on guitar, Peter Cats on bass and Pepijn Gros on drums and the confidence the quartet display, especially on the swoop and soar of âSisypheanâ marks them out as ones to watch.",
+      "site_id": "sot_review_25030",
+      "crawl_status": "ok",
+      "type": "review"
+    }
+  ]
+}
