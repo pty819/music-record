@@ -1,0 +1,36 @@
+Wild City scraper - Today: 2026-07-21, Cutoff: 2026-07-20, Pages: 2
+Creating tab and navigating to /news...
+[ERROR] HTTP 500 on POST /tabs: {"error":"Internal server error","retryable":false}
+
+=== Listing page 1: https://www.thewildcity.com/news ===
+Found 15 sidebar items, 20 anchors on page 1
+
+=== Listing page 2: https://www.thewildcity.com/news?offset=10 ===
+[ERROR] HTTP 500 on POST /tabs/e5dcec45-54ba-4615-b899-a8c608569fa2/navigate: {"error":"Internal server error","retryable":false}
+Closed tab e5dcec45-54ba-4615-b899-a8c608569fa2
+Traceback (most recent call last):
+  File "/home/liyifan/music-record/bin/scrape_wildcity.py", line 448, in <module>
+    main()
+  File "/home/liyifan/music-record/bin/scrape_wildcity.py", line 269, in main
+    _api("POST", f"/tabs/{tab_id}/navigate", {"url": url, "userId": USER_ID})
+  File "/home/liyifan/music-record/bin/scrape_wildcity.py", line 60, in _api
+    with urllib.request.urlopen(req, timeout=60) as resp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 525, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 634, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 563, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/home/liyifan/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 500: Internal Server Error
