@@ -1,0 +1,11 @@
+Wild City scraper - today (BJT)=2026-07-23 cutoff=2026-07-22
+
+=== Listing page 1: https://www.thewildcity.com/news ===
+  sidebar=0 anchors=0
+
+=== Listing page 2: https://www.thewildcity.com/news?offset=10 ===
+  sidebar=15 anchors=25
+
+Total unique article candidates (after date/podcast/non-music filters): 11
+
+[1/11] id=21762 https://www.thewildcity.com/news/21762-djs-promoters-collectives-more-invited-to-host-community-fundraiser-for-jantar-mantar-protests-in-new-delhi (known_date=2026-07-22)
