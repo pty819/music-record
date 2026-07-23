@@ -115,25 +115,35 @@ def split_title(raw_title):
 
 
 def entry_pubdate(entry):
-    """Return datetime_utc or None."""
-    for attr in ("published_parsed", "updated_parsed"):
-        v = getattr(entry, attr, None)
-        if v:
-            try:
-                from time import mktime
-                return datetime.fromtimestamp(mktime(v), tz=timezone.utc)
-            except Exception:
-                pass
-    raw = getattr(entry, "published", "") or ""
-    for fmt in ("%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S GMT",
-                "%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%dT%H:%M:%SZ"):
+    """Return datetime_utc or None.
+
+    Prefer parsing the raw published/updated RFC822 string (carries explicit
+    +0000 tz).  Falling back to feedparser's *parsed structs is wrong when
+    the host runs in a non-UTC timezone: struct_time has no tz field, so
+    mktime() interprets it as local time and silently shifts by hours.
+    """
+    from email.utils import parsedate_to_datetime
+
+    for raw_attr in ("published", "updated"):
+        raw = (getattr(entry, raw_attr, "") or "").strip()
+        if not raw:
+            continue
         try:
-            dt = datetime.strptime(raw.strip(), fmt)
+            dt = parsedate_to_datetime(raw)
+        except Exception:
+            dt = None
+        if dt is None:
+            for fmt in ("%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S GMT",
+                        "%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%dT%H:%M:%SZ"):
+                try:
+                    dt = datetime.strptime(raw, fmt)
+                    break
+                except Exception:
+                    continue
+        if dt is not None:
             if dt.tzinfo is None:
                 dt = dt.replace(tzinfo=timezone.utc)
             return dt.astimezone(timezone.utc)
-        except Exception:
-            continue
     return None
 
 
