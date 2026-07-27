@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-07-27T20:05:02.850667+00:00",
+    "cutoff_date": "2026-07-26T08:05:02.850667+00:00"
+  },
+  "items": [
+    {
+      "album": "Mastodon - Marrow Deep",
+      "artist": "",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25564",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-07-27T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Mastodon - Marrow Deep Mastodonâs new album Marrow Deep is set for release on August 28 via Loma Vista Recordings. This album release is arguably more important than any of the albums that the band has released in the last decade (or perhaps even longer). Five years on from Hushed and Grim , Marrow Deep will be forever known as the first Mastodon album post the band parting ways with wildman-guitarist Brent Hinds, who passed away in tragic circumstances not long after a less than amicable spli",
+      "body": "Mastodon - Marrow Deep Mastodonâs new album Marrow Deep is set for release on August 28 via Loma Vista Recordings. This album release is arguably more important than any of the albums that the band has released in the last decade (or perhaps even longer). Five years on from Hushed and Grim , Marrow Deep will be forever known as the first Mastodon album post the band parting ways with wildman-guitarist Brent Hinds, who passed away in tragic circumstances not long after a less than amicable split. The band have recently shared a short film, The Mastodon in the Room , which shows the founding members attempting to process the unresolved grief surrounding the loss of Brent, whoâs position in the band became untenable despite his massive contribution to the bandâs catalogue and identity. Given all of this I approached my initial listens to Marrow Deep with lots of questions - couldÂ Mastodon still really âbe Mastodonâ without Brent?",
+      "site_id": "sot_review_25564",
+      "crawl_status": "ok",
+      "type": "feature"
+    }
+  ]
+}

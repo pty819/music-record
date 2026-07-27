@@ -33,7 +33,7 @@ SITE_ID = "jazztokyo"
 SOURCE = "JazzTokyo"
 TAGS_DEFAULT = "jazz,free improvisation,free jazz,japanese jazz"
 USER_ID = "scraper_jazztokyo_r"
-SESSION_KEY = "sess_jazztokyo_r"
+SESSION_KEY = f"daily-{datetime.now(timezone.utc).date().isoformat()}-jazztokyo"
 
 NON_MUSIC_RE = re.compile(r"\((?:BLU-RAY|UHD|VOD|DVD|Blu-ray|4K)\)", re.I)
 JP_DATE_RE = re.compile(r"(\d{4})年(\d{1,2})月(\d{1,2})日")
@@ -82,7 +82,7 @@ def create_tab_resilient(url, user_id, session_key, max_wait_s=90):
     sys.stderr.write(f"  [tab] POST /tabs returned {status}: {str(body)[:200]}\n")
     # Recover by listing tabs
     sys.stderr.write("  [tab] checking existing tabs...\n")
-    s, b = _api("GET", f"/tabs?userId={user_id}")
+    s, b = _api("GET", f"/tabs?userId={user_id}&sessionKey={session_key}")
     recovered_id = None
     if s == 200 and isinstance(b, dict):
         for t in b.get("tabs", []):
@@ -110,16 +110,16 @@ def create_tab_resilient(url, user_id, session_key, max_wait_s=90):
     return recovered_id
 
 
-def close_tab(tab_id, user_id):
+def close_tab(tab_id, user_id, session_key):
     if not tab_id:
         return
     try:
-        _api("DELETE", f"/tabs/{tab_id}?userId={user_id}", timeout=10)
+        _api("DELETE", f"/tabs/{tab_id}?userId={user_id}&sessionKey={session_key}", timeout=10)
     except Exception:
         pass
 
 
-def wait_for_body(tab_id, user_id, max_loops=20):
+def wait_for_body(tab_id, user_id, session_key, max_loops=20):
     """Poll document.body.innerText.length until stable for 2 consecutive
     checks (>=100 chars).  Used for both listing and article pages.
     jazztokyo.org often takes >30s to first-load (CF challenge), so default
@@ -130,6 +130,7 @@ def wait_for_body(tab_id, user_id, max_loops=20):
         time.sleep(2)
         s, b = _api("POST", f"/tabs/{tab_id}/evaluate", {
             "userId": user_id,
+            "sessionKey": session_key,
             "expression": "JSON.stringify({rs: document.readyState, len: document.body ? document.body.innerText.length : 0})"
         })
         if s == 200 and isinstance(b, dict):
@@ -163,9 +164,10 @@ def scrape_listing(page_url, user_id, session_key):
         sys.stderr.write("  [list] failed to get tab — skipping\n")
         return []
     try:
-        wait_for_body(tid, user_id, max_loops=30)
+        wait_for_body(tid, user_id, session_key, max_loops=30)
         s, b = _api("POST", f"/tabs/{tid}/evaluate", {
             "userId": user_id,
+            "sessionKey": session_key,
             "expression": (
                 "(() => { const a = Array.from(document.querySelectorAll('a[href]'));"
                 " const out = []; const seen = new Set();"
@@ -202,7 +204,7 @@ def scrape_listing(page_url, user_id, session_key):
         sys.stderr.write(f"  [list] found {len(links)} post links\n")
         return links
     finally:
-        close_tab(tid, user_id)
+        close_tab(tid, user_id, session_key)
 
 
 # ── Article parser ────────────────────────────────────────────────────
@@ -215,9 +217,10 @@ def parse_article(url, user_id, session_key):
     if not tid:
         return None
     try:
-        wait_for_body(tid, user_id, max_loops=20)
+        wait_for_body(tid, user_id, session_key, max_loops=20)
         s, b = _api("POST", f"/tabs/{tid}/evaluate", {
             "userId": user_id,
+            "sessionKey": session_key,
             "expression": (
                 "(() => { const art = document.querySelector('article') || "
                 "document.querySelector('.entry-content') || "
@@ -256,7 +259,7 @@ def parse_article(url, user_id, session_key):
             "body": body,
         }
     finally:
-        close_tab(tid, user_id)
+        close_tab(tid, user_id, session_key)
 
 
 # ── Date parsing ───────────────────────────────────────────────────────
@@ -346,7 +349,7 @@ def main():
     pages = [HOME_URL, f"{SITE_BASE}/page/2/"][:args.max_pages]
     for n, p in enumerate(pages, 1):
         list_user = f"{USER_ID}_list{n}"
-        links = scrape_listing(p, list_user, f"list{n}")
+        links = scrape_listing(p, list_user, f"{SESSION_KEY}-list{n}")
         for link in links:
             if link["url"] not in candidate_urls:
                 candidate_urls[link["url"]] = link["title"]
@@ -368,7 +371,7 @@ def main():
             skipped_non_music += 1
             continue
 
-        art = parse_article(url, f"{USER_ID}_art{n}", f"art{n}")
+        art = parse_article(url, f"{USER_ID}_art{n}", f"{SESSION_KEY}-art{n}")
         if art is None:
             sys.stderr.write(f" [{n}/{len(ordered)}] FETCH ERROR: {url}\n")
             fetch_errors += 1

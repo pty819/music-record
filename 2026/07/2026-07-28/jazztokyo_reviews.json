@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-07-27T20:10:50.512896+00:00",
+    "cutoff_date": "2026-07-26T08:10:50.512896+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 19,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 15,
+    "no_date_skipped": 1,
+    "fetch_errors": 3,
+    "crawl_status": "partial_timeout",
+    "note": "Two listing pages yielded 33 candidates; all 15 successfully dated candidates checked were published 2026-07-18 and outside the 36-hour window. Camoufox restarted/expired during article traversal and the run timed out after 600 seconds; no in-window items were observed."
+  },
+  "items": []
+}
