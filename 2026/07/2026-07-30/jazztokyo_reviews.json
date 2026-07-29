@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-07-29T20:13:19.420046+00:00",
+    "cutoff_date": "2026-07-28T08:13:19.420046+00:00",
+    "site": "jazztokyo",
+    "pages_crawled": 2,
+    "candidates_checked": 25,
+    "in_window_count": 1,
+    "non_music_skipped": 0,
+    "old_skipped": 24,
+    "fetch_errors": 0
+  },
+  "items": [
+    {
+      "album": "ダウンビート誌「国際批評家投票 2026」（第74回）結果発表",
+      "artist": "",
+      "score": null,
+      "url": "https://jazztokyo.org/news/post-123964/",
+      "source": "JazzTokyo",
+      "pub_date": "2026-07-28T19:21:01+09:00",
+      "tags": "jazz,free improvisation,free jazz,japanese jazz",
+      "excerpt": "INTERNATIONAL（海外） NEWS ダウンビート誌「国際批評家投票 2026」（第74回）結果発表 2026年7月28日 編集部  74回目を迎えた2026年度の米ダウンビート誌「批評家投票」の結果が発表された。レジェンドへのリスペクトを残しつつ、確実に世代の移り変わりを反映した結果と言えるだろう。最大のトピックは10年連続「年間最優秀ギタリスト」の座を10年連続して押さえた女性ギタリストのメアリー・ハルヴァーソンが、併せて「年間最優秀アーティスト」と「年間最優秀グループ」に選出、３冠を達成したことだろう。メアリーは昨年の「トミーカ・リード・ユニット」のグループに続いて、今年８月には自己の「アマリリス」セクステットでのブルーノート東京公園が予定されている。 新人部門では、アダム・オファリルが、「最優秀アーティスト」「最優秀トランペット」「最優秀アレンジャー」の３冠を制している。 日本人アーティストでは、いまや常連の藤井郷子が、「ピアニスト」(16位)、「作曲家」(18位)、「編曲家」 (7位)、「ラージ・アンサンブル」 (13位) の４部門で、挟間美帆が「編曲家」部門で３位、",
+      "body": "INTERNATIONAL（海外）\nNEWS\nダウンビート誌「国際批評家投票 2026」（第74回）結果発表\n2026年7月28日\n編集部\n\n74回目を迎えた2026年度の米ダウンビート誌「批評家投票」の結果が発表された。レジェンドへのリスペクトを残しつつ、確実に世代の移り変わりを反映した結果と言えるだろう。最大のトピックは10年連続「年間最優秀ギタリスト」の座を10年連続して押さえた女性ギタリストのメアリー・ハルヴァーソンが、併せて「年間最優秀アーティスト」と「年間最優秀グループ」に選出、３冠を達成したことだろう。メアリーは昨年の「トミーカ・リード・ユニット」のグループに続いて、今年８月には自己の「アマリリス」セクステットでのブルーノート東京公園が予定されている。\n新人部門では、アダム・オファリルが、「最優秀アーティスト」「最優秀トランペット」「最優秀アレンジャー」の３冠を制している。\n日本人アーティストでは、いまや常連の藤井郷子が、「ピアニスト」(16位)、「作曲家」(18位)、「編曲家」 (7位)、「ラージ・アンサンブル」 (13位) の４部門で、挟間美帆が「編曲家」部門で３位、田村夏樹が「トランペット」 (16位) 部門でそれぞれランクインを果たしている。\n\n各部門の「最優秀」受賞は以下の通り；\nHall of Fame：Sheila Jordan\n＊ヘンリー・スレッギルに次いでポール・ブレイが第３位。\nArtist of the Year：Mary Halvorson\n＊ベテランではチャールス・ロイドが11位。\nAlbum of the Year：『Mary Halvorson/About Ghosts』(nonesuch)\n＊ベテラン勢ではチャールス・ロイドとビル・フリゼールが５位と６位に。\nHistorical Album of the Year：『Keith Jarrett/At the Deer Head Inn Complete』(ECM)\nGroup of the Year：Mary Halvorson Amaryllis\n＊ベテラン勢では、チャールス・ロイド・カルテット、ブランフォード・マルサリス・カルテットがそれぞれ７、８位に。\nLarge Ensemble of the Year：Maria Schneider Orchestra\n＊べテランでは「サン・ラ・アーケストラ」が３位に。\nRecord Label of the Year：Blue Note\n＊Pyroclasticに次いでECMが３位。\nProducer of the Year：Zev Feldman\n＊Manfred Eicher/ECMが２位に続く。\nPiano：Kris Davis\nBass：Linda May Han Oh\nTrombone：Michael Dease\nAlto Saxophone：Immanuel Wilkins\nTenor Saxophone：James Brandon Lewis\nSoprano Saxophone：Jane Ira Bloom\nClarinet：Anat Cohen\nOrgan：Larry Goldings\nKeyboard：Craig Taborn\nViolin：Jenny Scheinman\nPercussion：Hamid Drake\nFemale Vocalist：Cécile McLorin Salvant\n詳細は；\nhttps://archive.maherpublications.com/view/1004884910/2/",
+      "site_id": "jazztokyo",
+      "crawl_status": "ok",
+      "type": "feature"
+    }
+  ]
+}
