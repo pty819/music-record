@@ -171,7 +171,31 @@ def main():
 
     all_items = []
     try:
-        time.sleep(3)  # Extra time for full render
+        # CF challenge fast-exit: wait 15s, then check title + product count.
+        # If still on "Just a moment" or 0 products, bail out early — no retry.
+        sys.stderr.write("Waiting 15s for CF challenge to clear...\n")
+        time.sleep(15)
+        cf_check_js = "document.title + '|' + document.querySelectorAll('.listing2__product').length"
+        try:
+            cf_resp = api("POST", f"/tabs/{tab_id}/evaluate", {"expression": cf_check_js})
+            cf_state = str(cf_resp.get("result", ""))
+            sys.stderr.write(f"CF check: {cf_state}\n")
+            if "Just a moment" in cf_state or cf_state.endswith("|0"):
+                sys.stderr.write("CF challenge still active — fast-exit, 0 items\n")
+                result = {
+                    "meta": {
+                        "total": 0,
+                        "scraped_at": today.isoformat(),
+                        "cutoff_date": cutoff_date.isoformat(),
+                        "cf_blocked": True,
+                        "site": SITE_ID,
+                    },
+                    "items": [],
+                }
+                print(json.dumps(result, indent=2, ensure_ascii=False))
+                return
+        except Exception as e:
+            sys.stderr.write(f"CF check error (continuing): {e}\n")
 
         # Step 2: Extract products
         all_products_raw = []
