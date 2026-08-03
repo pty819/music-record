@@ -1,0 +1,35 @@
+PoD scraper — Now: 2026-08-03T20:03:37.125238+00:00, Ref: 2026-08-03, Cutoff: 2026-08-02, Days: 1.5
+Found 8 anchors on listing page
+Article URLs to fetch (7):
+  - https://pointofdeparture.org/PoD95/PoD95PageOne.html
+  - https://pointofdeparture.org/PoD95/PoD95Hanes.html
+  - https://pointofdeparture.org/PoD95/PoD95Henkin.html
+  - https://pointofdeparture.org/PoD95/PoD95Ezz-thetics.html
+  - https://pointofdeparture.org/PoD95/PoD95Leroy.html
+  - https://pointofdeparture.org/PoD95/PoD95MomentsNotice.html
+  - https://pointofdeparture.org/PoD95/PoD95MoreMoments2.html
+
+[1/7] https://pointofdeparture.org/PoD95/PoD95PageOne.html
+  title='Page One' paragraphs=40
+
+[2/7] https://pointofdeparture.org/PoD95/PoD95Hanes.html
+  title='Simon Hanes: Transgressive Obsession' paragraphs=92
+
+[3/7] https://pointofdeparture.org/PoD95/PoD95Henkin.html
+  title='Bass on Top' paragraphs=26
+
+[4/7] https://pointofdeparture.org/PoD95/PoD95Ezz-thetics.html
+  title='Ezz-thetics' paragraphs=21
+
+[5/7] https://pointofdeparture.org/PoD95/PoD95Leroy.html
+  title='Legends In Their Own Lunchtime : An Exploration Of The Canterbury Scene' paragraphs=27
+
+[6/7] https://pointofdeparture.org/PoD95/PoD95MomentsNotice.html
+  title="Moment's Notice" paragraphs=12
+
+[7/7] https://pointofdeparture.org/PoD95/PoD95MoreMoments2.html
+  title="Moment's Notice (page 2)" paragraphs=34
+Wrote /home/liyifan/music-record/2026/08/2026-08-04/point_of_departure_reviews.json
+
+Total: 10 items
+Closed 8 tabs

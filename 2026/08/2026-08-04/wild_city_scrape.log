@@ -1,0 +1,61 @@
+Wild City scraper - Today: 2026-08-03, Cutoff: 2026-08-02, Pages: 2
+Creating tab and navigating to /news...
+
+=== Listing page 1: https://www.thewildcity.com/news ===
+Found 15 sidebar items, 20 anchors on page 1
+
+=== Listing page 2: https://www.thewildcity.com/news?offset=10 ===
+Found 15 sidebar items, 25 anchors on page 2
+
+Total unique article candidates (after date/podcast/non-music filters): 16
+
+[1/16] id=21768 https://www.thewildcity.com/news/21768-watch-ayaan-ali-bangash-saif-ali-khan-vir-das-more-discuss-ambition-craft-identity-for-rotoris-room (known_date=2026-08-02)
+ OK - Watch: Ayaan Ali Bangash, Saif Ali Khan, Vir Das & More Disc... (2026-08-02, 1856 chars)
+
+[2/16] id=21753 https://www.thewildcity.com/news/21753-slowspin-introduces-new-album-afterimage-with-new-single-phantom-weight (known_date=None)
+ SKIP (body date 2026-07-15 before cutoff 2026-08-02)
+
+[3/16] id=21749 https://www.thewildcity.com/news/21749-tyrell-dub-corp-dials-up-the-latter-bit-in-dub-techno-on-mk618 (known_date=None)
+ SKIP (body date 2026-07-08 before cutoff 2026-08-02)
+
+[4/16] id=21746 https://www.thewildcity.com/news/21746-anish-kumar-concludes-4-ep-anthology-ak-cuts (known_date=None)
+ SKIP (body date 2026-07-07 before cutoff 2026-08-02)
+
+[5/16] id=21735 https://www.thewildcity.com/news/21735-anoushka-maskey-bamboy-rudy-mukta-more-feature-on-live-compilation-album-not-dead-yet-it-s-alive-compilation-vol-1 (known_date=None)
+ SKIP (body date 2026-07-01 before cutoff 2026-08-02)
+
+[6/16] id=21732 https://www.thewildcity.com/news/21732-smiti-malik-lets-the-songwriting-lead-on-sad-songs-for-a-sunday (known_date=None)
+ SKIP (body date 2026-06-25 before cutoff 2026-08-02)
+
+[7/16] id=21722 https://www.thewildcity.com/news/21722-after-years-of-takedowns-madstarbase-s-edits-receive-saregama-s-backing (known_date=None)
+ SKIP (body date 2026-06-12 before cutoff 2026-08-02)
+
+[8/16] id=21719 https://www.thewildcity.com/news/21719-jazz-fusion-12-piece-in-between-sessions-shows-that-bigger-doesn-t-mean-not-intimate-on-debut-ep (known_date=None)
+ SKIP (body date 2026-06-11 before cutoff 2026-08-02)
+
+[9/16] id=21716 https://www.thewildcity.com/news/21716-zokhuma-hiranya-m-more-release-new-hypnotic-techno-as-part-of-dh-ra (known_date=None)
+ SKIP (body date 2026-06-10 before cutoff 2026-08-02)
+
+[10/16] id=21712 https://www.thewildcity.com/news/21712-compos-mentis-15-musicians-to-get-community-funded-one-to-one-mental-health-support (known_date=None)
+ SKIP (body date 2026-06-09 before cutoff 2026-08-02)
+
+[11/16] id=21708 https://www.thewildcity.com/news/21708-treble-puns-release-a-concept-album-alternating-between-comical-skits-sombre-post-rock-jams (known_date=None)
+ SKIP (body date 2026-06-04 before cutoff 2026-08-02)
+
+[12/16] id=21705 https://www.thewildcity.com/news/21705-watch-delhi-s-synth-communities-represent-at-antariksh-records-kissa-in-store-radio (known_date=None)
+ SKIP (body date 2026-06-03 before cutoff 2026-08-02)
+
+[13/16] id=21702 https://www.thewildcity.com/news/21702-i7hvn-reckons-with-avant-garde-techno-on-priests-of-decay (known_date=None)
+ SKIP (body date 2026-05-29 before cutoff 2026-08-02)
+
+[14/16] id=21699 https://www.thewildcity.com/news/21699-mon-s-debut-album-lucid-dreams-moves-between-techno-breakbeats-industrial-noise (known_date=None)
+ SKIP (body date 2026-05-26 before cutoff 2026-08-02)
+
+[15/16] id=21696 https://www.thewildcity.com/news/21696-noni-mouse-makes-her-hindi-debut-with-2-step-bop-sun-lo (known_date=None)
+ SKIP (body date 2026-05-21 before cutoff 2026-08-02)
+
+[16/16] id=21693 https://www.thewildcity.com/news/21693-reble-returns-to-her-aggressive-trap-roots-with-praying-mantis-after-bollywood-breakthrough (known_date=None)
+ SKIP (body date 2026-05-20 before cutoff 2026-08-02)
+
+Total: 1 items
+Closed tab a695c4e2-8f91-4e10-a2b8-8957a7e41d9e
