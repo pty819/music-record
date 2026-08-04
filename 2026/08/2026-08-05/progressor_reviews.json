@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-04T20:12:02.356140+00:00",
+    "cutoff_date": "2026-08-03T08:12:02.356140+00:00",
+    "notes": "ProgressoR is a monthly-updated static archive (no RSS). Homepage states Latest update: June 30, 2026 / Next update: August 5, 2026 (pending at scrape time). All 40 review pages filed under 2026 albums are dated Jan-Jun 2026 (review issue dates, month granularity); no July/Aug 2026 reviews exist on the site yet. Nothing within 36h window -> empty result."
+  },
+  "items": []
+}
