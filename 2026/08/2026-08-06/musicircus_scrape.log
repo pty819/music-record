@@ -1,0 +1,26 @@
+  Cutoff: 2026-08-04 (1.5 days ago)
+  Max items: 20
+  Creating tab for https://musicircus.on.coocan.jp/...
+  Tab 404fc26f-577d-4f57-8d4a-3af7e4a4683a created, waiting for page load...
+  No cookie wall detected.
+  Waiting 2s before probing DOM...
+  Page HTML length: 0 chars
+  WARN: HTML suspiciously short, retrying with longer wait...
+  Page HTML length (retry): 0 chars
+  HTML still empty — re-probing tab liveness...
+  Found 2 entries in Update table
+  Recent entries within cutoff: 0
+  Closed tab 404fc26f-577d-4f57-8d4a-3af7e4a4683a
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-05T20:03:46+00:00",
+    "cutoff_date": "2026-08-04T08:03:46.709867+00:00",
+    "hours_scanned": 36.0,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok"
+  },
+  "items": []
+}

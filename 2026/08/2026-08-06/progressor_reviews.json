@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-05T20:04:36+00:00",
+    "cutoff_date": "2026-08-04T08:04:36+00:00",
+    "notes": "ProgressoR is a monthly-updated static archive (no RSS, no JS). Homepage states Latest update: June 30, 2026 / Next update: August 6, 2026 (not yet published at scrape time). All detailed + short reviews and news items are dated 30.VI+ (June 30, 2026); the only newer dated item is one news entry 31.VII+ (July 31) and a Jon Anderson interview 24.VII+ (July 24) — all outside the 36h window (cutoff 2026-08-04T08:04 UTC). News subpage is a static June-2017 archive; forthcoming-reviews page lists undated upcoming titles. Nothing within 36h -> empty result."
+  },
+  "items": []
+}
