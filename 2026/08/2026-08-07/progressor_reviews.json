@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-06T20:02:36.520126+00:00",
+    "cutoff_date": "2026-08-05T08:02:36.520126+00:00",
+    "site": "progressor",
+    "pages_crawled": 2,
+    "candidates_checked": 163,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 6,
+    "fetch_errors": 0,
+    "note": "Camoufox incompatible (TLS 1.0 + self-signed cert); used direct HTTP. Homepage banner reads 'Latest update: July 31, 2026 / Next update: August 31, 2026' — the site publishes monthly, so the newest reviews are dated 01.VII (July 2026), all outside the 36h cutoff (2026-08-05T08:02 UTC). Empty result is expected, not an error."
+  },
+  "items": []
+}
