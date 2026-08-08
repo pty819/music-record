@@ -1,0 +1,42 @@
+PoD scraper — Now: 2026-08-08T20:05:02.120094+00:00, Ref: 2026-08-08, Cutoff: 2026-08-07, Days: 1.5
+Found 8 anchors on listing page
+Article URLs to fetch (7):
+  - https://pointofdeparture.org/PoD95/PoD95PageOne.html
+  - https://pointofdeparture.org/PoD95/PoD95Hanes.html
+  - https://pointofdeparture.org/PoD95/PoD95Henkin.html
+  - https://pointofdeparture.org/PoD95/PoD95Ezz-thetics.html
+  - https://pointofdeparture.org/PoD95/PoD95Leroy.html
+  - https://pointofdeparture.org/PoD95/PoD95MomentsNotice.html
+  - https://pointofdeparture.org/PoD95/PoD95MoreMoments2.html
+
+[1/7] https://pointofdeparture.org/PoD95/PoD95PageOne.html
+  title='Page One' paragraphs=40
+
+[2/7] https://pointofdeparture.org/PoD95/PoD95Hanes.html
+  title='Simon Hanes: Transgressive Obsession' paragraphs=92
+
+[3/7] https://pointofdeparture.org/PoD95/PoD95Henkin.html
+  title='Bass on Top' paragraphs=26
+
+[4/7] https://pointofdeparture.org/PoD95/PoD95Ezz-thetics.html
+  title='Ezz-thetics' paragraphs=21
+
+[5/7] https://pointofdeparture.org/PoD95/PoD95Leroy.html
+[ERROR] HTTP 410 on POST /tabs/1b3de3c0-7b4d-4c7d-8c2a-5d174bfb034d/evaluate: {"error":"Tab no longer exists (browser was restarted). Create a new tab.","code":"browser_restarted"}
+  ERROR evaluating https://pointofdeparture.org/PoD95/PoD95Leroy.html: HTTP Error 410: Gone
+
+[6/7] https://pointofdeparture.org/PoD95/PoD95MomentsNotice.html
+[ERROR] HTTP 503 on POST /tabs: {"error":"Browser session expired. Retry to get a fresh session.","code":"session_expired","retryable":true,"recovery":"retry"}
+[WARN] POST /tabs attempt 1 failed: HTTP Error 503: Service Unavailable
+[ERROR] HTTP 410 on POST /tabs/4057ba7b-985c-4fd0-965b-224d7666a7d5/evaluate: {"error":"Tab no longer exists (browser was restarted). Create a new tab.","code":"browser_restarted"}
+[WARN] tab 4057ba7b-985c-4fd0-965b-224d7666a7d5 sanity-check failed: HTTP Error 410: Gone
+[WARN] fresh tab 4057ba7b-985c-4fd0-965b-224d7666a7d5 failed sanity check; closing
+[ERROR] All 2 tab-creation attempts failed: HTTP Error 503: Service Unavailable
+  ERROR: could not open tab for https://pointofdeparture.org/PoD95/PoD95MomentsNotice.html
+
+[7/7] https://pointofdeparture.org/PoD95/PoD95MoreMoments2.html
+  title="Moment's Notice (page 2)" paragraphs=34
+Wrote /home/liyifan/music-record/2026/08/2026-08-09/point_of_departure_reviews.json
+
+Total: 10 items
+Closed 7 tabs

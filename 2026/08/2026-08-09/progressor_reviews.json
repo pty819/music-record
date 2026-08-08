@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-08T20:07:14+00:00",
+    "cutoff_date": "2026-08-07T08:07:14+00:00",
+    "site": "progressor",
+    "pages_crawled": 0,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "fetch_errors": 0,
+    "transport": "direct_http_tls1.0",
+    "note": "Site is monthly. Homepage banner reads 'Latest update: July 31, 2026 / Next update: August 31, 2026'. All visible reviews are dated 31.VII or 24.VII (July 2026), 9+ days before today (2026-08-09) — outside the 36h cutoff. No forthcoming entries are dated within the window either. Empty result is the correct deterministic outcome; no retry, no error. Skipped browser path (Camoufox is TLS-incompatible with progressor.net, per prior runs)."
+  },
+  "items": []
+}
