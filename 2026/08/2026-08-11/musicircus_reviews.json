@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-10T20:05:00+00:00",
+    "cutoff_date": "2026-08-09T08:05:00+00:00",
+    "site": "musicircus",
+    "pages_crawled": 2,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "fetch_errors": 0,
+    "note": "Static FrontPage Express site (0 script tags, no cookie wall, no RSS). Homepage '最新更新 Latest Update' index is the authoritative recency list: newest entry is 2026.4.30 (rovamimi information 009 / i_009.htm), ~100 days outside the 36h cutoff. Hero cards are 2025-08-17 and 2025-07-05 concert events. Archive page (main/) has nothing newer than 2011. Checked i_010..i_012.htm -> 404. Low-frequency site; 36h window empty by design."
+  },
+  "items": []
+}

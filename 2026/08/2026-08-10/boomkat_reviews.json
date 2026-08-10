@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-09T20:13:00+00:00",
+    "cutoff_date": "2026-08-08T08:13:00+00:00",
+    "site": "boomkat",
+    "hours_scanned": 36,
+    "pages_crawled": 0,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "no_date_skipped": 0,
+    "fetch_errors": 0,
+    "status": "blocked",
+    "note": "boomkat.com unreachable at scrape time (2026-08-10): TLS handshake fails with SSL_ERROR_SYSCALL from host (curl) and openssl s_client; Camoufox tab navigated but rendered Firefox 'Warning: Security Risk' error page (body len 0). DNS resolves to 28.0.0.174 via the local interception tunnel. Host-level check confirms all external HTTPS (example.com, thewildcity.com, google, github) fails the same way today while baidu works — local network egress issue, not site-specific and not a Cloudflare challenge (no Turnstile page observed, no 'Just a moment' title). POST /tabs returned 500/503 transiently during browser restart churn (browser_restarted 410, shared Camoufox server). Returned [] per empty-result rule; no retry."
+  },
+  "items": []
+}

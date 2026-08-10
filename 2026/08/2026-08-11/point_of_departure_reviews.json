@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-10T20:05:00+00:00",
+    "cutoff_date": "2026-08-09T08:05:00+00:00",
+    "site": "point_of_departure",
+    "hours_scanned": 36,
+    "pages_crawled": 3,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 6,
+    "no_date_skipped": 0,
+    "fetch_errors": 0,
+    "status": "ok",
+    "note": "Point of Departure is a quarterly journal (no RSS, no news section). Current issue = Issue 95, June 2026 (Content.html confirms 'Issue 95 - June 2026'; Archive.html lists Issue 94 - March 2026 as last archived, Issue 95 commented out pending next issue). All 6 current-issue entries (PoD95PageOne, PoD95Hanes, PoD95Henkin, PoD95Ezz-thetics, PoD95BookCooks, PoD95MomentsNotice + 2 'More Moment's Notice' pages) are dated June 2026 — ~6 weeks outside the 36h window. Verified via direct HTTP (all 200): static server-rendered XHTML, no cookie wall, no paywall. Per empty-result rule, output [] with no retry."
+  },
+  "items": []
+}

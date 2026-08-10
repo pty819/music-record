@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-10T04:27:00+00:00",
+    "cutoff_date": "2026-08-08T04:27:00+00:00",
+    "hours_scanned": 36.0,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "blocked",
+    "notes": "Host-wide egress failure 2026-08-10: all 5 Clash proxy nodes dead (mihomo API alive=False, delay=0ms), MATCH->PROXY has no working node; DNS fake-ips to 28.0.0.167 via TUN. musicircus unreachable via DIRECT (delay-test error) and PROXY (Timeout); Camoufox renders Firefox 'Warning: Security Risk' page, browser restart churn (410). Same failure as jazztokyo/progressor/boomkat/wild_city/point_of_departure; baidu OK. Not site-specific, not paywall/CF."
+  },
+  "items": []
+}

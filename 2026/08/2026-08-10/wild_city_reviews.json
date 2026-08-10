@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-09T20:18:43+00:00",
+    "cutoff_date": "2026-08-08T08:18:43+00:00",
+    "site": "wild_city",
+    "hours_scanned": 36,
+    "pages_crawled": 0,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "no_date_skipped": 0,
+    "fetch_errors": 3,
+    "status": "blocked",
+    "note": "thewildcity.com unreachable at scrape time (2026-08-10): DNS resolves via local Clash TUN fake-ip to 28.0.0.150; TCP connect succeeds but TLS handshake is reset (SSL_ERROR_SYSCALL) from host curl and through Camoufox. Root cause is a host-wide network egress issue, not site-specific: all 5 Clash proxy nodes (amer1-anytls, amer1-vless-reality-vision, amer1-hysteria2, hysteria-Amsterdam, hysteria-Toronto) fail delay tests against gstatic and thewildcity.com (Timeout/error), so the MATCH->PROXY rule has no working node; mihomo's internal DIRECT path DOES reach the site (951ms delay) but browser traffic cannot be forced DIRECT without editing the user's Clash config mid-swarm (would disrupt 4 concurrent sibling workers), and mixed-port DIRECT@ override is not honored. Confirmed same failure pattern for jazztokyo, progressor, boomkat, example.com, google, github — baidu works. Wild City is a low-frequency publication (prior days: 0 items in 36h window), so an empty result is consistent. Returned [] per empty-result/blocked rule; no retry."
+  },
+  "items": []
+}

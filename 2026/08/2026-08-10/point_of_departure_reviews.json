@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-09T20:25:00+00:00",
+    "cutoff_date": "2026-08-08T08:25:00+00:00",
+    "site": "point_of_departure",
+    "hours_scanned": 36,
+    "pages_crawled": 0,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "no_date_skipped": 0,
+    "fetch_errors": 3,
+    "status": "blocked",
+    "note": "pointofdeparture.org unreachable at scrape time (2026-08-10): host-wide network egress failure, not site-specific. All external HTTPS from host fails today (example.com/google.com/github all SSL_ERROR_SYSCALL / http 000; baidu OK). DNS resolves via local Clash TUN fake-ip to 28.0.0.173; Camoufox tab navigated but rendered Firefox 'Warning: Security Risk' cert-error page (body len 0, DOM empty — not a real PoD page). All 5 Clash proxy nodes dead (amer1-anytls, amer1-hysteria2, amer1-vless-reality-vision, hysteria-Amsterdam, hysteria-Toronto all alive=False, delay=0ms via mihomo unix-socket API); MATCH->PROXY has no working node. Same failure pattern reported by sibling workers for jazztokyo, progressor, boomkat, wild_city. Tavily/external extractor also failing SSL on this and other sites. Returned [] per empty-result/blocked rule; no retry."
+  },
+  "items": []
+}

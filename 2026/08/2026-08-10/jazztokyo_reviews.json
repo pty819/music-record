@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-09T20:12:00+00:00",
+    "cutoff_date": "2026-08-08T08:03:07.377645+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "no_date_skipped": 0,
+    "fetch_errors": 0,
+    "status": "blocked",
+    "note": "Site unreachable at scrape time: TLS handshake reset (SSL_ERROR_SYSCALL) on https://jazztokyo.org/ and /feed/ from this host (3 attempts) and external extractor (UNEXPECTED_EOF_WHILE_READING). Camoufox tab navigated but rendered Firefox 'Warning: Security Risk' error page (body len 0), then browser restarted (410). Site-side outage, not Cloudflare challenge and not a cookie wall. Returned [] per empty-result rule."
+  },
+  "items": []
+}

@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-09T20:05:34+00:00",
+    "cutoff_date": "2026-08-08T08:05:34+00:00",
+    "site": "progressor",
+    "pages_crawled": 0,
+    "candidates_checked": 0,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 0,
+    "fetch_errors": 2,
+    "transport": "direct_http_tls1.0",
+    "note": "progressor.net unreachable from this host today (2026-08-10): TCP connect succeeds but server closes with empty reply ('Remote end closed connection without response') on both index.html and history_short.html across 8+ retries over ~3 minutes; host-level network check confirms other external sites (google/github) also fail through the local 28.0.0.x interception tunnel, while the site was reachable in yesterday's run. Site is monthly regardless: prior run (2026-08-09) banner read 'Latest update: July 31, 2026 / Next update: August 31, 2026' — newest reviews are dated 31.VII, 10 days before today, outside the 36h cutoff. Empty result is the correct deterministic outcome; no retry, no error. Skipped browser path (Camoufox is TLS-incompatible with progressor.net, per prior runs)."
+  },
+  "items": []
+}

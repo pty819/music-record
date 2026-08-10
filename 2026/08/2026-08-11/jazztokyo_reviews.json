@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-08-10T20:04:15.971696+00:00",
+    "cutoff_date": "2026-08-09T08:04:15.971696+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 30,
+    "in_window_count": 1,
+    "non_music_skipped": 0,
+    "old_skipped": 29,
+    "no_date_skipped": 0,
+    "fetch_errors": 0
+  },
+  "items": [
+    {
+      "album": "豪州７都市を巡回「Japan Jazz Nights」 「日豪友好協力基本条約」署名50周年記念",
+      "artist": "",
+      "score": null,
+      "url": "https://jazztokyo.org/news/post-124373/",
+      "source": "JazzTokyo",
+      "pub_date": "2026-08-11T00:41:27+09:00",
+      "tags": "jazz,free improvisation,free jazz,japanese jazz",
+      "excerpt": "INTERNATIONAL（海外） NEWS 豪州７都市を巡回「Japan Jazz Nights」 「日豪友好協力基本条約」署名50周年記念 2026年8月11日 編集部  「日豪友好協力基本条約」署名50周年を記念し2026年10月にオーストラリア７都市（アデレード、キャンベラ、シドニー、ホバート、パース、ブリスベン、メルボルン）を巡るジャズ巡回公演「Japan Jazz Nights」が予定されている。  この公演には、国際的にも注目を集める４組のアーティスト（BIGYUKI、STEREO CHAMP、Tenors In Chaos、梅井美咲）が出演、公演では一部、現地のアーティストとのコラボレーションも予定されており、音楽を通じて両国の相互理解を深め、日豪間の文化交流のさらなる発展を目指しているという。国際交流基金の交流事業の一環として実施される  Big Yuki Stereo Champ Tenors in Chaos 梅井美咲  詳細は下記の通り； https://prtimes.jp/main/html/rd/p/000000060.000079420.html",
+      "body": "INTERNATIONAL（海外）\nNEWS\n豪州７都市を巡回「Japan Jazz Nights」\n「日豪友好協力基本条約」署名50周年記念\n2026年8月11日\n編集部\n\n「日豪友好協力基本条約」署名50周年を記念し2026年10月にオーストラリア７都市（アデレード、キャンベラ、シドニー、ホバート、パース、ブリスベン、メルボルン）を巡るジャズ巡回公演「Japan Jazz Nights」が予定されている。\n\nこの公演には、国際的にも注目を集める４組のアーティスト（BIGYUKI、STEREO CHAMP、Tenors In Chaos、梅井美咲）が出演、公演では一部、現地のアーティストとのコラボレーションも予定されており、音楽を通じて両国の相互理解を深め、日豪間の文化交流のさらなる発展を目指しているという。国際交流基金の交流事業の一環として実施される\n\nBig Yuki\nStereo Champ\nTenors in Chaos\n梅井美咲\n\n詳細は下記の通り；\nhttps://prtimes.jp/main/html/rd/p/000000060.000079420.html",
+      "site_id": "jazztokyo",
+      "crawl_status": "ok",
+      "type": "feature"
+    }
+  ]
+}
