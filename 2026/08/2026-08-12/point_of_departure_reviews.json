@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-11T20:03:56.458154+00:00",
+    "cutoff_date": "2026-08-10T00:00:00+00:00",
+    "site": "point_of_departure",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 10,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 10,
+    "no_date_skipped": 0,
+    "fetch_errors": 0,
+    "status": "ok",
+    "note": "Point of Departure is a quarterly journal (no RSS, no news section). Current issue = Issue 95, June 2026 (Content.html confirms PoD95 still current; no PoD96 yet). All 10 scraped entries (4 features: PageOne/Hanes/Henkin/Ezz-thetics; 1 book review: Leroy; 5 Moment's Notice reviews incl. 4 from MoreMoments2 aggregator) are dated 2026-06 — ~6.5 weeks outside the 36h window. No cookie wall, no paywall, no Cloudflare (static server-rendered XHTML verified via Camoufox). Per empty-result rule, output [] with no retry."
+  },
+  "items": []
+}

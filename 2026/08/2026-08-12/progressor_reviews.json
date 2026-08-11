@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-12T04:04:00Z",
+    "cutoff_date": "2026-08-10T16:04:00Z",
+    "site": "progressor",
+    "site_url": "http://www.progressor.net/",
+    "hours_scanned": "36",
+    "note": "ProgressoR is a monthly-update static HTML site. Homepage states 'Latest update: July 31, 2026' / 'Next update: August 31, 2026'. All detailed and short reviews on the homepage are dated 31.VII+ (July 31, 2026), 12 days before the 36h window (2026-08-10 16:04 UTC). History pages (history_detailed.html / history_short.html) index back through 2025 with nothing newer. No RSS feed exists (flat HTML, no /feed, /rss, or feeds/* endpoints). Site reachable over plain HTTP (200, 32KB); HTTPS fails TLS handshake. No cookie wall, no JS rendering, no paywall — plain curl sufficient, no Camoufox needed."
+  },
+  "items": []
+}

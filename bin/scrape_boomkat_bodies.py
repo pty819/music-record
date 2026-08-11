@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 
 CAMOFOX_BASE = "http://127.0.0.1:9377"
 BATCH_SIZE = 25  # Stay well under the 42-visit crash threshold
+USER_ID = "scraper_boomkat"
+SESSION_KEY = "session_bk"
 
 GET_PRODUCT_BODY_JS = """
 () => {
@@ -54,10 +56,15 @@ GET_PRODUCT_BODY_JS = """
 
 def _api(method, path, body=None):
     url = f"{CAMOFOX_BASE}{path}"
-    data = json.dumps(body).encode("utf-8") if body else None
+    if body is None:
+        body = {}
+    # Every camofox endpoint requires userId AND sessionKey (HTTP 400 otherwise).
+    if "userId" not in body:
+        body = {**body, "userId": USER_ID, "sessionKey": SESSION_KEY}
+    data = json.dumps(body).encode("utf-8")
     req = urllib.request.Request(
         url, data=data, method=method,
-        headers={"Content-Type": "application/json"} if data else {},
+        headers={"Content-Type": "application/json"},
     )
     try:
         with urllib.request.urlopen(req, timeout=60) as resp:
