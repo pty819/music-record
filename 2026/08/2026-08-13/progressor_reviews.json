@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-12T20:04:59.172108+00:00",
+    "cutoff_date": "2026-08-11T08:04:59.172108+00:00",
+    "site": "progressor",
+    "hours_scanned": "36",
+    "pages_crawled": 2,
+    "candidates_checked": 163,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 6,
+    "fetch_errors": 0,
+    "note": "ProgressoR is a monthly-update static HTML site. Homepage banner reads 'Latest update: July 31, 2026 / Next update: August 31, 2026'. All 45 homepage + 118 history_short candidate links are pub-dated 2026-07-01 or earlier (month-granularity, first-of-month) — 13+ days before the 36h cutoff (2026-08-11T08:04:59Z). 6 candidates checked (early-stop after 3 consecutive old per source), 0 non-music, 0 fetch errors. No RSS feed (flat HTML). Camoufox cannot connect (TLS 1.0 + self-signed cert); used direct HTTP."
+  },
+  "items": []
+}

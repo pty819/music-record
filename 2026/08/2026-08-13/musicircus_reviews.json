@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-12T20:04:59+00:00",
+    "cutoff_date": "2026-08-11T08:04:59.131469+00:00",
+    "hours_scanned": 36.0,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "pages_crawled": 1,
+    "candidates_checked": 2,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 2,
+    "fetch_errors": 0,
+    "crawl_status": "ok",
+    "note": "Static FrontPage Express site (no RSS, no cookie wall). Homepage Update index is the authoritative recency list: newest entry is 2026.4.30 (~104 days before scrape, outside 36h cutoff); 2 table entries checked, both pre-cutoff. Verified via direct HTTP fetch of homepage: newest date 2026.4.30, then 2025.12.9, 2025.9.3. Low-frequency site; 36h window empty by design."
+  },
+  "items": []
+}
