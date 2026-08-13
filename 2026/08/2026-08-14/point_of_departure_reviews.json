@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-13T20:04:00+00:00",
+    "cutoff_date": "2026-08-12T08:04:00+00:00",
+    "site": "point_of_departure",
+    "hours_scanned": 36,
+    "pages_crawled": 1,
+    "candidates_checked": 6,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 6,
+    "no_date_skipped": 0,
+    "fetch_errors": 0,
+    "status": "ok",
+    "note": "Point of Departure is a quarterly journal (no RSS, no news section). Current issue = Issue 95, June 2026 (Content.html still lists PoD95 as current; no PoD96 yet). Site header Last-Modified=2026-06-02T14:35:39Z confirms no new content. Listing = 1 page only (Content.html lists 6 uncommented entries: 4 features PageOne/Hanes/Henkin/Ezz-thetics, 1 book review Leroy, 1 Moment's Notice index). The MoreMoments2 aggregator URL that yesterday's run cited no longer resolves (HTTP 404); the single Moment's Notice page itself is last-modified 2026-06-10. All 6 candidates are dated 2026-06 — ~8 weeks outside the 36h window. No cookie wall, no paywall, no Cloudflare (static server-rendered XHTML verified via curl + Content-Type header). Per empty-result rule, output [] with no retry."
+  },
+  "items": []
+}
