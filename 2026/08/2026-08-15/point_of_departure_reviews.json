@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-14T20:03:50+00:00",
+    "cutoff_date": "2026-08-13T08:03:50+00:00",
+    "site": "point_of_departure",
+    "hours_scanned": 36,
+    "pages_crawled": 1,
+    "candidates_checked": 10,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 10,
+    "no_date_skipped": 0,
+    "fetch_errors": 0,
+    "status": "ok",
+    "issue": "PoD95",
+    "issue_date": "June 2026",
+    "note": "Point of Departure is a quarterly journal (no RSS, no news section). Current issue = Issue 95, June 2026 (Content.html lists PoD95 as current; no PoD96 yet). Site header Last-Modified=2026-06-02T14:35:39Z confirms no new content. All 10 candidates are dated 2026-06 (within PoD95 issue but ~10 weeks outside the 36h window). No cookie wall, no paywall, no Cloudflare. Per empty-result rule, output [] with no retry."
+  },
+  "items": []
+}

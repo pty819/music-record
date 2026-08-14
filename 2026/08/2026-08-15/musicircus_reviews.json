@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-14T20:19:43+00:00",
+    "cutoff_date": "2026-08-13T08:19:43.390830+00:00",
+    "hours_scanned": 36,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "notes": "Site updates sporadically (Japanese personal jazz/avant-garde blog). Newest entry on home page is 2026.4.30 — well outside 36h window. Same state as 2026-08-10 through 2026-08-14 runs. Empty result is correct."
+  },
+  "items": []
+}

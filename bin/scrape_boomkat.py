@@ -201,13 +201,40 @@ def main():
         all_products_raw = []
         seen_urls = set()
 
+        def _recreate_tab(current_url):
+            """On 410 browser_restarted: close any leftover tab, open a fresh one."""
+            try:
+                api("DELETE", f"/tabs/{tab_id}")
+            except Exception:
+                pass
+            tab_resp = api("POST", "/tabs", {"url": current_url})
+            return tab_resp.get("tabId")
+
         for page_num in range(1, pages + 1):
-            sys.stderr.write(f"\n=== Page {page_num} ===\n")
+            page_url = f"{NEW_RELEASES_URL}?show=100" if page_num == 1 else f"{NEW_RELEASES_URL}?show=100&page={page_num}"
+            sys.stderr.write(f"\n=== Page {page_num} ({page_url}) ===\n")
             if page_num > 1:
-                api("POST", f"/tabs/{tab_id}/navigate", {"url": f"{NEW_RELEASES_URL}?show=100&page={page_num}"})
+                try:
+                    api("POST", f"/tabs/{tab_id}/navigate", {"url": page_url})
+                except urllib.error.HTTPError as e:
+                    if e.code == 410:
+                        sys.stderr.write("Tab gone (410) on navigate — recreating\n")
+                        tab_id = _recreate_tab(page_url)
+                        time.sleep(15)  # CF wait for new tab
+                    else:
+                        raise
                 time.sleep(3)
 
-            resp = api("POST", f"/tabs/{tab_id}/evaluate", {"expression": EXTRACT_PRODUCTS_JS})
+            try:
+                resp = api("POST", f"/tabs/{tab_id}/evaluate", {"expression": EXTRACT_PRODUCTS_JS})
+            except urllib.error.HTTPError as e:
+                if e.code == 410:
+                    sys.stderr.write("Tab gone (410) on evaluate — recreating\n")
+                    tab_id = _recreate_tab(page_url)
+                    time.sleep(15)
+                    resp = api("POST", f"/tabs/{tab_id}/evaluate", {"expression": EXTRACT_PRODUCTS_JS})
+                else:
+                    raise
             raw_result = resp.get("result")
             if isinstance(raw_result, str):
                 products = json.loads(raw_result)
