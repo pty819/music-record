@@ -1823,20 +1823,20 @@
       "id": "truth_and_lies_music",
       "name": "Truth & Lies Music",
       "homepage": "https://www.truthandliesmusic.com/",
-      "rss_url": null,
-      "reviews_url": "https://www.truthandliesmusic.com/",
-      "has_rss": false,
+      "rss_url": "https://www.truthandliesmusic.com/magazine?format=rss",
+      "reviews_url": "https://www.truthandliesmusic.com/magazine",
+      "has_rss": true,
       "tier": "B",
       "crawl_frequency": "weekly",
       "parser_hint": {
-        "notes": "无 RSS，Playwright headed 模式"
+        "notes": "Squarespace 站，RSS 用 ?format=rss 查询参数（不是 /feed/）。2026-08-16 实测 feed 活跃（最新 2026-06-25），但当前出口 IP 被墙访问不了，换干净 IP 后自动恢复"
       },
       "tags": [
         "free jazz",
         "improvised music",
         "adventurous jazz"
       ],
-      "notes": "小而精的补充雷达"
+      "notes": "小而精的补充雷达。Squarespace 建站（images.squarespace-cdn.com），RSS: /magazine?format=rss"
     },
     {
       "id": "jazz_journal",

@@ -79,7 +79,6 @@ HTML_SCRIPT_IDS = frozenset({
     "songlines",                   # scrape_songlines.py
     "squids_ear",                  # scrape_squids_ear.py
     "strangely_isolated_place",    # scrape_strangely_isolated_place.py
-    "truth_and_lies_music",        # scrape_truth_and_lies_music.py,
     "mikiki",              # scrape_mikiki.py
 })
 

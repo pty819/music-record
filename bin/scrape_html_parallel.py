@@ -35,7 +35,6 @@ SCRIPTS = [
     ("scrape_songlines",             "songlines",                "stdout"),
     ("scrape_squids_ear",            "squids_ear",               "stdout"),
     ("scrape_strangely_isolated_place", "strangely_isolated_place", "stdout"),
-    ("scrape_truth_and_lies_music",  "truth_and_lies_music",     "stdout"),
 ]
 # NOTE: world_music_central 已迁移到 RSS 层（has_rss=True），不走 HTML 层。
 # 若从 sites.json 移除 has_rss，需重新加回 SCRIPTS 并同步 kanban-swarm.py HTML_SCRIPT_IDS。
