@@ -139,7 +139,8 @@ def main():
         top_k=args.top_k if args.top_k > 0 else None,
     )
 
-    output_path = Path.cwd() / "recommend" / f"{args.date}.md"
+    # 输出路径：recommend/YYYY/MM/YYYY-MM-DD.md（年-月-日三层，2026-08-16 用户要求）
+    output_path = Path.cwd() / "recommend" / args.date[:4] / args.date[5:7] / f"{args.date}.md"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(md, encoding="utf-8")
 

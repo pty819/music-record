@@ -302,13 +302,13 @@ if warns:
     print('后续 Telegram 推送应包含这些告警')
 "
 
-Step 2: 生成推荐 markdown → recommend/{DATE}.md
+Step 2: 生成推荐 markdown → recommend/YYYY/MM/{DATE}.md
 python3 bin/generate_report.py \\
   --date-dir "2026/$(date +%m)/$(date +%Y-%m-%d)" \\
   -i processed.json \\
   --date "$(date +%Y-%m-%d)"
 
-验证: recommend/$(date +%Y-%m-%d).md 存在
+验证: recommend/$(date +%Y)/$(date +%m)/$(date +%Y-%m-%d).md 存在
 
 Step 2.5: 上库前清理检查 — 确认 processed.json 无 <=2 分条目
 cd /home/liyifan/music-record
@@ -338,7 +338,7 @@ if [ "$PUSH_EXIT" != "0" ]; then
 fi
 
 Step 4: Telegram 推送
-读取 /home/liyifan/music-record/recommend/$(date +%Y-%m-%d).md 内容
+读取 /home/liyifan/music-record/recommend/$(date +%Y)/$(date +%m)/$(date +%Y-%m-%d).md 内容
 如果 ≤4000 字符，用 send_message 发送全文到 Telegram Home 频道
 如果 >4000 字符，发送前 30 行 + '...' + 完整推荐 GitHub 链接
 如果 send_message 不可用（profile 没权限），跳过此步
