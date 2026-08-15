@@ -221,9 +221,55 @@ def call_minimax(prompt_text):
     return None, None, None
 
 
+def is_non_review_content(item):
+    """Detect 商品页 / 博彩推广 / 站外广告 等非乐评内容，提前过滤。
+
+    触发条件：body/excerpt 含多个强特征词同时命中，置信度高。
+    命中后直接打 0 分，不浪费 MiniMax API 调用。
+
+    当前规则（基于 8-15 数据验证）：
+    - triple_bk_product_page: "MP3 Release" + 价格(£X.XX) + "Add to crate" → boomkat 商品页
+    - fluid_radio_spam: site_id=fluid_radio + body 含 gamstop/casino/betting → 博彩 SEO 污染
+    - generic_spam: body 含 Casinos / Non GamStop / UK Players → 通用赌博推广
+    """
+    import re as _re
+    body = item.get("body") or ""
+    excerpt = item.get("excerpt") or ""
+    text = (body + "\n" + excerpt).lower()
+    site_id = (item.get("site_id") or "").lower()
+
+    # 规则 1: boomkat 商品页（三重命中，95.5% 准确）
+    if "mp3 release" in text and _re.search(r"£\d+\.\d{2}", text) and _re.search(r"add to crate", text):
+        return "product_page"
+
+    # 规则 2: fluid_radio 博彩污染（站点特化，比规则 3 更严格）
+    if site_id == "fluid_radio" and any(k in text for k in ("gamstop", "casino", "betting", "wagering", "gambling")):
+        return "spam_fluid_radio"
+
+    # 规则 3: 通用赌博/博彩推广（跨站点）
+    spam_signals = ("casinos not on gamstop", "non gamstop casino", "non-gamstop casino",
+                    "online gambling platform", "online betting platform")
+    if any(s in text for s in spam_signals):
+        return "spam_generic"
+
+    return None
+
+
 def process_single(item):
     """Process one review item: call API, parse result, update item in-place."""
     album = item.get("album", "?")[:50]
+    site_id = item.get("site_id", "")
+
+    # 前置过滤：商品页 / 博彩污染 → 直接 0 分，跳过 API 调用
+    filter_reason = is_non_review_content(item)
+    if filter_reason:
+        item["total_score"] = 0
+        item["_genre"] = "unknown"
+        item["_cn_summary"] = f"（{filter_reason}，已过滤）"
+        item["_filter_reason"] = filter_reason
+        return {"status": "filtered", "album": album, "site_id": site_id,
+                "reason": filter_reason}
+
     prompt_text = build_prompt(item)
     score, genre, summary = call_minimax(prompt_text)
 
@@ -246,7 +292,7 @@ def main():
     parser.add_argument("--date-dir", required=True, help="数据目录（如 2026/05/2026-05-27）")
     parser.add_argument("-i", "--input", default="scraped_raw.json", help="输入文件名（默认 scraped_raw.json）")
     parser.add_argument("-o", "--output", default="processed.json", help="输出文件名（默认 processed.json）")
-    parser.add_argument("--max-workers", type=int, default=5, help="并发线程数（默认 5）")
+    parser.add_argument("--max-workers", type=int, default=3, help="并发线程数（默认 3，避免 SBC 过载）")
     args = parser.parse_args()
 
     # Resolve paths
@@ -298,15 +344,45 @@ def main():
     # Sort by score descending
     items.sort(key=lambda r: r.get("total_score", 0), reverse=True)
 
+    # ── 低分清理：物理删除 <=2 分的条目（用户要求，省空间）──
+    # 保留 >=3 分的条目。过滤条目（已打 0 分）与评分失败（0 分）也一并清除。
+    LOW_SCORE_CUTOFF = 2
+    kept_items = [i for i in items if i.get("total_score", 0) > LOW_SCORE_CUTOFF]
+    removed_count = len(items) - len(kept_items)
+    if removed_count > 0:
+        print(f"🗑 清理 {removed_count} 条 <= {LOW_SCORE_CUTOFF} 分条目（省空间）",
+              file=sys.stderr)
+    items = kept_items
+
     # Build output
-    success_count = sum(1 for r in results if r.get("status") == "ok")
-    fail_count = sum(1 for r in results if r.get("status") != "ok")
+    ok_count = sum(1 for r in results if r.get("status") == "ok")
+    fail_count = sum(1 for r in results if r.get("status") == "fail")
+    filtered_count = sum(1 for r in results if r.get("status") == "filtered")
+    error_count = sum(1 for r in results if r.get("status") == "error")
+
+    # 失败条目详情（用于可观测性，synthesizer 可选读取生成告警）
+    failed_items = [
+        {"album": r.get("album", "?"), "site_id": r.get("site_id"),
+         "reason": r.get("reason") or r.get("error", "评分失败")}
+        for r in results if r.get("status") in ("fail", "error")
+    ][:50]  # cap at 50 to keep meta small
+
+    # 过滤条目按 reason 聚合
+    filter_breakdown = {}
+    for r in results:
+        if r.get("status") == "filtered":
+            reason = r.get("reason", "unknown")
+            filter_breakdown[reason] = filter_breakdown.get(reason, 0) + 1
 
     output = {
         "meta": {
             "total": total,
-            "success": success_count,
+            "success": ok_count,
             "failed": fail_count,
+            "filtered": filtered_count,
+            "errors": error_count,
+            "filter_breakdown": filter_breakdown,
+            "failed_items": failed_items,
             "processed_at": datetime.now(timezone.utc).isoformat(),
             "input_file": args.input,
         },
@@ -316,9 +392,12 @@ def main():
     output_path.write_text(json.dumps(output, indent=2, ensure_ascii=False), encoding="utf-8")
 
     print(file=sys.stderr)
-    print(f"✅ {success_count}/{total} 条成功 → {output_path}", file=sys.stderr)
+    print(f"✅ {ok_count}/{total} 条成功 → {output_path}", file=sys.stderr)
+    if filtered_count > 0:
+        bd = ", ".join(f"{k}={v}" for k, v in filter_breakdown.items())
+        print(f"🚫 {filtered_count} 条已过滤（{bd}）", file=sys.stderr)
     if fail_count > 0:
-        print(f"⚠️ {fail_count} 条失败", file=sys.stderr)
+        print(f"⚠️ {fail_count} 条评分失败", file=sys.stderr)
 
     # Print top scores
     scored = [i for i in items if i.get("total_score", 0) > 0]

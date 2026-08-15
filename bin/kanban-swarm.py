@@ -59,6 +59,10 @@ class SwarmWorkerSpec:
 # Sites that have a dedicated HTML scraper in bin/ (priority over Camoufox).
 # This is the post-priority-resolution list — every site in HTML_SCRIPT_IDS
 # has its own scrape_*.py in bin/, so it is *not* assigned a Camoufox worker.
+# ⚠️ MUST stay in sync with scrape_html_parallel.py: SCRIPTS list.
+# If you add a new scrape_<site>.py, update BOTH lists (or the site will be
+# double-scraped: once by HTML layer, once by Camoufox worker).
+# Sites with has_rss=True go to fast-rss-scrape.py and must NOT be in either list.
 HTML_SCRIPT_IDS = frozenset({
     "all_about_jazz",              # scrape_all_about_jazz.py
     "bandwagon_asia",              # scrape_bandwagon_asia.py
@@ -251,10 +255,52 @@ python3 bin/process_reviews.py \\
   --date-dir "2026/$(date +%m)/$(date +%Y-%m-%d)" \\
   -i scraped_raw.json \\
   -o processed.json \\
-  --max-workers 5
+  --max-workers 3
 
 验证: processed.json 存在且含 total_score + _cn_summary
 如果 MiniMax rate limit (429)，重试一次；仍失败则跳过
+确认 processed.json 中无 <=2 分条目（process_reviews.py 已物理清理）
+  python3 -c "
+  import json
+  d = json.load(open('2026/$(date +%m)/$(date +%Y-%m-%d)/processed.json'))
+  low = [i for i in d['items'] if i.get('total_score',0) <= 2]
+  if low:
+      print(f'⚠️ 发现 {len(low)} 条 <=2 分残留（不该出现！）')
+  else:
+      print(f'✅ processed.json 已清理: {len(d[\"items\"])} 条全部 >=3 分')
+  "
+
+Step 1.5: 检查评分质量门（不阻塞，但生成告警）
+python3 -c "
+import json
+d = json.load(open('2026/$(date +%m)/$(date +%Y-%m-%d)/processed.json'))
+meta = d.get('meta', {})
+total = meta.get('total', 0)
+failed = meta.get('failed', 0)
+filtered = meta.get('filtered', 0)
+ok = meta.get('success', 0)
+if total == 0:
+    print('WARN: processed.json 为空'); exit(0)
+fail_pct = failed * 100 / total
+filter_pct = filtered * 100 / total
+print(f'质量门: total={total}, ok={ok}, failed={failed} ({fail_pct:.1f}%), filtered={filtered} ({filter_pct:.1f}%)')
+if filter_breakdown := meta.get('filter_breakdown'):
+    print('过滤明细:', filter_breakdown)
+if failed_items := meta.get('failed_items'):
+    if failed_items:
+        print('失败条目(前5):')
+        for f in failed_items[:5]:
+            print(f\"  - {f.get('site_id','?')}: {f.get('album','?')[:40]} ({f.get('reason','?')})\")
+# 告警条件：失败率 > 10% 或 过滤率 > 30%
+warns = []
+if fail_pct > 10:
+    warns.append(f'⚠️ 评分失败率 {fail_pct:.1f}% 超过 10% 阈值')
+if filter_pct > 30:
+    warns.append(f'⚠️ 内容过滤率 {filter_pct:.1f}% 超过 30% 阈值（可能上游抓取配置异常）')
+if warns:
+    for w in warns: print(w)
+    print('后续 Telegram 推送应包含这些告警')
+"
 
 Step 2: 生成推荐 markdown → recommend/{DATE}.md
 python3 bin/generate_report.py \\
@@ -264,9 +310,23 @@ python3 bin/generate_report.py \\
 
 验证: recommend/$(date +%Y-%m-%d).md 存在
 
+Step 2.5: 上库前清理检查 — 确认 processed.json 无 <=2 分条目
+cd /home/liyifan/music-record
+python3 -c "
+import json
+p = json.load(open('2026/$(date +%m)/$(date +%Y-%m-%d)/processed.json'))
+low = [i for i in p['items'] if i.get('total_score', 0) <= 2]
+print(f'processed.json: {len(p[\"items\"])} 条, <=2分残留: {len(low)} 条')
+if low:
+    for i in low[:5]:
+        print(f'  - {i.get(\"site_id\")}: {i.get(\"album\",\"?\")[:40]} ({i.get(\"total_score\")}分)')
+    raise SystemExit(1)  # 有残留则阻止 push
+print('✅ 无低分残留')
+"
+
 ⚠️ 重要：recommend 生成后必须立即执行下一步的 git push，确保 GitHub 同步。
 
-Step 3: git push 到 GitHub
+Step 3: git push 到 GitHub（已确保无 <=2 分条目上库）
 cd /home/liyifan/music-record
 rm -f "2026/$(date +%m)/$(date +%Y-%m-%d)"/*.py
 git add -A

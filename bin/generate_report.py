@@ -15,13 +15,13 @@ from datetime import date, datetime
 from pathlib import Path
 
 
-def generate_markdown(items, output_date, min_score=1, top_k=None):
+def generate_markdown(items, output_date, min_score=3, top_k=None):
     """Generate recommend markdown sorted by score descending.
 
     Args:
         items: list of review items (already sorted descending by total_score)
         output_date: YYYY-MM-DD string for the header
-        min_score: minimum score to include (default 1, include all)
+        min_score: minimum score to include (default 3, 用户要求砍掉 <=2 分)
         top_k: if set, only show top K items
 
     Returns:
@@ -48,7 +48,6 @@ def generate_markdown(items, output_date, min_score=1, top_k=None):
         "⭐ 优秀 (7-8)": [i for i in filtered if 7 <= i.get("total_score", 0) <= 8],
         "👍 不错 (5-6)": [i for i in filtered if 5 <= i.get("total_score", 0) <= 6],
         "🔹 一般 (3-4)": [i for i in filtered if 3 <= i.get("total_score", 0) <= 4],
-        "📋 参考 (1-2)": [i for i in filtered if i.get("total_score", 0) <= 2],
     }
 
     for tier_name, tier_items in tiers.items():
@@ -107,7 +106,7 @@ def main():
     parser.add_argument("--date-dir", required=True, help="数据目录（如 2026/05/2026-05-27）")
     parser.add_argument("-i", "--input", default="processed.json", help="输入 JSON（默认 processed.json）")
     parser.add_argument("--date", default=str(date.today()), help="日期 YYYY-MM-DD（默认今天）")
-    parser.add_argument("--min-score", type=int, default=1, help="最低评分（默认 1=全部）")
+    parser.add_argument("--min-score", type=int, default=3, help="最低评分（默认 3，用户要求砍掉 <=2 分）")
     parser.add_argument("--top-k", type=int, default=0, help="只显示前 K 条（默认全显示）")
     args = parser.parse_args()
 

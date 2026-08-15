@@ -12,6 +12,7 @@ import feedparser
 import json
 import re
 import socket
+import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone, timedelta
@@ -81,6 +82,28 @@ def load_sites():
     return [s for s in data["sites"] if s.get("has_rss") and s.get("rss_url")]
 
 
+def _pick_from_archive(num=3):
+    """fluid_radio 特殊路径：调用 pick_fluid_radio_archive.py 子进程随机抽 N 条。
+
+    返回 [(site_id, items)] 格式与正常 RSS 抓取一致。
+    """
+    script_dir = Path(__file__).resolve().parent
+    picker = script_dir / "pick_fluid_radio_archive.py"
+    try:
+        proc = subprocess.run(
+            ["python3", str(picker), "-n", str(num)],
+            capture_output=True, text=True, timeout=60,
+        )
+        if proc.returncode != 0:
+            print(f"  [fluid_radio] pick 失败: {proc.stderr.strip()[:200]}", file=sys.stderr)
+            return []
+        data = json.loads(proc.stdout)
+        return data.get("items", [])
+    except Exception as e:
+        print(f"  [fluid_radio] pick 异常: {e}", file=sys.stderr)
+        return []
+
+
 def parse_rss_date(entry):
     from time import mktime
     if hasattr(entry, "published_parsed") and entry.published_parsed:
@@ -117,6 +140,11 @@ def scrape_site(site, cutoff_date):
     site_id = site["id"]
     name = site["name"]
     rss_url = site["rss_url"]
+
+    # 特殊站点：fluid_radio 走 archive 随机抽取（根 feed 已被博彩污染）
+    # 见 references/2026-08-15-fluid-radio-archive-pick.md
+    if site_id == "fluid_radio":
+        return site_id, _pick_from_archive(num=3)
 
     feed = feedparser.parse(rss_url)
     entries = feed.entries if hasattr(feed, "entries") else []

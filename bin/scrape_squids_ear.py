@@ -28,7 +28,9 @@ from bs4 import BeautifulSoup
 
 SITE_ID = "squids_ear"
 SOURCE = "The Squid's Ear"
-BASE_URL = "https://squidsear.com"
+# 2026-08-15: 站点迁移到 squidco.com 域名下（原 squidsear.com 已失效）
+# 主页 https://www.squidco.com/ear/ 受 Cloudflare 保护但 newsTrailer.cgi 可直连
+BASE_URL = "https://www.squidco.com"
 LIST_URL = "https://www.squidco.com/cgi-bin/news/newsTrailer.cgi?tableHTML=yes&max=24&target=homepage"
 TODAY = datetime.now(timezone.utc).date()
 MAX_ARTICLES = 20

@@ -3,7 +3,7 @@
     "version": "0.1",
     "updated": "2026-06-11",
     "maintainer": "hermes-agent",
-    "description": "前卫/实验/学院派爵士/电子/世界音乐评论站站点配置表。当前共57个站点。has_rss=true 则优先用 RSS；has_rss=false 则用 Playwright headless+stealth（默认），CF JS 挑战时降级 headed。"
+    "description": "前卫/实验/学院派爵士/电子/世界音乐评论站站点配置表。当前共75个站点。has_rss=true 则优先用 RSS；has_rss=false 则用 Playwright headless+stealth（默认），CF JS 挑战时降级 headed。"
   },
   "sites": [
     {
@@ -516,11 +516,17 @@
       "id": "fluid_radio",
       "name": "Fluid Radio",
       "homepage": "https://www.fluid-radio.co.uk/",
-      "rss_url": "https://www.fluid-radio.co.uk/feed/",
-      "reviews_url": "https://www.fluid-radio.co.uk/",
+      "rss_url": "https://www.fluid-radio.co.uk/category/reviews/feed/",
+      "reviews_url": "https://www.fluid-radio.co.uk/category/reviews/",
       "has_rss": true,
       "tier": "S",
       "crawl_frequency": "daily",
+      "archive_source": {
+        "file": "data/fluid_radio_archive.json",
+        "pick_script": "bin/pick_fluid_radio_archive.py",
+        "pick_count": 3,
+        "note": "根 feed (https://www.fluid-radio.co.uk/feed/) 自 2026-08 已被博彩 SEO 污染（Non GamStop Casino 系列）。改用 category/reviews/feed/，并通过 fast-rss-scrape.py 内部 hook 改为从本地 800 条历史存档随机抽 3 条作为补充。详见 references/2026-08-15-fluid-radio-archive-pick.md"
+      },
       "parser_hint": {
         "article_url_pattern": "fluid-radio.co.uk/",
         "list_selector": "article h2 a",
@@ -532,7 +538,7 @@
         "electroacoustic",
         "modern composition"
       ],
-      "notes": "声景/慢速/细密实验。RSS 灌入的是 2013-2022 年历史存档，无 2025-2026 新内容。已一次性抓取 671 条存档，每次选专辑时从 fluid_radio_reviews.json 随机挑几条即可。",
+      "notes": "声景/慢速/细密实验。2026-08-15 复核：主站乐评自 2022 停更，根 feed 被博彩 SEO 污染。改为 archive_pick 模式（见 archive_source）——一次性抓全 category/reviews/feed/ 全 800 条历史存档（2013-2022），每日 RSS 流程从存档随机抽 3 条作为补充，避免重复推送。重新生成存档: python3 bin/fetch_fluid_radio_archive.py",
       "startUrls": [
         "https://www.fluid-radio.co.uk/"
       ],
