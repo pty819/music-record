@@ -92,7 +92,8 @@ def get_sites():
       3. Camoufox — everything left that has crawl_strategy=playwright_headless
                     and is not skipped, and has no RSS, and is not in HTML_SCRIPT_IDS
 
-    Returns the active Camoufox sites (currently 3: boomkat, point_of_departure, progressor).
+    Returns the active Camoufox sites (currently 6: boomkat, jazztokyo, musicircus,
+    point_of_departure, progressor, wild_city).
     """
     with open(SITES_FILE) as f:
         d = json.load(f)
@@ -106,7 +107,7 @@ def get_sites():
             continue  # RSS path
         if s.get("id") in HTML_SCRIPT_IDS:
             continue  # HTML script path
-        # Anything reaching here is the 9-site Camoufox tail.
+        # Anything reaching here is the 6-site Camoufox tail.
         out.append(s)
     return out
 
