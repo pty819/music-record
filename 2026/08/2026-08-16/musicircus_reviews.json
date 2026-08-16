@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-15T20:12:00+00:00",
+    "cutoff_date": "2026-08-14T08:12:00+00:00",
+    "hours_scanned": 36,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "notes": "Static FrontPage Express site (no RSS, no JS, no cookie wall, single page). Verified via direct HTTP fetch of homepage: Update index is the authoritative recency list; newest entry is 2026.4.30 (event-information post), then 2025.12.9, 2025.9.3. No entries within 36h window (cutoff 2026-08-14). Same state as 2026-08-10 through 2026-08-15 runs. Empty result is correct."
+  },
+  "items": []
+}
