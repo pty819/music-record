@@ -16,7 +16,6 @@ import argparse
 import concurrent.futures
 import json
 import os
-import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -29,25 +28,13 @@ except ImportError:
     sys.exit(1)
 
 # ── 配置 ────────────────────────────────────────────────
-_API_KEY_PATH = "/home/liyifan/.config/music-recs/minimax_cn_key"
-API_KEY = ""
-if os.path.exists(_API_KEY_PATH):
-    API_KEY = Path(_API_KEY_PATH).read_text(encoding="utf-8").strip()
-if not API_KEY:
-    API_KEY = os.environ.get("MINIMAX_CN_API_KEY", "")
-if not API_KEY:
-    env_path = Path.home() / ".hermes" / ".env"
-    if env_path.exists():
-        for line in env_path.read_text().splitlines():
-            if line.strip().startswith("MINIMAX_CN_API_KEY="):
-                API_KEY = line.split("=", 1)[1].strip().strip("'\"")
-                break
+# 评分模型改为多 provider 容错：MiniMax-M3 主，火山 Ark DeepSeek 备。
+# 单点配额耗尽（429/2056）自动切换，保证每日推荐不中断。
+from provider_failover import call_with_failover, get_stats, get_switch_log, PROVIDERS
 
-BASE_URL = "https://api.minimaxi.com/anthropic"
-MODEL = "MiniMax-M3"
-MAX_TOKENS = 4096
-TIMEOUT = 120  # 单次调用超时（秒）
-RETRIES = 3
+# 主 provider 显示名（供日志）
+MODEL = PROVIDERS[0]["model"]
+BASE_URL = PROVIDERS[0]["base_url"]
 
 # ── 评分细则（注入 API prompt） ─────────────────────────
 
@@ -143,82 +130,16 @@ def build_prompt(item):
 
 
 def call_minimax(prompt_text):
-    """Call MiniMax M3 API and return parsed (score, genre, summary). Returns (None, None, None) on failure."""
-    client = anthropic.Anthropic(
-        api_key=API_KEY,
-        base_url=BASE_URL,
-        timeout=TIMEOUT,
-    )
+    """带多 provider 容错的评分调用（MiniMax 主 → 火山 Ark 备）。
 
-    for attempt in range(RETRIES):
-        try:
-            message = client.messages.create(
-                model=MODEL,
-                max_tokens=MAX_TOKENS,
-                temperature=0.7,
-                messages=[{"role": "user", "content": prompt_text}],
-            )
-
-            # Extract text, skipping ThinkingBlock
-            text = ""
-            for block in message.content:
-                if hasattr(block, "type") and block.type == "text" and hasattr(block, "text"):
-                    text = block.text
-                    break
-
-            if not text:
-                print(f"    [warning] empty response (attempt {attempt + 1})", file=sys.stderr)
-                continue
-
-            # Parse JSON from response
-            result = None
-            # Strategy 1: direct JSON parse
-            try:
-                result = json.loads(text)
-            except json.JSONDecodeError:
-                pass
-
-            # Strategy 2: extract from markdown code block
-            if result is None:
-                m = re.search(r'```(?:json)?\s*\n?({.*?})\n?\s*```', text, re.DOTALL)
-                if m:
-                    try:
-                        result = json.loads(m.group(1))
-                    except json.JSONDecodeError:
-                        pass
-
-            # Strategy 3: find {...} with total_score
-            if result is None:
-                m = re.search(r'(\{[^{}]*"total_score"\s*:\s*\d+[^{}]*\})', text, re.DOTALL)
-                if m:
-                    try:
-                        result = json.loads(m.group(1))
-                    except json.JSONDecodeError:
-                        pass
-
-            if result is None:
-                print(f"    [warning] cannot parse JSON from response (attempt {attempt + 1})", file=sys.stderr)
-                print(f"    response[:200]: {text[:200]}", file=sys.stderr)
-                continue
-
-            score = int(result.get("total_score", 0))
-            genre = (result.get("genre") or "unknown").strip()
-            summary = (result.get("cn_summary") or "").strip()
-
-            score = max(1, min(10, score))
-
-            return score, genre, summary
-
-        except Exception as e:
-            if attempt < RETRIES - 1:
-                delay = 2 ** attempt
-                print(f"    [retry {attempt + 1}/{RETRIES}] {e}, waiting {delay}s...", file=sys.stderr)
-                time.sleep(delay)
-                continue
-            print(f"    [fail after {RETRIES} retries] {e}", file=sys.stderr)
-            return None, None, None
-
-    return None, None, None
+    返回 (score, genre, summary) 三元组，全失败返回 (None, None, None)。
+    实际容错逻辑在 provider_failover.call_with_failover，这里保留函数名
+    以便 process_single 无感调用。切换记录在 get_switch_log()。
+    """
+    score, genre, summary, provider = call_with_failover(prompt_text)
+    if provider == "ark" and score is not None:
+        print(f"    ⚡ 本条由 {provider} 评分", file=sys.stderr)
+    return score, genre, summary
 
 
 def is_non_review_content(item):
@@ -389,8 +310,6 @@ def main():
         "items": items,
     }
 
-    output_path.write_text(json.dumps(output, indent=2, ensure_ascii=False), encoding="utf-8")
-
     print(file=sys.stderr)
     print(f"✅ {ok_count}/{total} 条成功 → {output_path}", file=sys.stderr)
     if filtered_count > 0:
@@ -410,6 +329,21 @@ def main():
         print(f"   {score}/10  {album}", file=sys.stderr)
         if summary:
             print(f"            {summary}", file=sys.stderr)
+
+    # Provider failover 统计（当天用了哪个 provider / 切换了几次）
+    stats = get_stats()
+    switch_log = get_switch_log()
+    print(f"\n🔌 Provider 统计: {json.dumps(stats)}", file=sys.stderr)
+    if switch_log:
+        print(f"🔀 切换记录 ({len(switch_log)} 次):", file=sys.stderr)
+        for line in switch_log[-10:]:
+            print(f"   {line}", file=sys.stderr)
+    else:
+        print("🔀 无切换（全程主 provider）", file=sys.stderr)
+    # 把切换统计写进 meta，报告可追溯
+    output["meta"]["provider_stats"] = stats
+    output["meta"]["provider_switch_log"] = switch_log
+    output_path.write_text(json.dumps(output, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 if __name__ == "__main__":
