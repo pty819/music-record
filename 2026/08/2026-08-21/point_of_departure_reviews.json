@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-20T20:06:00+00:00",
+    "cutoff_date": "2026-08-19T08:06:00+00:00",
+    "site": "point_of_departure",
+    "issue": "PoD95",
+    "issue_date": "June2026",
+    "notes": "Point of Departure publishes on a quarterly cadence. The current issue on the site is still PoD95 (June 2026), which is well outside the 36h window. Archive.html confirms the most recently archived issue is PoD94 (March 2026); no PoD96 has been published within the 36h window."
+  },
+  "items": []
+}
