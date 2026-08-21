@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-21T20:15:01+00:00",
+    "cutoff_date": "2026-08-20T08:15:01.535262+00:00",
+    "hours_scanned": 36.0,
+    "site": "musicircus",
+    "source": "musicircus.on.coocan.jp",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "notes": "Musicircus is a low-frequency site — Update table contains 2 entries (newest 2026.4.30 event-info post, then 2025.12.9, then 2025.9.3), all well outside the 36h cutoff. Same empty result as 2026-08-20 and 2026-08-21 runs."
+  },
+  "items": []
+}
