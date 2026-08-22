@@ -1,0 +1,61 @@
+JazzTokyo (resilient) — now=2026-08-22T20:40:16.049945+00:00 cutoff=2026-08-21T08:40:16.049945+00:00
+
+=== Listing https://jazztokyo.org/ ===
+  [tab] created OK (c747d1b9-4469-4921-a119-7c8049a62030)
+  [list] found 37 post links
+
+=== Listing https://jazztokyo.org/page/2/ ===
+  [tab] created OK (21d90188-28aa-41a1-a00a-f41829f01a16)
+  [list] found 36 post links
+
+Total unique candidates: 41
+  [art] https://jazztokyo.org/column/reflection-of-music/post-123933/
+  [tab] created OK (74966737-a456-46cb-bc1b-5d3a739e5f67)
+ [1/15] SKIP old (pub=2026-08-15): Reflections of Music Vol. 111 渋谷毅
+  [art] https://jazztokyo.org/column/inaoka/post-124078/
+  [tab] created OK (aa6991e6-83c0-4145-b8af-025324b6bf66)
+ [2/15] SKIP old (pub=2026-08-15): From the Editor’s Desk #28 渋谷毅との仕事
+  [art] https://jazztokyo.org/all-about-jazz/post-124539/
+  [tab] created OK (fb8be7ef-9f92-4d71-abbb-f530ee96c9b8)
+ [3/15] SKIP old (pub=2026-08-15): 30年後も、ビジョンは変わらない
+  [art] https://jazztokyo.org/reviews/live-report/post-123924/
+  [tab] POST /tabs returned 503: {"error":"Browser session expired. Retry to get a fresh session.","code":"session_expired","retryable":true,"recovery":"retry"}
+  [tab] checking existing tabs...
+ [4/15] FETCH ERROR: https://jazztokyo.org/reviews/live-report/post-123924/
+  [art] https://jazztokyo.org/reviews/live-report/post-124027/
+  [tab] created OK (29e526a1-a49a-490b-a263-95186962e14f)
+ [5/15] SKIP old (pub=2026-08-15): #1423 ニューポート・ジャズフェス2026：アンジーヌ・ド・ポワトリーヌ、ロバート・グラスパー
+  [art] https://jazztokyo.org/reviews/live-report/post-124377/
+  [tab] created OK (98fe5068-b517-4484-8edc-e1d501ce9970)
+ [6/15] SKIP old (pub=2026-08-15): #1422 Ben van Gelder & Reinier Baas (ベン・ヴァン・ゲルダー&レ
+  [art] https://jazztokyo.org/reviews/live-report/post-124376/
+  [tab] created OK (bcae51c9-359c-4abd-a4ae-2dd31df31cdc)
+ [7/15] SKIP old (pub=2026-08-15): #1421『Polyphonia～森定道広によるポリフォニー作品に焦点を当てた新グループ、初公演』
+  [art] https://jazztokyo.org/reviews/live-report/post-124112/
+  [tab] created OK (b2feef9e-ba0b-4a27-a90c-2567db9c1096)
+ [8/15] SKIP old (pub=2026-08-15): #1420 権代敦彦 オペラ《ZEN》
+  [art] https://jazztokyo.org/reviews/live-report/post-124299/
+  [tab] created OK (db5a4ee9-4a24-47dc-98a1-521d902fab1a)
+ [9/15] SKIP old (pub=2026-08-15): #1419 望月紅華ダンスカンパニー / 今来個ん – Konkokon –
+  [art] https://jazztokyo.org/reviews/cd-dvd-review/post-124209/
+  [tab] POST /tabs returned 503: {"error":"Browser session expired. Retry to get a fresh session.","code":"session_expired","retryable":true,"recovery":"retry"}
+  [tab] checking existing tabs...
+ [10/15] FETCH ERROR: https://jazztokyo.org/reviews/cd-dvd-review/post-124209/
+  [art] https://jazztokyo.org/reviews/live-report/post-124715/
+  [tab] created OK (4aef10d2-fdbf-42ce-b134-8e60b4e89332)
+ [11/15] SKIP old (pub=2026-08-15): #1417 マリア・シュナイダー・オーケストラ
+  [art] https://jazztokyo.org/reviews/sound-check/post-123995/
+  [tab] created OK (51b7c6f2-8184-43b0-a826-11074447d9d8)
+ [12/15] SKIP old (pub=2026-08-15): #25 『シンディ・ブラックマン・サンタナ／コヒーレンス』
+  [art] https://jazztokyo.org/column/a-view-with-notes/post-124156/
+  [tab] created OK (0de2fbc3-1ba2-459d-ba1d-b5e193822522)
+ [13/15] SKIP old (pub=2026-08-15): （アーカイヴ）音の見える風景 Chapter 19 渋谷 毅　望月由美
+  [art] https://jazztokyo.org/column/live-after-live/post-124004/
+  [tab] created OK (1edd8454-730d-4c5e-99c8-484f9076e4f1)
+ [14/15] SKIP old (pub=2026-08-15): 小野健彦のLive after Live #553~#558
+  [art] https://jazztokyo.org/column/kaze-wo-aruku/post-124002/
+  [tab] created OK (1d6955a2-1f4e-4353-a86a-a162202ea7df)
+ [15/15] SKIP old (pub=2026-08-15): #51 風巻 隆 「風を歩く」から～綱島「Namak Café／ナマック・カフェ」
+
+Results: total=0 in_window=0 non_music=0 old=13 no_date=0 errors=2
+Wrote /home/liyifan/music-record/2026/08/2026-08-23/jazztokyo_reviews.json (0 items)

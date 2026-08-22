@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "total": 2,
+    "scraped_at": "2026-08-22T20:01:10.062746+00:00",
+    "cutoff_date": "2026-08-21T08:01:10.062746+00:00"
+  },
+  "items": [
+    {
+      "album": "In Motion",
+      "artist": "Green, Jeremy",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25573",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-08-22T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Green, Jeremy: In Motion Canadian guitarist Jeremy Green returns with In Motion , another ripping set of instrumental, guitardriven fusion. Guitar lovers get exactly what they want here: a wide palette of sounds, smart arrangements, and consistently killer playing. As with his debut âStanding Eightâ, Green surrounds himself with elite musicians, and everyone gets room to shine. Take notice of drummer Keith Carlock (Toto, Wayne Krantz) featured on all eight tracks, his playing stands out, hea",
+      "body": "Green, Jeremy: In Motion Canadian guitarist Jeremy Green returns with In Motion , another ripping set of instrumental, guitardriven fusion. Guitar lovers get exactly what they want here: a wide palette of sounds, smart arrangements, and consistently killer playing. As with his debut âStanding Eightâ, Green surrounds himself with elite musicians, and everyone gets room to shine. Take notice of drummer Keith Carlock (Toto, Wayne Krantz) featured on all eight tracks, his playing stands out, heavy when needed, tight and grooving always.",
+      "site_id": "sot_review_25573",
+      "crawl_status": "ok",
+      "type": "review"
+    },
+    {
+      "album": "No Goats",
+      "artist": "Finely Tuned Elephant",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25572",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-08-22T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Finely Tuned Elephant: No Goats Finely Tuned Elephant are a Canadian instrumental fusion quartet I somehow missed until now, thankfully No Goats came across my radar. Three things jumped out immediately: catchy tunes, serious chops, and guitarist Jordan Robinson, who feels like the bandâs secret weapon.",
+      "body": "Finely Tuned Elephant: No Goats Finely Tuned Elephant are a Canadian instrumental fusion quartet I somehow missed until now, thankfully No Goats came across my radar. Three things jumped out immediately: catchy tunes, serious chops, and guitarist Jordan Robinson, who feels like the bandâs secret weapon.",
+      "site_id": "sot_review_25572",
+      "crawl_status": "ok",
+      "type": "review"
+    }
+  ]
+}

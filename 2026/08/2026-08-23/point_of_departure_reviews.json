@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-22T20:04:35.989944+00:00",
+    "cutoff_date": "2026-08-21T00:00:00+00:00",
+    "site": "point_of_departure",
+    "issue": "PoD95",
+    "issue_date": "June2026",
+    "raw_total_scraped": 10,
+    "notes": "Point of Departure publishes on a quarterly cadence. The current issue on the site is still PoD95 (June 2026); no PoD96 has appeared. Camoufox scraped all 7 listing pages and produced 10 items, but every item's pub_date is 2026-06, so per the 36h hard constraint all are filtered out. items:[] per empty-result policy."
+  },
+  "items": []
+}
