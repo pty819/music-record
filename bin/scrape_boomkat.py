@@ -127,11 +127,34 @@ GET_PRODUCT_BODY_JS = """
     body = bodyText.substring(idx + marker.length, endIdx).trim();
   }
   if (!body) {
-    const ce = document.querySelector('.content') || document.body;
-    body = ce.textContent.trim();
+    // Do NOT fall back to '.content'/document.body: on a Boomkat product page
+    // that yields the price/format/add-to-crate widget, not editorial copy.
+    // Many singles and reissues simply carry no review — report that honestly
+    // and fall back to the release metadata line instead.
+    const revEl = document.querySelector('.product-review-mobile')
+               || document.querySelector('#product-review')
+               || document.querySelector('.product-review');
+    if (revEl) {
+      body = (revEl.innerText || '')
+        .split('\n').map(l => l.trim()).filter(Boolean)
+        .filter(l => !/^(view (more|less)|read more|show more)$/i.test(l))
+        .join('\n').trim();
+      if (body.startsWith(marker)) body = body.slice(marker.length).trim();
+      if (body.length < 60) body = '';
+    }
+  }
+  let hasReview = body.length > 0;
+  if (!body) {
+    const keeper = document.querySelector('.detail__keeper');
+    if (keeper) {
+      const line = (keeper.innerText || '')
+        .split('\n').map(l => l.trim())
+        .find(l => /Cat No:/i.test(l));
+      if (line) body = line;
+    }
   }
   const h1 = document.querySelector('h1');
-  return JSON.stringify({ body: body.substring(0, 10000), title: h1 ? h1.textContent.trim() : '' });
+  return JSON.stringify({ body: body.substring(0, 10000), hasReview: hasReview, title: h1 ? h1.textContent.trim() : '' });
 })()
 """
 
@@ -293,7 +316,11 @@ def main():
                 "body": description,
                 "site_id": SITE_ID,
                 "crawl_status": "success",
-                "type": "feature",
+                # Boomkat product pages carry editorial album reviews, not
+                # features. Refined to "tracklist" in the product-page pass
+                # below when the release has no editorial copy at all.
+                "type": "review",
+                "has_review": bool(description),
             }
             all_items.append(item)
             sys.stderr.write(f"  OK — {artist or '?'} : {album} ({pub_date})\n")
@@ -319,6 +346,11 @@ def main():
                         item["body"] = body
                         if not item["excerpt"]:
                             item["excerpt"] = body[:500]
+                    # hasReview is False when the release page carries no
+                    # editorial copy (body is then the release metadata line).
+                    if detail.get("hasReview") is not None:
+                        item["has_review"] = bool(detail["hasReview"])
+                        item["type"] = "review" if item["has_review"] else "tracklist"
                     sys.stderr.write(f"    body: {len(body)} chars\n")
                 except Exception as e:
                     sys.stderr.write(f"    ERROR: {e}\n")
