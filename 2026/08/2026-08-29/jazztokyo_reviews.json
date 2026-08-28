@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-28T20:17:31.783000+00:00",
+    "cutoff_date": "2026-08-27T08:17:31.783000+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 40,
+    "in_window_count": 0,
+    "non_music_skipped": 0,
+    "old_skipped": 40,
+    "no_date_skipped": 0,
+    "fetch_errors": 0
+  },
+  "items": []
+}
