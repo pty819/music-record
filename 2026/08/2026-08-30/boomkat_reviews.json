@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-29T20:06:32Z",
+    "cutoff_date": "2026-08-28",
+    "hours_scanned": "36",
+    "site": "boomkat",
+    "cf_blocked": true,
+    "notes": "Boomkat CF Turnstile challenge still active after 15s wait — fast-exit per task spec (no retry, no new tab). CF may be IP/ASN-tagged today; check tomorrow."
+  },
+  "items": []
+}

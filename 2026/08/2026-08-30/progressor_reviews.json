@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-29T20:14:20Z",
+    "cutoff_date": "2026-08-28T08:14:20Z",
+    "hours_scanned": 36,
+    "site": "progressor",
+    "site_url": "http://www.progressor.net/",
+    "note": "ProgressoR homepage banner reads 'Latest update: July 31, 2026 / Next update: August 31, 2026'. All visible review listings (homepage, history_short.html, history_detailed.html) date from Jan-Jul 2026 — none within the 36h cutoff. news.html is stale (June 2017). Empty result reflects real data, not a scrape failure. Camoufox loads the site fine despite old TLS."
+  },
+  "items": []
+}
