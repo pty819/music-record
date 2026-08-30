@@ -218,10 +218,19 @@ def check_consent(tab_id: str) -> None:
 
 
 def parse_musicircus_date(text: str) -> str | None:
-    """Parse musicircus date formats: 'YYYY.M.D' or 'YYYY/M/D'.
+    """Parse musicircus date formats: 'YYYY.M.D', 'YYYY/M/D', or
+    Japanese 'YYYY年M月D日' (after textContent collapses <font> tags).
     Returns ISO date string (YYYY-MM-DD) or None.
     """
     text = (text or "").strip()
+    # Japanese form: YYYY年M月D日 (also matches 年/M月/D日 with optional spaces)
+    m = re.match(r"(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日", text)
+    if m:
+        try:
+            dt = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            return dt.date().isoformat()
+        except ValueError:
+            return None
     # Try YYYY.M.D
     m = re.match(r"(\d{4})\.(\d{1,2})\.(\d{1,2})", text)
     if m:
@@ -333,6 +342,7 @@ def main():
         extract_js = """(function() {
             try {
                 var updates = [];
+                var dateRe = /^(\\d{4})[./年]\\s*(\\d{1,2})[./月]\\s*(\\d{1,2})日?/;
                 var tables = document.querySelectorAll('table');
                 for (var i = 0; i < tables.length; i++) {
                     var table = tables[i];
@@ -341,21 +351,35 @@ def main():
                         var row = rows[r];
                         var cells = row.querySelectorAll('td, th');
                         if (cells.length < 2) continue;
-                        var firstCell = (cells[0].textContent || '').trim();
-                        var dateMatch = firstCell.match(/^(\\d{4})[./](\\d{1,2})[./](\\d{1,2})/);
-                        if (!dateMatch) continue;
-                        var link = cells[1].querySelector('a');
+                        // Scan all cells for a date; pick the first one that matches.
+                        var dateCellIdx = -1;
+                        var dateText = '';
+                        var firstCell = '';
+                        for (var c = 0; c < cells.length; c++) {
+                            var t = (cells[c].textContent || '').trim();
+                            if (dateRe.test(t)) { dateCellIdx = c; dateText = t; firstCell = t; break; }
+                        }
+                        if (dateCellIdx < 0) continue;
+                        // Find a link in any of the OTHER cells (typically the next one).
+                        var link = null;
+                        for (var c2 = 0; c2 < cells.length; c2++) {
+                            if (c2 === dateCellIdx) continue;
+                            var cand = cells[c2].querySelector('a[href]');
+                            if (cand && cand.href && !/^mailto:/i.test(cand.href) && !/^javascript:/i.test(cand.href)) {
+                                link = cand; break;
+                            }
+                        }
                         if (!link) continue;
                         updates.push({
-                            date: firstCell,
+                            date: dateText,
                             url: link.href,
                             title: (link.textContent || link.title || '').trim(),
-                            allText: (cells[1].textContent || '').trim()
+                            allText: (cells[Math.max(dateCellIdx, 1)].textContent || '').trim()
                         });
                     }
                 }
                 if (updates.length === 0) {
-                    var allLinks = document.querySelectorAll('a');
+                    var allLinks = document.querySelectorAll('a[href]');
                     for (var j = 0; j < allLinks.length; j++) {
                         var link = allLinks[j];
                         var parent = link.parentElement;
@@ -367,10 +391,11 @@ def main():
                         }
                         if (!prev) continue;
                         var prevText = (prev.textContent || '').trim();
-                        var dm2 = prevText.match(/^(\\d{4})[./](\\d{1,2})[./](\\d{1,2})/);
+                        var dm2 = prevText.match(dateRe);
                         if (!dm2) continue;
+                        var dateStr = (dm2[1] + '/' + dm2[2] + '/' + dm2[3]);
                         updates.push({
-                            date: prevText,
+                            date: dateStr,
                             url: link.href,
                             title: (link.textContent || link.title || '').trim(),
                             allText: (parent.textContent || '').trim()

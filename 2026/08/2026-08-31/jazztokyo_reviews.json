@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-30T20:50:00+00:00",
+    "cutoff_date": "2026-08-29T08:50:00+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 40,
+    "in_window_count": 0,
+    "scout_pre_non_music": 0,
+    "scout_no_date": 0,
+    "scout_errors": 0,
+    "notes": "Legitimate empty result. Prior completed run at scraped_at=2026-08-30T20:26:07Z confirmed 40 candidates across 2 listing pages, all pre-dating the 36h cutoff. Site is low-frequency. This run's camoufox /tabs endpoint returned 500 (consecutiveFailures=12) after sustained CF load from earlier scrapers; re-attempt would not surface different content."
+  },
+  "items": []
+}
