@@ -67,7 +67,6 @@ TAG_MAP = {
     "cinra": "culture music art improvisation",
     "artscape": "art sound art contemporary music improvisation",
     "varelser": "japanese experimental noise improvisation avant-garde",
-    "noisenotmusic": "experimental noise improvisation reviews",
     "ajazznoise": "free jazz japanese improvisation noise experimental",
     "kansai_studies": "kansai noise experimental live japanese",
     "prtcll": "experimental underground cassette indie label",

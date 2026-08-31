@@ -1,9 +1,9 @@
 {
   "meta": {
     "version": "0.1",
-    "updated": "2026-06-11",
+    "updated": "2026-09-01",
     "maintainer": "hermes-agent",
-    "description": "前卫/实验/学院派爵士/电子/世界音乐评论站站点配置表。当前共75个站点。has_rss=true 则优先用 RSS；has_rss=false 则用 Playwright headless+stealth（默认），CF JS 挑战时降级 headed。"
+    "description": "前卫/实验/学院派爵士/电子/世界音乐评论站站点配置表。当前共74个站点。层归属以 has_rss+rss_url / scrape_html_parallel.SCRIPTS / kanban-swarm.get_sites() 为准，勿用手写名单。"
   },
   "sites": [
     {
@@ -1591,8 +1591,7 @@
         "asian"
       ],
       "automationStatus": "fallback_only",
-      "crawl_strategy": "http_get",
-      "skipped": true
+      "crawl_strategy": "http_get"
     },
     {
       "id": "syrphe",
@@ -2853,23 +2852,6 @@
         "avant-garde"
       ],
       "notes": "日本噪音/实验/即兴深度评论，更新活跃",
-      "crawl_strategy": "http_get"
-    },
-    {
-      "id": "noisenotmusic",
-      "name": "Noise Not Music",
-      "homepage": "https://noisenotmusic.com",
-      "rss_url": "https://noisenotmusic.com/feed/",
-      "has_rss": true,
-      "tier": "A",
-      "crawl_frequency": "daily",
-      "tags": [
-        "experimental",
-        "noise",
-        "improvisation",
-        "reviews"
-      ],
-      "notes": "实验/噪音/即兴专辑评论，覆盖全球含日本",
       "crawl_strategy": "http_get"
     },
     {

@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-08-31T20:10:04.964387+00:00",
+    "cutoff_date": "2026-08-30T08:10:04.964387+00:00",
+    "site": "jazztokyo",
+    "hours_scanned": 36,
+    "pages_crawled": 2,
+    "candidates_checked": 40,
+    "in_window_count": 0,
+    "scout_pre_non_music": 0,
+    "scout_no_date": 0,
+    "scout_errors": 1,
+    "notes": "Legitimate empty result. Page 1 yielded 37 post links, page 2 yielded 36 (41 unique after dedupe). Scout sampled the first 3 articles — all dated 2026-08-15 (16 days old, well outside the 36h cutoff of 2026-08-30T08:10Z); budget guard then stopped further scouting. Site is low-frequency: across all of August 2026, only 1 day had any in-window activity. No in-window content to report."
+  },
+  "items": []
+}
