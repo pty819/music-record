@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-09-01T20:04:50+00:00",
+    "cutoff_date": "2026-08-31",
+    "cf_blocked": true,
+    "site": "boomkat",
+    "consecutive_cf_days": 5,
+    "notes": "Boomkat CF Turnstile still active after 15s on first tab \u2014 fast-exit per task spec (no retry, no new tab). 5th consecutive day of CF block."
+  },
+  "items": []
+}

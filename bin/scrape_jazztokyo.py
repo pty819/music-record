@@ -1,442 +1,422 @@
 #!/usr/bin/env python3
+"""JazzTokyo scraper — jazztokyo.org (monthly magazine, no RSS).
+
+Strategy:
+- Homepage is a single static listing of the current issue (26 items via
+  `ul.q-block > li` widgets). Each `<li>` carries:
+    * `<h3><a href>` — title + post URL pattern `/<cat>/post-NNNNN/`
+    * 1st `<p class="entry-meta">` — category tags
+    * 2nd `<p class="entry-meta">` — date "M月D日, YYYY年 — author" + 閲覧回数
+    * `<p>` excerpt
+- Pagination links (`/page/2/`) are decorative — the homepage IS the
+  current-issue TOC and there is no chronological archive. The site
+  publishes ~monthly; an empty result within a 36h window is expected.
+- Japanese date format: "8月15日, 2026年 — 稲岡邦彌" -> year/month/day.
+- Camoufox via @askjo/camofox-browser on port 9377 (same gotchas as
+  Wild City scraper: tab creation may return delayed-write 500/timeout
+  even after the tab exists; always check `GET /tabs` recovery path).
 """
-scrape_jazztokyo.py — Camoufox-based scraper for JazzTokyo.
+from __future__ import annotations
 
-Site: https://jazztokyo.org/
-Genres: jazz, free improvisation, free jazz, japanese jazz
-RSS: (none)
-
-Structure (WordPress):
- - Front page (/) and /page/2/, /page/3/... show latest posts in reverse-chrono order.
- - Each post URL is /<section>/post-<id>/ (sections: reviews/cd-dvd-review,
-   reviews/live-report, interviews, column/<slug>, monthly-editorial, news).
- - Date is in <time datetime="YYYY-MM-DDTHH:MM:SS+TZ">YEAR年M月D日</time>.
- - Body is in `article` element innerText; need to drop nav/share/footer noise.
- - No RSS, no cookie wall (CF challenge only).
-
-Filter rules:
- - 36h cutoff (--days 1.5).
- - Skip BLU-RAY / UHD / VOD / DVD content in title.
- - News posts: type=feature, score=null (they're editorial news/features).
- - Album reviews (CD/DVD Disks): type=review with possible score.
- - Live reports: type=review.
- - Interviews: type=feature.
-
-Output schema (canonical, must match RSS + other HTML scripts):
-{
- "meta": {"total": N, "scraped_at": "...", "cutoff_date": "..."},
- "items": [
-   {album, artist, score, url, source, pub_date, tags, excerpt, body,
-    site_id, crawl_status, type}
- ]
-}
-"""
 import argparse
+import datetime as dt
 import json
 import os
 import re
 import sys
 import time
 import urllib.error
-import urllib.parse
 import urllib.request
-from datetime import datetime, timezone, timedelta
 
-# ── Configuration ──────────────────────────────────────────────────────
-CAMOFOX_BASE = "http://127.0.0.1:9377"
-CAMOFOX_API_KEY = "ed63901c7aca4a85bba34ac6ccf6833e"
-SITE_BASE = "https://jazztokyo.org"
-HOME_URL = f"{SITE_BASE}/"
-
+CAMOFOX_BASE = "http://localhost:9377"
+USER_ID = "scraper-jazztokyo"
+DAILY_KEY = dt.datetime.utcnow().strftime("daily-%Y-%m-%d")
+SESSION_KEY = DAILY_KEY
 SITE_ID = "jazztokyo"
 SOURCE = "JazzTokyo"
-TAGS_DEFAULT = "jazz,free improvisation,free jazz,japanese jazz"
-USER_ID = "scraper_jazztokyo"
-SESSION_KEY = "sess_jazztokyo"
+MAX_BODY = 12000
+NON_MUSIC = ("(BLU-RAY)", "(UHD)", "(VOD)", "(DVD)")
 
-NON_MUSIC_RE = re.compile(r"\((?:BLU-RAY|UHD|VOD|DVD|Blu-ray|4K)\)", re.I)
-
-# Japanese date strings like "2026年6月7日" or "2026年6月7日 ～ 8日"
-JP_DATE_RE = re.compile(r"(\d{4})年(\d{1,2})月(\d{1,2})日")
-# ISO datetime from <time datetime="...">
-ISO_DATE_RE = re.compile(r"(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2}):(\d{2})")
-
-# Article URL pattern
-POST_URL_RE = re.compile(r"^/(?:[a-z-]+/)*post-(\d+)/?$")
+# Japanese digits (kanji)
+KANJI_DIGITS = {"〇": 0, "零": 0, "一": 1, "二": 2, "三": 3, "四": 4,
+                "五": 5, "六": 6, "七": 7, "八": 8, "九": 9}
 
 
-# ── HTTP helper (Camoufox REST) ────────────────────────────────────────
+def api_key() -> str:
+    return os.environ.get("CAMOFOX_API_KEY", "")
 
-def _api(method, path, body=None, timeout=60):
-    url = f"{CAMOFOX_BASE}{path}"
-    data = json.dumps(body).encode("utf-8") if body else None
+
+def http(method: str, path: str, body: dict | None = None) -> dict | str:
     req = urllib.request.Request(
-        url, data=data, method=method,
+        CAMOFOX_BASE + path,
+        method=method,
         headers={
+            "Authorization": "Bearer " + api_key(),
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {CAMOFOX_API_KEY}",
-        } if data else {"Authorization": f"Bearer {CAMOFOX_API_KEY}"},
+        },
+        data=json.dumps(body).encode() if body is not None else None,
     )
+    timeout = 15 if method == "POST" and path == "/tabs" else 60
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return json.loads(resp.read().decode("utf-8"))
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            raw = r.read().decode("utf-8", "replace")
+            return json.loads(raw) if raw.strip() else {}
     except urllib.error.HTTPError as e:
-        raise RuntimeError(f"HTTP {e.code} on {method} {path}: {e.read().decode()[:200]}")
-    except Exception as e:
-        raise RuntimeError(f"{method} {path}: {e}")
+        body = e.read().decode("utf-8", "replace") if e.fp else ""
+        return {"_error": body, "_status": e.code}
+    except (TimeoutError, urllib.error.URLError):
+        return {"_error": "timeout", "_status": 0}
 
 
-# ── Date parsing ───────────────────────────────────────────────────────
-
-def parse_pub_date(time_attr, time_text, body_text):
-    """Return (datetime_utc, raw_string) or (None, raw_string)."""
-    if time_attr:
-        m = ISO_DATE_RE.search(time_attr)
-        if m:
-            try:
-                y, mo, d, h, mi, s = map(int, m.groups())
-                # Try with tz offset if present
-                tz_match = re.search(r"([+-])(\d{2}):(\d{2})$", time_attr)
-                if tz_match:
-                    sign = 1 if tz_match.group(1) == "+" else -1
-                    offset_minutes = sign * (int(tz_match.group(2)) * 60 + int(tz_match.group(3)))
-                    tz_off = timezone(timedelta(minutes=offset_minutes))
-                else:
-                    tz_off = timezone.utc
-                return datetime(y, mo, d, h, mi, s, tzinfo=tz_off), time_attr
-            except Exception:
-                pass
-    # Fall back to Japanese date in text
-    for src in (time_text or "", body_text or "")[:500]:
-        m = JP_DATE_RE.search(src)
-        if m:
-            try:
-                y, mo, d = map(int, m.groups())
-                return datetime(y, mo, d, 12, 0, 0, tzinfo=timezone.utc), f"{y}-{mo:02d}-{d:02d}"
-            except Exception:
-                pass
-    return None, time_text or ""
+def list_tabs() -> list[dict]:
+    res = http("GET", f"/tabs?userId={USER_ID}&sessionKey={SESSION_KEY}")
+    if isinstance(res, dict) and "tabs" in res:
+        return res.get("tabs", [])
+    if isinstance(res, list):
+        return res
+    return []
 
 
-# ── Listing parser ─────────────────────────────────────────────────────
+def delete_session() -> None:
+    http("DELETE", f"/sessions/{USER_ID}?sessionKey={SESSION_KEY}")
 
-def extract_post_links(html_or_eval_result):
-    """From a list of {h, t} links, return unique /post-N/ URLs with their titles."""
-    seen = set()
-    out = []
-    if isinstance(html_or_eval_result, dict):
-        arr = html_or_eval_result.get("result") or []
-    else:
-        arr = html_or_eval_result or []
-    for item in arr:
-        h = (item.get("h") or "").strip()
-        t = (item.get("t") or "").strip()
-        if not h:
+
+def create_tab_resilient(url: str) -> dict | None:
+    """Create tab; on timeout or 500, recover via GET /tabs and (if needed) navigate.
+
+    Per the Camoufox skill, when POST /tabs times out, the tab may be created but
+    the response write hangs. The recovered tab may also sit at about:blank if
+    the original navigation didn't fire — in that case we navigate explicitly.
+    """
+    res = http("POST", "/tabs", {"userId": USER_ID, "sessionKey": SESSION_KEY, "url": url})
+    if isinstance(res, dict) and res.get("tabId"):
+        return res
+    time.sleep(2.0)
+    hostname = url.split("//", 1)[-1].split("/", 1)[0]
+    for t in list_tabs():
+        if t.get("listItemId") != SESSION_KEY:
             continue
-        # Normalize: drop anchors, anchors with #, comment links
-        if "#" in h:
-            h = h.split("#", 1)[0]
-        if not h.startswith("/") and not h.startswith("http"):
-            continue
-        # Match /post-XXXXX/ pattern
-        path = urllib.parse.urlparse(h).path if h.startswith("http") else h
-        if not POST_URL_RE.match(path):
-            continue
-        url = h if h.startswith("http") else f"{SITE_BASE}{path}"
-        # Skip duplicate URLs
-        if url in seen:
-            continue
-        seen.add(url)
-        # Title: prefer non-empty text. If empty, fetch on detail page later.
-        out.append({"url": url, "title": t, "path": path})
-    return out
+        cur = (t.get("url") or "")
+        # Match either navigated URL or about:blank
+        if hostname in cur or cur == "about:blank":
+            tab_id = t.get("tabId")
+            if cur == "about:blank":
+                # Navigate explicitly — POST /tabs timed out before navigation fired
+                nav = http("POST", f"/tabs/{tab_id}/navigate",
+                           {"url": url, "userId": USER_ID, "sessionKey": SESSION_KEY})
+                if isinstance(nav, dict) and nav.get("tabId"):
+                    return nav
+            return t
+    delete_session()
+    time.sleep(1.0)
+    res = http("POST", "/tabs", {"userId": USER_ID, "sessionKey": SESSION_KEY, "url": url})
+    if isinstance(res, dict) and res.get("tabId"):
+        return res
+    return None
 
 
-def scrape_listing(tab_id, page_url):
-    """Navigate to a listing page and return candidate post links."""
-    sys.stderr.write(f"\n=== Listing {page_url} ===\n")
-    _api("POST", f"/tabs/{tab_id}/navigate", {"url": page_url, "userId": USER_ID})
-    time.sleep(3)
-    eval_resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-        "userId": USER_ID,
-        "expression": "(() => { const a = Array.from(document.querySelectorAll('a[href]')); const out = []; const seen = new Set(); for (const x of a) { let h = x.getAttribute('href') || ''; if (!h || h.startsWith('#')) continue; const t = (x.innerText || '').trim(); const path = h.startsWith('http') ? new URL(h).pathname : h; if (!/^\\/[\\w-]+(\\/[\\w-]+)?\\/post-\\d+\\/?$/.test(path)) continue; const full = h.startsWith('http') ? h : ('https://jazztokyo.org' + path); if (seen.has(full)) continue; seen.add(full); out.push({h: full, t: t.slice(0, 200)}); } return out; })()"
-    })
-    links = extract_post_links(eval_resp)
-    sys.stderr.write(f"  found {len(links)} post links\n")
-    return links
+def evaluate(tab_id: str, expression: str) -> dict | str:
+    return http(
+        "POST",
+        f"/tabs/{tab_id}/evaluate",
+        {"expression": expression, "userId": USER_ID, "sessionKey": SESSION_KEY},
+    )
 
 
-# ── Article body parser ────────────────────────────────────────────────
+def close_tab(tab_id: str) -> None:
+    try:
+        http("DELETE", f"/tabs/{tab_id}")
+    except Exception:
+        pass
 
-def parse_article(tab_id, url):
-    """Fetch an article page; return dict with title, time, time_attr, body_text."""
-    sys.stderr.write(f"  fetch: {url}\n")
-    _api("POST", f"/tabs/{tab_id}/navigate", {"url": url, "userId": USER_ID})
-    time.sleep(2)
-    resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-        "userId": USER_ID,
-        "expression": "(() => { const art = document.querySelector('article') || document.querySelector('.entry-content') || document.querySelector('.post') || document.body; const h1s = Array.from(document.querySelectorAll('article h1, .entry-title, h1.post-title, h1')); const t = h1s.length ? h1s.reduce((a,b)=>(b.innerText||'').length>(a.innerText||'').length?b:a) : null; const time = document.querySelector('time'); const cat = document.querySelector('.cat-links a, .category a, .post-categories a'); return { title: t && (t.innerText||'').trim(), timeAttr: time && time.getAttribute('datetime'), timeText: time && (time.innerText||'').trim(), category: cat && (cat.innerText||'').trim(), body: art ? (art.innerText||'') : '' }; })()"
-    })
-    res = resp.get("result") or {}
-    body = res.get("body") or ""
-    # Strip noise: bottom-of-page share widgets, comment prompts, "共有:" lines
-    body = re.split(r"\n\s*共有:", body, maxsplit=1)[0]
-    body = re.split(r"\n\s*コメントをどうぞ", body, maxsplit=1)[0]
-    body = re.sub(r"\n\s*\d+\s*件のコメント.*$", "", body, flags=re.S)
-    body = re.sub(r"\n\s*コメントは.*$", "", body, flags=re.S)
-    body = body.strip()
-    return {
-        "url": url,
-        "title": res.get("title") or "",
-        "time_attr": res.get("timeAttr") or "",
-        "time_text": res.get("timeText") or "",
-        "category": res.get("category") or "",
-        "body": body,
+
+# Homepage extraction — pulls every LI in every `ul.q-block` widget. The
+# homepage stacks multiple category widgets (Monthly Editorial, All About
+# Jazz, Concerts/Live Shows, etc.) all from the current issue.
+HOMEPAGE_EXTRACT_JS = r"""
+(() => {
+  const out = [];
+  const seen = new Set();
+  document.querySelectorAll('ul.q-block > li').forEach(li => {
+    const h3 = li.querySelector('h3 a');
+    if (!h3) return;
+    const href = h3.getAttribute('href') || '';
+    if (!href || seen.has(href)) return;
+    seen.add(href);
+    const title = (h3.textContent || '').replace(/\s+/g, ' ').trim();
+    // Two .entry-meta blocks: [0]=category tags, [1]=date+author+views
+    const metas = li.querySelectorAll('p.entry-meta');
+    const dateMeta = metas.length >= 2 ? metas[1] : metas[0];
+    const dateLine = dateMeta ? dateMeta.innerText.trim() : '';
+    // Excerpt: the first <p> after entry-meta blocks
+    const ps = li.querySelectorAll('p');
+    let excerpt = '';
+    for (const p of ps) {
+      if (p.classList.contains('entry-meta')) continue;
+      const t = (p.textContent || '').trim();
+      if (t.length > 5) { excerpt = t; break; }
     }
+    out.push({ href, title, dateLine });
+  });
+  return out;
+})()
+"""
+
+# Article body extraction — single post page.
+ARTICLE_EXTRACT_JS = r"""
+(() => {
+  // The <article class="post-NNNN ..."> element wraps the entire post
+  const article = document.querySelector('article.post') ||
+                  document.querySelector('article[class*="post-"]') ||
+                  document.querySelector('article');
+  if (!article) return { body: '', dateLine: '', author: '' };
+  // Title
+  const h1 = article.querySelector('h1');
+  const title = h1 ? h1.textContent.trim() : document.title;
+  // Date + author from .entry-meta (single-post page has one .entry-meta
+  // typically containing "8月15日, 2026年 — 稲岡邦彌")
+  const metas = article.querySelectorAll('.entry-meta');
+  let dateLine = '';
+  let author = '';
+  for (const m of metas) {
+    const t = (m.textContent || '').trim();
+    if (/月.*日.*年/.test(t)) {
+      dateLine = t;
+      // Author: split on em-dash/—
+      const parts = t.split(/[—–-]/);
+      if (parts.length >= 2) author = parts[1].trim();
+      break;
+    }
+  }
+  // Body: collect all <p> after the date meta block
+  const ps = article.querySelectorAll('p, h2, h3, h4, li');
+  const bodyParts = [];
+  let started = false;
+  for (const p of ps) {
+    if (p.classList && p.classList.contains('entry-meta')) continue;
+    const t = (p.textContent || '').trim();
+    if (!t) continue;
+    if (!started) {
+      // Skip headers / credits before the prose begins
+      if (t === title) continue;
+      if (/^(CD\/DVD DISKS|NO\.\s*\d+|CD\/DVD|NO\.)/i.test(t)) continue;
+      if (/text:/i.test(t) && t.length < 80) continue;
+      if (/Tiny Storage Music|¥|税込/.test(t) && t.length < 80) continue;
+      if (/^[A-Z][a-z]+:\s*[A-Z]/.test(t) && t.length < 80) continue;
+      // Skip tracklist rows (comp./Arr. by patterns + length)
+      if (/comp\.|Arr\.|Lyrics|Lyric|作曲|編曲|作詞/.test(t) && t.length < 120) continue;
+      if (/^\d+\.\s/.test(t)) continue;
+      // Skip musician roster lines (instrument: name, ...)
+      if (/^[ア-ンー\s,・]+:[\s\S]{0,200}$/.test(t) && /[：:]/.test(t) && t.length < 200) continue;
+      if (/^[A-Za-z][\w\s,.\-:]+,[\s\S]{0,300}$/.test(t) && t.length < 200 && /,/.test(t) && /\b(alto|tenor|bari|trumpet|piano|bass|drums|flute|clarinet|saxophone|sax|trombone|vocal|vo)\b/i.test(t)) continue;
+    }
+    started = true;
+    bodyParts.push(t);
+  }
+  return { title, dateLine, author, body: bodyParts.join('\n\n') };
+})()
+"""
 
 
-# ── Type classification ────────────────────────────────────────────────
+def parse_jp_date(s: str) -> dt.date | None:
+    """Parse '8月15日, 2026年 — 稲岡邦彌' or '2026年8月15日' -> date."""
+    # Form A: 8月15日, 2026年
+    m = re.search(r"(\d{1,2})月(\d{1,2})日\s*,\s*(\d{4})\s*年", s)
+    if m:
+        mo, d, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        try:
+            return dt.date(y, mo, d)
+        except ValueError:
+            return None
+    # Form B: 2026年8月15日
+    m = re.search(r"(\d{4})\s*年\s*(\d{1,2})月\s*(\d{1,2})日", s)
+    if m:
+        y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        try:
+            return dt.date(y, mo, d)
+        except ValueError:
+            return None
+    return None
 
-def classify_article(url, title, category):
-    """Return type ∈ {review, feature} based on URL path."""
-    path = urllib.parse.urlparse(url).path
-    if "/reviews/cd-dvd-review/" in path:
+
+def is_non_music(title: str) -> bool:
+    return any(tag in title for tag in NON_MUSIC)
+
+
+def classify(url: str) -> str:
+    if "/reviews/" in url:
         return "review"
-    if "/reviews/live-report/" in path:
-        return "review"
-    if "/reviews/books/" in path:
-        return "review"
-    if "/reviews/sound-check/" in path:
-        return "review"
-    if "/interviews/" in path:
+    if "/features/" in url or "/feature/" in url:
         return "feature"
-    if "/column/" in path:
-        return "feature"
-    if "/monthly-editorial/" in path:
-        return "feature"
-    if "/news/" in path:
-        return "feature"
-    if "/features/" in path:
-        return "feature"
+    # Editorials / columns / interviews / obits — all type=feature
     return "feature"
 
 
-# ── Title parsing ──────────────────────────────────────────────────────
-
-# Title format examples from listing:
-#   "#2441 『挾間美帆／Frames』『Miho Hazama／Frames』"  (CD review)
-#   "#1409 中川英二郎 TRAD JAZZ COMPANY with 北村英治〜ラ・フォル・ジュルネTOKYO 2026『大河』"  (live)
-#   "7/30 東かおる、柳原由佳、沢田穣治 at 大阪・天満 Bamboo Club"  (news)
-#   "小川隆夫著『マイルス・デイヴィス大百科』刊行"  (news)
-#   "インプロヴァイザーの立脚地 vol.40  ミドリトモヒデ"  (interview)
-TITLE_NUM_RE = re.compile(r"^#\d+\s*")
-TITLE_BOOK_RE = re.compile(r"^(?P<artist>[^『』「」]+?)著『(?P<album>[^』]+)』")
-
-def split_title(raw_title, url):
-    """Return (artist, album). For news/columns both may be derived from title."""
-    if not raw_title:
-        return "", ""
-    t = TITLE_NUM_RE.sub("", raw_title).strip()
-    t = re.sub(r"\s+", " ", t)
-    # Book review: "X 著『Y』..."  → artist=X, album=Y
-    m = TITLE_BOOK_RE.match(t)
-    if m:
-        return m.group("artist").strip(), m.group("album").strip()
-    # CD/DVD review: "『ARTIST／Album』" or "『ARTIST / Album』"
-    m = re.search(r"『([^』]+?)／([^』]+?)』", t)
-    if m:
-        return m.group(1).strip(), m.group(2).strip()
-    m = re.search(r"『([^』]+?)／([^』]+?)』", t)
-    if m:
-        return m.group(1).strip(), m.group(2).strip()
-    # Event: "DATE NAME at PLACE" — use full title as album, no artist
-    if re.match(r"^[\d/]+\s*[～~\-]", t) or " at " in t.lower() or " at " in t:
-        return "", t
-    # "ARTIST feat ..." or "ARTIST with ..."
-    m = re.match(r"^(?P<artist>[^『』「」]+?)(?:\s+(?:with|feat|×|x)\s+|\s*[〜~]\s*)(?P<rest>.+)", t)
-    if m and len(m.group("artist")) < 60:
-        return m.group("artist").strip(), m.group("rest").strip()
-    # Column / news: title is the "album"
-    return "", t
+def wait_for_body(tab_id: str, max_wait: float = 30.0) -> dict | str | None:
+    poll_js = "document.body ? document.body.innerText.length : 0"
+    deadline = time.time() + max_wait
+    last_len = -1
+    stable = 0
+    while time.time() < deadline:
+        res = evaluate(tab_id, poll_js)
+        if not isinstance(res, dict) or res.get("_error"):
+            return None
+        ln = res.get("result", 0) or 0
+        if ln > 100 and ln == last_len:
+            stable += 1
+            if stable >= 2:
+                return evaluate(tab_id, ARTICLE_EXTRACT_JS)
+        else:
+            stable = 0
+            last_len = ln
+        time.sleep(2.0)
+    return None
 
 
-# ── Main ───────────────────────────────────────────────────────────────
+def scrape_article(url: str) -> dict | None:
+    tab = create_tab_resilient(url)
+    if not tab:
+        return {"_error": "create_tab_failed"}
+    tab_id = tab["tabId"]
+    try:
+        page = wait_for_body(tab_id)
+        if not page or not isinstance(page, dict):
+            return None
+        result_obj = page.get("result") if isinstance(page.get("result"), dict) else None
+        body = result_obj.get("body") if result_obj else None
+        if not body:
+            return None
+        body = body[:MAX_BODY]
+        return {
+            "body": body,
+            "date_line": result_obj.get("dateLine", ""),
+            "author": result_obj.get("author", ""),
+        }
+    finally:
+        close_tab(tab_id)
 
-def main():
-    ap = argparse.ArgumentParser(description="Scrape JazzTokyo")
-    ap.add_argument("--days", type=float, default=1.5)
-    ap.add_argument("--out-dir", type=str,
-        default=os.environ.get("HERMES_KANBAN_WORKSPACE", "/home/liyifan/music-record/2026/06/2026-06-14"))
-    ap.add_argument("--max-pages", type=int, default=2)
-    ap.add_argument("--max-articles", type=int, default=40)
-    ap.add_argument("--dry-run", action="store_true")
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--days", type=float, required=True)
+    ap.add_argument("--out", default="jazztokyo_reviews.json")
     args = ap.parse_args()
 
-    now = datetime.now(timezone.utc)
-    cutoff_date = now - timedelta(days=args.days)
+    hours_scanned = int(args.days * 24)
+    today_utc = dt.datetime.utcnow().date()
+    scraped_at = today_utc.isoformat()
+    cutoff = today_utc - dt.timedelta(days=args.days)
+    cutoff_str = cutoff.isoformat()
 
-    sys.stderr.write(
-        f"JazzTokyo scraper — now={now.isoformat()} cutoff={cutoff_date.isoformat()} "
-        f"days={args.days}\n"
-    )
-
-    # 1. Create tab
-    try:
-        tab_resp = _api("POST", "/tabs", {
-            "userId": USER_ID,
-            "sessionKey": SESSION_KEY,
-            "url": HOME_URL,
-        }, timeout=90)
-    except Exception as e:
-        sys.stderr.write(f"ERROR: failed to create tab: {e}\n")
-        _write_empty(args, now, cutoff_date, note=f"Tab creation failed: {e}")
-        return
-
-    tid = tab_resp.get("tabId")
-    if not tid:
-        sys.stderr.write("ERROR: no tabId\n")
-        _write_empty(args, now, cutoff_date, note="No tabId returned")
-        return
+    # 1. Open homepage — current issue TOC.
+    feed_tab = create_tab_resilient("https://jazztokyo.org/")
+    if not feed_tab:
+        print("[jazztokyo] failed to create feed tab", file=sys.stderr)
+        return 0
+    feed_tab_id = feed_tab["tabId"]
 
     try:
-        # CF challenge settle
-        time.sleep(6)
-
-        # 2. Collect links from front 2 pages
-        candidate_urls = {}  # url -> {"title": ..., "source": ...}
-        pages = [HOME_URL, f"{SITE_BASE}/page/2/"][:args.max_pages]
-        for label, page_url in zip(["p1", "p2"], pages):
-            for link in scrape_listing(tid, page_url):
-                if link["url"] not in candidate_urls:
-                    candidate_urls[link["url"]] = {"title": link["title"], "source": label}
-
-        sys.stderr.write(f"\nTotal unique candidates: {len(candidate_urls)}\n")
-
-        # 3. Fetch each article; apply filters
-        results = []
-        kept = 0
-        skipped_non_music = 0
-        skipped_old = 0
-        fetch_errors = 0
-
-        ordered = list(candidate_urls.items())[:args.max_articles]
-
-        for n, (url, meta) in enumerate(ordered, 1):
-            list_title = meta["title"]
-            # Pre-filter: skip BLU-RAY/UHD/VOD/DVD in listing title
-            if NON_MUSIC_RE.search(list_title):
-                sys.stderr.write(f" [{n}/{len(ordered)}] SKIP non-music (list): {list_title[:60]}\n")
-                skipped_non_music += 1
-                continue
-
-            try:
-                art = parse_article(tid, url)
-            except Exception as e:
-                sys.stderr.write(f" [{n}/{len(ordered)}] FETCH ERROR: {url} {e}\n")
-                fetch_errors += 1
-                continue
-
-            full_text = (art["title"] + "\n" + art["body"])
-            if NON_MUSIC_RE.search(full_text[:1500]):
-                sys.stderr.write(f" [{n}/{len(ordered)}] SKIP non-music (body): {url}\n")
-                skipped_non_music += 1
-                continue
-
-            pub_date, raw_date = parse_pub_date(art["time_attr"], art["time_text"], art["body"])
-            if pub_date is None:
-                sys.stderr.write(f" [{n}/{len(ordered)}] SKIP no-date: {url}\n")
-                fetch_errors += 1
-                continue
-
-            if pub_date < cutoff_date:
-                sys.stderr.write(f" [{n}/{len(ordered)}] SKIP old (pub={pub_date.date()}): {art['title'][:50]}\n")
-                skipped_old += 1
-                continue
-
-            type_ = classify_article(url, art["title"], art["category"])
-            artist, album = split_title(art["title"], url)
-            if not album:
-                album = art["title"] or list_title
-
-            excerpt = art["body"][:500].replace("\n", " ") if art["body"] else ""
-
-            item = {
-                "album": album,
-                "artist": artist,
-                "score": None,
-                "url": url,
-                "source": SOURCE,
-                "pub_date": pub_date.isoformat(),
-                "tags": TAGS_DEFAULT,
-                "excerpt": excerpt,
-                "body": art["body"],
-                "site_id": SITE_ID,
-                "crawl_status": "ok",
-                "type": type_,
-            }
-            results.append(item)
-            kept += 1
-            sys.stderr.write(f" [{n}/{len(ordered)}] KEPT ({type_}, {pub_date.date()}): {art['title'][:60]}\n")
-
-        sys.stderr.write(
-            f"\nResults: total={len(results)} in_window={kept} "
-            f"non_music_skipped={skipped_non_music} old_skipped={skipped_old} "
-            f"fetch_errors={fetch_errors}\n"
-        )
-
-        out = {
-            "meta": {
-                "total": len(results),
-                "scraped_at": now.isoformat(),
-                "cutoff_date": cutoff_date.isoformat(),
-                "site": SITE_ID,
-                "pages_crawled": min(args.max_pages, len(pages)),
-                "candidates_checked": len(ordered),
-                "in_window_count": kept,
-                "non_music_skipped": skipped_non_music,
-                "old_skipped": skipped_old,
-                "fetch_errors": fetch_errors,
-            },
-            "items": results,
-        }
-
-        if args.dry_run:
-            print(json.dumps(out["meta"], indent=2, ensure_ascii=False))
-            return
-
-        os.makedirs(args.out_dir, exist_ok=True)
-        out_path = os.path.join(args.out_dir, "jazztokyo_reviews.json")
-        with open(out_path, "w", encoding="utf-8") as f:
-            json.dump(out, f, indent=2, ensure_ascii=False)
-        sys.stderr.write(f"Wrote {out_path} ({len(results)} items)\n")
-
+        # wait for body to settle before extracting
+        deadline = time.time() + 30
+        last_len = -1
+        stable = 0
+        while time.time() < deadline:
+            r = evaluate(feed_tab_id, "document.body ? document.body.innerText.length : 0")
+            if not isinstance(r, dict) or r.get("_error"):
+                break
+            ln = r.get("result", 0) or 0
+            if ln > 1000 and ln == last_len:
+                stable += 1
+                if stable >= 2:
+                    break
+            else:
+                stable = 0
+                last_len = ln
+            time.sleep(2)
+        res = evaluate(feed_tab_id, HOMEPAGE_EXTRACT_JS)
+        items_meta = res.get("result", []) if isinstance(res, dict) else []
+        if not isinstance(items_meta, list):
+            items_meta = []
     finally:
-        try:
-            _api("DELETE", f"/tabs/{tid}?userId={USER_ID}")
-        except Exception as e:
-            sys.stderr.write(f"WARN: failed to close tab: {e}\n")
+        close_tab(feed_tab_id)
 
+    # 2. Filter
+    candidates: list[dict] = []
+    seen_urls: set[str] = set()
+    for it in items_meta:
+        url = it.get("href", "")
+        if not url or url in seen_urls:
+            continue
+        seen_urls.add(url)
+        title = it.get("title", "").strip()
+        d = parse_jp_date(it.get("dateLine", ""))
+        if d is None:
+            continue
+        if d < cutoff:
+            continue
+        if is_non_music(title):
+            continue
+        candidates.append({"url": url, "title": title, "date": d.isoformat(),
+                            "date_line": it.get("dateLine", "")})
 
-def _write_empty(args, now, cutoff_date, note=""):
+    # 3. Scrape each article (fresh tab per URL)
+    items: list[dict] = []
+    for c in candidates:
+        page = scrape_article(c["url"])
+        if not page or not page.get("body"):
+            continue
+        body = page["body"]
+        url = c["url"]
+        title = c["title"]
+        t = classify(url)
+        # For reviews, title format is "#NNNN 『ARTIST／ALBUM』"
+        album = title
+        artist = ""
+        m = re.match(r"^#\d+\s*[『「](.+?)[』」]\s*(.*)$", title)
+        if m:
+            head = m.group(1)
+            tail = m.group(2).strip()
+            # head is "ARTIST／ALBUM" or "ARTIST / ALBUM"
+            sp = re.split(r"[／/]", head)
+            if len(sp) == 2:
+                artist = sp[0].strip()
+                album = sp[1].strip()
+            else:
+                album = head
+        excerpt = re.sub(r"\s+", " ", body)[:500].strip()
+        items.append({
+            "album": album,
+            "artist": artist,
+            "score": None,
+            "url": url,
+            "source": SOURCE,
+            "pub_date": c["date"],
+            "tags": "",
+            "excerpt": excerpt,
+            "body": body,
+            "site_id": SITE_ID,
+            "crawl_status": "success",
+            "type": t,
+            "author": page.get("author", ""),
+        })
+
     out = {
         "meta": {
-            "total": 0,
-            "scraped_at": now.isoformat(),
-            "cutoff_date": cutoff_date.isoformat(),
+            "total": len(items),
+            "scraped_at": scraped_at,
+            "cutoff_date": cutoff_str,
+            "hours_scanned": hours_scanned,
             "site": SITE_ID,
-            "note": note or "No items extracted",
         },
-        "items": [],
+        "items": items,
     }
-    if args.dry_run:
-        print(json.dumps(out["meta"], indent=2, ensure_ascii=False))
-        return
-    os.makedirs(args.out_dir, exist_ok=True)
-    out_path = os.path.join(args.out_dir, "jazztokyo_reviews.json")
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(out, f, indent=2, ensure_ascii=False)
-    sys.stderr.write(f"Wrote {out_path} (0 items)\n")
+    with open(args.out, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=2)
+
+    print(f"[jazztokyo] wrote {len(items)} items to {args.out} (cutoff={cutoff_str}, "
+          f"candidates={len(candidates)}, examined={len(items_meta)})", file=sys.stderr)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
