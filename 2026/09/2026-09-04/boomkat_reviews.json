@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-09-04T04:09:00+08:00",
+    "cutoff_date": "2026-09-02",
+    "cf_blocked": true,
+    "site": "boomkat",
+    "notes": "CF Turnstile blocked (day 7+ streak). Fast-exit per spec; no retry."
+  },
+  "items": []
+}
