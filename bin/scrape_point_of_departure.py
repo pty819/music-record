@@ -49,9 +49,22 @@ LIST_URL = f"{SITE_BASE}/Content.html"
 SITE_ID = "point_of_departure"
 SOURCE = "Point of Departure"
 TAGS_DEFAULT = "improvised music,creative music,jazz"
-ISSUE = "PoD95"
-ISSUE_DATE = "June2026"
-PUB_DATE = "2026-06"  # issue month, no exact day available
+
+# Issue detection: PoD publishes a new issue ~every 2 months. The listing
+# page advertises "Issue NN - <Month> <Year>" near the top. We detect it at
+# runtime so the scraper auto-follows new issues (PoD95, PoD96, …).
+LISTING_ISSUE_RE = re.compile(
+    r"Issue\s+(\d+)\s*[-–]\s*([A-Za-z]+)\s+(\d{4})",
+    re.I,
+)
+# Maps English month name → (zero-padded MM, abbreviated MM) used in
+# ISSUE_DATE label and PUB_DATE month string.
+_MONTHS = {
+    "January": ("01", "Jan"), "February": ("02", "Feb"), "March": ("03", "Mar"),
+    "April": ("04", "Apr"), "May": ("05", "May"), "June": ("06", "Jun"),
+    "July": ("07", "Jul"), "August": ("08", "Aug"), "September": ("09", "Sep"),
+    "October": ("10", "Oct"), "November": ("11", "Nov"), "December": ("12", "Dec"),
+}
 
 USER_ID = "scraper_pod"
 SESSION_KEY = "session_pod"
@@ -60,22 +73,20 @@ SESSION_KEY = "session_pod"
 NON_MUSIC_RE = re.compile(r"\((?:BLU-RAY|BLU-RAY REVIEW|UHD|VOD|DVD)\)", re.I)
 
 # Listing regex from spec.
-# Content.html emits both /PoD95/PoD95X.html (absolute-ish) and PoD95/PoD95X.html
-# (relative). Match either with a tolerant pattern.
-ARTICLE_HREF_RE = re.compile(r"(?:^|/)PoD95/PoD95[A-Za-z0-9_-]+\.html$")
+# Content.html emits both /PoD<NN>/PoD<NN>X.html (absolute-ish) and
+# PoD<NN>/PoD<NN>X.html (relative). Match either with a tolerant pattern.
+# Filled at runtime with the current issue number.
+ARTICLE_HREF_RE = re.compile(r"(?:^|/)PoD\d+/PoD\d+[A-Za-z0-9_-]+\.html$")
 
 # Byline regex (em-dash prefix inside <em>...</em>)
 BYLINE_RE = re.compile(r"<em>\s*[–\-]\s*([^<]+?)\s*</em>", re.I)
 BYLINE_PLAIN_RE = re.compile(r"^[–\-]\s*(.+?)\s*$")
 
 # Aggregator (multi-review) page filenames — cap at 2 listing pages per spec.
-# MomentsNotice.html is itself a single-review page; MoreMoments2 is the first
-# true multi-review aggregator page. We intentionally exclude MoreMoments3
-# and MoreMoments4.
-AGGREGATOR_PAGES = [
-    "PoD95MomentsNotice.html",   # page 1 — single review
-    "PoD95MoreMoments2.html",    # page 2 — multi-review aggregator
-]
+# Filled at runtime with the current issue number. MomentsNotice.html is
+# itself a single-review page; MoreMoments2 is the first true multi-review
+# aggregator page. We intentionally exclude MoreMoments3 and MoreMoments4.
+AGGREGATOR_PAGES: list[str] = []
 
 
 # ── Camoufox REST helpers ──────────────────────────────────────────────
@@ -208,7 +219,10 @@ LISTING_JS = r"""
             text: (a.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 200)
         });
     }
-    return out;
+    // Also capture the body innerText (truncated) so we can detect the
+    // current issue banner ("Issue NN - <Month> <Year>").
+    const bodyText = (document.body && document.body.innerText) || '';
+    return { anchors: out, bodyText: bodyText.slice(0, 5000) };
 })()
 """
 
@@ -253,14 +267,16 @@ def normalize_href(href: str) -> str:
         return href
     if href.startswith("/"):
         return f"{SITE_BASE}{href}"
-    # href is relative. If it already starts with "PoD95/" (or any
-    # subdirectory), resolve against SITE_BASE root, not against /PoD95/.
+    # href is relative. If it already starts with "PoD<NN>/" (or any
+    # subdirectory), resolve against SITE_BASE root, not against /PoD<NN>/.
     if "/" in href:
         return f"{SITE_BASE}/{href}"
-    # Bare filename like "PoD95MomentsNotice.html" — assume it's a PoD95 asset
-    if href.startswith("PoD95"):
-        return f"{SITE_BASE}/PoD95/{href}"
-    return f"{SITE_BASE}/PoD95/{href}"
+    # Bare filename like "PoD95MomentsNotice.html" — assume it's a PoD asset.
+    # Detect issue number from filename; fall back to "PoD" prefix otherwise.
+    m = re.match(r"^(PoD\d+)", href)
+    if m:
+        return f"{SITE_BASE}/{m.group(1)}/{href}"
+    return f"{SITE_BASE}/{href}"
 
 
 def parse_aggregator_page(paragraphs: list[dict], page_url: str) -> list[dict]:
@@ -650,15 +666,20 @@ def parse_book_review_page(paragraphs: list[dict], page_url: str, page_title: st
     }
 
 
-def is_aggregator_url(url: str) -> bool:
+def is_aggregator_url(url: str, agg_pages: list[str]) -> bool:
     """True if this URL points at one of the Moment's Notice multi-review pages."""
-    return any(url.endswith(fn) for fn in AGGREGATOR_PAGES)
+    return any(url.endswith(fn) for fn in agg_pages)
 
 
-def is_book_review_url(url: str) -> bool:
-    """Heuristic: per-book review pages are linked from PoD95BookCooks.html.
-    In practice we only have one such URL (PoD95Leroy.html), so name-match."""
-    return "BookCooks" in url or "Leroy" in url
+def is_book_review_url(url: str, issue_str: str) -> bool:
+    """Heuristic: per-book review pages are linked from PoD{issue}BookCooks.html.
+
+    The BookCooks index links to a single review page (e.g. PoD96Schackman.html
+    for PoD96, PoD95Leroy.html for PoD95). The author suffix varies, so we
+    match by the BookCooks link only — not by the suffix (which would
+    over-match interview pages like PoD96Bernstein.html).
+    """
+    return f"/{issue_str}BookCooks" in url
 
 
 def non_music(artist: str, album: str, body: str) -> bool:
@@ -669,7 +690,8 @@ def non_music(artist: str, album: str, body: str) -> bool:
 
 # ── Item builder ───────────────────────────────────────────────────────
 def build_item(*, url: str, item_type: str, artist: str, album: str,
-               label: str, reviewer: str, body: str) -> dict | None:
+               label: str, reviewer: str, body: str,
+               pub_date: str) -> dict | None:
     """Assemble a standardized JSON item. Returns None if non-music."""
     if non_music(artist, album, body):
         sys.stderr.write(f"  SKIP (non-music): {artist} – {album}\n")
@@ -682,7 +704,7 @@ def build_item(*, url: str, item_type: str, artist: str, album: str,
         "score": None,
         "url": url,
         "source": SOURCE,
-        "pub_date": PUB_DATE,
+        "pub_date": pub_date,
         "tags": TAGS_DEFAULT,
         "excerpt": excerpt,
         "body": body,
@@ -728,7 +750,7 @@ def main() -> None:
         sys.stderr.write("ERROR: Failed to create listing tab\n")
         result = {"meta": {"total": 0, "scraped_at": now.isoformat(),
                             "cutoff_date": cutoff_iso, "site": SITE_ID,
-                            "issue": ISSUE, "issue_date": ISSUE_DATE},
+                            "issue": None, "issue_date": None},
                   "items": []}
         _emit(result, args.out_file)
         sys.exit(1)
@@ -736,13 +758,49 @@ def main() -> None:
     all_items: list[dict] = []
     # Track every tab we open so we can clean up at the end
     open_tab_ids: list[str] = [list_tab_id]
+    # Issue/runtime metadata — detected from the listing's "Issue NN - Month YYYY"
+    # banner. ``pub_date`` uses the issue month (YYYY-MM) since exact day
+    # granularity isn't available.
+    issue_str = "PoD95"
+    issue_date = "June2026"
+    pub_date = "2026-06"
     try:
         time.sleep(2)
 
         # ── Step 2: enumerate article URLs from the listing ────────────
         resp = _api("POST", f"/tabs/{list_tab_id}/evaluate", {"expression": LISTING_JS, "userId": USER_ID})
-        anchors = resp.get("result") or []
+        listing_data = resp.get("result") or {}
+        anchors = listing_data.get("anchors") or []
+        body_text = listing_data.get("bodyText") or ""
         sys.stderr.write(f"Found {len(anchors)} anchors on listing page\n")
+
+        # Detect current issue from the listing's "Issue NN - <Month> <Year>" banner.
+        m_issue = LISTING_ISSUE_RE.search(body_text)
+        if m_issue:
+            issue_num = m_issue.group(1).lstrip("0") or "0"
+            month_name = m_issue.group(2).capitalize()
+            year_str = m_issue.group(3)
+            issue_str = f"PoD{issue_num}"
+            month_mm, month_abbr = _MONTHS.get(month_name, ("01", month_name[:3]))
+            issue_date = f"{month_abbr}{year_str}"  # e.g. "Sep2026"
+            pub_date = f"{year_str}-{month_mm}"    # e.g. "2026-09"
+            sys.stderr.write(
+                f"Detected issue: {issue_str} ({month_name} {year_str}); "
+                f"pub_date={pub_date}\n"
+            )
+        else:
+            sys.stderr.write(
+                "WARN: could not detect issue banner; defaulting to PoD95/2026-06\n"
+            )
+            issue_str = "PoD95"
+            issue_date = "June2026"
+            pub_date = "2026-06"
+
+        # Build aggregator page filenames for this issue (capped at 2 per spec).
+        agg_pages = [
+            f"{issue_str}MomentsNotice.html",
+            f"{issue_str}MoreMoments2.html",
+        ]
 
         # Build article URL list
         article_urls: list[str] = []
@@ -751,11 +809,11 @@ def main() -> None:
             href = a.get("href", "")
             if not href or not ARTICLE_HREF_RE.search(href):
                 continue
-            # Skip BookCooks (the index of book reviews) — handled via Leroy
+            # Skip BookCooks (the index of book reviews) — handled separately
             if href.endswith("BookCooks.html"):
                 continue
             # Skip the aggregator pages from auto-list — handled separately
-            if any(href.endswith(fn) for fn in AGGREGATOR_PAGES):
+            if any(href.endswith(fn) for fn in agg_pages):
                 continue
             full = normalize_href(href)
             if full in seen:
@@ -763,10 +821,10 @@ def main() -> None:
             seen.add(full)
             article_urls.append(full)
 
-        # Always include the book review (Leroy) and the 2 aggregator pages
-        article_urls.append(f"{SITE_BASE}/PoD95/PoD95Leroy.html")
-        for fn in AGGREGATOR_PAGES:
-            article_urls.append(f"{SITE_BASE}/PoD95/{fn}")
+        # Also fetch the aggregator pages (MomentsNotice single review +
+        # MoreMoments2 multi-review aggregator) for the current issue.
+        for fn in agg_pages:
+            article_urls.append(f"{SITE_BASE}/{issue_str}/{fn}")
         # De-duplicate while preserving order
         deduped: list[str] = []
         seen2: set[str] = set()
@@ -793,7 +851,7 @@ def main() -> None:
                 blocked = build_item(
                     url=url, item_type="feature",
                     artist="", album="", label="", reviewer="",
-                    body="",
+                    body="", pub_date=pub_date,
                 )
                 if blocked is not None:
                     blocked["crawl_status"] = "blocked"
@@ -810,7 +868,7 @@ def main() -> None:
                 blocked = build_item(
                     url=url, item_type="feature",
                     artist="", album="", label="", reviewer="",
-                    body="",
+                    body="", pub_date=pub_date,
                 )
                 if blocked is not None:
                     blocked["crawl_status"] = "blocked"
@@ -823,7 +881,7 @@ def main() -> None:
             sys.stderr.write(f"  title={title!r} paragraphs={len(paragraphs)}\n")
 
             # Branch on page type
-            if is_aggregator_url(url):
+            if is_aggregator_url(url, agg_pages):
                 header_re = re.compile(r"<em[^>]*>.*?<strong[^>]*>", re.S | re.I)
                 header_count = sum(
                     1 for p in paragraphs if header_re.search(p["html"])
@@ -835,6 +893,7 @@ def main() -> None:
                         artist=parsed["artist"], album=parsed["album"],
                         label=parsed["label"], reviewer=parsed["reviewer"],
                         body=parsed["body"],
+                        pub_date=pub_date,
                     )
                     if item:
                         all_items.append(item)
@@ -846,16 +905,18 @@ def main() -> None:
                             artist=r["artist"], album=r["album"],
                             label=r["label"], reviewer=r["reviewer"],
                             body=r["body"],
+                            pub_date=pub_date,
                         )
                         if item:
                             all_items.append(item)
-            elif is_book_review_url(url):
+            elif is_book_review_url(url, issue_str):
                 parsed = parse_book_review_page(paragraphs, url, title)
                 item = build_item(
                     url=url, item_type="review",
                     artist=parsed["artist"], album=parsed["album"],
                     label=parsed["label"], reviewer=parsed["reviewer"],
                     body=parsed["body"],
+                    pub_date=pub_date,
                 )
                 if item:
                     all_items.append(item)
@@ -867,6 +928,7 @@ def main() -> None:
                     artist=parsed["artist"], album=parsed["album"],
                     label=parsed["label"], reviewer=parsed["reviewer"],
                     body=parsed["body"],
+                    pub_date=pub_date,
                 )
                 if item:
                     all_items.append(item)
@@ -878,8 +940,8 @@ def main() -> None:
                 "scraped_at": now.isoformat(),
                 "cutoff_date": f"{cutoff_iso}T00:00:00+00:00",
                 "site": SITE_ID,
-                "issue": ISSUE,
-                "issue_date": ISSUE_DATE,
+                "issue": issue_str,
+                "issue_date": issue_date,
             },
             "items": all_items,
         }
