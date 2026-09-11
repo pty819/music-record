@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-09-11T20:04:20Z",
+    "cutoff_date": "2026-09-10T08:04:20Z",
+    "cf_blocked": true,
+    "site": "boomkat",
+    "notes": "Cloudflare Turnstile persistent block (8+ days, 2026-08-29 -> 2026-09-11). Plain HTTP returns HTTP 403 within 1.4s. Browser path previously confirmed stuck on 'Just a moment...' challenge page past 15s. Skipping browser probe per WEDGE memory."
+  },
+  "items": []
+}

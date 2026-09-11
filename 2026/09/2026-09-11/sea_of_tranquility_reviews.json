@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "total": 2,
+    "scraped_at": "2026-09-10T20:01:27.081767+00:00",
+    "cutoff_date": "2026-09-09T08:01:27.081767+00:00"
+  },
+  "items": [
+    {
+      "album": "Letâs Thrak Again (Reel One)",
+      "artist": "Stick Men",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25579",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-09-10T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Stick Men: Letâs Thrak Again (Reel One) Supergroup Stick Men (Tony Levin, Markus Reuter, Pat Mastelotto) are back with their first new album in a decade. The band is paying homage to King Crimsonâs 1995 release Thrak . Interestingly, the album is being released in two versions, Reel One mixed by Stefano Castagna, and Reel Two mixed by Fabio Trentini. Per the press release they offer different mixes, alternate track sequences, and contrasting sonic perspectives that offer two distinct listeni",
+      "body": "Stick Men: Letâs Thrak Again (Reel One) Supergroup Stick Men (Tony Levin, Markus Reuter, Pat Mastelotto) are back with their first new album in a decade. The band is paying homage to King Crimsonâs 1995 release Thrak . Interestingly, the album is being released in two versions, Reel One mixed by Stefano Castagna, and Reel Two mixed by Fabio Trentini. Per the press release they offer different mixes, alternate track sequences, and contrasting sonic perspectives that offer two distinct listening experiences.Â",
+      "site_id": "sot_review_25579",
+      "crawl_status": "ok",
+      "type": "review"
+    },
+    {
+      "album": "Only Love",
+      "artist": "Rakita, Anna",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25578",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-09-10T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Rakita, Anna: Only Love Guitar and violin paired together is the music from heaven to my ears. Russian violinist Anna Rakita has teamed with incredible rhythm section of Gergo Borlai (Drums) and Anton Davidyants (bass), this formidable duo power these songs behind Annaâs incredible violin. You donât need to delve any further than âFirst Songâ (aptly titled) to know Rakita has the goods. A skillful player paired with the amazing compositions of Anna Vagifovna Zeinalova make this a must ow",
+      "body": "Rakita, Anna: Only Love Guitar and violin paired together is the music from heaven to my ears. Russian violinist Anna Rakita has teamed with incredible rhythm section of Gergo Borlai (Drums) and Anton Davidyants (bass), this formidable duo power these songs behind Annaâs incredible violin. You donât need to delve any further than âFirst Songâ (aptly titled) to know Rakita has the goods. A skillful player paired with the amazing compositions of Anna Vagifovna Zeinalova make this a must own. The first and only time I had heard of Anna Rakita was through guitarist Evgeny Ponozhivâs 2024 release âStreamâ. Rakita was first violin and composed the string quartet arrangements for the album.",
+      "site_id": "sot_review_25578",
+      "crawl_status": "ok",
+      "type": "review"
+    }
+  ]
+}
