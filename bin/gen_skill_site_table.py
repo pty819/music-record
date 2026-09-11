@@ -41,6 +41,7 @@ HTML_REMARKS = {
     "mixmag_asia": "列表页 + excerpt",
     "mikiki": "日本音乐媒体",
     "musique_machine": "电影/音乐混合",
+    "progressor": "直连 HTTP；TLS 1.0 不兼容 Camoufox；月刊，1.5d 窗口经常 0 条",
     "resident_advisor": "Cloudflare",
     "roots_world": "curl 直连",
     "sea_of_tranquility": "urllib 直连，早停 5 条",
@@ -50,9 +51,8 @@ HTML_REMARKS = {
 }
 
 CAMO_REMARKS = {
-    "boomkat": "Cloudflare ASN 封锁，脚本调 Camoufox REST API",
+    "boomkat": "Cloudflare Turnstile。Kanban worker 自主探索；CF 后早退，禁止反复开 tab",
     "point_of_departure": "JS 渲染。Feature 无 Artist/Album 头 → parse_feature_page()。详见 references/pod-feature-unknown-album.md",
-    "progressor": "冷门 prog/fusion，无独立 scrape 脚本",
     "wild_city": "印度/南亚电子，脚本调 Camoufox REST API",
     "jazztokyo": "日本爵士，需 JS 渲染",
     "musicircus": "日本先锋/即兴音乐",

@@ -38,6 +38,54 @@ browser:
 CAMOFOX_URL=http://localhost:9377
 ```
 
+## REST API 端点（测试站点可达性用）
+
+Camoufox server 使用 **tab-based API**，不是简单的 /fetch。测试流程：
+
+```python
+import requests
+CAMOFOX = 'http://localhost:9377'
+
+# 1. 创建 tab（同时导航到 URL）
+r = requests.post(f'{CAMOFOX}/tabs', json={
+    'userId': 'test-user',
+    'sessionKey': 'test-session',
+    'url': 'https://example.com/'
+}, timeout=30)
+tid = r.json()['tabId']
+
+# 2. 获取页面快照
+r2 = requests.get(f'{CAMOFOX}/tabs/{tid}/snapshot', timeout=15)
+text = r2.json().get('text', '')[:500]
+
+# 3. 关闭 tab
+requests.delete(f'{CAMOFOX}/tabs/{tid}', timeout=5)
+```
+
+### 端点列表
+
+| 方法 | 路径 | 用途 |
+|------|------|------|
+| GET | `/health` | 服务状态 |
+| POST | `/tabs` | 创建 tab（可带 url 参数自动导航） |
+| GET | `/tabs/{id}` | tab 信息 |
+| GET | `/tabs/{id}/snapshot` | 页面文本快照 |
+| GET | `/tabs/{id}/screenshot` | 页面截图 |
+| POST | `/tabs/{id}/navigate` | 导航到新 URL |
+| POST | `/tabs/{id}/click` | 点击元素 |
+| POST | `/tabs/{id}/type` | 输入文本 |
+| POST | `/tabs/{id}/scroll` | 滚动页面 |
+| POST | `/tabs/{id}/evaluate` | 执行 JS |
+| DELETE | `/tabs/{id}` | 关闭 tab |
+
+### 常见错误
+
+| 错误 | 含义 |
+|------|------|
+| `NS_ERROR_NET_INTERRUPT` | 网络层连接被中断（SSL/TLS 握手失败，非浏览器兼容性问题） |
+| `NS_ERROR_CONNECTION_REFUSED` | 目标服务器拒绝连接 |
+| `timeout` | 页面加载超时（默认 30s） |
+
 ## 已知限制
 
 - `browser_click` 可能超时（30s timeout），优先用 `browser_navigate`
