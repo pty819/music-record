@@ -23,6 +23,8 @@ ROOT = Path("/home/liyifan/music-record")
 BIN = ROOT / "bin"
 LOCK_PATH = Path("/tmp/music-daily-recs.lock")
 MIN_SCORE = 3
+_HERMES_HOME = Path.home() / ".hermes" / "hermes-agent"
+STUCK_STATUSES = ("blocked", "todo", "ready", "running", "review", "triage", "scheduled")
 
 
 def _log(msg: str) -> None:
@@ -268,6 +270,61 @@ def spawn_swarm() -> None:
         _log(f"kanban-swarm.py 失败 rc={r.returncode}。出货已完成，探索 worker 未创建。")
 
 
+def sweep_music_kanban() -> dict[str, int]:
+    """07:00：music tenant 卡死任务 complete + 全部未归档任务 archive。
+
+    只动 tenant=music。出货不依赖看板，所以 running/blocked 到点一律收掉，
+    避免第二天看板堆僵尸卡。complete 失败（例如 parent 未满足）就直接 archive。
+    """
+    counts = {"completed": 0, "archived": 0, "failed": 0}
+    if str(_HERMES_HOME.resolve()) not in sys.path:
+        sys.path.insert(0, str(_HERMES_HOME.resolve()))
+    try:
+        from hermes_cli import kanban_db as kb  # type: ignore
+        from hermes_cli.kanban_db_connect import connect_closing  # type: ignore
+    except ImportError as e:
+        _log(f"sweep_music_kanban: 无法导入 kanban_db ({e})")
+        return counts
+
+    with connect_closing() as conn:
+        open_tasks = list(kb.list_tasks(conn, tenant="music", include_archived=False))
+        stuck = [t for t in open_tasks if t.status in STUCK_STATUSES]
+        for t in stuck:
+            ok = False
+            try:
+                ok = kb.complete_task(
+                    conn,
+                    t.id,
+                    summary="watchdog sweep: stale music task closed",
+                    metadata={"swept_by": "daily_watchdog", "prior_status": t.status},
+                )
+            except Exception:
+                ok = False
+            if ok:
+                counts["completed"] += 1
+            else:
+                counts["failed"] += 1
+
+        leftover = list(kb.list_tasks(conn, tenant="music", include_archived=False))
+        for t in leftover:
+            try:
+                if kb.archive_task(conn, t.id):
+                    counts["archived"] += 1
+                else:
+                    counts["failed"] += 1
+            except Exception:
+                counts["failed"] += 1
+        # complete 可能把 parent-gated 子卡放成 ready，再扫一次免得 dispatcher 接走
+        leftover = list(kb.list_tasks(conn, tenant="music", include_archived=False))
+        for t in leftover:
+            try:
+                if kb.archive_task(conn, t.id):
+                    counts["archived"] += 1
+            except Exception:
+                counts["failed"] += 1
+    return counts
+
+
 def report_on_origin(d: date) -> bool:
     rel = f"recommend/{d.strftime('%Y')}/{d.strftime('%m')}/{d.isoformat()}.md"
     r = subprocess.run(
@@ -322,6 +379,7 @@ def main() -> int:
         date_dir = date_dir_for(d)
         date_dir.mkdir(parents=True, exist_ok=True)
 
+        ship = True
         if args.if_needed:
             subprocess.run(
                 ["git", "fetch", "origin", "main"],
@@ -332,47 +390,58 @@ def main() -> int:
             )
             on_origin = report_on_origin(d)
             stale_tail = newest_reviews_mtime(date_dir) > processed_mtime(date_dir) + 1
-            if on_origin and not stale_tail:
-                return 0  # no_agent 空 stdout = 不投递
+            ship = (not on_origin) or stale_tail
+            if ship:
+                _log(
+                    f"watchdog 补货 {d.isoformat()}: "
+                    f"on_origin={on_origin} stale_tail={stale_tail}"
+                )
+                args.skip_scrape = (date_dir / "rss_merged.json").exists()
+                args.skip_swarm = True
+
+        if ship:
+            git_pull()
+
+            if not args.skip_scrape:
+                scrape_rss(date_dir, args.days)
+                scrape_html(date_dir, args.days)
+
+            n_raw = merge(date_dir)
+            _log(f"merge {n_raw} 条")
+
+            if args.skip_score and (date_dir / "processed.json").exists():
+                processed = json.loads((date_dir / "processed.json").read_text(encoding="utf-8"))
+                items = processed.get("items") or []
+                n_kept = len(items)
+            else:
+                n_kept = score(date_dir)
+                processed = json.loads((date_dir / "processed.json").read_text(encoding="utf-8"))
+                items = processed.get("items") or []
+
+            write_report(d, date_dir, items)
+            _log(f"保留 {n_kept} 条 >=3 分 → {report_path_for(d)}")
+
+            pushed = False
+            if not args.skip_push:
+                pushed = git_push_daily(d, date_dir)
+
+            if not args.skip_swarm:
+                spawn_swarm()
+
             _log(
-                f"watchdog 补货 {d.isoformat()}: "
-                f"on_origin={on_origin} stale_tail={stale_tail}"
+                f"DONE {d.isoformat()} raw={n_raw} kept={n_kept} "
+                f"pushed={pushed} report={report_path_for(d)}"
             )
-            args.skip_scrape = (date_dir / "rss_merged.json").exists()
-            args.skip_swarm = True
 
-        git_pull()
-
-        if not args.skip_scrape:
-            scrape_rss(date_dir, args.days)
-            scrape_html(date_dir, args.days)
-
-        n_raw = merge(date_dir)
-        _log(f"merge {n_raw} 条")
-
-        if args.skip_score and (date_dir / "processed.json").exists():
-            processed = json.loads((date_dir / "processed.json").read_text(encoding="utf-8"))
-            items = processed.get("items") or []
-            n_kept = len(items)
-        else:
-            n_kept = score(date_dir)
-            processed = json.loads((date_dir / "processed.json").read_text(encoding="utf-8"))
-            items = processed.get("items") or []
-
-        write_report(d, date_dir, items)
-        _log(f"保留 {n_kept} 条 >=3 分 → {report_path_for(d)}")
-
-        pushed = False
-        if not args.skip_push:
-            pushed = git_push_daily(d, date_dir)
-
-        if not args.skip_swarm:
-            spawn_swarm()
-
-        _log(
-            f"DONE {d.isoformat()} raw={n_raw} kept={n_kept} "
-            f"pushed={pushed} report={report_path_for(d)}"
-        )
+        if args.if_needed:
+            swept = sweep_music_kanban()
+            if swept["completed"] or swept["archived"] or swept["failed"]:
+                _log(
+                    f"kanban sweep music: completed={swept['completed']} "
+                    f"archived={swept['archived']} failed={swept['failed']}"
+                )
+            elif not ship:
+                return 0  # 无补货、无僵尸卡：空 stdout，不投递
         return 0
     finally:
         fcntl.flock(lock_fd, fcntl.LOCK_UN)

@@ -5,7 +5,7 @@ category: music
 cron_job: ec5ea562d589（每天 04:00 北京时间，no_agent）
 cron_watchdog: music-daily-recs-watchdog（每天 07:00，no_agent）
 author: hermes-agent
-version: 8.0
+version: 8.1
 license: MIT
 created: 2026-05-07
 updated: 2026-09-12
@@ -32,6 +32,7 @@ metadata:
 07:00  no_agent  ~/.hermes/scripts/music-daily-recs-watchdog.py
          报告不在 origin/main → 再跑管道
          尾巴 JSON 后到了 → 再 merge 补 push
+         顺手清 music 看板：卡死 complete，其余 archive
          没事做 → stdout 空，不投递
 ```
 
@@ -40,7 +41,7 @@ metadata:
 | 何时 | 命令 | 说明 |
 |---|---|---|
 | 04:00 | `python3 ~/.hermes/scripts/music-daily-recs.py` | `no_agent`。包装器 exec `bin/daily_pipeline.py` |
-| 07:00 | `python3 ~/.hermes/scripts/music-daily-recs-watchdog.py` | `no_agent`。`--if-needed` |
+| 07:00 | `python3 ~/.hermes/scripts/music-daily-recs-watchdog.py` | `no_agent`。补货 + 清 music 看板 |
 | 手动出货 | `cd /home/liyifan/music-record && python3 bin/daily_pipeline.py` | |
 | 只用已有 JSON | `python3 bin/daily_pipeline.py --skip-scrape --skip-swarm` | |
 | 只派探索 worker | `python3 bin/kanban-swarm.py --confirm` | 无 V/S |
