@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
 """
-kanban-swarm.py — 使用 Kb Swarm API 创建音乐推荐抓取流程（无裸 SQLite）。
+kanban-swarm.py — 只创建 5 个 Camoufox 探索 worker。无 Verifier / Synthesizer。
 
-替代旧 kanban-batch-scrape.py（创建 21 个独立任务 + 1 个 aggregator）。
-使用 Hermes 自身的 kanban_db.create_task() API，无需直连 SQLite。
-
-架构：
-  root planning card (complete 立即完成)
-    ├─ worker 1..21: Camoufox 浏览器抓取 (ready, parent=root)
-    └─ verifier: 合并+验证 (todo, parent=所有 worker)
-         └─ synthesizer: 评分+报告+推送 (todo, parent=verifier)
+出货（merge / 评分 / 报告 / git push）走 bin/daily_pipeline.py，不进看板。
+worker 失败不得挡住当天报告。
 
 用法:
   python3 bin/kanban-swarm.py              # dry run
@@ -161,6 +155,16 @@ def build_scraper_body(site, date_dir):
     # Boomkat gets its own early-exit CF checkpoint
     cf_early_exit = BOOMKAT_EARLY_EXIT.format(url=url, out_file=out_file) if sid == "boomkat" else ""
 
+    empty_protocol = f"""\
+🚨 空结果协议（必须遵守，比抓到数据更优先）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+窗口内 0 条 / CF / paywall / 站点挂 / 进程要死：
+1. 立刻写入 {out_file} = {{\"meta\":{{\"total\":0,\"scraped_at\":\"...\",\"cutoff_date\":\"36h前\",\"site\":\"{sid}\"}},\"items\":[]}}
+2. kanban_complete(summary=\"scraped 0 items from {name}\", metadata={{\"site\":\"{sid}\",\"count\":0}})
+3. 停。禁止换 URL、禁止重写脚本、禁止再确认、禁止 kanban_block。
+JazzTokyo 月刊 0 条是正常结果，不是失败。
+"""
+
     return f"""**{name}** · {url} · {strategy} · {tags}
 RSS: {rss_url or "(none)"}
 
@@ -171,8 +175,8 @@ RSS: {rss_url or "(none)"}
 - Cookie 墙：navigate 后点击 Accept/Agree
 - 非音乐过滤：跳过 (BLU-RAY)/(UHD)/(VOD)/(DVD)
 - 特稿/访谈 → type: feature, score: null
-- 空结果 → 输出 []，不报错不重试
-- Paywall/CF → status: paywalled/blocked，返回 []
+- Paywall/CF → 走空结果协议，不要 kanban_block
+- 禁止 kanban_block。任何结局都必须 kanban_complete。
 
 ❌ 禁止
 ━━━━━━━━━━━━━━━━
@@ -182,15 +186,16 @@ RSS: {rss_url or "(none)"}
 - 禁止自行计算 cutoff 日期（直接用 --days 1.5）
 - 日志超过 100 行说明你在过度分析，超过 300 行说明你有问题
 - Boomkat 禁止：CF 拦截后继续开新 tab 重试（直接用早期退出）
+- 禁止 kanban_block
 
-{rss_check_block}{cf_early_exit}✅ 步骤
+{empty_protocol}{rss_check_block}{cf_early_exit}✅ 步骤
 ━━━━━━━━━━━━━━━━
 1. Camoufox 浏览器访问列表页，只翻前 2 页
 2. Cookie 墙 → 检查并点击 Accept/Agree，等 1 秒
 3. 提取：album, artist, score, url, source, pub_date, excerpt, body, site_id, crawl_status, type
 4. 36 小时外停止翻页
 5. 非音乐过滤：跳过含 (BLU-RAY)/(UHD)/(VOD)/(DVD) 条目
-6. 写入 {out_file}
+6. 写入 {out_file}（0 条也必须写 {{meta, items:[]}}）
 7. kanban_complete(summary="scraped N items from {name}", metadata={{"site": "{sid}", "count": N, "hours_scanned": "36"}})
 
 📦 输出格式
@@ -207,174 +212,23 @@ type: "review" | "feature" | "tracklist"
 """
 
 
-VERIFIER_BODY = """🔒 约束
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-- 严格按顺序执行 Step 1→2，一步不能少
-- 每一步检查 exit code，失败则重试一次
-- 只用 terminal 工具运行以下命令
-
-✅ 步骤
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Step 1: 合并所有抓取数据 → scraped_raw.json
-cd /home/liyifan/music-record
-python3 /home/liyifan/music-record/bin/merge_scraped.py \\
-  --date-dir "$(pwd)/2026/$(date +%m)/$(date +%Y-%m-%d)" \\
-  -o scraped_raw.json
-
-Step 2: 验证合并结果 — 必须通过才能放行
-python3 -c "
-import json
-d = json.load(open('2026/$(date +%m)/$(date +%Y-%m-%d)/scraped_raw.json'))
-items = d.get('items', []) if isinstance(d, dict) else d
-assert len(items) > 0, '合并结果为空'
-for i in items[:3]:
-    assert 'site_id' in i, f'缺少 site_id 字段: {i.get(\"album\",\"?\")}[:30]'
-print(f'✅ {len(items)} 条数据，质量检查通过')
-"
-
-🟢 Gate: 以上两步全部通过 → kanban_complete(metadata={"gate": "pass", "total_items": N})
-🔴 Gate: 任一步失败 → kanban_block(reason="数据合并或验证失败，详情见日志")
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-‼️ 仅执行以上步骤。完成本任务后不要执行评分/报告——那是 synthesizer 的工作。"""
-
-
-SYNTHESIZER_BODY = """🔒 约束
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-- 严格按顺序执行 Step 1→2→3→4→5，一步不能少
-- 每一步检查 exit code，失败则重试一次
-- 只用 terminal 工具运行以下命令
-- 不要调用 kanban_create / delegate_task / web_search
-
-✅ 步骤
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Step 1: 并发评分 + 中文总结 → processed.json
-cd /home/liyifan/music-record
-python3 bin/process_reviews.py \\
-  --date-dir "2026/$(date +%m)/$(date +%Y-%m-%d)" \\
-  -i scraped_raw.json \\
-  -o processed.json \\
-  --max-workers 3
-
-验证: processed.json 存在且含 total_score + _cn_summary
-如果 MiniMax rate limit (429)，重试一次；仍失败则跳过
-确认 processed.json 中无 <=2 分条目（process_reviews.py 已物理清理）
-  python3 -c "
-  import json
-  d = json.load(open('2026/$(date +%m)/$(date +%Y-%m-%d)/processed.json'))
-  low = [i for i in d['items'] if i.get('total_score',0) <= 2]
-  if low:
-      print(f'⚠️ 发现 {len(low)} 条 <=2 分残留（不该出现！）')
-  else:
-      print(f'✅ processed.json 已清理: {len(d[\"items\"])} 条全部 >=3 分')
-  "
-
-Step 1.5: 检查评分质量门（不阻塞，但生成告警）
-python3 -c "
-import json
-d = json.load(open('2026/$(date +%m)/$(date +%Y-%m-%d)/processed.json'))
-meta = d.get('meta', {})
-total = meta.get('total', 0)
-failed = meta.get('failed', 0)
-filtered = meta.get('filtered', 0)
-ok = meta.get('success', 0)
-if total == 0:
-    print('WARN: processed.json 为空'); exit(0)
-fail_pct = failed * 100 / total
-filter_pct = filtered * 100 / total
-print(f'质量门: total={total}, ok={ok}, failed={failed} ({fail_pct:.1f}%), filtered={filtered} ({filter_pct:.1f}%)')
-if filter_breakdown := meta.get('filter_breakdown'):
-    print('过滤明细:', filter_breakdown)
-if failed_items := meta.get('failed_items'):
-    if failed_items:
-        print('失败条目(前5):')
-        for f in failed_items[:5]:
-            print(f\"  - {f.get('site_id','?')}: {f.get('album','?')[:40]} ({f.get('reason','?')})\")
-# 告警条件：失败率 > 10% 或 过滤率 > 30%
-warns = []
-if fail_pct > 10:
-    warns.append(f'⚠️ 评分失败率 {fail_pct:.1f}% 超过 10% 阈值')
-if filter_pct > 30:
-    warns.append(f'⚠️ 内容过滤率 {filter_pct:.1f}% 超过 30% 阈值（可能上游抓取配置异常）')
-if warns:
-    for w in warns: print(w)
-    print('后续 Telegram 推送应包含这些告警')
-"
-
-Step 2: 生成推荐 markdown → recommend/YYYY/MM/{DATE}.md
-python3 bin/generate_report.py \\
-  --date-dir "2026/$(date +%m)/$(date +%Y-%m-%d)" \\
-  -i processed.json \\
-  --date "$(date +%Y-%m-%d)"
-
-验证: recommend/$(date +%Y)/$(date +%m)/$(date +%Y-%m-%d).md 存在
-
-Step 2.5: 上库前清理检查 — 确认 processed.json 无 <=2 分条目
-cd /home/liyifan/music-record
-python3 -c "
-import json
-p = json.load(open('2026/$(date +%m)/$(date +%Y-%m-%d)/processed.json'))
-low = [i for i in p['items'] if i.get('total_score', 0) <= 2]
-print(f'processed.json: {len(p[\"items\"])} 条, <=2分残留: {len(low)} 条')
-if low:
-    for i in low[:5]:
-        print(f'  - {i.get(\"site_id\")}: {i.get(\"album\",\"?\")[:40]} ({i.get(\"total_score\")}分)')
-    raise SystemExit(1)  # 有残留则阻止 push
-print('✅ 无低分残留')
-"
-
-⚠️ 重要：recommend 生成后必须立即执行下一步的 git push，确保 GitHub 同步。
-
-Step 3: git push 到 GitHub（已确保无 <=2 分条目上库）
-cd /home/liyifan/music-record
-rm -f "2026/$(date +%m)/$(date +%Y-%m-%d)"/*.py
-git add -A
-git commit -m "music-recs: $(date +%Y-%m-%d) daily recommendations (kanban swarm)" || true
-git push origin main 2>&1; PUSH_EXIT=$?
-
-if [ "$PUSH_EXIT" != "0" ]; then
-  echo "⚠️ git push failed (exit $PUSH_EXIT). Do NOT attribute this to GFW — report the ACTUAL error message in the summary."
-fi
-
-Step 4: Telegram 推送
-读取 /home/liyifan/music-record/recommend/$(date +%Y)/$(date +%m)/$(date +%Y-%m-%d).md 内容
-如果 ≤4000 字符，用 send_message 发送全文到 Telegram Home 频道
-如果 >4000 字符，发送前 30 行 + '...' + 完整推荐 GitHub 链接
-如果 send_message 不可用（profile 没权限），跳过此步
-
-Step 5: 归档本轮已完成任务（仅 music tenant）
-hermes kanban list --tenant music --status done | awk '{print $2}' | while read tid; do
-  hermes kanban archive "$tid"
-done
-
-📌 注意:
-- 必须用 --tenant music，只归档音乐任务，不动其他业务的 done 任务
-- hermes kanban list 输出格式: {icon} {task_id} {status} {assignee} {title}
-- 用 awk '{print $2}' 取 task_id
-
-Step 6: 完成任务
-kanban_complete(summary="music-recs $(date +%Y-%m-%d): merge → score → report → push → telegram → archive")
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-‼️ 仅执行以上步骤，不多做任何事。"""
+WORKER_MAX_RUNTIME = 1200  # 20 min; dispatcher kills then retries, then blocks. 出货不等它。
 
 
 def _swarm_context(root_id: str, goal: str) -> str:
     return (
         "\n\n## Swarm protocol\n"
         f"- Swarm root / shared blackboard: `{root_id}`.\n"
-        "- Read sibling/parent handoffs from Kanban context before working.\n"
         "- Put machine-readable facts in completion metadata.\n"
-        "- Put cross-worker notes on the root task using structured comments.\n"
+        "- 禁止 kanban_block。0 条也要写空 JSON 然后 kanban_complete。\n"
+        "- 出货不依赖本任务。daily_pipeline.py 已经/将会独立 merge+评分+push。\n"
         f"- Goal: {goal.strip()}\n"
     )
 
 
 def idempotency_key_for_today():
     """Generate idempotency key based on today's date."""
-    return f"music-recs-swarm-{DATE}"
+    return f"music-recs-camo-{DATE}"
 
 
 def create_swarm_graph(
@@ -382,10 +236,6 @@ def create_swarm_graph(
     *,
     goal: str,
     workers: list[SwarmWorkerSpec],
-    verifier_body: str,
-    synthesizer_body: str,
-    verifier_assignee: str = "scraper",
-    synthesizer_assignee: str = "scraper",
     created_by: str = "music-orchestrator",
     tenant: str = "music",
     workspace_kind: str = "dir",
@@ -393,14 +243,8 @@ def create_swarm_graph(
     priority: int = 0,
     idempotency_key: str,
 ) -> dict:
-    """Create swarm DAG using Hermes kanban_db API (no raw SQL).
+    """Create root + Camoufox workers only. No verifier, no synthesizer."""
 
-    Returns dict with root_id, worker_ids, verifier_id, synthesizer_id.
-    Idempotent: if root with same idempotency_key exists, recovers topology.
-    """
-
-    # ── 1. Check idempotency ──
-    # Look for an existing root task with this idempotency key
     existing_root_id = None
     for task in kb.list_tasks(conn, tenant=tenant, include_archived=True):
         if task.idempotency_key == idempotency_key:
@@ -408,22 +252,18 @@ def create_swarm_graph(
             break
 
     if existing_root_id:
-        # Try to recover topology from blackboard
         bb = ks.latest_blackboard(conn, existing_root_id)
         topo = bb.get("topology", {})
-        if isinstance(topo, dict) and topo.get("worker_ids") and topo.get("verifier_id") and topo.get("synthesizer_id"):
+        if isinstance(topo, dict) and topo.get("worker_ids"):
             print(f"  🗂️  Idempotency hit: reusing existing swarm {existing_root_id[:12]}...", file=sys.stderr)
             return {
                 "root_id": existing_root_id,
                 "worker_ids": topo["worker_ids"],
-                "verifier_id": topo["verifier_id"],
-                "synthesizer_id": topo["synthesizer_id"],
             }
 
-    # ── 2. Create root ──
-    root_title = f"Swarm: music-recs {DATE}"
+    root_title = f"Camoufox: music-recs {DATE}"
     root_body = (
-        "Kanban Swarm v1 规划/根卡片。已完成，作为共享 blackboard 和审计锚点。\n\n"
+        "Camoufox 探索根卡片。出货走 daily_pipeline.py，本图不含 Verifier/Synthesizer。\n\n"
         f"目标:\n{goal}"
     )
     root_id = kb.create_task(
@@ -440,13 +280,12 @@ def create_swarm_graph(
         skills=["kanban-orchestrator"],
     )
 
-    # Complete root immediately (parallel workers can start)
     kb.complete_task(
         conn,
         root_id,
-        summary="Swarm topology planned; root remains the shared blackboard.",
+        summary="Camoufox workers planned; shipping is daily_pipeline.py.",
         metadata={
-            "kind": "kanban_swarm_v1",
+            "kind": "music_camoufox_workers",
             "goal": goal,
             "worker_count": len(workers),
         },
@@ -454,7 +293,6 @@ def create_swarm_graph(
 
     context = _swarm_context(root_id, goal)
 
-    # ── 3. Create workers ──
     worker_ids = []
     for spec in workers:
         wid = kb.create_task(
@@ -473,42 +311,9 @@ def create_swarm_graph(
         )
         worker_ids.append(wid)
 
-    # ── 4. Create verifier ──
-    verifier_id = kb.create_task(
-        conn,
-        title="Verify: merge + quality check",
-        body=verifier_body + context,
-        assignee=verifier_assignee,
-        created_by=created_by,
-        parents=worker_ids,  # parent-gated: waits for ALL workers
-        tenant=tenant,
-        priority=priority,
-        workspace_kind=workspace_kind,
-        workspace_path=workspace_path,
-        skills=["kanban-worker"],
-    )
-
-    # ── 5. Create synthesizer ──
-    synthesizer_id = kb.create_task(
-        conn,
-        title="Synthesize: score → report → push → Telegram → archive",
-        body=synthesizer_body + context,
-        assignee=synthesizer_assignee,
-        created_by=created_by,
-        parents=[verifier_id],  # parent-gated: waits for verifier
-        tenant=tenant,
-        priority=priority,
-        workspace_kind=workspace_kind,
-        workspace_path=workspace_path,
-        skills=["kanban-worker"],
-    )
-
-    # ── 6. Post topology to blackboard ──
     result = {
         "root_id": root_id,
         "worker_ids": worker_ids,
-        "verifier_id": verifier_id,
-        "synthesizer_id": synthesizer_id,
     }
     ks.post_blackboard_update(
         conn,
@@ -533,14 +338,11 @@ def main():
         print("Dry run. Pass --confirm to create tasks.")
         sys.exit(0)
 
-    # ── Build workspace path ──
     date_dir = f"{OUTPUT_DIR}/{MONTH}/{DATE}"
     os.makedirs(date_dir, exist_ok=True)
 
-    # ── Build worker specs ──
     workers = []
     for site in sites:
-        sid = site.get("id", site["name"].lower().replace(" ", "_"))
         name = site["name"]
         title = f"scrape: {name}"
         body = build_scraper_body(site, date_dir)
@@ -549,28 +351,24 @@ def main():
             title=title,
             body=body,
             skills=["kanban-worker"],
+            max_runtime_seconds=WORKER_MAX_RUNTIME,
         ))
 
-    goal = f"音乐推荐抓取 {DATE}: {len(sites)} 个 Camoufox 站抓取 → 合并 → 评分 → 生成推荐 → 推送"
+    goal = f"Camoufox 探索 {DATE}: {len(sites)} 站写 *_reviews.json。出货不依赖这些 worker。"
     idempotency_key = idempotency_key_for_today()
     workspace = f"{date_dir}"
 
-    print(f"🏗  Creating swarm via Hermes API: {len(workers)} workers")
+    print(f"🏗  Creating Camoufox workers via Hermes API: {len(workers)}")
     print(f"   Workspace: dir:{workspace}")
     print(f"   Idempotency: {idempotency_key}")
+    print(f"   max_runtime_seconds: {WORKER_MAX_RUNTIME}")
+    print("   No verifier / synthesizer")
 
-    # ── Use Hermes kanban_db connection manager (same WAL as CLI) ──
-    # NOTE: do NOT pass board= — this version of Hermes uses multiple kanban.db files
-    # for boards and the dispatcher only watches the default board.
     with kb.connect_closing() as conn:
         result = create_swarm_graph(
             conn,
             goal=goal,
             workers=workers,
-            verifier_body=VERIFIER_BODY,
-            synthesizer_body=SYNTHESIZER_BODY,
-            verifier_assignee="scraper",
-            synthesizer_assignee="scraper",
             created_by="music-orchestrator",
             tenant="music",
             workspace_kind="dir",
@@ -581,22 +379,10 @@ def main():
 
     root_id = result["root_id"]
     worker_ids = result["worker_ids"]
-    verifier_id = result["verifier_id"]
-    synthesizer_id = result["synthesizer_id"]
 
     print(f"\n  Root:       {root_id}")
     print(f"  Workers:    {len(worker_ids)} created")
-    print(f"  Verifier:   {verifier_id}")
-    print(f"  Synthesizer: {synthesizer_id}")
-
-    # Print role summaries
-    print(f"\n📋 Role assignments:")
-    print(f"   Verifier:   merge_scraped.py + quality check → gate pass/block")
-    print(f"   Synthesizer: process_reviews → generate_report → git push → Telegram → archive")
-
-    print(f"\n✅ Swarm created successfully!")
-    print(f"   {len(worker_ids)} Camoufox scraper workers")
-    print(f"   Cron session can exit — kanban handles the rest.")
+    print("\n✅ Camoufox workers created. Shipping is daily_pipeline.py.")
 
 
 if __name__ == "__main__":
