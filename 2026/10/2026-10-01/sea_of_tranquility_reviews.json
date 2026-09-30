@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "total": 3,
+    "scraped_at": "2026-09-30T20:00:42.035392+00:00",
+    "cutoff_date": "2026-09-29T08:00:42.035392+00:00"
+  },
+  "items": [
+    {
+      "album": "The Great Parrot-Ox and the Golden Egg of Empathy",
+      "artist": "The Claypool Lennon Delirium",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25587",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-09-30T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "The Claypool Lennon Delirium: The Great Parrot-Ox and the Golden Egg of Empathy Les Claypool and Sean Ono Lennon are back with their third album of original material and this time it is built around a concept. âThe Paperclip Theory,â as they call it, is âthe idea of an intelligence optimizing a single objective to the point where it loses sight of everything else. They âuse that premise as a lens to explore AI, hyper-efficiency, and what happens when empathy gets stripped out of decision",
+      "body": "The Claypool Lennon Delirium: The Great Parrot-Ox and the Golden Egg of Empathy Les Claypool and Sean Ono Lennon are back with their third album of original material and this time it is built around a concept. âThe Paperclip Theory,â as they call it, is âthe idea of an intelligence optimizing a single objective to the point where it loses sight of everything else. They âuse that premise as a lens to explore AI, hyper-efficiency, and what happens when empathy gets stripped out of decision-making.â",
+      "site_id": "sot_review_25587",
+      "crawl_status": "ok",
+      "type": "review"
+    },
+    {
+      "album": "My Time &#45; Your Time",
+      "artist": "Straight Shooter",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25586",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-09-30T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Straight Shooter: My Time - Your Time German rock band Straight Shooter, formed in 1976 by Streetmark lead singer Georg Buschmann had a string of albums from 1978 to 1983, after which the band called it a day. Buschmann had been ready for a switch and the band released five full length albums:",
+      "body": "Straight Shooter: My Time - Your Time German rock band Straight Shooter, formed in 1976 by Streetmark lead singer Georg Buschmann had a string of albums from 1978 to 1983, after which the band called it a day. Buschmann had been ready for a switch and the band released five full length albums:",
+      "site_id": "sot_review_25586",
+      "crawl_status": "ok",
+      "type": "review"
+    },
+    {
+      "album": "The Lord Knows",
+      "artist": "Tidal Wave",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25585",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-09-30T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Tidal Wave: The Lord Knows There is no shortage of excellent heavy rock bands from Sweden and now we can add another to the list, the outstanding Tidal Wave. The band formed in 2010 releasing three albums thus far:",
+      "body": "Tidal Wave: The Lord Knows There is no shortage of excellent heavy rock bands from Sweden and now we can add another to the list, the outstanding Tidal Wave. The band formed in 2010 releasing three albums thus far:",
+      "site_id": "sot_review_25585",
+      "crawl_status": "ok",
+      "type": "review"
+    }
+  ]
+}
