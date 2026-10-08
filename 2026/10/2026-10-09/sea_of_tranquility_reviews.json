@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "total": 1,
+    "scraped_at": "2026-10-08T20:03:33.807603+00:00",
+    "cutoff_date": "2026-10-07T08:03:33.807603+00:00"
+  },
+  "items": [
+    {
+      "album": "Harmonic Mind",
+      "artist": "Ozric Tentacles",
+      "score": null,
+      "url": "https://www.seaoftranquility.org/reviews.php?op=showcontent&id=25591",
+      "source": "Sea of Tranquility",
+      "pub_date": "2026-10-08T00:00:00+00:00",
+      "tags": [],
+      "excerpt": "Ozric Tentacles: Harmonic Mind Youâd be hard pressed to find a band who does psychedelic space rock better than the Ozrics. The band is back with their 17th studio album recorded at the band's home studios, it gradually took shape across Scotland, Devon and finally Glastonbury. âHarmonic Mindâ features the full touring line-up including drummer Pat Garvey, bassist Corey Wallace, percussionist Paul Hankin, and multi-instrumentalist Saskia Maxwell.",
+      "body": "Ozric Tentacles: Harmonic Mind Youâd be hard pressed to find a band who does psychedelic space rock better than the Ozrics. The band is back with their 17th studio album recorded at the band's home studios, it gradually took shape across Scotland, Devon and finally Glastonbury. âHarmonic Mindâ features the full touring line-up including drummer Pat Garvey, bassist Corey Wallace, percussionist Paul Hankin, and multi-instrumentalist Saskia Maxwell.",
+      "site_id": "sot_review_25591",
+      "crawl_status": "ok",
+      "type": "review"
+    }
+  ]
+}
