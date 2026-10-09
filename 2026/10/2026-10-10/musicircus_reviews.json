@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "total": 0,
+    "scraped_at": "2026-10-09T20:46:59.422884",
+    "cutoff_date": "2026-10-08",
+    "hours_scanned": 36,
+    "site": "musicircus",
+    "source": "musicircus",
+    "site_id": "musicircus",
+    "crawl_status": "ok",
+    "notes": "camofox create_tab failed (health activeTabs=0 activeSessions=0 consecutiveFailures=3)"
+  },
+  "items": []
+}
