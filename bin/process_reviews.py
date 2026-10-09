@@ -28,8 +28,10 @@ except ImportError:
     sys.exit(1)
 
 # ── 配置 ────────────────────────────────────────────────
-# 评分模型改为多 provider 容错：MiniMax-M3 主，火山 Ark DeepSeek 备。
-# 单点配额耗尽（429/2056）自动切换，保证每日推荐不中断。
+# 评分走 provider_failover 的容错层。当前单一 provider：MiniMax-M3。
+# 2026-10-09 已移除备 provider（火山 Ark DeepSeek，订阅过期返回
+# InvalidSubscription / HTTP 400，连续六天 0 次成功）。新增 provider
+# 只需在 provider_failover.PROVIDERS 追加一条。
 from provider_failover import call_with_failover, get_stats, get_switch_log, PROVIDERS
 
 # 主 provider 显示名（供日志）
@@ -130,14 +132,14 @@ def build_prompt(item):
 
 
 def call_minimax(prompt_text):
-    """带多 provider 容错的评分调用（MiniMax 主 → 火山 Ark 备）。
+    """走 provider_failover 容错层的评分调用。
 
     返回 (score, genre, summary) 三元组，全失败返回 (None, None, None)。
     实际容错逻辑在 provider_failover.call_with_failover，这里保留函数名
     以便 process_single 无感调用。切换记录在 get_switch_log()。
     """
     score, genre, summary, provider = call_with_failover(prompt_text)
-    if provider == "ark" and score is not None:
+    if provider != "minimax" and score is not None:
         print(f"    ⚡ 本条由 {provider} 评分", file=sys.stderr)
     return score, genre, summary
 

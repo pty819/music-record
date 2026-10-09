@@ -2,13 +2,15 @@
 """
 provider_failover.py — 多 LLM provider 容错层，供 process_reviews.py 使用。
 
-设计目标：评分管道不再单点依赖 MiniMax。主 provider（MiniMax-M3）在
-凌晨 Token Plan 配额耗尽 / 429 / 持续失败时，自动切换到备用 provider
-（火山 Ark DeepSeek-v4-flash），保证每日推荐不中断。
+设计目标：评分管道不单点依赖 MiniMax。主 provider（MiniMax-M3）在
+凌晨 Token Plan 配额耗尽 / 429 / 持续失败时，可自动切换到 PROVIDERS
+里配置的备用 provider，保证每日推荐不中断。
 
-provider 定义：
-  1. MiniMax-M3 (Anthropic 兼容, api.minimaxi.com/anthropic)  ← 主
-  2. Ark DeepSeek-v4-flash (OpenAI 兼容, ark.cn-beijing.volces.com/api/coding/v1) ← 备
+provider 定义（2026-10-09 起为单 provider）：
+  1. MiniMax-M3 (Anthropic 兼容, api.minimaxi.com/anthropic)  ← 唯一
+  ⚠️ 原备 provider 火山 Ark CodingPlan (deepseek-v4-flash-ga-260731) 已删除：
+     订阅过期返回 InvalidSubscription / HTTP 400，2026-10-04~10-09 连续六天
+     0 次成功，纯属无效重试。新增 provider 时往 PROVIDERS 追加一条即可。
 
 使用：Python 侧直接 import，或用 --self-check 参数做连通性自检。
 """
@@ -46,7 +48,10 @@ def _minimax_key():
 
 
 def _ark_key():
-    """Ark key 优先级：环境变量 > .env。"""
+    """[已废弃 2026-10-09] 火山 Ark CodingPlan 订阅过期，函数保留仅为回滚参考。
+
+    不要再接回 PROVIDERS —— Ark 返回 InvalidSubscription / HTTP 400。
+    """
     return (
         os.environ.get("HERMES_CUSTOM_ARK_CN_BEIJING_VOLCES_COM_API_KEY", "")
         or _read_env_key("HERMES_CUSTOM_ARK_CN_BEIJING_VOLCES_COM_API_KEY")
@@ -63,15 +68,6 @@ PROVIDERS = [
         "key": _minimax_key(),
         "enabled": True,
     },
-    {
-        "name": "ark",
-        "label": "Ark DeepSeek-v4-flash",
-        "api_mode": "openai",
-        "base_url": "https://ark.cn-beijing.volces.com/api/coding/v1",
-        "model": "deepseek-v4-flash-ga-260731",
-        "key": _ark_key(),
-        "enabled": True,
-    },
 ]
 
 MAX_TOKENS = 4096
@@ -81,7 +77,7 @@ RETRIES = 2  # 每个 provider 内重试次数（熔断后换 provider 也算一
 # 熔断状态（进程内共享）
 _active_provider = 0
 _breaker_open = False
-_provider_stats = {"minimax": {"ok": 0, "fail": 0}, "ark": {"ok": 0, "fail": 0}}
+_provider_stats = {p["name"]: {"ok": 0, "fail": 0} for p in PROVIDERS}
 _switch_log = []
 
 
