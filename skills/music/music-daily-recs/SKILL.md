@@ -5,10 +5,10 @@ category: music
 cron_job: ec5ea562d589（每天 04:00 北京时间，no_agent）
 cron_watchdog: music-daily-recs-watchdog（每天 07:00，no_agent）
 author: hermes-agent
-version: 8.1
+version: 8.2
 license: MIT
 created: 2026-05-07
-updated: 2026-09-12
+updated: 2026-10-14
 trigger_condition: cron 每天 04:00 自动；07:00 补货；手动 `python3 bin/daily_pipeline.py`
 metadata:
   hermes:
@@ -30,8 +30,10 @@ metadata:
          0 条 / CF / 进程死 → 写空 JSON + kanban_complete
 
 07:00  no_agent  ~/.hermes/scripts/music-daily-recs-watchdog.py
-         报告不在 origin/main → 再跑管道
-         尾巴 JSON 后到了 → 再 merge 补 push
+         报告不在 origin/main → 跑全量管道（同 04:00）
+         报告已在 origin 且尾巴 JSON 后到了 → **增量**：只给新条目评分
+           已推送分数冻结；空尾巴 / 无新条目 → 0 次 LLM、不改报告、不 push
+           新条目全部评分失败 → 报告原样保留、不 push
          顺手清 music 看板：卡死 complete，其余 archive
          没事做 → stdout 空，不投递
 ```
@@ -41,7 +43,7 @@ metadata:
 | 何时 | 命令 | 说明 |
 |---|---|---|
 | 04:00 | `python3 ~/.hermes/scripts/music-daily-recs.py` | `no_agent`。包装器 exec `bin/daily_pipeline.py` |
-| 07:00 | `python3 ~/.hermes/scripts/music-daily-recs-watchdog.py` | `no_agent`。补货 + 清 music 看板 |
+| 07:00 | `python3 ~/.hermes/scripts/music-daily-recs-watchdog.py` | `no_agent`。缺报告→全量；有报告→增量评分（见下）+ 清 music 看板 |
 | 手动出货 | `cd /home/liyifan/music-record && python3 bin/daily_pipeline.py` | |
 | 只用已有 JSON | `python3 bin/daily_pipeline.py --skip-scrape --skip-swarm` | |
 | 只派探索 worker | `python3 bin/kanban-swarm.py --confirm` | 无 V/S |
@@ -131,6 +133,19 @@ body 在 `bin/kanban-swarm.py:build_scraper_body()`，不在本文件。硬约�
 - `max_runtime_seconds=1200`。超时会被 dispatcher 杀掉再试，然后 block；**出货不等它**
 - JazzTokyo 月刊 0 条是正常结果
 
+# 07:00 增量评分
+
+`daily_pipeline.py --if-needed` 在**报告已在 origin/main 且当天 processed.json 存在**时走 `incremental_update()`，不再全量重评：
+
+- 条目身份键 = `bin/url_norm.py:item_key()`：规范化 URL（http/https 同一、host 小写、去末尾 `/`、去 `utm_*`/`fbclid`/`gclid` 等、去 `#`、query 排序）；无 URL 时用 `site_id|artist|album`。
+- `process_reviews.py` 在 `processed.json` meta 写 `scored_keys`（已成功评分，含被删的 ≤2 分与预过滤条目）与 `score_error_keys`（评分失败）。失败条目带 `_score_error: true`，与真低分可区分。
+- 增量只评 `scored_keys` 以外的条目；`score_error_keys` 里的失败条目会被重试。已有条目分数原样复用，**已推送分数永不改变**。
+- 无新条目（含空尾巴 JSON、URL 变体）→ 不评分、不重写报告、不 commit、不 push，`scraped_raw.json` 恢复原样。
+- 新条目全部评分失败 → `processed.json` 与报告原样保留，不 push。
+- 有新条目 → 合并进 processed.json（meta 记 `incremental_runs`），重写报告，commit + push 一次（`music-recs: DATE incremental +N`）。
+- 旧版 processed.json（无 `scored_keys`）：以 04:00 的 scraped_raw.json 为已评集合，不重试失败。
+- 04:00 全量行为不变。测试：`python3 -m pytest tests/`。详见 `references/2026-10-14-incremental-0700.md`。
+
 # 出事三命令
 
 ```bash
@@ -149,7 +164,9 @@ GitHub：https://github.com/pty819/music-record
 | 用途 | 路径 |
 |---|---|
 | 出货 | `bin/daily_pipeline.py` |
-| 07:00 补货 | `bin/daily_watchdog.py` |
+| 07:00 补货 | `bin/daily_watchdog.py`（→ `daily_pipeline.py --if-needed` → `incremental_update()`） |
+| URL 规范化 | `bin/url_norm.py` |
+| 增量测试 | `tests/test_incremental.py`（假 SDK `tests/fakeanth/`） |
 | RSS | `bin/fast-rss-scrape.py` |
 | HTML | `bin/scrape_html_parallel.py` |
 | 合并 | `bin/merge_scraped.py` |

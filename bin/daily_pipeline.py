@@ -19,7 +19,8 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
-ROOT = Path("/home/liyifan/music-record")
+# MUSIC_RECORD_ROOT 仅供测试沙箱覆盖；生产默认不变。
+ROOT = Path(os.environ.get("MUSIC_RECORD_ROOT", "/home/liyifan/music-record"))
 BIN = ROOT / "bin"
 LOCK_PATH = Path("/tmp/music-daily-recs.lock")
 MIN_SCORE = 3
@@ -232,7 +233,7 @@ def score(date_dir: Path) -> int:
     return len(items)
 
 
-def git_push_daily(d: date, date_dir: Path) -> bool:
+def git_push_daily(d: date, date_dir: Path, msg: str | None = None) -> bool:
     report = report_path_for(d)
     paths = [
         str(date_dir.relative_to(ROOT)),
@@ -252,7 +253,7 @@ def git_push_daily(d: date, date_dir: Path) -> bool:
     if status.returncode == 0:
         _log("没有要提交的日更文件（可能已经 push 过）。")
         return False
-    msg = f"music-recs: {d.isoformat()} daily recommendations"
+    msg = msg or f"music-recs: {d.isoformat()} daily recommendations"
     r = run(["git", "commit", "-m", msg], check=False)
     if r.returncode != 0:
         _log("git commit 无变更或失败。")
@@ -262,6 +263,123 @@ def git_push_daily(d: date, date_dir: Path) -> bool:
         raise SystemExit("git push 失败，报告已在本地。看上面的实际错误，不要归因 GFW。")
     _log(f"已 push origin/main：{msg}")
     return True
+
+
+def _load_json(path: Path) -> dict:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {"items": data}
+
+
+def incremental_update(d: date, date_dir: Path, skip_push: bool = False) -> str:
+    """07:00 增量：只给当天 processed.json 里没有的条目评分。
+
+    - 身份键 = url_norm.item_key（规范化 URL）。
+    - 已成功评分的条目（含 <=2 被删的、预过滤的）一律冻结，分数原样复用。
+    - meta.score_error_keys 里的失败条目允许重试。
+    - 没有新条目 → 不评分、不重写报告、不 commit、不 push。
+    - 新条目全部评分失败 → 报告和 processed.json 原样保留，不 push。
+    返回状态字符串，供日志 / 测试断言。
+    """
+    sys.path.insert(0, str(BIN))
+    from url_norm import item_key  # noqa: E402
+
+    proc_path = date_dir / "processed.json"
+    raw_path = date_dir / "scraped_raw.json"
+    old_proc = _load_json(proc_path)
+    old_meta = old_proc.get("meta") or {}
+    old_items = old_proc.get("items") or []
+    old_raw_bytes = raw_path.read_bytes() if raw_path.exists() else None
+
+    retry_keys = set(old_meta.get("score_error_keys") or [])
+    if "scored_keys" in old_meta:
+        known = set(old_meta["scored_keys"])
+    else:
+        # 旧版 processed.json（无 scored_keys）：保守地把 04:00 时 raw 里所有条目视为已评，
+        # 低分/失败无法区分，故不重试，只补真正新到的条目。
+        old_raw = json.loads(old_raw_bytes) if old_raw_bytes else {}
+        known = {item_key(i) for i in (old_raw.get("items") or [])}
+    known |= {item_key(i) for i in old_items}
+    known -= retry_keys
+
+    def restore_raw() -> None:
+        if old_raw_bytes is not None:
+            raw_path.write_bytes(old_raw_bytes)
+
+    merge(date_dir)
+    raw_items = (_load_json(raw_path).get("items") or [])
+    seen: set[str] = set()
+    new_items = []
+    for it in raw_items:
+        k = item_key(it)
+        if k in known or k in seen:
+            continue
+        seen.add(k)
+        new_items.append(it)
+
+    if not new_items:
+        restore_raw()
+        _log(f"增量 {d.isoformat()}: 无新条目，不评分、不重写报告、不 push。")
+        return "noop"
+
+    _log(f"增量 {d.isoformat()}: {len(new_items)} 条新条目（含重试 {len(seen & retry_keys)}）待评分")
+    inc_in = date_dir / "incremental_raw.json"
+    inc_out = date_dir / "incremental_processed.json"
+    inc_in.write_text(
+        json.dumps({"meta": {"total": len(new_items), "incremental": True}, "items": new_items},
+                   indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    inc_out.unlink(missing_ok=True)
+    try:
+        r = run(
+            ["python3", str(BIN / "process_reviews.py"), "--date-dir", str(date_dir),
+             "-i", inc_in.name, "-o", inc_out.name, "--max-workers", "3"],
+            check=False, timeout=3300,
+        )
+        inc = _load_json(inc_out) if (r.returncode == 0 and inc_out.exists()) else {}
+    finally:
+        inc_in.unlink(missing_ok=True)
+        inc_out.unlink(missing_ok=True)
+
+    inc_meta = inc.get("meta") or {}
+    new_scored = set(inc_meta.get("scored_keys") or [])
+    if not new_scored:
+        restore_raw()
+        _log(f"增量 {d.isoformat()}: 新条目评分全部失败（rc={r.returncode}），保留现有报告，不 push。")
+        return "all-failed"
+
+    old_keys = {item_key(i) for i in old_items}
+    new_kept = [i for i in (inc.get("items") or [])
+                if i.get("total_score", 0) > 2 and item_key(i) not in old_keys]
+    items = old_items + new_kept  # 旧条目原样在前，分数不变
+    items.sort(key=lambda i: i.get("total_score", 0), reverse=True)  # 稳定排序
+
+    meta = dict(old_meta)
+    meta["scored_keys"] = sorted(known | new_scored)
+    meta["score_error_keys"] = sorted(
+        (retry_keys - new_scored) | set(inc_meta.get("score_error_keys") or [])
+    )
+    meta["total"] = int(old_meta.get("total") or 0) + len(new_items) - len(seen & retry_keys)
+    meta.setdefault("incremental_runs", []).append({
+        "at": datetime.now().isoformat(),
+        "new": len(new_items),
+        "scored": len(new_scored),
+        "failed": len(inc_meta.get("score_error_keys") or []),
+        "kept": len(new_kept),
+    })
+    proc_path.write_text(json.dumps({"meta": meta, "items": items}, indent=2, ensure_ascii=False),
+                         encoding="utf-8")
+    write_report(d, date_dir, items)
+    if not skip_push:
+        git_push_daily(
+            d, date_dir,
+            msg=f"music-recs: {d.isoformat()} incremental +{len(new_kept)} (scored {len(new_scored)})",
+        )
+    _log(f"增量 {d.isoformat()}: scored={len(new_scored)} kept_new={len(new_kept)} total_kept={len(items)}")
+    return "updated"
 
 
 def spawn_swarm() -> None:
@@ -380,6 +498,7 @@ def main() -> int:
         date_dir.mkdir(parents=True, exist_ok=True)
 
         ship = True
+        incremental = False
         if args.if_needed:
             subprocess.run(
                 ["git", "fetch", "origin", "main"],
@@ -391,6 +510,8 @@ def main() -> int:
             on_origin = report_on_origin(d)
             stale_tail = newest_reviews_mtime(date_dir) > processed_mtime(date_dir) + 1
             ship = (not on_origin) or stale_tail
+            # 报告已在 origin 且有 processed.json → 只做增量，已推送分数冻结
+            incremental = on_origin and (date_dir / "processed.json").exists()
             if ship:
                 _log(
                     f"watchdog 补货 {d.isoformat()}: "
@@ -399,7 +520,11 @@ def main() -> int:
                 args.skip_scrape = (date_dir / "rss_merged.json").exists()
                 args.skip_swarm = True
 
-        if ship:
+        if ship and incremental:
+            git_pull()
+            status = incremental_update(d, date_dir, skip_push=args.skip_push)
+            _log(f"INCREMENTAL {d.isoformat()} status={status}")
+        elif ship:
             git_pull()
 
             if not args.skip_scrape:

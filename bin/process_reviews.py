@@ -33,6 +33,7 @@ except ImportError:
 # InvalidSubscription / HTTP 400，连续六天 0 次成功）。新增 provider
 # 只需在 provider_failover.PROVIDERS 追加一条。
 from provider_failover import call_with_failover, get_stats, get_switch_log, PROVIDERS
+from url_norm import item_key
 
 # 主 provider 显示名（供日志）
 MODEL = PROVIDERS[0]["model"]
@@ -205,6 +206,7 @@ def process_single(item):
         item["total_score"] = 0
         item["_genre"] = "unknown"
         item["_cn_summary"] = "（评分失败）"
+        item["_score_error"] = True  # 与"真低分"区分：07:00 增量可重试
         return {"status": "fail", "album": album}
 
 
@@ -257,12 +259,19 @@ def main():
                 results.append(r)
             except Exception as e:
                 results.append({"status": "error", "index": idx, "error": str(e)})
+                items[idx]["total_score"] = 0
+                items[idx]["_score_error"] = True
 
             completed += 1
             if completed % 5 == 0 or completed == total:
                 ok = sum(1 for r in results if r.get("status") == "ok")
                 bar = "█" * (ok * 30 // max(completed, 1)) + "░" * (30 - ok * 30 // max(completed, 1))
                 print(f"  [{completed}/{total}] {bar} ✅ {ok} ok", file=sys.stderr)
+
+    # 身份键（规范化 URL）：scored_keys = 已成功评分（含低分/过滤，冻结不重评），
+    # score_error_keys = 评分失败（07:00 增量可重试）。低分条目被物理删除后仍可据此识别。
+    scored_keys = sorted({item_key(i) for i in items if not i.get("_score_error")})
+    score_error_keys = sorted({item_key(i) for i in items if i.get("_score_error")})
 
     # Sort by score descending
     items.sort(key=lambda r: r.get("total_score", 0), reverse=True)
@@ -308,6 +317,8 @@ def main():
             "failed_items": failed_items,
             "processed_at": datetime.now(timezone.utc).isoformat(),
             "input_file": args.input,
+            "scored_keys": scored_keys,
+            "score_error_keys": score_error_keys,
         },
         "items": items,
     }
