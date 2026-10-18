@@ -96,7 +96,9 @@ def _call_anthropic(provider, prompt_text):
     message = client.messages.create(
         model=provider["model"],
         max_tokens=MAX_TOKENS,
-        temperature=0.7,
+        # 2026-10-18：不传 temperature。anthropic SDK ≥1.0 已把该参数移出
+        # messages.create 的签名，传入直接 TypeError: unexpected keyword
+        # argument 'temperature'，评分全灭。服务端默认温度可用。
         messages=[{"role": "user", "content": prompt_text}],
     )
     text = ""

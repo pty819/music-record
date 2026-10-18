@@ -32,12 +32,15 @@ import json
 import re
 import sys
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
 
-import urllib.request
-import urllib.error
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from chromium_browser import LocalApiClient  # noqa: E402
+
+# 全进程共用一个 Chromium 会话池；scrape_html_parallel 结束时会回收
+_CHROME = LocalApiClient(settle=4.0, timeout=120)
 
 # ── Configuration ──────────────────────────────────────────────────────
-CAMOFOX_BASE = "http://127.0.0.1:9377"
 TARGET_URL = "https://www.musiquemachine.com"
 TODAY = datetime.now(timezone.utc).date()
 
@@ -54,24 +57,13 @@ TITLE_SEP_PATTERN = re.compile(r"\s*[—–-]\s*")
 
 
 def _api(method: str, path: str, body: dict | None = None) -> dict:
-    """Make a JSON API call to the Camoufox REST server."""
-    url = f"{CAMOFOX_BASE}{path}"
-    data = json.dumps(body).encode("utf-8") if body else None
-    req = urllib.request.Request(
-        url,
-        data=data,
-        method=method,
-        headers={"Content-Type": "application/json"} if data else {},
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        sys.stderr.write(f"[ERROR] HTTP {e.code} on {method} {path}: {e.read().decode()[:300]}\n")
-        raise
-    except Exception as e:
-        sys.stderr.write(f"[ERROR] {method} {path}: {e}\n")
-        raise
+    """驱动本地 Chromium（Hermes 自带）走 CDP 取数。
+
+    2026-10-18：原实现打 Camoufox REST 服务（127.0.0.1:9377）。现改为
+    直接用 chromium_browser.LocalApiClient —— 契约完全一致，所以本脚本
+    其余逻辑一行未动。
+    """
+    return _CHROME.call(method, path, body)
 
 
 def parse_date(text: str) -> tuple:
