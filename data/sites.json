@@ -2939,6 +2939,178 @@
       ],
       "notes": "日本音乐月度推荐，含indie/alternative/experimental",
       "crawl_strategy": "http_get"
+    },
+    {
+      "id": "ambient_blog",
+      "name": "AmbientBlog",
+      "homepage": "https://www.ambientblog.net/",
+      "rss_url": "https://www.ambientblog.net/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "tags": [
+        "ambient",
+        "electronic",
+        "modern composition"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：feed 100 条，中位摘要 556 字符，详情页 1683 字符，最新 2026-10-14"
+      },
+      "notes": "环境音/电子/现代作曲，荷兰博主 Peter van Cooten",
+      "reviews_url": "https://www.ambientblog.net/"
+    },
+    {
+      "id": "jazz_right_now",
+      "name": "Jazz Right Now",
+      "homepage": "https://www.jazzrightnow.com/",
+      "rss_url": "https://www.jazzrightnow.com/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "monthly",
+      "tags": [
+        "jazz",
+        "free improvisation",
+        "avant-garde"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：全文级 feed，中位正文 13002 字符，最新 2026-09-21 月更"
+      },
+      "notes": "自由即兴/新爵士，深度长文，月更但每篇极长",
+      "reviews_url": "https://www.jazzrightnow.com/"
+    },
+    {
+      "id": "jazzweekly",
+      "name": "Jazz Weekly",
+      "homepage": "https://jazzweekly.com/",
+      "rss_url": "https://jazzweekly.com/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "jazz",
+        "modern jazz",
+        "reviews"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：feed 10 条，摘要 873 字符，详情页 3096 字符，最新 2026-10-17"
+      },
+      "notes": "爵士乐评，George W. Harris 主理，日更",
+      "reviews_url": "https://jazzweekly.com/"
+    },
+    {
+      "id": "aquarium_drunkard",
+      "name": "Aquarium Drunkard",
+      "homepage": "https://aquariumdrunkard.com/",
+      "rss_url": "https://aquariumdrunkard.com/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "psychedelic",
+        "folk",
+        "krautrock",
+        "alternative"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：feed 15 条，摘要 547 字符，详情页 9239 字符，最新 2026-10-18"
+      },
+      "notes": "心幻/民谣/kraut，洛杉矶独立乐评，日更",
+      "reviews_url": "https://aquariumdrunkard.com/"
+    },
+    {
+      "id": "inverted_audio",
+      "name": "Inverted Audio",
+      "homepage": "https://inverted-audio.com/",
+      "rss_url": "https://inverted-audio.com/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "electronic",
+        "dub techno",
+        "underground"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：feed 10 条，摘要 272 字符，详情页 24345 字符，最新 2026-10-17"
+      },
+      "notes": "伦敦地下电子/dub techno，详情页正文极长",
+      "reviews_url": "https://inverted-audio.com/"
+    },
+    {
+      "id": "noise_receptor",
+      "name": "Noise Receptor",
+      "homepage": "https://noisereceptor.wordpress.com/",
+      "rss_url": "https://noisereceptor.wordpress.com/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "monthly",
+      "tags": [
+        "noise",
+        "industrial",
+        "power electronics"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：feed 10 条，中位正文 892 字符，最新 2026-08-10 月更"
+      },
+      "notes": "噪音/power electronics/death industrial， Richard Johnson 主理",
+      "reviews_url": "https://noisereceptor.wordpress.com/"
+    },
+    {
+      "id": "fdu_de",
+      "name": "Freunde der Elektroakustik",
+      "homepage": "https://www.fdu.de/",
+      "rss_url": "https://www.fdu.de/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "monthly",
+      "tags": [
+        "electroacoustic",
+        "industrial",
+        "experimental"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：feed 10 条，中位正文 1270 字符，最新 2026-09-04"
+      },
+      "notes": "德国电声/工业音乐团体",
+      "reviews_url": "https://www.fdu.de/"
+    },
+    {
+      "id": "headpress",
+      "name": "Headpress",
+      "homepage": "https://headpress.com/",
+      "rss_url": "https://headpress.com/feed/",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "weekly",
+      "tags": [
+        "experimental",
+        "underground",
+        "culture criticism"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：feed 10 条，正文 393 字符，最新 2026-10-11"
+      },
+      "notes": "独立出版/亚文化批评，兼有音乐内容",
+      "reviews_url": "https://headpress.com/"
+    },
+    {
+      "id": "classical_music_daily",
+      "name": "Classical Music Daily",
+      "homepage": "https://www.classicalmusicdaily.com/",
+      "rss_url": "https://www.classicalmusicdaily.com/feed.xml",
+      "has_rss": true,
+      "tier": "B",
+      "crawl_frequency": "daily",
+      "tags": [
+        "classical",
+        "contemporary classical",
+        "new music"
+      ],
+      "parser_hint": {
+        "notes": "2026-10-18 实测：feed 15 条，摘要 135 字符，详情页 6551 字符，最新 2026-10-18"
+      },
+      "notes": "当代古典乐评，日更，详情页全文长",
+      "reviews_url": "https://www.classicalmusicdaily.com/"
     }
   ],
   "crawl_priority": {
