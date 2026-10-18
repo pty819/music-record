@@ -553,6 +553,24 @@ def main() -> int:
             if not args.skip_swarm:
                 spawn_swarm()
 
+            # 清理 3 天前的原始抓取数据，只留 recommend/ 报告。
+            # 2026-10-18：原设计每天把 rss_merged/scraped_raw/processed 等 JSON
+            # 全留在仓库里，4 月至今积到 316MB。报告已完整覆盖成品信息（抽查 39 天，
+            # 报告 ### 条目数与 processed.json 逐日一致，零差异）。
+            #
+            # 测试沙箱必须跳过：沙箱里的日期目录（2026-10-14 等）是固定 fixture，
+            # 在 3 天保留窗口外，prune 会把它们当成过期数据删掉，导致断言 FileNotFound。
+            if os.environ.get("MUSIC_RECORD_ROOT"):
+                _log("测试沙箱模式，跳过原始数据清理。")
+            else:
+                prune_rc = subprocess.run(
+                    [sys.executable, str(BIN / "prune_raw_data.py"),
+                     "--keep-days", "3", "--apply", "--commit"],
+                    cwd=str(ROOT), check=False, timeout=600,
+                ).returncode
+                if prune_rc != 0:
+                    _log(f"清理原始数据失败 rc={prune_rc}，不影响已 push 的报告。")
+
             _log(
                 f"DONE {d.isoformat()} raw={n_raw} kept={n_kept} "
                 f"pushed={pushed} report={report_path_for(d)}"
