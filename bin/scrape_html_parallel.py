@@ -19,16 +19,25 @@ from datetime import datetime
 from pathlib import Path
 
 SCRIPTS = [
-    ("scrape_all_about_jazz",        "all_about_jazz",           "stdout"),
+    # ── 需要 Chromium 渲染的站：2026-10-18 起从每日出货路径跳过 ──────────────
+    # 本机（racknerd-d5dd0b）只有 1.6GB RAM，其中 Hermes 网关常驻约 545MB。
+    # 实测单个 Chromium 站会拉起 ~74 个子进程、RSS 冲到 935MB，可用内存掉到
+    # 137MB，内核 OOM killer 静默杀掉 chrome（dmesg 有记录），表现为
+    # `empty stdout` + 0 条，且日志上看不出是内存问题。
+    # 已试过：降低 V8 heap（已到 128MB 下限）、Chromium 站串行化 —— 均无效。
+    # Pi 方案也不行：Pi 上 google-chrome 152 渲染同样挂死（jina-embed 的
+    # llama-server 常驻 4GB，渲染时拿不到内存）。
+    # 决定：每日只跑 RSS + 纯 HTTP 的 HTML 站，不再为 3 个站硬扛浏览器。
+    # 下面三站需要 Chromium 渲染，已从本列表移除（脚本文件仍在 bin/，取消注释即恢复）：
+    #   scrape_all_about_jazz / scrape_mixmag_asia / scrape_musique_machine
+    # ── 纯 HTTP 站：无需浏览器，稳定 ───────────────────────────────────────
     ("scrape_bandwagon_asia",        "bandwagon_asia",           "stdout"),
     ("scrape_dark_entries",          "dark_entries_be",          "stdout"),
-    ("scrape_downbeat",              "downbeat",                 "stdout"),
+    ("scrape_downbeat",              "downbeat",                 "stdout"),  # HTTP 为主，Chromium 仅 fallback
     ("scrape_free_jazz_blog",        "free_jazz_blog",           "stdout"),
     ("scrape_hear65",                "hear65",                   "stdout"),
     ("scrape_jazz_trail",            "jazz_trail",               "stdout"),
-    ("scrape_mixmag_asia",           "mixmag_asia",              "stdout"),
     ("scrape_mikiki",                "mikiki",                    "stdout"),
-    ("scrape_musique_machine",       "musique_machine",           "stdout"),
     ("scrape_progressor",            "progressor",                "out_dir"),
     ("scrape_resident_advisor",      "resident_advisor",         "stdout"),
     ("scrape_roots_world",           "roots_world",              "stdout"),
@@ -97,7 +106,11 @@ def main():
     print(f"HTML: {len(SCRIPTS)} 脚本, timeout={args.timeout}s, days={args.days}",
           file=sys.stderr)
 
-    # Run all scrapers concurrently via ThreadPoolExecutor
+    # Run all scrapers concurrently via ThreadPoolExecutor.
+    #
+    # 2026-10-18: 原本这里把 4 个 Chromium 站单独串行跑（担心并发抢内存），
+    # 但本机 1.6GB 扛不住 Chromium（见 SCRIPTS 上方注释），那三站已移出
+    # 列表，现在剩下的全是纯 HTTP 站，原来的全并发即可。
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
     all_items = []
