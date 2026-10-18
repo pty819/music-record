@@ -1726,20 +1726,20 @@
       "id": "musique_machine",
       "name": "Musique Machine",
       "homepage": "https://www.musiquemachine.com/",
-      "rss_url": null,
+      "rss_url": "https://www.musiquemachine.com/feed.xml",
       "reviews_url": "https://www.musiquemachine.com/reviews/",
-      "has_rss": false,
+      "has_rss": true,
       "tier": "B",
-      "crawl_frequency": "weekly",
+      "crawl_frequency": "daily",
       "parser_hint": {
-        "notes": "无 RSS，Playwright headed 模式"
+        "notes": "RSS /feed.xml（站点首页 <link> 自行声明）。2026-10-18 实测 30 条，最新到前一天。但 content:encoded 全文 0 次，description 一律截断到 300 字符，拿不到全文乐评——评分依据比全文弱，但比 Chromium 方案省 900MB 内存。"
       },
       "tags": [
         "dark ambient",
         "industrial",
         "electroacoustic"
       ],
-      "notes": "阴暗和边缘的电子方向"
+      "notes": "阴暗和边缘的电子方向；已从 Chromium 迁到 RSS 层"
     },
     {
       "id": "hhv_mag",
