@@ -889,7 +889,7 @@
       "site_id": "fluid_radio",
       "crawl_status": "archive",
       "type": "review",
-      "_last_picked_date": null
+      "_last_picked_date": "2026-10-18"
     },
     {
       "album": "Lambda",
@@ -7699,7 +7699,7 @@
       "site_id": "fluid_radio",
       "crawl_status": "archive",
       "type": "review",
-      "_last_picked_date": "2026-08-20"
+      "_last_picked_date": "2026-10-18"
     },
     {
       "album": "Thesis 02",
@@ -9019,7 +9019,7 @@
       "site_id": "fluid_radio",
       "crawl_status": "archive",
       "type": "review",
-      "_last_picked_date": "2026-08-16"
+      "_last_picked_date": "2026-10-18"
     },
     {
       "album": "Earth",
