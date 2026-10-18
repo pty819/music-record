@@ -21,7 +21,10 @@ class _Msg:
 
 
 class _Messages:
-    def create(self, model, max_tokens, temperature, messages):
+    def create(self, model, max_tokens, messages, **kw):
+        # 2026-10-18: temperature 改成可选并吞进 **kw。provider_failover 已删掉
+        # 这个入参（SDK >=1.0 已把它移出 messages.create 签名），而本假 SDK 之前
+        # 把它写成必填，于是每个测试用例都以 TypeError 失败、FAKE_LOG 永远为空。
         prompt = messages[0]["content"]
         with open(os.environ.get("FAKE_LOG", "/tmp/fake_anthropic_calls.log"), "a") as f:
             f.write("call\n")
