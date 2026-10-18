@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-scrape_all_about_jazz.py — Camoufox-based scraper for All About Jazz reviews.
+scrape_all_about_jazz.py — Chromium/CDP scraper for All About Jazz reviews.
 
 All About Jazz (allaboutjazz.com/reviews) is a Cloudflare-fronted jazz review
-aggregator. curl gets 403; we use the local Camoufox REST API on :9377.
+aggregator. curl gets 403; we drive the bundled Chromium over CDP instead.
 
 Strategy:
   1. Create a tab, navigate to /reviews/ (page 1)
