@@ -87,10 +87,15 @@ PROVIDERS = [
     # provider，保证 tests/fakeanth 的「不联网、全挂/全成」语义不被真网络调用破坏。
     {
         "name": "glm",
-        "label": "GLM-4.7-Flash",
+        "label": "GLM-5.3-Flash",
         "api_mode": "openai",
         "base_url": _glm_base_url(),
-        "model": "glm-4.7-flash",
+        # model id 来自 z.ai /models 接口实测（2026-10-18）：列表里有
+        # glm-5.3 / glm-5.3-flash / glm-5.3-flashx，只有 flash 套餐内可调——
+        # flashx 返回 1311 "subscription plan does not yet include"。
+        # 注意它是 reasoning 模型：实测 567 completion 里 521 是 reasoning_tokens，
+        # max_tokens 给小了 content 会空（finish_reason=length）。MAX_TOKENS=4096 足够。
+        "model": "glm-5.3-flash",
         "key": _glm_key(),
         "enabled": not os.environ.get("MUSIC_RECORD_ROOT"),
     },
