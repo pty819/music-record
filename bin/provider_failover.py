@@ -58,6 +58,19 @@ def _ark_key():
     )
 
 
+def _glm_key():
+    """GLM (z.ai Coding Plan) key，从 ~/.hermes/.env 读取。"""
+    return os.environ.get("GLM_API_KEY", "") or _read_env_key("GLM_API_KEY")
+
+
+def _glm_base_url():
+    return (
+        os.environ.get("GLM_BASE_URL", "")
+        or _read_env_key("GLM_BASE_URL")
+        or "https://api.z.ai/api/coding/paas/v4"
+    )
+
+
 PROVIDERS = [
     {
         "name": "minimax",
@@ -68,11 +81,29 @@ PROVIDERS = [
         "key": _minimax_key(),
         "enabled": True,
     },
+    # 2026-10-18 加入：MiniMax Token Plan 用量上限（429）时兜底。
+    # z.ai Coding Plan OpenAI 兼容端点，reasoning 模型，最终答案在 content。
+    # MUSIC_RECORD_ROOT 是测试沙箱标记（见 prune 守卫）：沙箱里禁用真实备用
+    # provider，保证 tests/fakeanth 的「不联网、全挂/全成」语义不被真网络调用破坏。
+    {
+        "name": "glm",
+        "label": "GLM-4.7-Flash",
+        "api_mode": "openai",
+        "base_url": _glm_base_url(),
+        "model": "glm-4.7-flash",
+        "key": _glm_key(),
+        "enabled": not os.environ.get("MUSIC_RECORD_ROOT"),
+    },
 ]
 
 MAX_TOKENS = 4096
 TIMEOUT = 120
 RETRIES = 2  # 每个 provider 内重试次数（熔断后换 provider 也算一次整体重试）
+
+# OpenAI 兼容端点全局最小调用间隔（z.ai Coding Plan 对 RPM 敏感，实测 2s 串行全过）
+_OPENAI_MIN_INTERVAL_S = 2.0
+_openai_lock = __import__("threading").Lock()
+_last_openai_ts = 0.0
 
 # 熔断状态（进程内共享）
 _active_provider = 0
@@ -110,7 +141,14 @@ def _call_anthropic(provider, prompt_text):
 
 
 def _call_openai(provider, prompt_text):
-    """OpenAI 兼容端点（火山 Ark）。"""
+    """OpenAI 兼容端点（火山 Ark / z.ai GLM）。全局节流，防止触发 Coding Plan RPM 限制。"""
+    global _last_openai_ts
+    with _openai_lock:
+        wait = _last_openai_ts + _OPENAI_MIN_INTERVAL_S - time.time()
+        if wait > 0:
+            time.sleep(wait)
+        _last_openai_ts = time.time()
+
     import urllib.request
 
     payload = json.dumps({

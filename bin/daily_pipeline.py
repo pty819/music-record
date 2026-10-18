@@ -216,11 +216,12 @@ def score(date_dir: Path) -> int:
             "scraped_raw.json",
             "-o",
             "processed.json",
+            # 2026-10-18：GLM (z.ai Coding Plan) 兜底后降并发 3→2，避免触发 z.ai 限流
             "--max-workers",
-            "3",
+            "2",
         ],
         check=False,
-        timeout=3300,
+        timeout=7200,
     )
     proc_path = date_dir / "processed.json"
     if r.returncode != 0 or not proc_path.exists():
@@ -336,8 +337,8 @@ def incremental_update(d: date, date_dir: Path, skip_push: bool = False) -> str:
     try:
         r = run(
             ["python3", str(BIN / "process_reviews.py"), "--date-dir", str(date_dir),
-             "-i", inc_in.name, "-o", inc_out.name, "--max-workers", "3"],
-            check=False, timeout=3300,
+             "-i", inc_in.name, "-o", inc_out.name, "--max-workers", "1"],
+            check=False, timeout=7200,
         )
         inc = _load_json(inc_out) if (r.returncode == 0 and inc_out.exists()) else {}
     finally:
