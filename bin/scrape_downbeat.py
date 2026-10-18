@@ -5,7 +5,7 @@ scrape_downbeat.py — Scraper for DownBeat reviews (downbeat.com)
 Strategy:
   1. Try curl (urllib) on https://downbeat.com/reviews first.
      The /reviews page is server-rendered HTML (NOT JS-heavy).
-  2. Fall back to Camoufox API (http://127.0.0.1:9377) if curl fails.
+  2. Fall back to a rendered fetch via the bundled Chromium (CDP) if plain HTTP fails.
   3. Pages paginate via /reviews/P{offset} links inside <ul.category-list>.
   4. Extract: album, artist, reviewer, excerpt, date, rating (★ 1-5).
   5. Fetch full article body from each review's individual page.
@@ -36,7 +36,6 @@ from bs4 import BeautifulSoup, Comment
 # ── Configuration ───────────────────────────────────────────────────
 BASE_URL = "https://downbeat.com"
 REVIEWS_URL = f"{BASE_URL}/reviews"
-CAMOFOX_URL = "http://127.0.0.1:9377"
 TODAY = datetime.now(timezone.utc).date()
 
 REQ_HEADERS = {
@@ -126,59 +125,49 @@ def fetch_curl(url):
         return r.read().decode("utf-8", errors="replace")
 
 
-def fetch_camoufox(url):
-    """Fetch page HTML via Camoufox headless browser API. Returns HTML or None."""
-    import http.client
-    import time
+def fetch_chromium(url):
+    """Fetch rendered page HTML via the bundled Chromium over CDP.
 
-    # Create tab
-    body = json.dumps({"userId": "downbeat", "sessionKey": "downbeat", "url": url}).encode()
-    conn = http.client.HTTPConnection("127.0.0.1", 9377, timeout=30)
+    2026-10-18: was fetch_camoufox() talking to the Camoufox REST server on
+    127.0.0.1:9377. That server no longer exists on this host; the in-process
+    LocalApiClient drives Hermes' bundled Chromium instead and closes it on exit.
+    Returns the rendered HTML, or None if the page could not be loaded.
+    """
+    from chromium_browser import LocalApiClient
+
+    client = LocalApiClient(settle=3.0, timeout=60)
+    tab_id = None
     try:
-        conn.request("POST", "/tabs", body, {"Content-Type": "application/json"})
-        resp = conn.getresponse()
-        data = json.loads(resp.read())
-        conn.close()
-    except Exception as e:
-        sys.stderr.write(f"[downbeat] Camoufox create tab error: {e}\n")
-        return None
-
-    tab_id = data.get("tabId")
-    if not tab_id:
-        return None
-
-    try:
-        time.sleep(3)  # Let JS render
-        expr = "document.documentElement.outerHTML"
-        eval_body = json.dumps({"expression": expr}).encode()
-        conn2 = http.client.HTTPConnection("127.0.0.1", 9377, timeout=30)
-        conn2.request("POST", f"/tabs/{tab_id}/evaluate", eval_body, {"Content-Type": "application/json"})
-        resp2 = conn2.getresponse()
-        result = json.loads(resp2.read())
-        conn2.close()
+        tab = client.call("POST", "/tabs", {
+            "userId": "downbeat", "sessionKey": "downbeat", "url": url,
+        })
+        tab_id = tab.get("tabId")
+        if not tab_id:
+            return None
+        result = client.call("POST", f"/tabs/{tab_id}/evaluate", {
+            "expression": "document.documentElement.outerHTML",
+        })
         return result.get("result")
     except Exception as e:
-        sys.stderr.write(f"[downbeat] Camoufox evaluate error: {e}\n")
+        sys.stderr.write(f"[downbeat] Chromium error for {url}: {e}\n")
         return None
     finally:
-        # Clean up tab
-        try:
-            conn3 = http.client.HTTPConnection("127.0.0.1", 9377, timeout=10)
-            conn3.request("DELETE", f"/tabs/{tab_id}")
-            conn3.getresponse()
-            conn3.close()
-        except Exception:
-            pass
+        if tab_id:
+            try:
+                client.call("DELETE", f"/tabs/{tab_id}")
+            except Exception:
+                pass
+        client.close()
 
 
 def fetch_page(url):
-    """Try curl first, fall back to Camoufox API."""
+    """Try plain HTTP first, fall back to a rendered fetch via Chromium."""
     try:
         return fetch_curl(url)
     except Exception as e:
-        sys.stderr.write(f"[downbeat] curl failed for {url}: {e}\n")
-        sys.stderr.write("[downbeat] Falling back to Camoufox API...\n")
-        return fetch_camoufox(url)
+        sys.stderr.write(f"[downbeat] plain fetch failed for {url}: {e}\n")
+        sys.stderr.write("[downbeat] Falling back to Chromium...\n")
+        return fetch_chromium(url)
 
 
 # ── Full article body fetch ─────────────────────────────────────────

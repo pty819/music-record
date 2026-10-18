@@ -105,7 +105,12 @@ def extract_articles(tab_id):
         const realLinks = document.querySelectorAll(
             'a[href*="/feature/"], a[href*="/read/"], a[href*="/news/"]');
         realLinks.forEach(a => {
-            const title = (a.textContent || '').trim();
+            // 2026-10-18: a.textContent 会把栏目 tab（"Mixes"/"Features"）和摘要
+            // 一起拼进来。链接内固定有一个 h2/h3/h4 标题元素，优先取它，取不到
+            // 再退回清洗空白后的 textContent。
+            const h = a.querySelector('h1, h2, h3, h4');
+            const title = ((h && h.innerText) || (a.textContent || ''))
+                .replace(/\s+/g, ' ').trim();
             if (!title || title.length < 5) return;
             const url = a.href;
             if (!url || seen.has(url)) return;
