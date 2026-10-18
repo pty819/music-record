@@ -100,6 +100,25 @@ def Path_home_tools():
     return Path.home() / ".hermes" / "tools"
 
 
+def _heap_mb() -> int:
+    """按可用内存给 V8 老生代设上限，默认 256MB。
+
+    这台主机只有 1.6GB，而抓取会长时间持有 Chromium。给 V8 一个硬上限，
+    页面里的超大对象数组会把堆撑爆——2026-10-18 实测 chrome 被内核 OOM killer
+    杀掉（mixmag 抓取第 9/25 篇时）。上限留足余量：可用内存的 1/4，最多 512MB，
+    至少 128MB。
+    """
+    try:
+        with open("/proc/meminfo") as f:
+            for line in f:
+                if line.startswith("MemAvailable:"):
+                    avail_mb = int(line.split()[1]) // 1024
+                    return max(128, min(512, avail_mb // 4))
+    except (OSError, ValueError, IndexError):
+        pass
+    return 256
+
+
 # ── CDP 会话 ────────────────────────────────────────────────
 
 # 存活会话登记表 + atexit 兜底。异常路径（非 Context Manager）常常来不及
@@ -156,6 +175,18 @@ class ChromiumSession:
             "--disable-dev-shm-usage",   # /dev/shm 通常只有 64MB
             "--disable-gpu",
             "--disable-blink-features=AutomationControlled",
+            # 内存上限。这台机器只有 1.6GB，而抓取脚本会在整个抓取期间保持一个
+            # Chromium 活着；不加限制时 chrome 被内核 OOM killer 干掉
+            # （2026-10-18 实测，mixmag 抓到第 9/25 篇时进程被杀）。
+            f"--renderer-process-limit=2",
+            f"--js-flags=--max-old-space-size={_heap_mb()}",
+            # 关掉后台/预加载这类看不见的常驻开销
+            "--disable-background-networking",
+            "--disable-background-timer-throttling",
+            "--disable-renderer-backgrounding",
+            "--disable-features=Translate,BackForwardCache,AcceptCHFrame,MediaRouter,OptimizationHints",
+            "--disk-cache-size=16777216",     # 16MB
+            "--media-cache-size=1048576",     # 1MB
             f"--user-agent={self.user_agent}",
             "--hide-scrollbars",
             "--mute-audio",
