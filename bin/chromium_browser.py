@@ -36,6 +36,7 @@ REST 契约（与原 Camoufox 服务一致）
 from __future__ import annotations
 
 import argparse
+import atexit
 import json
 import os
 import re
@@ -100,6 +101,23 @@ def Path_home_tools():
 
 
 # ── CDP 会话 ────────────────────────────────────────────────
+
+# 存活会话登记表 + atexit 兜底。异常路径（非 Context Manager）常常来不及
+# close()，Chromium 的 --user-data-dir 会留在 TMPDIR 里堆成一地
+# chromium-cdp-* 。__del__ 靠不住（引用环会推迟 GC），atexit 是确定性的。
+#
+# 必须是**强引用**集合：WeakSet 允许对象被 GC 掉而 close() 从不执行，正好
+# 制造我们要防的那种泄漏。close() 负责把自己摘掉。
+_LIVE_SESSIONS: "set[ChromiumSession]" = set()
+
+
+@atexit.register
+def _close_all_sessions() -> None:  # pragma: no cover — 进程退出路径
+    for sess in list(_LIVE_SESSIONS):
+        try:
+            sess.close()
+        except Exception:  # noqa: BLE001
+            pass
 
 
 class ChromiumSession:
@@ -166,6 +184,7 @@ class ChromiumSession:
             self.default_session, "Page.addScriptToEvaluateOnNewDocument",
             {"source": _STEALTH_JS},
         )
+        _LIVE_SESSIONS.add(self)
         return self
 
     def _wait_for_devtools(self, port: int, timeout: float = 30.0) -> str:
@@ -186,8 +205,8 @@ class ChromiumSession:
 
     def close(self) -> None:
         for closer in (
-            lambda: self.ws.close(),
-            lambda: self.proc.terminate(),
+            lambda: self.ws.close() if self.ws else None,
+            lambda: self.proc.terminate() if self.proc else None,
         ):
             try:
                 closer()
@@ -198,8 +217,14 @@ class ChromiumSession:
                 self.proc.wait(timeout=10)
             except subprocess.TimeoutExpired:
                 self.proc.kill()
+                try:
+                    self.proc.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    pass
         if self._tmpdir:
             shutil.rmtree(self._tmpdir, ignore_errors=True)
+            self._tmpdir = None
+        _LIVE_SESSIONS.discard(self)
 
     def __enter__(self) -> "ChromiumSession":
         return self.start()
