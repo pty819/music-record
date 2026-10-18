@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-scrape_mixmag_asia.py — Camoufox-based scraper for Mixmag Asia.
+scrape_mixmag_asia.py — Chromium-based scraper for Mixmag Asia.
 
 Mixmag Asia is primarily a music news/features site, not a review site.
 Captures recent articles from the /music page.
 
 Strategy:
-  1. POST /tabs to create a tab and navigate to https://mixmag.asia/music
+  1. Open a tab on https://mixmag.asia/music via chromium_browser.LocalApiClient
   2. Evaluate JS to extract articles (titles, URLs, dates, excerpts)
   3. For each article, navigate to its URL and fetch full body text
   4. Close tabs
@@ -26,11 +26,15 @@ import argparse
 import json
 import sys
 import re
-import urllib.request
 import time
+import urllib.request
+from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
-CAMOFOX = "http://127.0.0.1:9377"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from chromium_browser import LocalApiClient  # noqa: E402
+
+_CHROME = LocalApiClient(settle=4.0, timeout=120)
 
 # JS to get full body text from an article page
 GET_BODY_JS = """
@@ -43,13 +47,11 @@ GET_BODY_JS = """
 
 
 def _req(method, path, body=None):
-    import json as _json
-    url = f"{CAMOFOX}{path}"
-    data = _json.dumps(body).encode() if body else None
-    req = urllib.request.Request(url, data=data, method=method,
-        headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return _json.loads(r.read())
+    """驱动本地 Chromium（Hermes 自带）走 CDP 取数。
+
+    2026-10-18：原实现打 Camoufox REST 服务（127.0.0.1:9377），契约保持不变。
+    """
+    return _CHROME.call(method, path, body)
 
 
 def extract_articles(tab_id):
@@ -85,15 +87,32 @@ def extract_articles(tab_id):
             const category = catEl ? catEl.textContent.trim() : '';
             articles.push({title, url, excerpt, dateText, category});
         });
-        // Also try to get articles from the grid/list layout
+        // 导航兜底。/music/ 现在只剩栏目分类页（/music/reviews、/music/premiere…），
+        // 只有路径至少三段的才算深层页；真文章在下面的 /feature/ /read/ 分支里取。
         const links = document.querySelectorAll('a[href*="/music/"], a[href*="/features/"]');
         links.forEach(a => {
             const title = a.textContent.trim();
             if (!title || title.length < 5) return;
             const url = a.href;
+            // /music/reviews 这类两段路径是栏目导航，不是文章
+            try {
+                if (new URL(url).pathname.split('/').filter(Boolean).length < 3) return;
+            } catch (e) { return; }
             if (seen.has(url)) return;
             seen.add(url);
             articles.push({title, url, excerpt: '', dateText: '', category: ''});
+        });
+        const realLinks = document.querySelectorAll(
+            'a[href*="/feature/"], a[href*="/read/"], a[href*="/news/"]');
+        realLinks.forEach(a => {
+            const title = (a.textContent || '').trim();
+            if (!title || title.length < 5) return;
+            const url = a.href;
+            if (!url || seen.has(url)) return;
+            seen.add(url);
+            const p = a.parentElement ? a.parentElement.querySelector('p') : null;
+            articles.push({title, url, excerpt: p ? p.textContent.trim().slice(0, 500) : '',
+                           dateText: '', category: ''});
         });
         return JSON.stringify(articles);
     })()"""

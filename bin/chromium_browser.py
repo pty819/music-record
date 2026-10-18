@@ -255,6 +255,18 @@ class ChromiumSession:
 
     # ── 高层操作 ──
 
+    def navigate(self, session_id: str, url: str, *, settle: float = 3.0) -> None:
+        """在**同一个 target** 内换页，不新建 target。
+
+        踩坑记录：早先 /navigate 走的是 open_tab()，每次都 Target.createTarget
+        开一个新标签且从不关闭。all_about_jazz 的详情页循环会连续 navigate 几十次，
+        于是几十个僵尸 target 堆着，直到 CDP 卡死超时。抓取脚本里 navigate 语义
+        本来就是"换个网址继续用"，所以这里必须复用 target。
+        """
+        self._session_call(session_id, "Page.navigate", {"url": url})
+        self._wait_ready(session_id, timeout=30)
+        time.sleep(settle)
+
     def open_tab(self, url: str, *, settle: float = 3.0) -> str:
         target = self.call("Target.createTarget", {"url": "about:blank"})["targetId"]
         session_id = self.call(
@@ -428,7 +440,7 @@ class LocalApiClient:
             sess, sid = entry
 
             if action == "navigate":
-                sess.open_tab(body.get("url", "about:blank"), settle=self.settle)
+                sess.navigate(sid, body.get("url", "about:blank"), settle=self.settle)
                 return {"success": True, "tabId": tab_id}
             if action == "evaluate":
                 return {"result": sess.evaluate(sid, body.get("expression", "null"))}
@@ -525,7 +537,7 @@ def serve(port: int = 9377, host: str = "127.0.0.1") -> None:
                 sess, sid = entry
                 try:
                     if action == "navigate":
-                        sess.open_tab(body.get("url", "about:blank"))
+                        sess.navigate(sid, body.get("url", "about:blank"))
                         self._send({"success": True, "tabId": tab_id})
                     elif action == "evaluate":
                         self._send({"result": sess.evaluate(sid, body.get("expression", "null"))})
