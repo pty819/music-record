@@ -506,4 +506,3 @@ done
 
 pitfalls、failover、VPN、站点诊断留 `references/`。不要把本文件再写成运行手册。
 
-<!-- sync smoke test 1792459345 -->
