@@ -2,12 +2,12 @@
 """
 provider_failover.py — 多 LLM provider 容错层，供 process_reviews.py 使用。
 
-设计目标：评分管道不单点依赖 MiniMax。主 provider（MiniMax-M3）在
+设计目标：评分管道不单点依赖 MiniMax。主 provider（MiniMax-M3.1-Flash）在
 凌晨 Token Plan 配额耗尽 / 429 / 持续失败时，可自动切换到 PROVIDERS
 里配置的备用 provider，保证每日推荐不中断。
 
 provider 定义（2026-10-09 起为单 provider）：
-  1. MiniMax-M3 (Anthropic 兼容, api.minimaxi.com/anthropic)  ← 唯一
+  1. MiniMax-M3.1-Flash (Anthropic 兼容, api.minimaxi.com/anthropic)  ← 唯一
   ⚠️ 原备 provider 火山 Ark CodingPlan (deepseek-v4-flash-ga-260731) 已删除：
      订阅过期返回 InvalidSubscription / HTTP 400，2026-10-04~10-09 连续六天
      0 次成功，纯属无效重试。新增 provider 时往 PROVIDERS 追加一条即可。
@@ -74,10 +74,17 @@ def _glm_base_url():
 PROVIDERS = [
     {
         "name": "minimax",
-        "label": "MiniMax-M3",
+        "label": "MiniMax-M3.1-Flash",
         "api_mode": "anthropic",
         "base_url": "https://api.minimaxi.com/anthropic",
-        "model": "MiniMax-M3",
+        # 2026-10-19：从 MiniMax-M3 换成 M3.1-Flash（用户指定，去掉 Preview 后缀）。
+        # model id 来自 GET /v1/models 实测：列表里只有 MiniMax-M3.1-Flash，没有
+        # -Preview 变体；两个 id 都能调通，但正式名响应里 model 字段回显
+        # MiniMax-M3.1-Flash。
+        # 注意它是 reasoning 模型：响应 content 数组会先出现 thinking 块再是
+        # text 块。_call_anthropic 已按 block.type == "text" 过滤，不会把
+        # thinking 内容当正文，空 content 风险已规避（实测 thinking+text 双块）。
+        "model": "MiniMax-M3.1-Flash",
         "key": _minimax_key(),
         "enabled": True,
     },
