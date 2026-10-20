@@ -236,8 +236,12 @@ def score(date_dir: Path) -> int:
 
 def git_push_daily(d: date, date_dir: Path, msg: str | None = None) -> bool:
     report = report_path_for(d)
+    # 只提交成品报告 + 归档增量。raw 中间产物（date_dir 下的 rss_merged/
+    # scraped_raw/processed/*_reviews.json）是可再生的中间态：报告已完整覆盖
+    # 其中每一条（报告 ### 条目数 == processed.json items 数，逐日核对过），
+    # 留在仓库里只会让每天的 commit 膨胀几百 KB，且 raw 按策略只保留 3 天，
+    # 跟踪它会让 .gitignore 与 retention 策略互相打架。
     paths = [
-        str(date_dir.relative_to(ROOT)),
         str(report.relative_to(ROOT)),
         "data/fluid_radio_archive.json",
     ]

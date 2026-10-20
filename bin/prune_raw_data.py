@@ -100,13 +100,10 @@ def main() -> int:
     summary["freed_mb"] = round(freed / 1024 / 1024, 1)
 
     if args.commit and removed:
-        subprocess.run(["git", "add", "-A", "--", "2026"], cwd=str(ROOT), check=False)
-        r = subprocess.run(
-            ["git", "commit", "-m",
-             f"chore: 清理 {len(removed)} 天前的原始抓取数据（只留 recommend/ 报告）"],
-            cwd=str(ROOT), check=False,
-        )
-        summary["committed"] = r.returncode == 0
+        # raw 不再被 git 跟踪（见 .gitignore 的 2026/ 条目），删除动作不需要
+        # 提交到版本库——工作区删了就是删了，仓库里本来就没有这些文件。
+        summary["committed"] = False
+        summary["note"] = "raw 未被 git 跟踪，无需提交删除动作"
 
     print(json.dumps(summary, indent=2, ensure_ascii=False))
     return 0
