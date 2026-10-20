@@ -285,6 +285,27 @@ python3 bin/prune_raw_data.py --keep-days 3 --apply --commit
 
 - **调试时手动跑管道会写进真仓库。** `daily_pipeline.py` 的 `ROOT = Path(os.environ.get("MUSIC_RECORD_ROOT", "/home/liyifan/music-record"))`——不设这个环境变量而直接运行，脚本会真的去抓线上站点、往生产仓库写当天目录，并改写 `data/fluid_radio_archive.json`（`fast-rss-scrape.py` 顺带轮转）。调试必须在设了 `MUSIC_RECORD_ROOT` 的沙箱里跑；已经误写就 `git checkout data/fluid_radio_archive.json` 还原并删掉当天目录。**改仓库代码后想「跑一下看看」，先想清楚这次会不会动真数据。**
 
+## 仓库里放什么、不放什么
+
+GitHub 上能看到的东西只有两类：**成品**和**能重建它的代码**。中间产物不进版本库。
+
+| 路径 | 进 git？ | 为什么 |
+|---|---|---|
+| `recommend/YYYY/MM/YYYY-MM-DD.md` | ✅ 永远 | 成品日报，唯一不可再生的东西 |
+| `bin/` `skills/` `tests/` | ✅ 永远 | 代码与文档 |
+| `data/sites.json` | ✅ 永远 | 83 站配置 |
+| `data/fluid_radio_archive.json` | ✅ 永远 | fluid_radio 的 RSS 被博彩 SEO 污染，800 条存档是唯一补货源（已抽 169 条） |
+| `2026/**/…_reviews.json` `rss_merged.json` `scraped_raw.json` `processed.json` | ❌ 不进 | 可再生中间态；报告已完整覆盖每一条（报告 `###` 条目数 == `processed.json` items 数，逐日核对一致） |
+| 根目录散落文件（`scraped_raw.json`、`screenshot.png`） | ❌ 不进 | debug 遗留，0 处代码引用 |
+
+**raw 不进 git 不只是加一条 `.gitignore` 就完了**——`daily_pipeline.py` 的 `git_push_daily()` 原本显式 `git add -- <date_dir>`，光靠 ignore 挡不住；`prune_raw_data.py` 原本 `git add -A -- 2026` 记录删除动作。改这两个地方时必须同步确认，否则会出现「文件被删 → git 记一条删除 → 第二天又被 add 回来」的死循环。改完用 `grep -rn "git.*add" bin/` 确认没有别的脚本还在 add 那个路径。
+
+⚠️ **`.gitignore` 的目录排除陷阱**：规则是「最后一个匹配者胜出」，但**目录被整体排除后 git 不再下钻该目录**，写在后面的 `!` 例外永远不会生效。想放行目录里的某个文件，必须**按文件类型排除**（`2026/**/*.json`），不能写 `2026/` + `!2026/**/*.md`——后者用 `git check-ignore -v` 实测是「仍被忽略」。`2026/04/2026-04-29.md` 是 v0.9 时代的历史日报，落在 raw 目录里但 `recommend/` 下无副本，靠这条放行保住。
+
+⚠️ **排除目录前先把里面每个文件分类一遍。** raw 目录里可能混着「看起来像中间产物、其实是成品」的文件（那份历史日报就是）。按类型排除而不是按目录排除，也是为了这类文件不被连带。
+
+**新增文件前先问一句**：它是成品，还是能被下一次运行重新生成出来的东西？后者就别提交。
+
 # 改代码后怎么验真
 
 改完抓取/浏览器/评分代码，**测试绿不等于能出货**。按下面顺序验，每一步都有具体的“它到底证明什么”：
