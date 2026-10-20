@@ -244,12 +244,13 @@ scrape_boomkat.py        scrape_boomkat_bodies.py    boomkat_recover_bodies.py
 scrape_musicircus.py     scrape_point_of_departure.py
 scrape_jazztokyo.py      scrape_jazztokyo_v2.py      scrape_jazztokyo_resilient.py
 scrape_jazztokyo_rss.py  scrape_wild_city.py         scrape_wildcity.py
-scrape_wild_city_skill.py
 ```
 
-清点这个列表时正则要能匹配数字（`[a-z_]+` 会静漏 `jazztokyo_v2`、`jazztokyo_rss`），并注意 `scrape_wildcity.py` / `scrape_wildcity_skill.py` / `scrape_wild_city.py` 是三个不同文件、指向同一个站——别当成重名去重。
+（`scrape_wildcity_skill.py` 已删；`scrape_wildcity.py` / `scrape_wild_city.py` 是两个不同文件、指向同一个站——别当成重名去重。）
 
-⚠️ **它们现在其实无人调用**。`kanban-swarm.py:build_scraper_body()` 的任务体第 1 步写的是「Camoufox 浏览器访问列表页」，**没点名任何脚本**——agent 自己开浏览器抓，专用脚本从来没被 worker 拉起过。所以这 8 个不是“坏了影响出货”，而是**探索能力整层已经实际失效**，只是它一直静默存在。评估时别把它们当成待迁移的出货依赖。
+清点这个列表时正则要能匹配数字（`[a-z_]+` 会静漏 `jazztokyo_v2`、`jazztokyo_rss`）。
+
+⚠️ **它们现在其实无人调用**。`kanban-swarm.py:build_scraper_body()` 的任务体第 1 步写的是「Camoufox 浏览器访问列表页」，**没点名任何脚本**——agent 自己开浏览器抓，专用脚本从来没被 worker 拉起过。所以这些不是“坏了影响出货”，而是**探索能力整层已经实际失效**，只是它一直静默存在。评估时别把它们当成待迁移的出货依赖。
 
 改法与已完成的四份完全相同：删掉 `CAMOFOX*` 常量，把 `_api()` / `_req()` 函数体换成 `return _CHROME.call(method, path, body)`，其余不动。注意这几个的返回契约不统一——有返回 dict 的，也有返回 `(status, body)` 元组的，**不能批量 sed**，得逐个看签名。
 
@@ -311,8 +312,12 @@ python3 bin/prune_raw_data.py --keep-days 3 --apply --commit
 
 # 评分 provider
 
-- PROVIDERS 现有两个（2026-10-19）：MiniMax-M3.1-Flash 主 + GLM-5.3-Flash（z.ai Coding Plan，OpenAI 兼容，key/base_url 读 `~/.hermes/.env` 的 `GLM_API_KEY`/`GLM_BASE_URL`）兜底。model id 来自各自 `/models` 接口实测，不是猜的：MiniMax 列表里只有 `MiniMax-M3.1-Flash`（无 -Preview 变体）；z.ai 的 `glm-5.3-flashx` 套餐不含、返回 1311，只有 `glm-5.3-flash` 可调。两个都是 reasoning 模型，M3.1-Flash 在 /anthropic 端点返回 thinking 块在前、text 块在后（`_call_anthropic` 按 `block.type == "text"` 过滤，不会把推理当正文）；glm-5.3-flash 会把 max_tokens 吃进 `reasoning_content`，给小了会返回空 content + `finish_reason=length`，MAX_TOKENS=4096 是为此留的余量（实测 567 token 即 stop）。OpenAI 模式调用有全局 2s 节流（z.ai 对 RPM 敏感，实测 3 并发无节流时大面积 429 且 failover 来回打摆）。GLM 在 `MUSIC_RECORD_ROOT`（测试沙箱标记）下自动禁用，否则 tests/fakeanth 的「不联网」语义会被真网络调用破坏（曾致 test_failed_items_retried_successes_frozen 失败）。MiniMax Token Plan 用量上限是持续性 429（自检报「已达到 Token Plan 用量上限」），不是瞬时限流；2026-10-18 当天约 21:30 UTC 前后自行恢复。
-- 评分超时已从 3300s 提到 7200s：限流期间串行评分 121 条可超 55 分钟，TimeoutExpired 会把整批已完成评分作废（inc_out 在 finally 里被删）。
+- **model id 只能实测，不能猜。** 候选名先从各自的 `/models` 接口列出来，再逐个真调一次——列表里有不等于套餐有：z.ai 的 `glm-5.3-flashx` 就在列表里，但真调返回 `1311: Your current subscription plan does not yet include access to GLM-5.3-FlashX`；只有 `glm-5.3-flash` 可用。MiniMax 正式名是 `MiniMax-M3.1-Flash`（无 `-Preview` 变体），正式名和 `-Preview` 都能调，响应回显的都是正式名。**先列再调，错的那些会把整个评分层打空。**
+- PROVIDERS 现有两个：MiniMax-M3.1-Flash 主 + GLM-5.3-Flash（z.ai Coding Plan，OpenAI 兼容，key/base_url 读 `~/.hermes/.env` 的 `GLM_API_KEY`/`GLM_BASE_URL`）兜底。两个都是 reasoning 模型：M3.1-Flash 在 /anthropic 端点返回 thinking 块在前、text 块在后（`_call_anthropic` 按 `block.type == "text"` 过滤，不会把推理当正文）；glm-5.3-flash 会把 max_tokens 吃进 `reasoning_content`，给小了会返回空 content + `finish_reason=length`，MAX_TOKENS=4096 是为此留的余量（实测 567 token 即 stop）。OpenAI 模式调用有全局 2s 节流（z.ai 对 RPM 敏感，实测 3 并发无节流时大面积 429 且 failover 来回打摆）。GLM 在 `MUSIC_RECORD_ROOT`（测试沙箱标记）下自动禁用，否则 tests/fakeanth 的「不联网」语义会被真网络调用破坏（曾致 test_failed_items_retried_successes_frozen 失败）。MiniMax Token Plan 用量上限是持续性 429（自检报「已达到 Token Plan 用量上限」），不是瞬时限流；2026-10-18 当天约 21:30 UTC 前后自行恢复。
+- **改 provider 后要扫全机残留，不只改代码里的那处。** 同一个 model id 同时住在：`bin/provider_failover.py`、安装版 skill 的 `scripts/provider_failover.py`、`SKILL.md` 正文、`~/.hermes/config.yaml`（含 `agent.reasoning_overrides` 的**键名**——它就是模型名，改值不改键会静默失效）、`~/.hermes/.env`、OpenViking 的 `ov.conf`。**扫的时候排除历史记录目录**（session 存档 / 记忆库 / git 历史）——那些地方出现旧名是正常的，改写它们没有收益。
+⚠️ **必须验证「主 provider 挂掉时能自动切走」，而不只是验证「两个 provider 现在都能用」。** 真实事故：主 provider 配额耗尽返回 429，当时还没有兜底 provider，109 条抓到的数据评分全部失败，报告输出「共整理 0 条乐评」——用户看到的和「站没发文」完全一样。**没有兜底 provider 时，一个持续性 429 就能让整份日报归零。** 改 provider 配置后要构造一次「主挂」来验证切走真的发生，不要只跑 `--self-check` 看两个都返回 200。
+
+⚠️ **评分超时已从 3300s 提到 7200s**：限流期间串行评分 121 条可超 55 分钟，TimeoutExpired 会把整批已完成评分作废（inc_out 在 finally 里被删）。
 - `bin/provider_failover.py` 调 `messages.create()` 时**不传 `temperature`**。anthropic SDK ≥1.0 已把该参数移出签名，传了直接 TypeError，评分全量失败且报告照旧 push（表现为“当天全是低分”）。改评分代码后先跑 `python3 bin/provider_failover.py --self-check`。
 - 改任何 `messages.create()` 入参后，`tests/fakeanth/` 里的假 SDK 签名要同步（`create(self, model, max_tokens, messages, **kw)`）。假 SDK 把旧入参写成必填时，每个用例都会以 TypeError 失败、`FAKE_LOG` 为空，断言拿到 0 次调用。`python3 -m pytest tests/` 必须全绿。
 
@@ -483,17 +488,22 @@ done
 **两处都要对**：生产 cron 跑的是**仓库**里的 `bin/`（prompt 里 `cd /home/liyifan/music-record`），
 而 skill 文档描述的是**安装版**——只改一边会留下「文档说 A、代码跑 B」的裂缝。
 
-### 同步方向是**不对称**的，按内容类型定
+### 同步方向按内容类型定，**references 走并集而非单向**
 
 | 内容 | 母版 | 流向 |
 |---|---|---|
-| 文档（`SKILL.md`、`references/`） | **安装版** | 安装版 → 仓库 |
+| `SKILL.md` 正文 | **安装版** | 安装版 → 仓库 |
+| `references/*.md` | **并集** | 双向：仓库独有的历史 reference 补回安装版，安装版独有的补进仓库 |
 | 代码（`bin/*.py`） | **仓库** | 仓库 → 安装版 |
 
 理由：文档是结论的累积地，下一任 session 加载的是安装版；代码是生产本体，cron 跑的是仓库那份。
 
 **方向搞反的代价是静默的**：文档反了 = 改动没被加载；代码反了 = 仓库里的改动被安装版覆盖回去。
 所以改代码只改仓库、改文档只改装版，然后交给同步机制。
+
+⚠️ **references 走单向会造出断链。** 只做「安装版 → 仓库」时，仓库里独有的历史 reference 永远不会进安装版——而 `SKILL.md` 正文可能已经引用了它（实测：`SKILL.md` 引用了 `2026-10-14-incremental-0700.md`，该文件只在仓库树里存在，安装树断链）。**同步的是文件集合，不只是两边都有的那几个文件。**
+
+⚠️ **同步后必须验引用完整性，不能只看两边逐字节一致。** 一致 ≠ 完整：两边同步了同样的 23 个文件、正文也一致，但正文引用的某个 reference 若两边都没有，断链照样存在。判据是「正文引用的每个 reference 在本树都存在」。
 
 ### 同步已自动化，不要靠「记得 cp」
 
