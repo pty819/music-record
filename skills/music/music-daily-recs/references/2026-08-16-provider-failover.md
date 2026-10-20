@@ -1,5 +1,11 @@
 # 2026-08-16 Provider Failover 多模型容错
 
+> ⚠️ **2026-10-09 更新：Ark 备 provider 已删除。** 火山 Ark CodingPlan 订阅过期，
+> API 返回 `InvalidSubscription` / HTTP 400。2026-10-04~10-09 连续六天
+> `ark.ok = 0`（每天 fail 9~60 次），熔断切过去就是死路，形成无效重试。
+> 现为**单 provider（仅 MiniMax-M3）**。容错架构与 `PROVIDERS` 列表保留，
+> 新增 provider 追加一条即可。`_ark_key()` 保留但已标注废弃，供回滚参考。
+
 ## 背景
 
 2026-08-16 凌晨 04:25，音乐推荐 cron 的评分环节全部失败：
@@ -66,7 +72,15 @@ scraped_raw.json → process_reviews.py → provider_failover.py → [MiniMax-M3
 
 ```bash
 python3 bin/provider_failover.py --self-check
-# 期望两个 provider 都返回 ✅ 可用
+# 2026-10-09 起：只输出 MiniMax-M3 一行 ✅ 可用（Ark 已删除）
+```
+
+### 2026-10-09 删除 Ark 后的复验
+
+```
+自检： [0] MiniMax-M3  ✅ 返回 OK（无 Ark 行）
+实跑： scraped_raw 前 4 条 → 4/4 ok，清理 1 条 ≤2 分
+统计： {"minimax": {"ok": 4, "fail": 1}}，无切换
 ```
 
 ## 踩坑
@@ -77,5 +91,7 @@ python3 bin/provider_failover.py --self-check
 
 ## 后续
 
-- 如果 Ark 也出现 429：考虑加第三个 provider（如 z.ai GLM）或把 MiniMax 套餐从 Token Plan 升级到按量
-- 监控 `processed.json` 的 `meta.provider_stats`，连续多日 `ark.ok > 0` 说明 MiniMax 频繁触顶，值得升级套餐
+- ~~如果 Ark 也出现 429：考虑加第三个 provider~~ → **2026-10-09 已发生且更糟：Ark 订阅整体过期，已删除**
+- **当前评分是单点**（仅 MiniMax-M3）。MiniMax Token Plan 凌晨触顶时，那批条目会直接 0 分并被 ≤2 分清理机制丢弃，等于当天部分专辑"消失"而非"低分"
+- 监控 `processed.json` 的 `meta.provider_stats`：`minimax.fail` 持续偏高（>30/天）说明 MiniMax 频繁触顶，值得升级套餐或补一个新 provider
+- 候选备源：z.ai GLM / 其它 OpenAI 兼容端点。接入前必须先实测该 key 的订阅状态（`InvalidSubscription` 类错误只有实调才暴露，key 存在 ≠ 可用）
