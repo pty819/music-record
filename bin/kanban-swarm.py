@@ -34,6 +34,10 @@ if str(Path(_HERMES_HOME).resolve()) not in sys.path:
 try:
     from hermes_cli import kanban_db as kb
     from hermes_cli import kanban_swarm as ks
+    # ⚠️ Hermes 把 `connect_closing` 拆到了单独的 kanban_db_connect 模块。
+    # 只 import kanban_db 会在 `kb.connect_closing()` 处抛 AttributeError，
+    # 探索 worker 建不起来（出货不受影响，日报照走）。
+    from hermes_cli import kanban_db_connect as kbc
 except ImportError as e:
     print(f"❌ 无法导入 Hermes API: {e}", file=sys.stderr)
     sys.exit(1)
@@ -364,7 +368,7 @@ def main():
     print(f"   max_runtime_seconds: {WORKER_MAX_RUNTIME}")
     print("   No verifier / synthesizer")
 
-    with kb.connect_closing() as conn:
+    with kbc.connect_closing() as conn:
         result = create_swarm_graph(
             conn,
             goal=goal,

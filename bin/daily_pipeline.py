@@ -246,6 +246,27 @@ def git_push_daily(d: date, date_dir: Path, msg: str | None = None) -> bool:
         "data/fluid_radio_archive.json",
     ]
     run(["git", "add", "--"] + paths, check=False)
+    # ⚠️ `git add` 撞上 .gitignore 时会打印 "ignored by one of your .gitignore
+    # files" 并跳过该文件，但退出码仍是 0 —— commit 照样成功、push 照样成功，
+    # 成品日报却根本没进仓库。实测 2026-10-20 踩中：.gitignore 里无锚定的
+    # `2026/` 把 recommend/2026/ 一起排除了。
+    # 所以 add 之后必须显式确认报告真的进了 index，否则直接失败。
+    rel = str(report.relative_to(ROOT))
+    tracked = subprocess.run(
+        ["git", "ls-files", "--error-unmatch", rel],
+        cwd=str(ROOT),
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if tracked.returncode != 0:
+        raise SystemExit(
+            f"❌ 报告 {rel} 没有进入 git index（多半被 .gitignore 挡住了）。\n"
+            f"   成品日报没进仓库，push 成功也不算数。\n"
+            f"   排查：git check-ignore -v {rel}\n"
+            f"   若命中 .gitignore 里的目录规则，记得加前导斜杠锚定到仓库根"
+            f"（如 `/2026/` 而不是 `2026/`），否则会连 recommend/ 下的成品一起排除。"
+        )
     # 日更提交不带日志
     for extra in list(date_dir.glob("*_log.txt")) + list(date_dir.glob("*.log")):
         run(["git", "reset", "HEAD", "--", str(extra.relative_to(ROOT))], check=False)
