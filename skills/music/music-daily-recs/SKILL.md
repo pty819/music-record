@@ -45,7 +45,7 @@ metadata:
 
 | 何时（北京时间） | 任务 | 说明 |
 |---|---|---|
-| 04:00 | `music-daily-recs`（job `a889d709f680`） | cron 表达式 `0 20 * * *`。agent 任务：跑 `bin/daily_pipeline.py --days 1.5`，核对报告生成与 push，汇报条数分布 |
+| 04:00 | `music-daily-recs`（job `a889d709f680`） | cron 表达式 `0 20 * * *`。agent 任务：跑 `bin/daily_pipeline.py --days 1.5`，核对报告生成与 push，汇报条数分布。**核对 push 必须查报告在 origin/main 的 tree 里，不能只看 HEAD == origin/main**（见 .gitignore 陷阱） |
 | 手动出货 | `cd /home/liyifan/music-record && PATH="$PWD/.venv/bin:$PATH" python3 bin/daily_pipeline.py` | |
 | 只用已有 JSON | `python3 bin/daily_pipeline.py --skip-scrape --skip-swarm` | |
 | 只派探索 worker | `python3 bin/kanban-swarm.py --confirm` | 无 V/S |
@@ -191,7 +191,32 @@ fluid_radio 根 `/feed/` 自 2026-08 被博彩 SEO 污染。`fast-rss-scrape.py`
 
 全部 `--days 1.5`（36 小时）。禁止自算 cutoff、RSS 通了还开浏览器交叉验证、翻超过前 2 页。
 
-# Chromium worker
+⚠️ **出村路径与探索层的依赖是分开的**：`SCRIPTS` 里的脚本只用 stdlib + `feedparser`/`bs4`/`lxml`，出货不依赖 `kanban-swarm.py`。但 `kanban-swarm.py` 要用 Hermes 自带的 `hermes_cli`（靠 `sys.path.insert(~/.hermes/hermes-agent)` 引入），**而它的依赖装在仓库 venv 里**——venv 缺包时，报错长得完全不像“缺依赖”：
+
+- `ModuleNotFoundError: No module named 'ruamel'` → 实际是 `hermes_cli` 导入 YAML 配置时需要 `ruamel.yaml`
+- `Failed to load plugin 'browser-firecrawl': No module named 'requests'` → Hermes 插件加载失败（每次调用都刷一行）
+- `AttributeError: module 'hermes_cli.kanban_db' has no attribute 'connect_closing'` → **不是包的问题，是 API 挪了模块**
+
+⚠️ **`connect_closing` 已经从 `hermes_cli.kanban_db` 拆到 `hermes_cli.kanban_db_connect`。** 只 import `kanban_db` 就调 `kb.connect_closing()` 会抛 AttributeError。正确写法：
+
+```python
+from hermes_cli import kanban_db as kb
+from hermes_cli import kanban_db_connect as kbc
+with kbc.connect_closing() as conn:
+    ...
+```
+
+`kb.list_tasks` / `kb.create_task` / `kb.complete_task` 仍在 `kanban_db`，只有连接器搬了家。
+
+⚠️ **venv 里没有 `pip` 可执行文件**（`python3 -m pip` 也没有）。装包用 `uv pip install --python .venv/bin/python <pkg>`。系统 python 有 `requests`/`ruamel`，但脚本跑在 venv 里，**系统装了不算数**——路径要用 `.venv/bin/python` 验。
+
+```bash
+uv pip install --python .venv/bin/python ruamel.yaml requests
+```
+
+⚠️ **探索层挂掉不影响出货。** `kanban-swarm.py` 失败时 pipeline 仍会打印 `DONE ... pushed=True` 并正常退出，日报已经完成。汇报时把它归到「探索层」而不是「日报失败」。但**值得当场修**（装包 + 改导入都是几分钟的事），否则探索能力会一直静默缺失。
+
+## Chromium worker
 
 body 在 `bin/kanban-swarm.py:build_scraper_body()`，不在本文件。硬约束：
 
@@ -301,6 +326,19 @@ GitHub 上能看到的东西只有两类：**成品**和**能重建它的代码*
 **raw 不进 git 不只是加一条 `.gitignore` 就完了**——`daily_pipeline.py` 的 `git_push_daily()` 原本显式 `git add -- <date_dir>`，光靠 ignore 挡不住；`prune_raw_data.py` 原本 `git add -A -- 2026` 记录删除动作。改这两个地方时必须同步确认，否则会出现「文件被删 → git 记一条删除 → 第二天又被 add 回来」的死循环。改完用 `grep -rn "git.*add" bin/` 确认没有别的脚本还在 add 那个路径。
 
 ⚠️ **`.gitignore` 的目录排除陷阱**：规则是「最后一个匹配者胜出」，但**目录被整体排除后 git 不再下钻该目录**，写在后面的 `!` 例外永远不会生效。想放行目录里的某个文件，必须**按文件类型排除**（`2026/**/*.json`），不能写 `2026/` + `!2026/**/*.md`——后者用 `git check-ignore -v` 实测是「仍被忽略」。`2026/04/2026-04-29.md` 是 v0.9 时代的历史日报，落在 raw 目录里但 `recommend/` 下无副本，靠这条放行保住。
+
+⚠️⚠️ **无锚定的目录规则会连成品目录一起吃掉（2026-10-20 踩中，日报没进仓库）。** 把 raw 目录改成整目录排除时写成了 `2026/`——git 的目录规则不带前导斜杠就匹配**任意层级**的同名目录，于是 `recommend/2026/` 也被排除。
+
+失败形态极具欺骗性：**`git add` 打印 "ignored by one of your .gitignore files" 但退出码仍是 0**，commit 照样成功、push 照样成功、pipeline 照样打印 `pushed=True`——**只有成品日报根本没进仓库**。判据不是 push 成功，而是「报告在 origin/main 的 tree 里」：
+
+```bash
+git ls-tree -r --name-only origin/main -- recommend/YYYY/MM/YYYY-MM-DD.md   # 必须有输出
+git check-ignore -v recommend/YYYY/MM/YYYY-MM-DD.md                          # 必须无输出
+```
+
+修法：**目录规则加前导斜杠锚定到仓库根**——`/2026/` 而不是 `2026/`。raw 目录本来就在仓库根，锚定后行为不变；`recommend/2026/` 不再被误伤。
+
+`daily_pipeline.py:git_push_daily()` 现在会在 `git add` 之后显式跑 `git ls-files --error-unmatch <报告>`，报告没进 index 就直接 `SystemExit` 硬失败——**宁可整条管道报错，也不要安静地 push 一份缺日报的 commit**。
 
 ⚠️ **排除目录前先把里面每个文件分类一遍。** raw 目录里可能混着「看起来像中间产物、其实是成品」的文件（那份历史日报就是）。按类型排除而不是按目录排除，也是为了这类文件不被连带。
 
