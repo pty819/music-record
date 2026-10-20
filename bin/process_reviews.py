@@ -28,7 +28,7 @@ except ImportError:
     sys.exit(1)
 
 # ── 配置 ────────────────────────────────────────────────
-# 评分走 provider_failover 的容错层。当前单一 provider：MiniMax-M3。
+# 评分走 provider_failover 的容错层。主 provider：MiniMax-M3.1-Flash，兜底 GLM-5.3-Flash。
 # 2026-10-09 已移除备 provider（火山 Ark DeepSeek，订阅过期返回
 # InvalidSubscription / HTTP 400，连续六天 0 次成功）。新增 provider
 # 只需在 provider_failover.PROVIDERS 追加一条。
