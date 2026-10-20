@@ -483,6 +483,31 @@ done
 **两处都要对**：生产 cron 跑的是**仓库**里的 `bin/`（prompt 里 `cd /home/liyifan/music-record`），
 而 skill 文档描述的是**安装版**——只改一边会留下「文档说 A、代码跑 B」的裂缝。
 
+### 同步方向是**不对称**的，按内容类型定
+
+| 内容 | 母版 | 流向 |
+|---|---|---|
+| 文档（`SKILL.md`、`references/`） | **安装版** | 安装版 → 仓库 |
+| 代码（`bin/*.py`） | **仓库** | 仓库 → 安装版 |
+
+理由：文档是结论的累积地，下一任 session 加载的是安装版；代码是生产本体，cron 跑的是仓库那份。
+
+**方向搞反的代价是静默的**：文档反了 = 改动没被加载；代码反了 = 仓库里的改动被安装版覆盖回去。
+所以改代码只改仓库、改文档只改装版，然后交给同步机制。
+
+### 同步已自动化，不要靠「记得 cp」
+
+手工同步会漏。实测漂移规模：安装版 `SKILL.md` 累积到 37KB / 41 章节，仓库副本还停在
+10.8KB / 13 章节，**仓库从未收到过那些章节**；安装版 `scripts/` 也落后 4 个文件，
+其中 `prune_raw_data.py` 整个缺失。
+
+`bin/sync_skill_to_repo.py` + cron `skill-sync-to-github`（job `d129e61e3cc1`，`every 120m`，
+`no_agent`）负责：检测漂移 → 按母版方向同步 → git add/commit/push → 打印
+`SKILL_SYNCED: N changed -> pushed <hash>`。**无变化时 stdout 为空**，不投递、不制造噪音。
+
+详细流程、母版规则、验证方法（造真实漂移走完整链路，而不是只看脚本不报错）见
+`references/skill-repo-sync.md`。
+
 # 关键路径
 
 | 用途 | 路径 |
