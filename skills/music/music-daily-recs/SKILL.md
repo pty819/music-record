@@ -505,3 +505,5 @@ done
 | 数据清理 | `bin/prune_raw_data.py` |
 
 pitfalls、failover、VPN、站点诊断留 `references/`。不要把本文件再写成运行手册。
+
+<!-- sync smoke test 1792459345 -->

@@ -59,7 +59,7 @@ def main():
                 shutil.copy2(i, r); changed.append(f"bin/{f}")
 
     if not changed and not added:
-        print("NO_CHANGE")
+        # no_agent 模式：空 stdout = 不投递，避免每 2h 噪音
         return 0
 
     print(f"DRIFT: changed={len(changed)} added={len(added)}")
@@ -84,7 +84,10 @@ def main():
                    input=msg, text=True, check=True)
     push = subprocess.run(["git", "-C", REPO, "push", "origin", "main"],
                           capture_output=True, text=True)
-    print("PUSH_OK" if push.returncode == 0 else f"PUSH_FAIL: {push.stderr[:200]}")
+    if push.returncode == 0:
+        print(f"SKILL_SYNCED: {len(changed)} changed, {len(added)} added -> pushed {subprocess.run(['git','-C',REPO,'rev-parse','--short','HEAD'],capture_output=True,text=True).stdout.strip()}")
+    else:
+        print(f"PUSH_FAIL: {push.stderr[:300]}")
     return 0
 
 
