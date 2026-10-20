@@ -5,10 +5,10 @@ category: music
 cron_job: music-daily-recs / a889d709f680（北京时间 04:00 = UTC `0 20 * * *`，agent 任务）
 cron_watchdog: 07:00 增量补货在本机尚未重建，需要时手动跑 `bin/daily_pipeline.py --if-needed`
 author: hermes-agent
-version: 11.1
+version: 11.2
 license: MIT
 created: 2026-05-07
-updated: 2026-10-19
+updated: 2026-10-20
 trigger_condition: cron 每天北京时间 04:00 自动；手动 `python3 bin/daily_pipeline.py`
 metadata:
   hermes:
