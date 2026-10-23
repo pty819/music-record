@@ -481,8 +481,14 @@ def report_on_origin(d: date) -> bool:
 
 
 def newest_reviews_mtime(date_dir: Path) -> float:
+    """当天最晚的原始抓取文件时间。
+
+    ⚠️ 必须覆盖 rss_merged.json：merge_scraped.py 的输入是
+    rss_merged.json + *_reviews.json 两类，只看 *_reviews.json 会漏掉
+    RSS 层的补抓——2026-10-23 补抓 bandcamp_daily 时就因此没触发增量。
+    """
     mtimes = []
-    for p in date_dir.glob("*_reviews.json"):
+    for p in list(date_dir.glob("*_reviews.json")) + [date_dir / "rss_merged.json"]:
         try:
             mtimes.append(p.stat().st_mtime)
         except OSError:

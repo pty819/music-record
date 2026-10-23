@@ -12,8 +12,10 @@ import feedparser
 import json
 import re
 import socket
+import ssl
 import subprocess
 import sys
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -81,6 +83,33 @@ def load_sites():
     return [s for s in data["sites"] if s.get("has_rss") and s.get("rss_url")]
 
 
+def _parse_feed(rss_url: str):
+    """抓 feed，带一条降级路径。
+
+    urllib 默认 opener 用 http.client._create_https_context() 建 TLS context，
+    它会带 ALPN(http/1.1) + post_handshake_auth。Fastly 的 bot defense
+    按 TLS ClientHello 指纹打分，命中就把响应换成 "Client Challenge"
+    （HTTP 200 + text/html + 3KB 挑战页），feedparser 解析出 0 条 entry。
+
+    实测 bandcamp_daily 稳定 0 条（6/6 次），换 ssl.create_default_context()
+    （不带 ALPN/PHA）后同一 URL 稳定 38 条。
+
+    只在「解析失败(bozo) + 0 条 entry」时重试——那是挑战页的特征。
+    合法但没更新的 feed 是 bozo=False，不该多发一次请求（月更站常年 0 条）。
+    注意别改 User-Agent——实测浏览器 UA 反而会让 avant_music_news 取不到。
+    """
+    feed = feedparser.parse(rss_url)
+    if getattr(feed, "entries", None) or not getattr(feed, "bozo", False):
+        return feed
+    try:
+        ctx = ssl.create_default_context()
+        handlers = [urllib.request.HTTPSHandler(context=ctx)]
+        retry = feedparser.parse(rss_url, handlers=handlers)
+    except Exception:
+        return feed
+    return retry if getattr(retry, "entries", None) else feed
+
+
 def _pick_from_archive(num=3):
     """fluid_radio 特殊路径：调用 pick_fluid_radio_archive.py 子进程随机抽 N 条。
 
@@ -145,7 +174,7 @@ def scrape_site(site, cutoff_date):
     if site_id == "fluid_radio":
         return site_id, _pick_from_archive(num=3)
 
-    feed = feedparser.parse(rss_url)
+    feed = _parse_feed(rss_url)
     entries = feed.entries if hasattr(feed, "entries") else []
     if not entries:
         print(f"  [{site_id}] 0 条", file=sys.stderr)
