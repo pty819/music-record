@@ -58,6 +58,8 @@ date -u '+UTC %F %T'; TZ=Asia/Shanghai date '+北京 %F %T'
 
 每日出货依赖这个偏移，差 8 小时就等于不出货或出两次。
 
+⚠️ **报告文件名比用户的「今天」晚一天。** `daily_pipeline.py` 用 `date.today()`（本机 UTC 日期）命名报告，而 cron 在北京时间 04:00 跑——北京时间 D 日白天，磁盘上最新的报告是 `recommend/YYYY/MM/(D-1).md`，它**就是**用户要的「今天的推荐」（当天凌晨 04:xx 刚生成）。回答「今天的推荐呢」先看这个文件再下结论，别报「没跑」。仓库 commit 日期同为 UTC，GitHub 上按日期翻历史同样错位一天。**用户已知晓并明确选择不改这个命名**——除非他重新提出，不要主动提改名或改时区的方案。
+
 首次跑完后如果当天有补抓的尾巴文件，手动补一次 `bin/daily_pipeline.py --if-needed` 走增量评分。
 
 # 站点
@@ -597,6 +599,8 @@ done
 
 详细流程、母版规则、验证方法（造真实漂移走完整链路，而不是只看脚本不报错）见
 `references/skill-repo-sync.md`。
+
+⚠️ **sync 提交的 message 会失真。** `sync_skill_to_repo.py` 的 add 范围是 `skills/music/music-daily-recs` + `bin` 两个目录——cron 跑的时候若 `bin/` 还留着未提交的代码改动（比如上一轮 cron 修了脚本但没来得及 commit），会被一起扫进 `chore(skill): 自动同步…` 提交，而 message 只列 skill 侧文件。查某段代码何时进的仓库，用 `git log --oneline --stat -- bin/<file>` 展开看，不要按 commit message grep。代码不会丢，只是回溯不到。
 
 # 关键路径
 
