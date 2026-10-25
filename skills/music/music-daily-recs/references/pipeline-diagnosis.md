@@ -2,20 +2,25 @@
 
 **核心原则**：怀疑 → 验证 → 再怀疑 → 再验证。不要靠分析猜测，先拿数据。
 
+⚠️ **出货路径已经不是 kanban 流水线了。** 当前出货 = 纯脚本管道（`bin/daily_pipeline.py` → RSS/HTML 抓取 → 评分 → 报告 → git push），**kanban + Verifier + Synthesizer 只存在于探索层**。所以：
+- 诊断**出货故障**走本文第 0/4/6 节 + `SKILL.md` 的「出事三命令」；
+- 第 1/2/3/5b 节与「级联阻塞模式」是**旧 kanban 架构**的诊断法，只有在探索层或 kanban 真的卡住时才用；
+- **一个站点失败不再阻塞整条管道**——失败站记错误、其余站继续出货。看不到日报时先看报告是否落地，不要先怀疑级联阻塞。
+
 ## 诊断步骤（按顺序）
 
 ### 0. 回溯历史 cron 运行（先看"发生了什么"再看"为什么"）
 
 ```bash
 # 列出最近 cron 输出（每次运行一个 .md 文件）
-ls -lt ~/.hermes/cron/output/ec5ea562d589/ | head -10
+ls -lt ~/.hermes/cron/output/a889d709f680/ | head -10
 
 # 读某次运行的完整报告（含 prompt + agent 输出 + error）
-cat ~/.hermes/cron/output/ec5ea562d589/YYYY-MM-DD_HH-MM-SS.md
+cat ~/.hermes/cron/output/a889d709f680/YYYY-MM-DD_HH-MM-SS.md
 
 # 快速找失败原因
 grep -i 'error\|fail\|traceback\|RuntimeError\|blocked' \
-  ~/.hermes/cron/output/ec5ea562d589/YYYY-MM-DD_HH-MM-SS.md
+  ~/.hermes/cron/output/a889d709f680/YYYY-MM-DD_HH-MM-SS.md
 ```
 
 cron 输出文件命名格式：`YYYY-MM-DD_HH-MM-SS.md`（北京时间）。文件头部是 cron prompt（skill SKILL.md 全文 + 用户附加指令），接着是 agent 的执行报告。如果运行失败，尾部有 `## Error` 段。
@@ -61,14 +66,17 @@ cat ~/.hermes/kanban/logs/<task_id>.log | grep -i "error\|fail\|exception"
 ### 4. 看实际文件
 
 ```bash
-# 检查推荐文件
-ls -la ~/music-record/recommend/$(date +%Y-%m-%d).md
-file_size=$(stat -c%s ~/music-record/recommend/$(date +%Y-%m-%d).md)
+# 检查推荐文件（成品在 recommend/ 下，原始数据在 2026/ 下且只留 3 天）
+REPO=/home/liyifan/music-record
+ls -la $REPO/recommend/$(date -u +%Y-%m-%d).md
+file_size=$(stat -c%s $REPO/recommend/$(date -u +%Y-%m-%d).md)
 # 如果 < 8KB → 大概率 LLM 评分全 fallback（关键词拼接）
 
 # 检查抓取 JSON 是否就位
-ls ~/music-record/2026/$(date +%m)/$(date +%Y-%m-%d)/*_reviews.json | wc -l
+ls $REPO/2026/$(date -u +%m)/$(date -u +%Y-%m-%d)/*_reviews.json | wc -l
 ```
+
+⚠️ **原始数据目录只保留 3 天**（`bin/prune_raw_data.py` 每天出货后自动清）。**问「昨天哪几个站爬失败」时，`2026/10/24/` 这类目录可能已经不存在了**——证据要去 cron 输出日志里找（见 `SKILL.md` 的「问「昨天哪些站爬失败」——先分清三态，再回答」），不要因为目录没了就答「没有失败」。
 
 ### 5. 查 cron job 状态
 
@@ -93,7 +101,7 @@ hermes kanban show <task_id>
 ### 6. 看 git log 验证历史
 
 ```bash
-cd ~/music-record
+cd /home/liyifan/music-record
 git log --oneline -- 'recommend/2026-*.md' | head -10
 ```
 

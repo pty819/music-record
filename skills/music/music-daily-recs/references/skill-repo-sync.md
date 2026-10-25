@@ -27,6 +27,15 @@
 - **无变化时 stdout 为空**（cron `no_agent` 模式下空输出不投递，不制造噪音）。
 - 有变化时：git add → commit → push，然后打印 `SKILL_SYNCED: N changed -> pushed <hash>`。
 
+### 同步提交会带上 `bin/` 的代码改动，这是设计而非误伤
+
+同步脚本的 git 范围是 `git add -A skills/music/music-daily-recs bin`，**代码母版就在仓库的 `bin/`**。所以：
+
+- 你在仓库里改完 `bin/*.py` 还没提交，下一次同步 tick 会把它连同 skill 文档一起提上去。**看到「同步提交」里混了代码改动是正常的**——那只是同一批未提交改动被一次 commit 带走。
+- **反过来改安装版的 `scripts/` 才是错的方向**：代码母版在仓库，安装版那份下一个 tick 会被仓库版本覆盖回去（见下节）。
+- 同步 tick 的间隔是 120 分钟，所以**「刚改完代码还没进仓库」是正常状态**，不是同步坏了。判断同步是否真的生效：看下一个 tick 的输出（`SKILL_SYNCED: N changed -> pushed <hash>`）或 `git log --oneline -1`。
+- 提交说明只写 skill 同步，**不代表这次提交只含文档**。看一个提交到底改了什么要用 `git show --stat <hash>`，不要从 commit message 反推文件列表。
+
 cron 任务 `skill-sync-to-github`（job `d129e61e3cc1`，`every 120m`，`no_agent`，
 `deliver: local`）。`no_agent` 模式只跑脚本、不起 LLM、不花 token。
 
