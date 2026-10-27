@@ -2019,25 +2019,6 @@
       "crawl_strategy": "http_get"
     },
     {
-      "id": "wild_city",
-      "name": "Wild City",
-      "homepage": "https://www.thewildcity.com/",
-      "rss_url": null,
-      "reviews_url": "https://www.thewildcity.com/",
-      "has_rss": false,
-      "tier": "B",
-      "crawl_frequency": "weekly",
-      "parser_hint": {
-        "notes": "无 RSS，Playwright headed 模式"
-      },
-      "tags": [
-        "south asian",
-        "alternative",
-        "electronic"
-      ],
-      "notes": "偏南亚，可扩展视野"
-    },
-    {
       "id": "bandwagon_asia",
       "name": "Bandwagon Asia",
       "homepage": "https://www.bandwagon.asia/",
