@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-kanban-swarm.py — 只创建 5 个 Camoufox 探索 worker。无 Verifier / Synthesizer。
+kanban-swarm.py — 只创建 5 个 Camofox 探索 worker。无 Verifier / Synthesizer。
 
 出货（merge / 评分 / 报告 / git push）走 bin/daily_pipeline.py，不进看板。
 worker 失败不得挡住当天报告。
@@ -54,12 +54,12 @@ class SwarmWorkerSpec:
     max_runtime_seconds: Optional[int] = None
 
 
-# Sites that have a dedicated HTML scraper in bin/ (priority over Camoufox).
+# Sites that have a dedicated HTML scraper in bin/ (priority over Camofox).
 # This is the post-priority-resolution list — every site in HTML_SCRIPT_IDS
-# has its own scrape_*.py in bin/, so it is *not* assigned a Camoufox worker.
+# has its own scrape_*.py in bin/, so it is *not* assigned a Camofox worker.
 # ⚠️ MUST stay in sync with scrape_html_parallel.py: SCRIPTS list.
 # If you add a new scrape_<site>.py, update BOTH lists (or the site will be
-# double-scraped: once by HTML layer, once by Camoufox worker).
+# double-scraped: once by HTML layer, once by Camofox worker).
 # Sites with has_rss=True go to fast-rss-scrape.py and must NOT be in either list.
 HTML_SCRIPT_IDS = frozenset({
     "all_about_jazz",              # scrape_all_about_jazz.py
@@ -78,20 +78,20 @@ HTML_SCRIPT_IDS = frozenset({
     "squids_ear",                  # scrape_squids_ear.py
     "strangely_isolated_place",    # scrape_strangely_isolated_place.py
     "mikiki",              # scrape_mikiki.py
-    "progressor",          # scrape_progressor.py (direct HTTP; Camoufox TLS incompatible)
+    "progressor",          # scrape_progressor.py (direct HTTP; Camofox TLS incompatible)
 })
 
 
 def get_sites():
-    """Load sites that must be scraped with Camoufox (post-priority-resolution).
+    """Load sites that must be scraped with Camofox (post-priority-resolution).
 
-    Selection rule (priority order RSS > HTML > Camoufox):
+    Selection rule (priority order RSS > HTML > Camofox):
       1. RSS  — sites with has_rss=True go to fast-rss-scrape.py
       2. HTML — sites in HTML_SCRIPT_IDS go to bin/scrape_<id>.py
-      3. Camoufox — everything left that has crawl_strategy=playwright_headless
+      3. Camofox — everything left that has crawl_strategy=playwright_headless
                     and is not skipped, and has no RSS, and is not in HTML_SCRIPT_IDS
 
-    Returns the active Camoufox sites (currently 5: boomkat, jazztokyo, musicircus,
+    Returns the active Camofox sites (currently 5: boomkat, jazztokyo, musicircus,
     point_of_departure, wild_city).
     """
     with open(SITES_FILE) as f:
@@ -106,7 +106,7 @@ def get_sites():
             continue  # RSS path
         if s.get("id") in HTML_SCRIPT_IDS:
             continue  # HTML script path
-        # Anything reaching here is the Camoufox tail.
+        # Anything reaching here is the Camofox tail.
         out.append(s)
     return out
 
@@ -118,7 +118,7 @@ Boomkat 每次新 tab 都会触发 Cloudflare Turnstile 隐形验证码，
 会在 ~5-15s 后自动解除，但如果 IP 段/ASN 被标记则永远不解。
 
 步骤：
-1. 创建 Camoufox tab 访问 {url}
+1. 创建 Camofox tab 访问 {url}
 2. 等待 15 秒
 3. 用以下 JS 检查是否仍在 CF challenge 页面：
    document.title + '|' + document.querySelectorAll('.listing2__product').length
@@ -136,7 +136,7 @@ def build_scraper_body(site, date_dir):
     the scraper itself, not by the worker's own reading of the body. The
     body also instructs the worker to *check* for an RSS feed first — if found,
     the worker should produce a "skipped: rss_available" status instead of
-    opening a browser (this enforces the RSS > HTML > Camoufox priority
+    opening a browser (this enforces the RSS > HTML > Camofox priority
     order at the worker level).
     """
     sid = site.get("id", site["name"].lower().replace(" ", "_"))
@@ -194,7 +194,7 @@ RSS: {rss_url or "(none)"}
 
 {empty_protocol}{rss_check_block}{cf_early_exit}✅ 步骤
 ━━━━━━━━━━━━━━━━
-1. Camoufox 浏览器访问列表页，只翻前 2 页
+1. Camofox 浏览器访问列表页，只翻前 2 页
 2. Cookie 墙 → 检查并点击 Accept/Agree，等 1 秒
 3. 提取：album, artist, score, url, source, pub_date, excerpt, body, site_id, crawl_status, type
 4. 36 小时外停止翻页
@@ -247,7 +247,7 @@ def create_swarm_graph(
     priority: int = 0,
     idempotency_key: str,
 ) -> dict:
-    """Create root + Camoufox workers only. No verifier, no synthesizer."""
+    """Create root + Camofox workers only. No verifier, no synthesizer."""
 
     existing_root_id = None
     for task in kb.list_tasks(conn, tenant=tenant, include_archived=True):
@@ -265,9 +265,9 @@ def create_swarm_graph(
                 "worker_ids": topo["worker_ids"],
             }
 
-    root_title = f"Camoufox: music-recs {DATE}"
+    root_title = f"Camofox: music-recs {DATE}"
     root_body = (
-        "Camoufox 探索根卡片。出货走 daily_pipeline.py，本图不含 Verifier/Synthesizer。\n\n"
+        "Camofox 探索根卡片。出货走 daily_pipeline.py，本图不含 Verifier/Synthesizer。\n\n"
         f"目标:\n{goal}"
     )
     root_id = kb.create_task(
@@ -287,7 +287,7 @@ def create_swarm_graph(
     kb.complete_task(
         conn,
         root_id,
-        summary="Camoufox workers planned; shipping is daily_pipeline.py.",
+        summary="Camofox workers planned; shipping is daily_pipeline.py.",
         metadata={
             "kind": "music_camoufox_workers",
             "goal": goal,
@@ -338,8 +338,24 @@ def main():
         print(f"  {s['name']}")
     print()
 
+    # Preflight: never create workers against a dead browser backend — that is
+    # how the board filled with ready-forever "empty" workers after the
+    # Camoufox → Chromium migration (2026-10-18) left this script orphaned.
+    import urllib.request
+    base = os.environ.get("CAMOFOX_URL", "http://127.0.0.1:9377").rstrip("/")
+    try:
+        with urllib.request.urlopen(f"{base}/health", timeout=5) as r:
+            ok = json.loads(r.read().decode()).get("ok") is True
+    except Exception as e:
+        ok = False
+    if not ok:
+        print(f"❌ Camofox 服务不可达 ({base}/health)。")
+        print("   不创建探索 worker（出货走 daily_pipeline.py，不受影响）。")
+        print("   先启动: systemctl start camofox   再重跑本脚本。")
+        sys.exit(3)
+
     if not confirm:
-        print("Dry run. Pass --confirm to create tasks.")
+        print(f"✅ Camofox 服务可达 ({base})。Dry run. Pass --confirm to create tasks.")
         sys.exit(0)
 
     date_dir = f"{OUTPUT_DIR}/{MONTH}/{DATE}"
@@ -358,11 +374,11 @@ def main():
             max_runtime_seconds=WORKER_MAX_RUNTIME,
         ))
 
-    goal = f"Camoufox 探索 {DATE}: {len(sites)} 站写 *_reviews.json。出货不依赖这些 worker。"
+    goal = f"Camofox 探索 {DATE}: {len(sites)} 站写 *_reviews.json。出货不依赖这些 worker。"
     idempotency_key = idempotency_key_for_today()
     workspace = f"{date_dir}"
 
-    print(f"🏗  Creating Camoufox workers via Hermes API: {len(workers)}")
+    print(f"🏗  Creating Camofox workers via Hermes API: {len(workers)}")
     print(f"   Workspace: dir:{workspace}")
     print(f"   Idempotency: {idempotency_key}")
     print(f"   max_runtime_seconds: {WORKER_MAX_RUNTIME}")
@@ -386,7 +402,7 @@ def main():
 
     print(f"\n  Root:       {root_id}")
     print(f"  Workers:    {len(worker_ids)} created")
-    print("\n✅ Camoufox workers created. Shipping is daily_pipeline.py.")
+    print("\n✅ Camofox workers created. Shipping is daily_pipeline.py.")
 
 
 if __name__ == "__main__":
