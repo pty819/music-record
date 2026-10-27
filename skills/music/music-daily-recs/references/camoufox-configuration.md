@@ -74,4 +74,4 @@ curl -s -X DELETE "http://127.0.0.1:9377/tabs/<tabId>?userId=<id>"
 | allaboutjazz.com | ✅ 列表页正常（`rows=16`）|
 | pointofdeparture.com | ✅ curl 被拒但浏览器能过 |
 | boomkat.com | ⚠️ Turnstile 挑战页（`Just a moment...`），按空结果协议早退 |
-| thewildcity.com | ❌ 站点对出口 IP 不响应（TCP 通、HTTP 不返回），浏览器与代理均超时 |
+| thewildcity.com | ❌ 站点对出口 IP 不响应（TCP 通、HTTP 不返回），浏览器与代理均超时。**2026-10-27 已放弃并删除该站** |

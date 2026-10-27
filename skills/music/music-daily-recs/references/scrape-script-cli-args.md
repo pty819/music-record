@@ -41,7 +41,6 @@ done
 | `scrape_songlines.py` | ❌ | **✅** | ❌ | ❌ | ✅ | ✅ | L2. **用 `--ref-date 2026-06-07` 不用 `--days`** |
 | `scrape_squids_ear.py` | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | L2. 1.5 天 0 条（CF 拦截，正常）|
 | **`scrape_truth_and_lies_music.py`** | ✅ | ❌ | ❌ | ❌ | `--pages` | ✅ | L3 (CAMOFOX_BASE). **🐛 BUG: 写死输出路径** — `output_path = ".../2026-06-06/..."` 永远写 6-06 目录，跟当天日期无关 |
-| `scrape_wild_city.py` | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | L3 (CAMOFOX_BASE). 50s 不够 |
 | `scrape_world_music_central.py` | ❌ | ❌ | **✅** | ✅ | ❌ | ✅ | 走 RSS. **用 `--hours 36` 不用 `--days 1.5`**. 1.5 天 2 条 ✅ |
 
 **汇总（按参数分桶）**：

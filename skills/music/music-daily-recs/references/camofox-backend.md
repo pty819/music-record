@@ -209,7 +209,7 @@ CDP 自身的坑（403 握手、per-target 域、函数表达式、`atexit` 清�
 | point_of_departure | Camofox | ✅ 10 条 |
 | resident_advisor | Camofox | ✅ 无 CF 拦截 |
 | boomkat | Camofox | ⚠️ CF Turnstile：`document.title` 返回 `Just a moment...`，按空结果协议早退，禁止反复开 tab |
-| **wild_city** | 任意 | ❌ **站点侧不可达**：TCP 443 连得上但 HTTP 不返回（直连、代理、浏览器三种方式全超时）。不是浏览器问题——换后端救不了，得换出口 IP 或放弃这个站 |
+| **wild_city**（已删 2026-10-27） | - | ❌ 站点侧不可达：TCP 443 连得上但 HTTP 不返回。得换出口 IP 或放弃——已放弃并删除站点与全部脚本 |
 
 **「curl 失败但浏览器能过」和「浏览器也过不了」是两回事**：前者是 TLS/SNI 指纹被拒（浏览器能救），后者是站点对出口 IP 不响应（浏览器也救不了）。分不清就会白折腾后端。
 
@@ -266,7 +266,7 @@ sed -n '/^SCRIPTS = \[/,/^\]/p' bin/scrape_html_parallel.py | grep -c 'chromium_
 .venv/bin/python3 bin/scrape_html_parallel.py --out-dir /tmp/t --days 1.5 2>&1 | grep -c '❌'   # 期望 0
 ```
 
-`chromium_browser.py` 还需要 `websocket-client`，系统 python 没有。
+（历史）已删除的 `chromium_browser.py` 曾需要 `websocket-client`，系统 python 没有——这也是它退役的原因之一。
 
 ## 评分：永远不要靠降级 SDK 版本绕过签名变化
 
