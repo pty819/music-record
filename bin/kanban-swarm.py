@@ -92,7 +92,7 @@ def get_sites():
                     and is not skipped, and has no RSS, and is not in HTML_SCRIPT_IDS
 
     Returns the active Camofox sites (currently 5: boomkat, jazztokyo, musicircus,
-    point_of_departure, wild_city).
+    point_of_departure).
     """
     with open(SITES_FILE) as f:
         d = json.load(f)

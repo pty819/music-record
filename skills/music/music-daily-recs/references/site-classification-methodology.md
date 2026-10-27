@@ -67,7 +67,7 @@ If any of these return data, prefer the API over HTML parsing. Faster, more reli
 - **Dual mode**: `scrape_strangely_isolated_place.py` tries urllib first, falls back to Camoufox. Classify as HTML (urllib succeeds most of the time).
 - **mixmag_asia**: `crawl_strategy=skip` in sites.json BUT still in HTML_SCRIPT_IDS. `scrape_html_parallel.py` runs it via its own SCRIPTS list (independent of sites.json). The kanban `get_sites()` skips it, but the cron Step 3 script still runs it.
 - **fluid_radio**: `crawl_strategy=skip` BUT `has_rss=True` → RSS priority wins. Feed is 2013-2022 historical, may occasionally return items.
-- **wild_city**: Script calls `CAMOFOX_BASE` REST API — must be in Camoufox group, NOT HTML. Moved 2026-06-10.
+- **wild_city**（已删 2026-10-27，出口 IP 被封）: Script calls `CAMOFOX_BASE` REST API — must be in Camoufox group, NOT HTML. Moved 2026-06-10.
 - **resident_advisor**: Next.js SPA — HTML has no review elements (React renders client-side). Fixed 2026-06-10: rewrote to use `ra.co/graphql` API. When debugging a 0-item site, check for `__NEXT_DATA__` in the page source — if present, the site is a SPA and HTML parsing won't work.
 - **squids_ear**: 2026-08-15 恢复（amer1 IP 可直连，hysteria-Amsterdam 仍 403）。见 SKILL.md 2026-08-16 更新。
 - **world_music_central**: Was in HTML_SCRIPT_IDS despite having a live RSS feed. `sites.json` had `rss_url` set but `has_rss=False`. Fixed 2026-06-10: migrated to RSS. Now 29 RSS, 16 HTML.
@@ -75,7 +75,7 @@ If any of these return data, prefer the API over HTML parsing. Faster, more reli
 ## Current Distribution (v7.4, 2026-06-10)
 - 29 RSS (28 + world_music_central)
 - 16 HTML (pure HTTP scrapers, including RA via GraphQL)
-- 4 Camoufox (boomkat, point_of_departure, progressor, wild_city)
+- 3 Camoufox (boomkat, point_of_departure, progressor)
 - 2 skip (syrphe, textura)
 
 ## When Adding a New Site
@@ -111,7 +111,7 @@ print(json.dumps(result, indent=2, ensure_ascii=False))  # for parallel scraper
 - `scrape_roots_world.py` — added `--days` (passes to `scrape()`)
 - `scrape_world_music_central.py` — added `--days` + stdout print
 - `scrape_truth_and_lies_music.py` — added stdout print (was file-only)
-- `scrape_wild_city.py` — moved to Camoufox group (depends on REST API)
+- `scrape_wild_city.py` — DELETED 2026-10-27 (site blocked host egress IP)
 - `scrape_resident_advisor.py` — rewritten to use GraphQL API (was HTML parsing)
 
 ## Debugging 0-Item Sites

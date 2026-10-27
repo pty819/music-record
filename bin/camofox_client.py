@@ -5,7 +5,7 @@ camofox_client.py — Camofox（Camoufox 反检测 Firefox）REST 客户端。
 背景
 ----
 2026-10-18 的迁移把管道里所有打 `http://127.0.0.1:9377` 的脚本换成了
-`chromium_browser.py` 的 Chromium CDP 后端，理由是 Camoufox 需要额外 400MB
+Chromium CDP 后端（2026-10-27 已连同 bin/chromium_browser.py 一起删除），理由是 Camoufox 需要额外 400MB
 浏览器二进制 + 独立 systemd unit，是「唯一不能随 Hermes 一起搬走的依赖」。
 
 现在 Camofox 已经作为常驻服务装在这台机器上
@@ -14,7 +14,7 @@ camofox_client.py — Camofox（Camoufox 反检测 Firefox）REST 客户端。
 **指纹伪装**。all_about_jazz / mixmag_asia / musique_machine / downbeat
 都是 Cloudflare 站，裸 Chromium 更容易被识别。
 
-本模块提供与 `chromium_browser.LocalApiClient` **完全同形**的 `call()`
+本模块提供与旧 Chromium CDP 客户端（`LocalApiClient`，已删除）**完全同形**的 `call()`
 接口，把请求转给 Camofox REST 服务。调用方只需换 import，逻辑一行不改。
 
 契约对照
@@ -54,9 +54,9 @@ class CamofoxError(RuntimeError):
 
 
 class CamofoxClient:
-    """与 LocalApiClient 同形的 Camofox 客户端。
+    """与旧 CDP 客户端（LocalApiClient）同形的 Camofox 客户端。
 
-    与 LocalApiClient 的差别只在底层：LocalApiClient 在本进程内用 CDP 驱动
+    与旧 CDP 客户端的差别只在底层：后者在本进程内用 CDP 驱动
     一个临时 Chromium；本类把请求发给常驻的 Camofox 服务（HTTP）。
 
     每个实例绑定一对 (user_id, session_key)——Camofox 按 userId 隔离会话与
@@ -125,10 +125,10 @@ class CamofoxClient:
             return {"raw": raw}
         return parsed if isinstance(parsed, dict) else {"result": parsed}
 
-    # ── LocalApiClient 同形的 call() ─────────────────────────────────
+    # ── 与旧 CDP 客户端同形的 call() ─────────────────────────────────
 
     def call(self, method: str, path: str, body: dict | None = None) -> dict:
-        """LocalApiClient 同形接口：返回 dict，失败时带 error 字段。"""
+        """与旧 CDP 客户端同形的接口：返回 dict，失败时带 error 字段。"""
         method = method.upper()
         parts = [p for p in path.split("/") if p]
         payload = dict(body or {})
@@ -294,7 +294,7 @@ def wait_for_content(
     return last
 
 
-# 与旧脚本同名的便捷函数（chromium_browser.py 也提供过）。
+# 与旧脚本同名的便捷函数（已删除的 chromium_browser.py 也提供过）。
 def fetch(url: str, *, user_id: str = "fetch", timeout: int = 120) -> str:
     """打开 url 并返回页面 HTML。"""
     client = CamofoxClient(user_id=user_id, timeout=timeout)

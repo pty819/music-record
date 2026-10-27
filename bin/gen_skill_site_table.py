@@ -35,16 +35,16 @@ END = "<!-- END GENERATED SITES -->"
 # Operational remarks that are not in sites.json notes. Membership still
 # comes from config+code; this dict only fills the 备注 column.
 HTML_REMARKS = {
-    "all_about_jazz": "Cloudflare 列表页；走 chromium_browser.py",
+    "all_about_jazz": "Cloudflare 列表页；走 camofox_client.py（Camofox 服务）",
     "bandwagon_asia": "新加坡/东南亚",
     "dark_entries_be": "暗潮/哥特/工业",
     "downbeat": "爵士；月刊，1.5d 窗口经常 0 条",
     "free_jazz_blog": "自由爵士/先锋",
     "hear65": "新加坡本地",
     "jazz_trail": "--max-pages 3 控速",
-    "mixmag_asia": "列表页 + excerpt；走 chromium_browser.py",
+    "mixmag_asia": "列表页 + excerpt；走 camofox_client.py（Camofox 服务）",
     "mikiki": "日本音乐媒体",
-    "musique_machine": "电影/音乐混合；走 chromium_browser.py",
+    "musique_machine": "电影/音乐混合；走 camofox_client.py（Camofox 服务）",
     "progressor": "直连 HTTP；月刊，1.5d 窗口经常 0 条",
     "resident_advisor": "Cloudflare",
     "roots_world": "curl 直连",
@@ -57,7 +57,6 @@ HTML_REMARKS = {
 CAMO_REMARKS = {
     "boomkat": "Cloudflare Turnstile。Chromium 过不了挑战页（实测返回 Just a moment）；Kanban worker 自主探索，CF 后早退，禁止反复开 tab",
     "point_of_departure": "JS 渲染。Feature 无 Artist/Album 头 → parse_feature_page()。详见 references/pod-feature-unknown-album.md",
-    "wild_city": "印度/南亚电子，脚本调 chromium_browser.py",
     "jazztokyo": "日本爵士，需 JS 渲染",
     "musicircus": "日本先锋/即兴音乐",
 }
@@ -209,7 +208,7 @@ def render(layers: dict) -> str:
         "|---|---|---|",
         *html_rows,
         "",
-        f"## {n_camo} Chromium（kanban worker，用 `bin/chromium_browser.py` 驱动 Hermes 自带 Chromium）",
+        f"## {n_camo} Camofox（常驻服务，用 `bin/camofox_client.py` 走 Camoufox Firefox）",
         "",
         f"当前：{camo_names}",
         "",

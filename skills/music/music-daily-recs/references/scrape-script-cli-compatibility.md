@@ -37,7 +37,7 @@ python3 bin/scrape_html_parallel.py --out-dir /tmp/parallel-test --days 1.5 --ti
 # 检查 new_site: ok items=N
 ```
 
-## wild_city 特殊情况
+## wild_city 已删除（2026-10-27）
 
-wild_city 依赖 Camoufox REST API (`http://127.0.0.1:9377`)，不属于 HTML 层。
+ wild_city 原依赖 Camoufox REST API (`http://127.0.0.1:9377`)。该站对此主机的出口 IP 做了封锁（TCP 443 可建连但 HTTP 永不返回，Camoufox 与代理均超时），站点与 3 个历史脚本（scrape_wild_city.py / scrape_wild_city_skill.py / scrape_wildcity.py）已一并删除。
 目前仍在 scrape_html_parallel.py 的 SCRIPTS 列表中（待移至 Camoufox 组）。

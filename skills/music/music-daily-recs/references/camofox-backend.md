@@ -47,6 +47,106 @@ def _api(method, path, body=None):
 - **`open_tab()` 带重试**：失败时先关掉自己名下的残留 tab（`GET /tabs?userId=` → `DELETE`），等一拍让内存回收，再重试。建 tab 失败在 1.6GB 机器上是常态，不是 bug。
 - **IIFE 包装**：客户端自动把 `() => {...}` 包成 `(() => {...})()`。
 - **GET/POST 的 userId 分别注入 query / body**。
+- **`wait_for_content()` 轮询**：不用固定 sleep 等待渲染（见下节）。
+- **`navigate_fast()` 快速导航**：绕开服务端 `/navigate` 端点的 commit 等待（见下节）。
+
+### `navigate_fast()`：最大的性能杠杆
+
+Camofox 的 `POST /tabs/:id/navigate` 内部是：
+
+```js
+await page.goto(url, { waitUntil: 'commit', timeout });
+await page.waitForLoadState('domcontentloaded', { timeout });
+```
+
+`commit` 意味着**等 Cloudflare 挑战走完才返回**。实测 CF 站上 **17-36 秒一篇**——这是 Camofox 站跑不完管道的真正原因，不是站点慢。
+
+改成在页面里改 `location.href`：
+
+```python
+client.navigate_fast(tab_id, url)   # evaluate 里执行 window.location.href = url
+# 然后轮询等正文出现
+body = wait_for_content(client, tab_id, GET_BODY_JS, attempts=15, delay=0.8)
+```
+
+`evaluate` 立刻返回（~0.4s），CF 挑战在后台继续，轮询直接拿到已渲染的正文。**实测 ~1.7 秒一篇，快 10-20 倍。**
+
+| 站 | `/navigate` | `navigate_fast()` | 条数 |
+|---|---|---|---|
+| mixmag_asia | 600s 超时（只到 13/25） | **57.9s** | 25 |
+| all_about_jazz | 187-420s | **53.4s** | 9 |
+| musique_machine | 33.7s | **18.8s** | 1 |
+
+规则：**Camofox 站一律用 `navigate_fast()`，不用 `/navigate` 端点。** 后者只在需要服务端确认导航结果（HTTP 状态、最终 URL）时才值得。
+
+### `wait_for_content()`：不要用固定 sleep 等渲染
+
+固定 `time.sleep(1.2/2/3)` 是给 Chromium/CDP 定的节奏。Camofox 走真实 Firefox 网络栈，CF 站更慢，固定等待会在正文渲染完前提取 → **正文为空**。症状很隐蔽：脚本 exit 0、无报错，只是某几篇 body 是 0 字符。
+
+```python
+wait_for_content(client, tab_id, expr, attempts=12, delay=1.0, predicate=None)
+```
+
+`predicate` 用于「非空不够」的场景（如 HTML 要 > 5000 字符才算渲染完）。
+
+### 探针必须用脚本自己的 client —— 否则结论是假的
+
+调脚本模块里的函数时，**必须用脚本模块里那个 client 实例**（同一个 `user_id`），不能自己 new 一个。Camofox 按 `userId` 隔离会话，**另一个 user_id 看不到这个 tab**。
+
+失败的探针：
+
+```python
+c = CamofoxClient(user_id="probe_mm")   # ← 自己的 client
+tab = c.open_tab(url)
+arts = m.extract_articles(tab["tabId"])  # m._CHROME 看不到这个 tab → 0 篇
+```
+
+正确的探针：
+
+```python
+tab = m._CHROME.open_tab(url)            # ← 用脚本自己的 client
+arts = m.extract_articles(tab["tabId"])
+```
+
+这个坑的表现是「同一个页面，手动 evaluate 明明有 21 篇，脚本就是 0 篇」——**会让你误判成选择器坏了或后端坏了，转而去改不相关的东西**。先确认探针和被测代码用同一个 client，再怀疑别的。
+
+### 选择器要按「最长容器」选，不要按标签名选
+
+`<article>` 标签存在 ≠ 它装着正文。实测 mixmag 的 `<article>` 只有 211 字符（是侧栏/摘要容器），真正的正文在 `<main>`（4248 字符）。
+
+规则：**候选多个容器，按 innerText 长度挑最大的**，而不是按标签名优先。
+
+```js
+const pick = (el) => el && el.innerText ? el.innerText : '';
+const candidates = [
+    pick(document.querySelector('main')),
+    pick(document.querySelector('article')),
+    pick(document.querySelector('.article-body')),
+    pick(document.querySelector('.post-content')),
+    pick(document.querySelector('.entry-content')),
+    pick(document.body),
+].filter(t => t && t.length > 200);
+return candidates.sort((a, b) => b.length - a.length)[0].slice(0, 10000);
+```
+
+### 日期过滤器静默失效 = 你在无边界地爬
+
+`if pub_date and pub_date < cutoff: continue` 这类写法，**`pub_date` 为空时不会跳过，而是放行**。当列表页根本不提供日期字段时，`parse_date()` 恒返回 `None`，过滤器等于不存在——每一篇都进正文抓取。
+
+实测：mixmag 列表页与文章页都没有日期（DOM 里无 `time` 元素、正文里无日期串），于是 25 篇全部被抓，而 `--days 1.5` 一个也没筛掉。**症状是“明明只要 1.5 天，怎么跑了 25 篇”。**
+
+规则：
+
+- **先证明日期字段真的存在**，再相信日期过滤。探针要分别检查列表页和文章页：DOM 里有没有 `time` 元素、正文里有没有日期串。
+- 若站点不给日期，**用文章发布日期自己判**（从文章页拿），而不是把过滤条件当成已生效。
+- 抓取量失控时的正确反应是**限制抓取篇数**（取列表前 N 篇），而不是调大 `--days` —— `--days` 在无日期字段时是无效旋钮。
+
+### 列表页选择器要覆盖真实的文章路径
+
+旧选择器 `a[href*="/music/"]` 仍能匹配，但 `/music/` 现在只是栏目标录，文章搬到 `/read/` 和 `/feature/`。**轮询等页面就绪时用的选择器必须和提取用的选择器一致**，否则会永远等不到（实测 `a[href*="/music/"]` 命中数不为 0 但永远不涨，轮询空转到超时）。
+
+用「链接总数从 108 涨到 112」这类**增量信号**判断渲染完成，而不是等某个固定数量。
+
 
 ### 自检
 
@@ -87,7 +187,7 @@ unit 要点（`/etc/systemd/system/camofox.service`）：
 
 ## 备选后端：Chromium/CDP
 
-`bin/chromium_browser.py` 保留为**备选后端与一次性排查工具**，不再是抓取脚本的默认路径。
+旧 Chromium CDP 客户端 `bin/chromium_browser.py` 已于 2026-10-27 删除。
 
 它实现了同形的 REST 契约（`POST /tabs`、`/tabs/{id}/navigate`、`/tabs/{id}/evaluate`、`/tabs/{id}/content`、`DELETE /tabs/{id}`），三种用法：进程内 `LocalApiClient`、`--serve --port 9377`（**会与 Camofox 抢 9377，别同时开**）、模块级 `fetch()` / `evaluate()`。
 
@@ -103,9 +203,9 @@ CDP 自身的坑（403 握手、per-target 域、函数表达式、`atexit` 清�
 
 | 站 | 后端 | 结果 |
 |---|---|---|
-| all_about_jazz | Camofox | ✅ 12 条，含全文正文 |
-| mixmag_asia | Camofox | ✅ 抓 25 篇正文 |
-| musique_machine | Camofox | ✅ 1 篇 |
+| all_about_jazz | Camofox | ✅ 12 条，含全文正文（`navigate_fast` 后 ~53s） |
+| mixmag_asia | Camofox | ✅ 25 篇正文（`navigate_fast` 后 ~58s） |
+| musique_machine | Camofox | ✅ 1 篇（~19s） |
 | point_of_departure | Camofox | ✅ 10 条 |
 | resident_advisor | Camofox | ✅ 无 CF 拦截 |
 | boomkat | Camofox | ⚠️ CF Turnstile：`document.title` 返回 `Just a moment...`，按空结果协议早退，禁止反复开 tab |
@@ -119,11 +219,13 @@ CDP 自身的坑（403 握手、per-target 域、函数表达式、`atexit` 清�
 
 **排查顺序**：先证明后端能过（手动 evaluate 拿行数），再查选择器，最后才调后端。行数对但条数为 0 = 选择器问题；行数本身为 0 = 后端问题。
 
-## 出货路径必须无浏览器
+## 出货路径的浏览器约束
 
-本机 1.6GB RAM。单个 Chromium 站会拉起 ~74 个子进程、RSS 冲到 935MB，可用内存掉到 137MB，内核 OOM killer 静默杀掉 chrome。
+本机 1.6GB RAM。**旧结论是「出货路径必须完全无浏览器」**，依据是单个 Chromium 站会拉起 ~74 个子进程、RSS 冲到 935MB，可用内存掉到 137MB，内核 OOM killer 静默杀掉 chrome。
 
-失败形态具有欺骗性：**`empty stdout` + 0 条，stderr 无异常，进程消失得干干净净**。看日志只会以为“该站没更新”，不会想到是内存。
+**这个结论只对「每站拉起一个浏览器」的后端成立。** Camofox 是常驻服务（一个 Firefox 实例服务所有站），不再每站拉浏览器，所以 all_about_jazz / mixmag_asia / musique_machine 已放回 `SCRIPTS`。
+
+失败形态很有欺骗性：**`empty stdout` + 0 条，stderr 无异常，进程消失得干干净净**。看日志只会以为“该站没更新”，不会想到是内存。
 
 ```bash
 dmesg -T | grep "Killed process" | tail -3    # 唯一的现场
@@ -131,10 +233,14 @@ dmesg -T | grep "Killed process" | tail -3    # 唯一的现场
 
 已试过且**均无效**，不要再重复：降 V8 heap（已到下限）、Chromium 站串行化（串行照样被杀）、换机器扛（另一台机上 chrome 渲染同样挂死）。
 
-判定标准：`SCRIPTS` 里不应存在任何 `import chromium_browser` 或 `import camofox_client` 的条目。
+三条 Camofox 站的硬约束：
+
+1. **Camofox 站之间必须串行** —— 并发开 3 个 tab 全部建失败（fork Firefox 时内存不足，available 掉到 387MB）。`scrape_html_parallel.py` 拆成两批：纯 HTTP 站全并发，Camofox 站在其后串行。
+2. **Camofox 站要单独给 timeout** —— `SCRIPTS` 元组第 4 个元素是 per-site timeout 覆盖值。
+3. **CDP 后端已退役** —— `SCRIPTS` 里不应出现任何 `import chromium_browser` 的条目。
 
 ```bash
-sed -n '/^SCRIPTS = \[/,/^\]/p' bin/scrape_html_parallel.py | grep -cE 'chromium|camofox'   # 期望 0
+sed -n '/^SCRIPTS = \[/,/^\]/p' bin/scrape_html_parallel.py | grep -c 'chromium_browser'   # 期望 0
 ```
 
 ## 选择器 rot：非零行数也可能全是导航
@@ -147,12 +253,17 @@ sed -n '/^SCRIPTS = \[/,/^\]/p' bin/scrape_html_parallel.py | grep -cE 'chromium
 - 栏目标录与文章共用前缀时，按路径深度过滤：`new URL(url).pathname.split('/').filter(Boolean).length < 3`。
 - 新文章前缀加成分支选择器，别放宽旧选择器——放宽会把导航重新纳入。
 
-## 运行管道时的环境
+## 运行管道时的环境：子进程用 `sys.executable`，不要硬编码 `python3`
 
-`scrape_html_parallel.py` 把每个 scraper 作为裸 `python3` 拉起，所以 venv 必须在 PATH 最前，否则子进程死于 `ModuleNotFoundError: bs4`（而报错看起来像 scraper 自己的 bug）：
+`scrape_html_parallel.py` 原来把每个 scraper 作为裸 `python3` 拉起，依赖**调用方的 PATH** 里有正确的 venv。直接跑管道时子进程落到系统 Python，缺 bs4/feedparser，4 个站静默失败（`empty stdout (rc=1)` + `ModuleNotFoundError`）——**看起来像 scraper 自己的 bug**。
+
+修法：`cmd = ["timeout", str(eff_timeout), sys.executable, script_path, ...]`。无论谁调、用什么解释器启动管道，子脚本都用同一个解释器。
+
+**验证要看每个站的错误数，不是只看管道退出码。** 修前 4 个站报 `empty stdout (rc=1) ModuleNotFoundError: No module named 'bs4'`，修后同样 4 个站 `0 errors`：
 
 ```bash
-export PATH=/home/liyifan/music-record/.venv/bin:$PATH
+# 管道 stderr 里逐站列出 ✅ / ❌，直接数 ❌ 的行数
+.venv/bin/python3 bin/scrape_html_parallel.py --out-dir /tmp/t --days 1.5 2>&1 | grep -c '❌'   # 期望 0
 ```
 
 `chromium_browser.py` 还需要 `websocket-client`，系统 python 没有。
