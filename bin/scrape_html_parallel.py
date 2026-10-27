@@ -52,9 +52,9 @@ SCRIPTS = [
     # 不是每个站拉起一个浏览器。
     # 但这 3 站要走真实网络栈 + CF 挑战，单站耗时远高于纯 HTTP 站：
     # mixmag 实测约 15s/篇 × 25 篇 ≈ 375s，所以要单独给 timeout。
-    ("scrape_all_about_jazz",         "all_about_jazz",          "stdout", 420),
-    ("scrape_mixmag_asia",            "mixmag_asia",             "stdout", 600),
-    ("scrape_musique_machine",        "musique_machine",         "stdout", 300),
+    ("scrape_all_about_jazz",         "all_about_jazz",          "stdout", 180),
+    ("scrape_mixmag_asia",            "mixmag_asia",             "stdout", 180),
+    ("scrape_musique_machine",        "musique_machine",         "stdout", 120),
 ]
 # NOTE: world_music_central 已迁移到 RSS 层（has_rss=True），不走 HTML 层。
 # 若从 sites.json 移除 has_rss，需重新加回 SCRIPTS 并同步 kanban-swarm.py HTML_SCRIPT_IDS。

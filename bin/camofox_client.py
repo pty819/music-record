@@ -221,6 +221,29 @@ class CamofoxClient:
                 time.sleep(3 + attempt * 3)
         return last
 
+    def navigate_fast(self, tab_id: str, url: str) -> dict:
+        """快速导航：evaluate 里改 location.href，不等 commit。
+
+        Camofox 的 POST /tabs/:id/navigate 内部是
+        `page.goto(url, {waitUntil: 'commit'})` + `waitForLoadState
+        ('domcontentloaded')` —— 实测在 Cloudflare 站上要 **17-36 秒**一篇，
+        因为它要等 CF 挑战走完才 commit。
+
+        改成在页面里执行 `window.location.href = url`：evaluate 立刻返回
+        （~0.4s），CF 挑战在后台继续，我们只需要轮询等正文出现。
+        实测同一篇 1.7s 拿到 4023 字符完整正文，快 10-20 倍。
+
+        注意：evaluate 请求本身可能在导航过程中被页面中断，所以调用方
+        仍需用 wait_for_content 轮询等结果，不要指望这次 evaluate 有返回。
+        """
+        expr = f"window.location.href = {json.dumps(url)}; 'navigating'"
+        try:
+            return self._request(
+                "POST", f"/tabs/{tab_id}/evaluate", {"expression": expr}
+            )
+        except CamofoxError as e:
+            return {"error": str(e)}
+
     def close(self) -> None:
         """Camofox 的 tab 生命周期归服务端管，这里没有本地资源可释放。"""
 

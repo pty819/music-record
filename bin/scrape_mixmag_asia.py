@@ -144,12 +144,12 @@ def extract_articles(tab_id):
 def fetch_body(tab_id, url):
     """Navigate to a URL and fetch full body text."""
     try:
-        _req("POST", f"/tabs/{tab_id}/navigate", {"url": url})
-        # 2026-10-27: 原为固定 time.sleep(2) 等渲染。Camofox 走真实 Firefox
-        # 网络栈，CF 站更慢，固定等待会提前提取 → 正文为空。
-        # 改成轮询等正文出现（最长 12s）。
+        # 2026-10-27: 改用 navigate_fast（在页面里改 location.href，不等
+        # commit）。Camofox 的 navigate 端点实测在 CF 站要 17-36s/篇，
+        # navigate_fast 是 ~1.7s/篇。CF 挑战在后台继续，轮询等正文即可。
+        _CHROME.navigate_fast(tab_id, url)
         result = wait_for_content(
-            _CHROME, tab_id, GET_BODY_JS, attempts=12, delay=1.0,
+            _CHROME, tab_id, GET_BODY_JS, attempts=15, delay=0.8,
         )
         if result is None:
             return ""

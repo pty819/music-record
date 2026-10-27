@@ -147,13 +147,14 @@ def fetch_chromium(url):
         tab_id = tab.get("tabId")
         if not tab_id:
             return None
-        # 2026-10-27: Camofox 的 POST /tabs 等的是导航 "commit"，DOM 未必
-        # 已渲染完。直接 evaluate outerHTML 可能拿到半成品 —— 改成轮询等
-        # 页面有内容（最长 12s）。
+        # 2026-10-27: 改用 navigate_fast（在页面里改 location.href，不等
+        # commit）+ 轮询等页面有内容。Camofox 的 navigate 端点要等 CF 挑战
+        # 走完才 commit，实测 17-36s/篇。
+        client.navigate_fast(tab_id, url)
         result = wait_for_content(
             client, tab_id,
             "document.documentElement.outerHTML",
-            attempts=12, delay=1.0,
+            attempts=15, delay=0.8,
             predicate=lambda h: bool(h) and len(h) > 5000,
         )
         return result

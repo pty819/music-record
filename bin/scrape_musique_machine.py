@@ -299,9 +299,8 @@ def main():
 
             try:
                 # Navigate to the article page
-                nav_resp = _api("POST", f"/tabs/{tab_id}/navigate", {
-                    "url": item["url"],
-                })
+                # 2026-10-27: 改用 navigate_fast（不等 commit，快 10-20 倍）。
+                nav_resp = _CHROME.navigate_fast(tab_id, item["url"])
                 if nav_resp.get("success") or nav_resp.get("tabId"):
                     # 2026-10-27: 原为固定 time.sleep(2) 等 JS 渲染。
                     # Camofox 渲染更慢，改成轮询等正文出现。

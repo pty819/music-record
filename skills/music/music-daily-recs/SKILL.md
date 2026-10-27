@@ -265,6 +265,17 @@ Camofox 站的三个硬约束（都实测过，改代码前先看这里）：
 1. **Camofox 站之间必须串行** —— 并发开 3 个 tab **全部建失败**（fork Firefox 进程时内存不足，available 掉到 387MB）。`scrape_html_parallel.py` 拆成两批：纯 HTTP 站全并发，Camofox 站在其后串行。
 2. **Camofox 站要单独给 timeout** —— 纯 HTTP 站 180s 够，Camofox 站要等 CF 挑战 + 真实网络栈：`musique_machine` 20s、`all_about_jazz` ~420s、`mixmag_asia` ~600s（25 篇 × 15s/篇）。`SCRIPTS` 元组第 4 个元素是 per-site timeout 覆盖值。
 3. **等页面就绪要轮询，不要固定 sleep** —— 固定 `time.sleep(1.2/2/3)` 是给 Chromium/CDP 定的节奏，Camofox 走真实 Firefox 网络栈，CF 站更慢，固定等待会提前提取 → 正文为空。统一用 `camofox_client.wait_for_content()` 轮询。
+4. **导航用 `navigate_fast()`，不要用 Camofox 的 `/navigate` 端点** —— 这是**最大的性能杠杆**。Camofox 的 `POST /tabs/:id/navigate` 内部是 `page.goto(url, {waitUntil:'commit'})` + `waitForLoadState('domcontentloaded')`，在 CF 站上实测 **17-36 秒一篇**（要等 CF 挑战走完才 commit）。改成在页面里执行 `window.location.href = url`（`CamofoxClient.navigate_fast()`），evaluate 立刻返回 ~0.4s，CF 挑战在后台继续，轮询等正文即可 —— 实测 **~1.7 秒一篇，快 10-20 倍**。
+
+   实测三站（`--days 1.5`，改前 → 改后）：
+
+   | 站 | 改前 | 改后 | 条数 |
+   |---|---|---|---|
+   | mixmag_asia | 600s 超时（只到 13/25） | **57.9s** | 25 |
+   | all_about_jazz | 187-420s | **53.4s** | 9 |
+   | musique_machine | 33.7s | **18.8s** | 1 |
+
+   这直接让 Camofox 站能塞进管道的 180s per-site timeout，不再需要特殊放宽。
 
 判定标准：`SCRIPTS` 里不应出现任何 `import chromium_browser` 的条目（CDP 后端已退役），Camofox 站用 `bin/camofox_client.py`。
 

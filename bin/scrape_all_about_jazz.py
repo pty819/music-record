@@ -314,14 +314,13 @@ def main():
                 url = item["url"]
                 sys.stderr.write(f"  [{i+1}/{len(kept)}] {item['artist'] or '?'} : {item['album'][:50]}\n")
                 try:
-                    _api("POST", f"/tabs/{tab_id}/navigate", {"url": url})
-                    # 2026-10-27: 原来是固定 time.sleep(1.2) 就提取正文。
-                    # 那是给 Chromium/CDP 定的节奏；Camofox 走真实 Firefox 网络
-                    # 栈，CF 站常常更慢，于是正文还没渲染就提取 → body 0 字符
-                    # （实测 Metakosmos 那篇首次为 0，重试即 10.3K）。
-                    # 改成轮询等正文容器就绪，最长 12s。
+                    # 2026-10-27: 改用 navigate_fast（在页面里改 location.href，
+                    # 不等 commit）。Camofox 的 navigate 端点在 CF 站要
+                    # 17-36s/篇，navigate_fast 是 ~1.7s/篇 —— CF 挑战在后台
+                    # 继续，我们轮询等正文容器就绪即可。
+                    _CHROME.navigate_fast(tab_id, url)
                     detail = wait_for_content(
-                        _CHROME, tab_id, EXTRACT_BODY_JS, attempts=12, delay=1.0,
+                        _CHROME, tab_id, EXTRACT_BODY_JS, attempts=15, delay=0.8,
                         predicate=lambda d: bool((d or {}).get("body")),
                     ) or {}
                     body = (detail.get("body") or "").strip()
