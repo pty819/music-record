@@ -35,7 +35,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from camofox_client import CamofoxClient  # noqa: E402
+from camofox_client import CamofoxClient, wait_for_content  # noqa: E402
 
 # 全进程共用一个 Chromium 会话池；scrape_html_parallel 结束时会回收
 _CHROME = CamofoxClient(user_id="scraper_musique_machine", session_key="session_mm", settle=4.0, timeout=120)
@@ -303,15 +303,12 @@ def main():
                     "url": item["url"],
                 })
                 if nav_resp.get("success") or nav_resp.get("tabId"):
-                    # Brief wait for JS rendering
-                    import time
-                    time.sleep(2)
-
-                    # Evaluate JS to get article body
-                    body_resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-                        "expression": FETCH_ARTICLE_BODY_JS,
-                    })
-                    body_text = body_resp.get("result", "")
+                    # 2026-10-27: 原为固定 time.sleep(2) 等 JS 渲染。
+                    # Camofox 渲染更慢，改成轮询等正文出现。
+                    body_text = wait_for_content(
+                        _CHROME, tab_id, FETCH_ARTICLE_BODY_JS,
+                        attempts=10, delay=1.0,
+                    ) or ""
                     if body_text:
                         item["body"] = body_text.strip()
                         sys.stderr.write(f"    Body: {len(item['body'])} chars\n")

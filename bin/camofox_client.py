@@ -237,6 +237,40 @@ def _qs(payload: dict) -> str:
     return urlencode({k: v for k, v in payload.items() if v is not None})
 
 
+def wait_for_content(
+    client: "CamofoxClient",
+    tab_id: str,
+    expression: str,
+    *,
+    attempts: int = 12,
+    delay: float = 1.0,
+    predicate=None,
+):
+    """轮询 evaluate 直到拿到非空结果。
+
+    Camofox 走真实 Firefox 网络栈，页面渲染比 Chromium/CDP 慢。抓取脚本
+    原来用固定 sleep（1.2s / 2s / 3s）等页面就绪，在 CF 站上会提前提取 →
+    正文为空（实测 all_about_jazz 的 Metakosmos 那篇首次 0 字符，重试即
+    10.3K）。改成轮询直到拿到内容才停。
+
+    `predicate` 可选，用于判断结果是否"算成功"（默认非空即算）。
+    返回最后一次 evaluate 的 result。
+    """
+    import time as _time
+
+    last = None
+    for _ in range(max(1, attempts)):
+        resp = client.call("POST", f"/tabs/{tab_id}/evaluate", {"expression": expression})
+        last = resp.get("result")
+        if predicate is not None:
+            if predicate(last):
+                return last
+        elif last:
+            return last
+        _time.sleep(delay)
+    return last
+
+
 # 与旧脚本同名的便捷函数（chromium_browser.py 也提供过）。
 def fetch(url: str, *, user_id: str = "fetch", timeout: int = 120) -> str:
     """打开 url 并返回页面 HTML。"""

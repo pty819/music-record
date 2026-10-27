@@ -32,7 +32,7 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from camofox_client import CamofoxClient  # noqa: E402
+from camofox_client import CamofoxClient, wait_for_content  # noqa: E402
 
 _CHROME = CamofoxClient(user_id="scraper_mixmag_asia", session_key="session_mix", settle=4.0, timeout=120)
 
@@ -203,7 +203,13 @@ def main():
         return
 
     try:
-        time.sleep(3)  # Let page fully render
+        # 2026-10-27: 原为固定 time.sleep(3) 等页面渲染。Camofox 走真实
+        # Firefox 网络栈，CF 站更慢 —— 改成轮询等列表就绪。
+        wait_for_content(
+            _CHROME, tab_id,
+            "document.querySelectorAll('article a, .post a').length",
+            attempts=12, delay=1.0,
+        )
         articles = extract_articles(tab_id)
 
         items = []

@@ -29,7 +29,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from camofox_client import CamofoxClient  # noqa: E402
+from camofox_client import CamofoxClient, wait_for_content  # noqa: E402
 
 _CHROME = CamofoxClient(user_id="scraper_all_about_jazz", session_key="session_aaj", settle=4.0, timeout=150)
 
@@ -315,11 +315,15 @@ def main():
                 sys.stderr.write(f"  [{i+1}/{len(kept)}] {item['artist'] or '?'} : {item['album'][:50]}\n")
                 try:
                     _api("POST", f"/tabs/{tab_id}/navigate", {"url": url})
-                    time.sleep(1.2)
-                    resp = _api("POST", f"/tabs/{tab_id}/evaluate", {
-                        "expression": EXTRACT_BODY_JS,
-                    })
-                    detail = resp.get("result") or {}
+                    # 2026-10-27: 原来是固定 time.sleep(1.2) 就提取正文。
+                    # 那是给 Chromium/CDP 定的节奏；Camofox 走真实 Firefox 网络
+                    # 栈，CF 站常常更慢，于是正文还没渲染就提取 → body 0 字符
+                    # （实测 Metakosmos 那篇首次为 0，重试即 10.3K）。
+                    # 改成轮询等正文容器就绪，最长 12s。
+                    detail = wait_for_content(
+                        _CHROME, tab_id, EXTRACT_BODY_JS, attempts=12, delay=1.0,
+                        predicate=lambda d: bool((d or {}).get("body")),
+                    ) or {}
                     body = (detail.get("body") or "").strip()
                     if body:
                         item["body"] = body
