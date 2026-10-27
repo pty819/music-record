@@ -193,13 +193,12 @@ grep -E "^import |^from " bin/$S.py | tr '\n' ' '
 
 ## 5 Camofox（探索层 kanban worker，用 `bin/camofox_client.py` 驱动 Camofox 服务）
 
-当前：boomkat, point_of_departure, wild_city, jazztokyo, musicircus
+当前：boomkat, point_of_departure, jazztokyo, musicircus（wild_city 已于 2026-10-27 删除——出口 IP 被站点封锁）
 
 | 站 | 备注 |
 |---|---|
 | boomkat | Cloudflare Turnstile。Camofox 的反检测指纹能过挑战页（实测 18s 后仍需早退判断）；Kanban worker 自主探索，CF 后早退，禁止反复开 tab |
 | point_of_departure | JS 渲染。Feature 无 Artist/Album 头 → parse_feature_page()。详见 references/pod-feature-unknown-album.md |
-| wild_city | 印度/南亚电子，脚本调 camofox_client.py |
 | jazztokyo | 日本爵士，需 JS 渲染 |
 | musicircus | 日本先锋/即兴音乐 |
 
@@ -320,7 +319,7 @@ Chromium/CDP 客户端 `bin/chromium_browser.py` 已于 2026-10-27 删除（生�
 scrape_boomkat.py        scrape_boomkat_bodies.py    boomkat_recover_bodies.py
 scrape_musicircus.py     scrape_point_of_departure.py
 scrape_jazztokyo.py      scrape_jazztokyo_v2.py      scrape_jazztokyo_resilient.py
-scrape_jazztokyo_rss.py  scrape_wild_city.py         scrape_wildcity.py
+scrape_jazztokyo_rss.py
 ```
 
 （`scrape_wildcity_skill.py` 已删；`scrape_wildcity.py` / `scrape_wild_city.py` 是两个不同文件、指向同一个站——别当成重名去重。）
