@@ -81,7 +81,7 @@ def scrape_rss(date_dir: Path, days: str) -> None:
     date_dir.mkdir(parents=True, exist_ok=True)
     run(
         [
-            "python3",
+            sys.executable,
             str(BIN / "fast-rss-scrape.py"),
             "--days",
             days,
@@ -96,7 +96,7 @@ def scrape_html(date_dir: Path, days: str) -> None:
     date_dir.mkdir(parents=True, exist_ok=True)
     run(
         [
-            "python3",
+            sys.executable,
             str(BIN / "scrape_html_parallel.py"),
             "--out-dir",
             str(date_dir),
@@ -117,7 +117,7 @@ def scrape_html(date_dir: Path, days: str) -> None:
 def merge(date_dir: Path) -> int:
     r = run(
         [
-            "python3",
+            sys.executable,
             str(BIN / "merge_scraped.py"),
             "--date-dir",
             str(date_dir),
@@ -178,7 +178,7 @@ def write_report(d: date, date_dir: Path, items: list) -> Path:
         return out
     r = run(
         [
-            "python3",
+            sys.executable,
             str(BIN / "generate_report.py"),
             "--date-dir",
             str(date_dir),
@@ -208,7 +208,7 @@ def score(date_dir: Path) -> int:
         return 0
     r = run(
         [
-            "python3",
+            sys.executable,
             str(BIN / "process_reviews.py"),
             "--date-dir",
             str(date_dir),
@@ -361,7 +361,7 @@ def incremental_update(d: date, date_dir: Path, skip_push: bool = False) -> str:
     inc_out.unlink(missing_ok=True)
     try:
         r = run(
-            ["python3", str(BIN / "process_reviews.py"), "--date-dir", str(date_dir),
+            [sys.executable, str(BIN / "process_reviews.py"), "--date-dir", str(date_dir),
              "-i", inc_in.name, "-o", inc_out.name, "--max-workers", "1"],
             check=False, timeout=7200,
         )
@@ -409,7 +409,7 @@ def incremental_update(d: date, date_dir: Path, skip_push: bool = False) -> str:
 
 
 def spawn_swarm() -> None:
-    r = run(["python3", str(BIN / "kanban-swarm.py"), "--confirm"], check=False, timeout=120)
+    r = run([sys.executable, str(BIN / "kanban-swarm.py"), "--confirm"], check=False, timeout=120)
     if r.returncode != 0:
         _log(f"kanban-swarm.py 失败 rc={r.returncode}。出货已完成，探索 worker 未创建。")
 

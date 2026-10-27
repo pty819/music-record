@@ -84,7 +84,7 @@ def run_scraper(script, site_id, mode, bin_dir, out_dir, days, timeout, site_tim
     """
     script_path = os.path.join(bin_dir, f"{script}.py")
     eff_timeout = site_timeout or timeout
-    cmd = ["timeout", str(eff_timeout), "python3", script_path, "--days", str(days)]
+    cmd = ["timeout", str(eff_timeout), sys.executable, script_path, "--days", str(days)]
 
     if mode == "out_dir":
         cmd.extend(["--out-dir", str(out_dir)])
