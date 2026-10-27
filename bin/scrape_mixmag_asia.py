@@ -37,11 +37,21 @@ from camofox_client import CamofoxClient, wait_for_content  # noqa: E402
 _CHROME = CamofoxClient(user_id="scraper_mixmag_asia", session_key="session_mix", settle=4.0, timeout=120)
 
 # JS to get full body text from an article page
+# 2026-10-27: 原来优先取 <article>，实测那只有 211 字符（是侧栏/摘要容器），
+# 真正的正文在 <main> 里（4248 字符）。改成按内容长度挑最大的容器。
 GET_BODY_JS = """
 () => {
-    const article = document.querySelector('article');
-    if (article) return article.innerText.slice(0, 10000);
-    return document.body.innerText.slice(0, 10000);
+    const pick = (el) => el && el.innerText ? el.innerText : '';
+    const candidates = [
+        pick(document.querySelector('main')),
+        pick(document.querySelector('article')),
+        pick(document.querySelector('.article-body')),
+        pick(document.querySelector('.post-content')),
+        pick(document.querySelector('.entry-content')),
+        pick(document.body),
+    ].filter(t => t && t.length > 200);
+    if (!candidates.length) return '';
+    return candidates.sort((a, b) => b.length - a.length)[0].slice(0, 10000);
 }
 """
 
@@ -135,9 +145,12 @@ def fetch_body(tab_id, url):
     """Navigate to a URL and fetch full body text."""
     try:
         _req("POST", f"/tabs/{tab_id}/navigate", {"url": url})
-        time.sleep(2)
-        resp = _req("POST", f"/tabs/{tab_id}/evaluate", {"expression": GET_BODY_JS})
-        result = resp.get("result", "")
+        # 2026-10-27: 原为固定 time.sleep(2) 等渲染。Camofox 走真实 Firefox
+        # 网络栈，CF 站更慢，固定等待会提前提取 → 正文为空。
+        # 改成轮询等正文出现（最长 12s）。
+        result = wait_for_content(
+            _CHROME, tab_id, GET_BODY_JS, attempts=12, delay=1.0,
+        )
         if result is None:
             return ""
         return str(result).strip()[:10000]
@@ -205,10 +218,13 @@ def main():
     try:
         # 2026-10-27: 原为固定 time.sleep(3) 等页面渲染。Camofox 走真实
         # Firefox 网络栈，CF 站更慢 —— 改成轮询等列表就绪。
+        # 注意选择器必须包含 /read/：实测建 tab 后 0s 只有 108 个链接，5s 后
+        # 才涨到 112（真文章 /read/... 这时才出现）。只查 /music/ 会永远等不到。
         wait_for_content(
             _CHROME, tab_id,
-            "document.querySelectorAll('article a, .post a').length",
-            attempts=12, delay=1.0,
+            "document.querySelectorAll('a[href*=\"/read/\"], a[href*=\"/features/\"], "
+            "a[href*=\"/music/\"]').length",
+            attempts=15, delay=1.0,
         )
         articles = extract_articles(tab_id)
 

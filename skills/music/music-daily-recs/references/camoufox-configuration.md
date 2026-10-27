@@ -1,101 +1,77 @@
-# Camoufox Configuration for Anti-Blocking — Python Server + systemd
+# Camofox 配置（本机现状）
 
-## 2026-05-19 重大升级
+> 旧的 Python 单文件服务（`camoufox_server.py`）随 Pi 迁移已下线，**不要再按那套部署**。当前形态是 npm 包 + system 级 systemd 服务，完整配方见 `references/camofox-backend.md`。
 
-从 Node.js 版 `@askjo/camofox-browser` 切换到 **Python 独立 HTTP REST 服务器**（`camoufox_server.py`），通过用户级 systemd 服务实现开机自启。
-
-**动机**：`camoufox-js` npm 包在 ARM64（Rockchip）上缺失 `impit-linux-arm64-gnu` 原生模块。Python 版 `camoufox` 包（通过 Playwright 控制 Camoufox 浏览器）兼容性好。
-
-## 架构
+## 当前架构
 
 ```
-systemd user service → camoufox_server.py (port 9377) → Camoufox binary (~/.cache/camoufox/)
-                                        ↑
-                              Hermes via CAMOFOX_URL
+camofox.service (systemd, system 级)
+    ↓
+/opt/camofox/node_modules/@askjo/camofox-browser/server.js
+    ↓
+Camoufox 引擎 → /root/.cache/camoufox/  (~1.3GB)
 ```
+
+REST 监听 `127.0.0.1:9377`（只绑回环）。
 
 ## 服务管理
 
 ```bash
-# 用户级 systemd 服务（非 root）
-loginctl enable-linger liyifan
-systemctl --user daemon-reload
-systemctl --user enable ~/camofox-browser/hermes-camoufox.service
-systemctl --user start hermes-camoufox.service
-systemctl --user status hermes-camoufox.service
+systemctl status camofox          # active + enabled
+systemctl restart camofox          # 改完环境变量后必须 restart
+curl -s http://127.0.0.1:9377/health
 ```
 
-## Hermes 配置
+`/health` 返回 `{"ok":true,"engine":"camoufox","browserConnected":true,"browserRunning":true,"activeTabs":N,"activeSessions":N}`。
 
-```yaml
-browser:
-  engine: auto
-  camofox:
-    url: http://localhost:9377
+`activeTabs` / `activeSessions` 不回零会吃掉内存（建 tab 要 fork ~230MB 的 Firefox 进程），必要时清：
+
+```bash
+curl -s "http://127.0.0.1:9377/tabs?userId=<id>"   # 列出
+curl -s -X DELETE "http://127.0.0.1:9377/tabs/<tabId>?userId=<id>"
 ```
 
+## Hermes 接线
+
 ```
-CAMOFOX_URL=http://localhost:9377
-```
-
-## REST API 端点（测试站点可达性用）
-
-Camoufox server 使用 **tab-based API**，不是简单的 /fetch。测试流程：
-
-```python
-import requests
-CAMOFOX = 'http://localhost:9377'
-
-# 1. 创建 tab（同时导航到 URL）
-r = requests.post(f'{CAMOFOX}/tabs', json={
-    'userId': 'test-user',
-    'sessionKey': 'test-session',
-    'url': 'https://example.com/'
-}, timeout=30)
-tid = r.json()['tabId']
-
-# 2. 获取页面快照
-r2 = requests.get(f'{CAMOFOX}/tabs/{tid}/snapshot', timeout=15)
-text = r2.json().get('text', '')[:500]
-
-# 3. 关闭 tab
-requests.delete(f'{CAMOFOX}/tabs/{tid}', timeout=5)
+~/.hermes/.env          CAMOFOX_URL=http://127.0.0.1:9377
+~/.hermes/config.yaml   browser.cloud_provider: camofox
+                         browser.camofox.managed_persistence: true
 ```
 
-### 端点列表
+改完**重启 gateway** 才生效。
 
-| 方法 | 路径 | 用途 |
-|------|------|------|
-| GET | `/health` | 服务状态 |
-| POST | `/tabs` | 创建 tab（可带 url 参数自动导航） |
-| GET | `/tabs/{id}` | tab 信息 |
-| GET | `/tabs/{id}/snapshot` | 页面文本快照 |
-| GET | `/tabs/{id}/screenshot` | 页面截图 |
-| POST | `/tabs/{id}/navigate` | 导航到新 URL |
-| POST | `/tabs/{id}/click` | 点击元素 |
-| POST | `/tabs/{id}/type` | 输入文本 |
-| POST | `/tabs/{id}/scroll` | 滚动页面 |
-| POST | `/tabs/{id}/evaluate` | 执行 JS |
-| DELETE | `/tabs/{id}` | 关闭 tab |
+## 端点
 
-### 常见错误
+| 方法 | 路径 | userId 位置 | 用途 |
+|---|---|---|---|
+| GET | `/health` | — | 健康检查 |
+| POST | `/tabs` | body | 建 tab（body 需 `userId` + `sessionKey` + `url`）|
+| GET | `/tabs` | query | 列出 tab |
+| GET | `/tabs/{id}/snapshot` | **query** | 页面快照 |
+| POST | `/tabs/{id}/evaluate` | **body** | 执行 JS（只接受表达式）|
+| POST | `/tabs/{id}/navigate` | **body** | 导航 |
+| POST | `/tabs/{id}/click` / `type` / `press` / `scroll` | body | 交互 |
+| DELETE | `/tabs/{id}` | query 或 body | 关 tab |
 
-| 错误 | 含义 |
-|------|------|
-| `NS_ERROR_NET_INTERRUPT` | 网络层连接被中断（SSL/TLS 握手失败，非浏览器兼容性问题） |
-| `NS_ERROR_CONNECTION_REFUSED` | 目标服务器拒绝连接 |
-| `timeout` | 页面加载超时（默认 30s） |
+**GET 路由只认 query string，POST 路由只认 body** —— 放错位置就是 `400 userId required`。
 
-## 已知限制
+## 常见错误
 
-- `browser_click` 可能超时（30s timeout），优先用 `browser_navigate`
-- `browser_console` JS evaluation 不支持
+| 错误 | 含义 | 处理 |
+|---|---|---|
+| `500 tab create timed out after 30000ms` | 内存不足，fork Firefox 超时 | 清掉自己名下的旧 tab 再重试；客户端已内置重试 |
+| `400 userId required` | userId 放错了位置 | GET → query，POST → body |
+| `evaluate` 返回无 `result` 字段 | 传了裸函数体 `() => {...}` | 包成 IIFE：`(() => {...})()` |
+| `navigate failed ... Timeout 30000ms` | 服务端导航超时（默认 30s）| `NAVIGATE_TIMEOUT_MS=60000` |
+| `xvfb not available, falling back to headless` | 缺 Xvfb | 装 Xvfb；headless 下指纹伪装打折 |
 
-## 实测 Cloudflare 穿越效果
+## 实测 Cloudflare 穿越效果（Camofox）
 
-| 站点 | Camoufox 结果 |
-|------|--------------|
-| Boomkat (ASN 黑名单) | ✅ 可绕过 |
-| RA 详情页 (Cloudflare 403) | ❌ |
-| AAJ 详情页 (Cloudflare 防护) | ❌ |
-| ProgArchives (JS 挑战) | ❌ |
+| 站点 | 结果 |
+|---|---|
+| residentadvisor.net | ✅ 无拦截 |
+| allaboutjazz.com | ✅ 列表页正常（`rows=16`）|
+| pointofdeparture.com | ✅ curl 被拒但浏览器能过 |
+| boomkat.com | ⚠️ Turnstile 挑战页（`Just a moment...`），按空结果协议早退 |
+| thewildcity.com | ❌ 站点对出口 IP 不响应（TCP 通、HTTP 不返回），浏览器与代理均超时 |

@@ -116,11 +116,18 @@ the_wire, the_quietus, a_closer_listen, avant_music_news, bandcamp_daily, igloo_
 | squids_ear | scrape_squids_ear.py | squidco.com/ear/；依赖 amer1 出口 |
 | strangely_isolated_place | scrape_strangely_isolated_place.py | urllib 优先 |
 
-### 出货路径不碰浏览器
+### 出货路径的浏览器用量
 
-`SCRIPTS` 现有 14 个条目**全部纯 HTTP**，不需要浏览器。这不是偏好，是内存硬约束：本机只有 1.6GB，浏览器层（Camofox = Firefox 内核，常驻约 600MB）扛不住并发拉起多个实例。Camofox 是**常驻服务**（一个实例服务所有站），不是每脚本拉一个，这是它比旧 Chromium/CDP 方案更省内存的原因。
+`SCRIPTS` 现有 17 个条目：**14 个纯 HTTP + 3 个 Camofox**（all_about_jazz / mixmag_asia / musique_machine）。本机只有 1.6GB，浏览器层（Camofox = Firefox 内核，常驻约 600MB）扛不住**并发**拉起多个实例 —— 所以 Camofox 站必须串行（见下）。Camofox 是**常驻服务**（一个实例服务所有站），不是每脚本拉一个，这是它比旧 Chromium/CDP 方案更省内存的原因。
 
-曾经有 4 个条目走浏览器（all_about_jazz / downbeat / mixmag_asia / musique_machine），其中 **downbeat 实际是 HTTP 优先、浏览器只做 curl 失败后的 fallback**，所以留着无害；另 3 个已从 `SCRIPTS` 移除，脚本文件保留在 `bin/`，恢复只需取消注释。**其中 `musique_machine` 后来找到了 feed，已彻底改走 RSS 层**（RSS 50 → 51）；**`all_about_jazz` / `mixmag_asia` 至今未接**。这 4 份脚本的浏览器层现已从 Chromium/CDP 换回 Camofox（`bin/camofox_client.py`）。
+曾经有 4 个条目走浏览器（all_about_jazz / downbeat / mixmag_asia / musique_machine），其中 **downbeat 实际是 HTTP 优先、浏览器只做 curl 失败后的 fallback**，所以留着无害；另 3 个曾从 `SCRIPTS` 移除。**2026-10-27 已恢复**——移除它们的老理由（「单个 Chromium 站会拉起 ~74 个子进程、RSS 冲到 935MB、OOM killer 静默杀 chrome」）在 Camofox 下不成立了：Camofox 是常驻服务，一个 Firefox 实例服务所有站，不再每站拉浏览器。
+
+恢复时的三个关键约束（都实测过）：
+1. **Camofox 站之间必须串行** —— 并发开 3 个 tab 全部建失败（fork Firefox 时内存不足，available 掉到 387MB）。`scrape_html_parallel.py` 因此拆成两批：纯 HTTP 站全并发，Camofox 站在其后串行。
+2. **Camofox 站要单独给 timeout** —— 纯 HTTP 站 180s 够，Camofox 站要等 CF 挑战 + 真实网络栈：`musique_machine` 20s、`all_about_jazz` ~420s、`mixmag_asia` ~600s（25 篇 × 15s）。`SCRIPTS` 元组第 4 个元素就是 per-site timeout 覆盖值。
+3. **musique_machine 已有 RSS**（RSS 50 → 51），HTML 层那份是冗余覆盖，可留可删。
+
+这 4 份脚本的浏览器层现已从 Chromium/CDP 换回 Camofox（`bin/camofox_client.py`）。
 
 把一个站从出货路径移除前，先按 `references/site-investigation-methodology.md` 的 RSS/SSR 探测流程查一遍有没有免浏览器的路子 —— 砍掉它们之前应该先试。
 
@@ -241,22 +248,28 @@ body 在 `bin/kanban-swarm.py:build_scraper_body()`，不在本文件。硬约�
 
 服务端 `NAVIGATE_TIMEOUT_MS` / `HANDLER_TIMEOUT_MS` 已调到 60000（默认 30000 对 CF 站文章页不够）。
 
-## 出货路径必须无浏览器
+## 出货路径的浏览器约束（2026-10-27 修订）
 
-本机 1.6GB RAM，Hermes 网关常驻约 545MB。实测单个 Chromium 站会拉起 **~74 个子进程、RSS 冲到 935MB，可用内存掉到 137MB**，内核 OOM killer 静默杀掉 chrome。
+本机 1.6GB RAM，Hermes 网关常驻约 545MB。**旧结论是「出货路径必须完全无浏览器」**，依据是单个 Chromium 站会拉起 ~74 个子进程、RSS 冲到 935MB、可用内存掉到 137MB，OOM killer 静默杀 chrome（失败形态很有欺骗性：`empty stdout` + 0 条，stderr 无异常）。
 
-失败形态具有欺骗性：**`empty stdout` + 0 条，stderr 无异常，进程消失得干干净净**。看日志只会以为“该站没更新”，不会想到是内存。
+**这个结论只对「每站拉起一个浏览器」的后端成立，对 Camofox 不成立**：
 
-已试过且**均无效**，不要再重复：
+| | Chromium（每站拉起） | Camofox（常驻服务） |
+|---|---|---|
+| 进程数 | 每站 ~74 个子进程 | 1 个 Firefox 实例服务所有站 |
+| 内存 | RSS 冲到 935MB | 常驻约 600MB |
+| 并发 | 串行也会被 OOM 杀 | **Camofox 站之间必须串行**，纯 HTTP 站可与之并发 |
 
-- 降 V8 heap：`_heap_mb()` 已经到 `max(128, ...)` 下限
-- Chromium 站串行化：串行照样被 OOM killer 杀（并发只是让它来得更快）
-- 换机器扛（Pi）：另一台机器上 chrome 渲染同样挂死（另一个大内存常驻服务占满）
+Camofox 站的三个硬约束（都实测过，改代码前先看这里）：
 
-所以正确做法不是“把内存调好”，而是**把浏览器从出货路径拿掉**。判定标准：`SCRIPTS` 里不应存在任何 `import chromium_browser` 或 `import camofox_client` 的条目。
+1. **Camofox 站之间必须串行** —— 并发开 3 个 tab **全部建失败**（fork Firefox 进程时内存不足，available 掉到 387MB）。`scrape_html_parallel.py` 拆成两批：纯 HTTP 站全并发，Camofox 站在其后串行。
+2. **Camofox 站要单独给 timeout** —— 纯 HTTP 站 180s 够，Camofox 站要等 CF 挑战 + 真实网络栈：`musique_machine` 20s、`all_about_jazz` ~420s、`mixmag_asia` ~600s（25 篇 × 15s/篇）。`SCRIPTS` 元组第 4 个元素是 per-site timeout 覆盖值。
+3. **等页面就绪要轮询，不要固定 sleep** —— 固定 `time.sleep(1.2/2/3)` 是给 Chromium/CDP 定的节奏，Camofox 走真实 Firefox 网络栈，CF 站更慢，固定等待会提前提取 → 正文为空。统一用 `camofox_client.wait_for_content()` 轮询。
+
+判定标准：`SCRIPTS` 里不应出现任何 `import chromium_browser` 的条目（CDP 后端已退役），Camofox 站用 `bin/camofox_client.py`。
 
 ```bash
-sed -n '/^SCRIPTS = \[/,/^\]/p' bin/scrape_html_parallel.py | grep -cE 'chromium|camofox'   # 期望 0
+sed -n '/^SCRIPTS = \[/,/^\]/p' bin/scrape_html_parallel.py | grep -c 'chromium_browser'   # 期望 0
 ```
 
 ## 遇到新的 JS 渲染站怎么办

@@ -45,6 +45,16 @@ SCRIPTS = [
     ("scrape_songlines",             "songlines",                "stdout"),
     ("scrape_squids_ear",            "squids_ear",               "stdout"),
     ("scrape_strangely_isolated_place", "strangely_isolated_place", "stdout"),
+    # ── 2026-10-27 恢复：Camofox 站 ───────────────────────────────────────
+    # 原来这 3 站被移除的理由是「单个 Chromium 站会拉起 ~74 个子进程、
+    # RSS 冲到 935MB、OOM killer 静默杀 chrome」。那个理由在 Camofox 下
+    # 不成立了：Camofox 是常驻服务（一个 Firefox 实例服务所有站），
+    # 不是每个站拉起一个浏览器。
+    # 但这 3 站要走真实网络栈 + CF 挑战，单站耗时远高于纯 HTTP 站：
+    # mixmag 实测约 15s/篇 × 25 篇 ≈ 375s，所以要单独给 timeout。
+    ("scrape_all_about_jazz",         "all_about_jazz",          "stdout", 420),
+    ("scrape_mixmag_asia",            "mixmag_asia",             "stdout", 600),
+    ("scrape_musique_machine",        "musique_machine",         "stdout", 300),
 ]
 # NOTE: world_music_central 已迁移到 RSS 层（has_rss=True），不走 HTML 层。
 # 若从 sites.json 移除 has_rss，需重新加回 SCRIPTS 并同步 kanban-swarm.py HTML_SCRIPT_IDS。
@@ -66,14 +76,19 @@ def parse_args():
     return p.parse_args()
 
 
-def run_scraper(script, site_id, mode, bin_dir, out_dir, days, timeout):
-    """Run one scraper subprocess, return (site_id, items_list, error_str)."""
+def run_scraper(script, site_id, mode, bin_dir, out_dir, days, timeout, site_timeout=None):
+    """Run one scraper subprocess, return (site_id, items_list, error_str).
+
+    `site_timeout` 覆盖全局 timeout —— 给 Camofox 站更长的预算
+    （它们要等 CF 挑战 + 真实网络栈，纯 HTTP 站 180s 就够）。
+    """
     script_path = os.path.join(bin_dir, f"{script}.py")
-    cmd = ["timeout", str(timeout), "python3", script_path, "--days", str(days)]
+    eff_timeout = site_timeout or timeout
+    cmd = ["timeout", str(eff_timeout), "python3", script_path, "--days", str(days)]
 
     if mode == "out_dir":
         cmd.extend(["--out-dir", str(out_dir)])
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 10)
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=eff_timeout + 10)
         # sea_of_tranquility writes its own file — read it back
         out_file = Path(out_dir) / f"{site_id}_reviews.json"
         if out_file.exists() and out_file.stat().st_size > 5:
@@ -85,7 +100,7 @@ def run_scraper(script, site_id, mode, bin_dir, out_dir, days, timeout):
                 return site_id, [], f"JSON parse error: {e}"
         return site_id, [], f"no output file (rc={result.returncode})"
     else:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 10)
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=eff_timeout + 10)
         stdout = result.stdout.strip()
         if not stdout:
             stderr_tail = result.stderr.strip()[-200:] if result.stderr else ""
@@ -111,31 +126,57 @@ def main():
     # 2026-10-18: 原本这里把 4 个 Chromium 站单独串行跑（担心并发抢内存），
     # 但本机 1.6GB 扛不住 Chromium（见 SCRIPTS 上方注释），那三站已移出
     # 列表，现在剩下的全是纯 HTTP 站，原来的全并发即可。
+    #
+    # 2026-10-27: Camofox 站恢复进管道。Camofox 是常驻服务（一个 Firefox
+    # 实例服务所有站），不再有「每站拉起一个浏览器」的内存问题。但
+    # **Camofox 站之间必须串行** —— 实测并发 3 个 tab 全部建失败
+    # （fork Firefox 进程时内存不足，available 掉到 387MB）。
+    # 所以：纯 HTTP 站全并发，Camofox 站在 HTTP 站跑完后串行跑。
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
     all_items = []
     errors = []
     t0 = time.monotonic()
 
-    with ThreadPoolExecutor(max_workers=len(SCRIPTS)) as pool:
-        futures = {
-            pool.submit(run_scraper, script, site_id, mode,
-                        args.bin_dir, str(out_dir), args.days, args.timeout): site_id
-            for script, site_id, mode in SCRIPTS
-        }
-        for future in as_completed(futures):
-            site_id = futures[future]
-            try:
-                sid, items, err = future.result()
-                if err:
-                    print(f"  {sid}: ❌ {err}", file=sys.stderr)
-                    errors.append((sid, err))
-                else:
-                    print(f"  {sid}: ✅ {len(items)} items", file=sys.stderr)
-                    all_items.extend(items)
-            except Exception as e:
-                print(f"  {site_id}: 💥 {e}", file=sys.stderr)
-                errors.append((site_id, str(e)))
+    BROWSER_SITE_IDS = {"all_about_jazz", "mixmag_asia", "musique_machine"}
+    http_scripts = [s for s in SCRIPTS if s[1] not in BROWSER_SITE_IDS]
+    browser_scripts = [s for s in SCRIPTS if s[1] in BROWSER_SITE_IDS]
+
+    def _collect(sid, items, err):
+        if err:
+            print(f"  {sid}: ❌ {err}", file=sys.stderr)
+            errors.append((sid, err))
+        else:
+            print(f"  {sid}: ✅ {len(items)} items", file=sys.stderr)
+            all_items.extend(items)
+
+    def _run_one(entry):
+        script, site_id, mode = entry[0], entry[1], entry[2]
+        site_timeout = entry[3] if len(entry) > 3 else None
+        return run_scraper(script, site_id, mode, args.bin_dir, str(out_dir),
+                           args.days, args.timeout, site_timeout)
+
+    # ── 第一批：纯 HTTP 站，全并发 ─────────────────────────────────
+    if http_scripts:
+        with ThreadPoolExecutor(max_workers=len(http_scripts)) as pool:
+            futures = {pool.submit(_run_one, s): s[1] for s in http_scripts}
+            for future in as_completed(futures):
+                site_id = futures[future]
+                try:
+                    sid, items, err = future.result()
+                    _collect(sid, items, err)
+                except Exception as e:
+                    print(f"  {site_id}: 💥 {e}", file=sys.stderr)
+                    errors.append((site_id, str(e)))
+
+    # ── 第二批：Camofox 站，串行（并发会 fork 失败）─────────────────
+    for entry in browser_scripts:
+        try:
+            sid, items, err = _run_one(entry)
+            _collect(sid, items, err)
+        except Exception as e:
+            print(f"  {entry[1]}: 💥 {e}", file=sys.stderr)
+            errors.append((entry[1], str(e)))
 
     elapsed = int(time.monotonic() - t0)
     all_items.sort(key=lambda r: r.get("pub_date") or "", reverse=True)
