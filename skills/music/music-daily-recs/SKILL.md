@@ -1,6 +1,6 @@
 ---
 name: music-daily-recs
-description: 每日巡检 83 个音乐评论站（60 RSS + 14 纯 HTTP HTML + 5 Chromium worker + 2 skip），脚本全自动出货。评分后清理 <=2 分，报告仅 3-10 分
+description: 每日巡检 83 个音乐评论站（60 RSS + 14 纯 HTTP HTML + 5 Camofox worker + 2 skip），脚本全自动出货。评分后清理 <=2 分，报告仅 3-10 分
 category: music
 cron_job: music-daily-recs / a889d709f680（北京时间 04:00 = UTC `0 20 * * *`，agent 任务）
 cron_watchdog: 07:00 增量补货在本机尚未重建，需要时手动跑 `bin/daily_pipeline.py --if-needed`
@@ -118,7 +118,7 @@ the_wire, the_quietus, a_closer_listen, avant_music_news, bandcamp_daily, igloo_
 
 ### 出货路径不碰浏览器
 
-`SCRIPTS` 现有 14 个条目**全部纯 HTTP**，不需要 Chromium。这不是偏好，是内存硬约束：`SCRIPTS` 里任何 `import chromium_browser` 的条目都会拉起一个完整 Chromium，而本机 1.6GB 扛不住（见下方“浏览器层”）。
+`SCRIPTS` 现有 14 个条目**全部纯 HTTP**，不需要浏览器。这不是偏好，是内存硬约束：本机只有 1.6GB，浏览器层（Camofox = Firefox 内核，常驻约 600MB）扛不住并发拉起多个实例。Camofox 是**常驻服务**（一个实例服务所有站），不是每脚本拉一个，这是它比旧 Chromium/CDP 方案更省内存的原因。
 
 曾经有 4 个条目走 Chromium（all_about_jazz / downbeat / mixmag_asia / musique_machine），其中 **downbeat 实际是 HTTP 优先、Chromium 只做 curl 失败后的 fallback**，所以留着无害；另 3 个已从 `SCRIPTS` 移除，脚本文件保留在 `bin/`，恢复只需取消注释。**其中 `musique_machine` 后来找到了 feed，已彻底改走 RSS 层**（RSS 50 → 51）；`all_about_jazz` / `mixmag_asia` 至今未接。
 
@@ -169,13 +169,13 @@ grep -E "^import |^from " bin/$S.py | tr '\n' ' '
 
 清点条目数时正则要能匹配数字，否则 `scrape_[a-z_]+` 会静漏 `hear65`，报出一个偏小的总数。
 
-## 5 Chromium（kanban worker，用 `bin/chromium_browser.py` 驱动 Hermes 自带 Chromium）
+## 5 Camofox（kanban worker，用 `bin/camofox_client.py` 驱动 Camofox 服务）
 
 当前：boomkat, point_of_departure, wild_city, jazztokyo, musicircus
 
 | 站 | 备注 |
 |---|---|
-| boomkat | Cloudflare Turnstile。Chromium 过不了挑战页（实测返回 Just a moment）；Kanban worker 自主探索，CF 后早退，禁止反复开 tab |
+| boomkat | Cloudflare Turnstile。Camofox 的反检测指纹能过挑战页（实测 18s 后仍需早退判断）；Kanban worker 自主探索，CF 后早退，禁止反复开 tab |
 | point_of_departure | JS 渲染。Feature 无 Artist/Album 头 → parse_feature_page()。详见 references/pod-feature-unknown-album.md |
 | wild_city | 印度/南亚电子，脚本调 chromium_browser.py |
 | jazztokyo | 日本爵士，需 JS 渲染 |
@@ -230,7 +230,14 @@ body 在 `bin/kanban-swarm.py:build_scraper_body()`，不在本文件。硬约�
 
 # 浏览器层
 
-**探索层的浏览器后端是 Camofox 服务**：`camofox.service`（camofox-browser npm 包包装的 Camoufox 反检测 Firefox，REST `127.0.0.1:9377`，systemd 自启）。旧的 Camoufox 手工部署已于 2026-10-18 移除；现在的服务是官方 npm 包重新部署的，**REST 契约与旧 9377 服务同形**。Hermes 侧经 `CAMOFOX_URL` + `browser.cloud_provider: camofox` 接入（部署配方与逐 profile 接线见 hermes-agent skill 的 `references/browser-backends.md`）。出货路径仍然完全不起浏览器。曾用的 `bin/chromium_browser.py`（自带 Chromium 走 CDP）保留作备选后端与一次性排查工具。
+**探索层的浏览器后端是 Camofox 服务**：`camofox.service`（camofox-browser npm 包包装的 Camoufox 反检测 Firefox，REST `127.0.0.1:9377`，systemd 自启）。旧的 Camoufox 手工部署已于 2026-10-18 移除；现在的服务是官方 npm 包重新部署的，**REST 契约与旧 9377 服务同形**。Hermes 侧经 `CAMOFOX_URL` + `browser.cloud_provider: camofox` 接入（部署配方与逐 profile 接线见 hermes-agent skill 的 `references/browser-backends.md`）。出货路径仍然完全不起浏览器。2026-10-27：`all_about_jazz` / `downbeat` / `mixmag_asia` / `musique_machine` 这 4 个原本走 Chromium/CDP 的脚本已全部换回 Camofox（`bin/camofox_client.py`），因为 Chromium 没有指纹伪装、过 Cloudflare 吃力。`bin/chromium_browser.py` 保留作备选后端与一次性排查工具。
+
+**Camofox 与 Chromium/CDP 的三处契约差异**（`camofox_client.py` 已做兼容，脚本侧无感）：
+1. `evaluate` 只接受**表达式**；传 `() => {...}` 裸函数体会静默返回 `{"ok": true}` 而无 `result` —— 客户端统一包成 IIFE。
+2. `userId` 位置：GET 路由只认 query string，POST 路由只认 body。
+3. 建 tab 要 fork Firefox 进程（~230MB），内存紧张时会 500 `tab create timed out` —— 客户端带重试并先清理残留 tab。
+
+服务端 `NAVIGATE_TIMEOUT_MS` / `HANDLER_TIMEOUT_MS` 已调到 60000（默认 30000 对 CF 站文章页不够）。
 
 ## 出货路径必须无浏览器
 

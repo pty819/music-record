@@ -6,7 +6,7 @@ Mixmag Asia is primarily a music news/features site, not a review site.
 Captures recent articles from the /music page.
 
 Strategy:
-  1. Open a tab on https://mixmag.asia/music via chromium_browser.LocalApiClient
+  1. Open a tab on https://mixmag.asia/music via camofox_client.CamofoxClient
   2. Evaluate JS to extract articles (titles, URLs, dates, excerpts)
   3. For each article, navigate to its URL and fetch full body text
   4. Close tabs
@@ -32,9 +32,9 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from chromium_browser import LocalApiClient  # noqa: E402
+from camofox_client import CamofoxClient  # noqa: E402
 
-_CHROME = LocalApiClient(settle=4.0, timeout=120)
+_CHROME = CamofoxClient(user_id="scraper_mixmag_asia", session_key="session_mix", settle=4.0, timeout=120)
 
 # JS to get full body text from an article page
 GET_BODY_JS = """
@@ -47,10 +47,13 @@ GET_BODY_JS = """
 
 
 def _req(method, path, body=None):
-    """驱动本地 Chromium（Hermes 自带）走 CDP 取数。
+    """驱动本地 Camofox（Camoufox 反检测 Firefox）取数。
 
-    2026-10-18：原实现打 Camoufox REST 服务（127.0.0.1:9377），契约保持不变。
+    2026-10-27：从 Hermes 自带 Chromium（CDP）换回 Camofox —— 反检测指纹
+    对 Cloudflare 站更有效，且 Camofox 已是本机常驻服务。
     """
+    if method == "POST" and path.rstrip("/") == "/tabs":
+        return _CHROME.open_tab((body or {}).get("url", "about:blank"))
     return _CHROME.call(method, path, body)
 
 

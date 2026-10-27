@@ -126,21 +126,24 @@ def fetch_curl(url):
 
 
 def fetch_chromium(url):
-    """Fetch rendered page HTML via the bundled Chromium over CDP.
+    """Fetch rendered page HTML via the Camofox (Camoufox) REST server.
 
-    2026-10-18: was fetch_camoufox() talking to the Camoufox REST server on
-    127.0.0.1:9377. That server no longer exists on this host; the in-process
-    LocalApiClient drives Hermes' bundled Chromium instead and closes it on exit.
+    2026-10-18: switched to the in-process Chromium/CDP backend because the
+    Camoufox REST server was the one dependency that could not move with
+    Hermes. 2026-10-27: Camofox is now a permanent service on this host
+    (camofox.service -> 127.0.0.1:9377), so the anti-detection browser is
+    back — Chromium has no fingerprint spoofing and Cloudflare sites notice.
     Returns the rendered HTML, or None if the page could not be loaded.
     """
-    from chromium_browser import LocalApiClient
+    from camofox_client import CamofoxClient
 
-    client = LocalApiClient(settle=3.0, timeout=60)
+    client = CamofoxClient(
+        user_id="scraper_downbeat", session_key="session_db",
+        settle=3.0, timeout=60,
+    )
     tab_id = None
     try:
-        tab = client.call("POST", "/tabs", {
-            "userId": "downbeat", "sessionKey": "downbeat", "url": url,
-        })
+        tab = client.open_tab(url)
         tab_id = tab.get("tabId")
         if not tab_id:
             return None

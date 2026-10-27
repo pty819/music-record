@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
-scrape_all_about_jazz.py — Chromium/CDP scraper for All About Jazz reviews.
+scrape_all_about_jazz.py — Camofox (Camoufox) scraper for All About Jazz reviews.
 
 All About Jazz (allaboutjazz.com/reviews) is a Cloudflare-fronted jazz review
-aggregator. curl gets 403; we drive the bundled Chromium over CDP instead.
+aggregator. curl gets 403; we drive Camofox — the anti-detection Firefox —
+over its REST API instead, so the TLS/browser fingerprint survives the
+Cloudflare check.
 
 Strategy:
   1. Create a tab, navigate to /reviews/ (page 1)
@@ -27,9 +29,9 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from chromium_browser import LocalApiClient  # noqa: E402
+from camofox_client import CamofoxClient  # noqa: E402
 
-_CHROME = LocalApiClient(settle=4.0, timeout=150)
+_CHROME = CamofoxClient(user_id="scraper_all_about_jazz", session_key="session_aaj", settle=4.0, timeout=150)
 
 # ── Configuration ──────────────────────────────────────────────────────
 BASE_URL = "https://www.allaboutjazz.com"
@@ -52,10 +54,15 @@ NON_MUSIC_RE = re.compile(r'\(BLU-RAY\)|\(UHD\)|\(VOD\)|\(DVD\)', re.IGNORECASE)
 
 
 def _api(method: str, path: str, body: dict | None = None) -> dict:
-    """驱动本地 Chromium（Hermes 自带）走 CDP 取数。
+    """驱动本地 Camofox（Camoufox 反检测 Firefox）取数。
 
-    2026-10-18：原实现打 Camoufox REST 服务（127.0.0.1:9377），契约保持不变。
+    2026-10-18：曾改用 Hermes 自带 Chromium 走 CDP，理由是 Camoufox 是唯一
+    不能随 Hermes 搬走的依赖。2026-10-27：Camofox 已作为常驻服务装在本机
+    （camofox.service -> 127.0.0.1:9377），反检测能力比裸 Chromium 强，
+    Cloudflare 站尤其明显，于是换回 Camofox。
     """
+    if method == "POST" and path.rstrip("/") == "/tabs":
+        return _CHROME.open_tab((body or {}).get("url", "about:blank"))
     return _CHROME.call(method, path, body)
 
 
@@ -117,10 +124,24 @@ EXTRACT_CARDS_JS = """
         const contentEl = card.querySelector('.data-row-content');
         const smallSpans = contentEl ? contentEl.querySelectorAll('span.small') : [];
         let dateText = '';
+        // 2026-10-27: 页面结构变了 —— span.small 已经不再存在（查到 0 个），
+        // 日期现在直接出现在 .data-row-content 的 innerText 里，形如
+        // "Live In Europe By Billy Mohler Reviewed by Vincenzo Roggero
+        //  Published on October 27, 2026"。
+        // 先试老的 span.small，再退回 contentEl.innerText。
+        const DATE_RE = /([A-Za-z]+\\s+\\d{1,2},?\\s+\\d{4})/;
         if (smallSpans.length > 0) {
             const text = (smallSpans[0].innerText || '').trim();
-            const m = text.match(/([A-Za-z]+\\s+\\d{1,2},?\\s+\\d{4})/);
+            const m = text.match(DATE_RE);
             if (m) dateText = m[1];
+        }
+        if (!dateText && contentEl) {
+            const m = (contentEl.innerText || '').match(DATE_RE);
+            if (m) dateText = m[1];
+        }
+        if (!dateText) {
+            const cardText = (card.innerText || '').match(DATE_RE);
+            if (cardText) dateText = cardText[1];
         }
 
         results.push({
