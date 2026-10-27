@@ -230,7 +230,7 @@ body 在 `bin/kanban-swarm.py:build_scraper_body()`，不在本文件。硬约�
 
 # 浏览器层
 
-**Camoufox 已于 2026-10-18 完全移除。** 曾用 `bin/chromium_browser.py` 驱动 Hermes 自带 Chromium（`~/.hermes/tools/chromium-*/chrome-linux64/chrome`）走 CDP，取代 9377 端口的 Camoufox REST 服务。迁移手法（REST 契约同形替换 `from chromium_browser import LocalApiClient`）仍适用于探索层，但**出货路径现在完全不起浏览器**。
+**探索层的浏览器后端是 Camofox 服务**：`camofox.service`（camofox-browser npm 包包装的 Camoufox 反检测 Firefox，REST `127.0.0.1:9377`，systemd 自启）。旧的 Camoufox 手工部署已于 2026-10-18 移除；现在的服务是官方 npm 包重新部署的，**REST 契约与旧 9377 服务同形**。Hermes 侧经 `CAMOFOX_URL` + `browser.cloud_provider: camofox` 接入（部署配方与逐 profile 接线见 hermes-agent skill 的 `references/browser-backends.md`）。出货路径仍然完全不起浏览器。曾用的 `bin/chromium_browser.py`（自带 Chromium 走 CDP）保留作备选后端与一次性排查工具。
 
 ## 出货路径必须无浏览器
 
@@ -281,7 +281,13 @@ scrape_jazztokyo_rss.py  scrape_wild_city.py         scrape_wildcity.py
 
 改法与已完成的四份完全相同：删掉 `CAMOFOX*` 常量，把 `_api()` / `_req()` 函数体换成 `return _CHROME.call(method, path, body)`，其余不动。注意这几个的返回契约不统一——有返回 dict 的，也有返回 `(status, body)` 元组的，**不能批量 sed**，得逐个看签名。
 
-若要恢复探索层，光迁移脚本不够：还要把 `build_scraper_body()` 里“Camoufox 浏览器”改写成 `bin/chromium_browser.py` 的用法，否则 worker 仍会去找一个不存在的守护进程。
+探索层要真正跑起来有三个前置，**缺一个任务就空转**（板上堆 ready 僵尸卡的完整成因就是三个同时缺）：
+
+1. **camofox 服务活着**：`kanban-swarm.py` 现在有 `/health` 预检，服务不可达时 exit 3 不建 worker（出货不受影响）；
+2. **`scraper` profile 存在**：dispatcher 对不存在的 assignee 记 `skipped_nonspawnable` 直接跳过——`hermes profile list` 核对，缺了就 `hermes profile create scraper`；
+3. **该 profile 自己的 `.env` 里有 `CAMOFOX_URL`**：基础 `.env` 不会传给 profile，worker 的 browser 工具不知道走 Camofox。
+
+三者就绪后还要重启 gateway 让 dispatcher 复活（重启只能在外面做，gateway 进程内部做会自杀）。验证探索层复活：cron 跑完后 `hermes kanban list --tenant music` 里 scrape 任务应为 running/done 且日期目录出现 `{site}_reviews.json`，而不是一堆零运行记录的 ready。
 
 验证两条路径时分开跑：
 

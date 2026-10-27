@@ -367,7 +367,7 @@ def main():
         title = f"scrape: {name}"
         body = build_scraper_body(site, date_dir)
         workers.append(SwarmWorkerSpec(
-            profile="scraper",
+            profile="default",
             title=title,
             body=body,
             skills=["kanban-worker"],
