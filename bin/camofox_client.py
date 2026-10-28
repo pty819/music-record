@@ -260,6 +260,46 @@ def _qs(payload: dict) -> str:
     return urlencode({k: v for k, v in payload.items() if v is not None})
 
 
+def wait_for_navigation(
+    client: "CamofoxClient",
+    tab_id: str,
+    url: str,
+    *,
+    attempts: int = 20,
+    delay: float = 0.5,
+) -> bool:
+    """等页面 URL 切换到目标 url（navigate_fast 之后必须先过这一关）。
+
+    2026-10-27 实测的坑：`navigate_fast()` 在页面里执行
+    `window.location.href = url`，evaluate 立刻返回，但浏览器还在飞。
+    如果这时直接按「body 长度 > N」轮询正文，**上一页的正文就已经满足
+    条件**，于是抓到了上一篇文章的内容。
+
+    实测 mixmag_asia 21 条里有 13 条 body 完全相同（内容是别的文章的
+    正文），URL 和 excerpt 各不相同 —— 报告里看着正常，其实是错的。
+
+    修法：先等 `location.href` 变成目标 URL（去掉 hash 和尾部斜杠后
+    比较），再让调用方去提取正文。
+    """
+    import time as _time
+
+    def _norm(u: str) -> str:
+        return (u or "").split("#")[0].rstrip("/").lower()
+
+    target = _norm(url)
+    for _ in range(max(1, attempts)):
+        resp = client.call(
+            "POST",
+            f"/tabs/{tab_id}/evaluate",
+            {"expression": "window.location.href"},
+        )
+        cur = _norm(resp.get("result"))
+        if cur and (cur == target or cur.endswith(target) or target.endswith(cur)):
+            return True
+        _time.sleep(delay)
+    return False
+
+
 def wait_for_content(
     client: "CamofoxClient",
     tab_id: str,
@@ -278,6 +318,9 @@ def wait_for_content(
 
     `predicate` 可选，用于判断结果是否"算成功"（默认非空即算）。
     返回最后一次 evaluate 的 result。
+
+    注意：调用方若用了 `navigate_fast()`，**必须先调
+    `wait_for_navigation()`**，否则可能抓到上一页的残留正文。
     """
     import time as _time
 

@@ -29,7 +29,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from camofox_client import CamofoxClient, wait_for_content  # noqa: E402
+from camofox_client import CamofoxClient, wait_for_content, wait_for_navigation  # noqa: E402
 
 _CHROME = CamofoxClient(user_id="scraper_all_about_jazz", session_key="session_aaj", settle=4.0, timeout=150)
 
@@ -319,6 +319,8 @@ def main():
                     # 17-36s/篇，navigate_fast 是 ~1.7s/篇 —— CF 挑战在后台
                     # 继续，我们轮询等正文容器就绪即可。
                     _CHROME.navigate_fast(tab_id, url)
+                    # 2026-10-27: 先等 URL 切换完成，避免抓到上一篇的残留正文
+                    wait_for_navigation(_CHROME, tab_id, url, attempts=25, delay=0.4)
                     detail = wait_for_content(
                         _CHROME, tab_id, EXTRACT_BODY_JS, attempts=15, delay=0.8,
                         predicate=lambda d: bool((d or {}).get("body")),

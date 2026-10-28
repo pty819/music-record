@@ -32,7 +32,7 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from camofox_client import CamofoxClient, wait_for_content  # noqa: E402
+from camofox_client import CamofoxClient, wait_for_content, wait_for_navigation  # noqa: E402
 
 _CHROME = CamofoxClient(user_id="scraper_mixmag_asia", session_key="session_mix", settle=4.0, timeout=120)
 
@@ -148,6 +148,10 @@ def fetch_body(tab_id, url):
         # commit）。Camofox 的 navigate 端点实测在 CF 站要 17-36s/篇，
         # navigate_fast 是 ~1.7s/篇。CF 挑战在后台继续，轮询等正文即可。
         _CHROME.navigate_fast(tab_id, url)
+        # 2026-10-27: 必须先等 URL 切换完成。navigate_fast 是「起飞即返」，
+        # 此时页面还停留在上一篇，而上一篇正文已经满足「长度 > 200」，
+        # 直接轮询会抓到上一篇文章的内容（实测 21 条里 13 条 body 重复）。
+        wait_for_navigation(_CHROME, tab_id, url, attempts=25, delay=0.4)
         result = wait_for_content(
             _CHROME, tab_id, GET_BODY_JS, attempts=15, delay=0.8,
         )

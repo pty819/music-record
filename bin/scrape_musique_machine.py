@@ -35,7 +35,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from camofox_client import CamofoxClient, wait_for_content  # noqa: E402
+from camofox_client import CamofoxClient, wait_for_content, wait_for_navigation  # noqa: E402
 
 # 全进程共用一个 Chromium 会话池；scrape_html_parallel 结束时会回收
 _CHROME = CamofoxClient(user_id="scraper_musique_machine", session_key="session_mm", settle=4.0, timeout=120)
@@ -301,6 +301,8 @@ def main():
                 # Navigate to the article page
                 # 2026-10-27: 改用 navigate_fast（不等 commit，快 10-20 倍）。
                 nav_resp = _CHROME.navigate_fast(tab_id, item["url"])
+                # 2026-10-27: 先等 URL 切换完成，避免抓到上一篇的残留正文
+                wait_for_navigation(_CHROME, tab_id, item["url"], attempts=25, delay=0.4)
                 if nav_resp.get("success") or nav_resp.get("tabId"):
                     # 2026-10-27: 原为固定 time.sleep(2) 等 JS 渲染。
                     # Camofox 渲染更慢，改成轮询等正文出现。
