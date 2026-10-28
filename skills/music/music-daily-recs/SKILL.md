@@ -285,11 +285,23 @@ Camofox 站的四个硬约束（都实测过，改代码前先看这里）：
 
    | 站 | 改前 | 改后 | 条数 | per-site timeout |
    |---|---|---|---|---|
-   | mixmag_asia | 600s 超时（只到 13/25） | **57.9s** | 25 | 180s |
-   | all_about_jazz | 187-420s | **53.4s** | 9 | 180s |
-   | musique_machine | 33.7s | **18.8s** | 1 | 120s |
+   | mixmag_asia | 600s 超时（只到 13/25） | **104.4s** | 21-25 | 180s |
+   | all_about_jazz | 187-420s | **89.3s** | 6-9 | 180s |
+   | musique_machine | 33.7s | **11.0s** | 0-1 | 120s |
 
    这直接让 Camofox 站能塞进管道的 180s per-site timeout，不再需要特殊放宽。
+
+   ⚠️ **必须配 `wait_for_page()`，不能只等正文长度**。`navigate_fast()`
+   是「起飞即返」，浏览器还在飞，此时按「body 长度 > 200」轮询会抓到
+   **上一篇的正文** —— 实测 mixmag 21 条里 13 条 body 完全相同（内容是
+   别的文章的正文，URL 和 excerpt 却各不相同），报告里看着正常其实内容
+   是错的。`wait_for_page()` 一次 evaluate 同时取 `{url, body}`，URL
+   匹配且正文够长才算成功。
+
+   代价与优化：导航期间 Camofox 的 evaluate 要等 ~1.6s 才回 409
+   Conflict，所以「等 URL」+「等正文」分两轮做会让 mixmag 从 57.9s
+   涨到 217.6s（超过 180s 的 per-site timeout，会被砍）。合成一次
+   evaluate 后回到 104.4s。
 
    ⚠️ **「改前」的耗时数字是 `navigate_fast()` 之前的值**（`/navigate` 端点每篇 17-36s）。换回 `/navigate` 时这些数字才成立。
 
