@@ -693,6 +693,13 @@ def build_item(*, url: str, item_type: str, artist: str, album: str,
                label: str, reviewer: str, body: str,
                pub_date: str) -> dict | None:
     """Assemble a standardized JSON item. Returns None if non-music."""
+    # album/artist/label are extracted from innerHTML by regex tag-stripping,
+    # which leaves HTML entities behind (e.g. "Roots &amp; Byways").
+    # Decode them so downstream matching/scoring sees the real title.
+    artist = html_mod.unescape(artist).strip()
+    album = html_mod.unescape(album).strip()
+    label = html_mod.unescape(label).strip()
+
     if non_music(artist, album, body):
         sys.stderr.write(f"  SKIP (non-music): {artist} – {album}\n")
         return None
@@ -825,6 +832,38 @@ def main() -> None:
         # MoreMoments2 multi-review aggregator) for the current issue.
         for fn in agg_pages:
             article_urls.append(f"{SITE_BASE}/{issue_str}/{fn}")
+
+        # ── "The Book Cooks" (book excerpt) ──────────────────────────
+        # The Book Cooks index (PoD{N}BookCooks.html) is linked from the
+        # listing, but the per-book excerpt page (e.g. PoD96Schackman.html)
+        # is linked ONLY from that index — so it never shows up in the
+        # listing anchors. Fetch the index, discover the excerpt page(s),
+        # and queue them; otherwise every book excerpt is silently lost.
+        book_urls: list[str] = []
+        book_index_url = f"{SITE_BASE}/{issue_str}/{issue_str}BookCooks.html"
+        book_tab = _get_or_create_tab(book_index_url, max_attempts=2)
+        if book_tab:
+            open_tab_ids.append(book_tab)
+            try:
+                time.sleep(2)
+                bresp = _api("POST", f"/tabs/{book_tab}/evaluate",
+                             {"expression": LISTING_JS, "userId": USER_ID})
+                for a in (bresp.get("result") or {}).get("anchors") or []:
+                    href = a.get("href", "")
+                    if not href:
+                        continue
+                    fname = href.rsplit("/", 1)[-1]
+                    if not fname.startswith(issue_str) or not fname.endswith(".html"):
+                        continue
+                    if fname == f"{issue_str}BookCooks.html":
+                        continue
+                    book_urls.append(f"{SITE_BASE}/{issue_str}/{fname}")
+            except Exception as e:
+                sys.stderr.write(f"  WARN book index failed: {e}\n")
+        sys.stderr.write(f"Book review pages found: {len(book_urls)}\n")
+        for u in book_urls:
+            article_urls.append(u)
+
         # De-duplicate while preserving order
         deduped: list[str] = []
         seen2: set[str] = set()
@@ -909,7 +948,7 @@ def main() -> None:
                         )
                         if item:
                             all_items.append(item)
-            elif is_book_review_url(url, issue_str):
+            elif url in book_urls:
                 parsed = parse_book_review_page(paragraphs, url, title)
                 item = build_item(
                     url=url, item_type="review",

@@ -1,9 +1,32 @@
 #!/usr/bin/env python3
 """
-scrape_songlines.py — Scrape Songlines /reviews page for album reviews.
-Fetches list page, then visits each review page for body text (may be paywalled).
-Outputs standardized JSON with excerpt + body fields.
+scrape_songlines.py — Scrape Songlines reviews (songlines.co.uk).
+
+2026-10-27 重写：站点改版后旧解析路径全线失效（详见下方「为什么重写」）。
+新站结构（Umbraco + Tailwind）：
+  - 列表页  https://www.songlines.co.uk/reviews-all?getAllReviews=true
+    分页     ?getAllReviews=true&itemsPerPage=12&page=N
+    卡片     <div aria-label="Article: <专辑名>">
+             ├─ h4                        专辑名
+             ├─ a[href*=/reviews/musicians/]  艺人
+             ├─ p.article__intro           列表页摘要
+             ├─ span.font-bold + "/ 10"     站点评分（数字）
+             ├─ a[href*=/reviews/reviewers/]  乐评人
+             ├─ a[href*=/reviews/regions/]   版块
+             └─ p.text-[9px]               期刊月份（"October 2026"）
+  - 详情页  https://www.songlines.co.uk/review/<slug>
+    正文    单个长 <p>（标 paywall，但正文目前仍可见）
+
+为什么重写（旧路径为什么产出 0 条）：
+  - 旧 LIST_URL https://songlines.co.uk/reviews → 现在 404（真实路径是 /reviews-all）
+  - 旧卡片选择器 div.review-item / h2 / span.rating / span.small.pt-2 全部消失
+  - 旧评分是 ★ 字符计数，新站直接给数字
+  - 旧日期串是 "in issue: 10/2026"，新站是 "October 2026"
+
+日期粒度仍是「期刊月份」，窗口沿用旧的 ±45 天（月初对齐），
+所以本月刊 + 相邻两期的评论都会进来（与 2026-06 之前每天 ~40 条的产出量级一致）。
 """
+import concurrent.futures
 import json
 import re
 import subprocess
@@ -14,8 +37,19 @@ from bs4 import BeautifulSoup
 
 SITE_ID = "songlines"
 SOURCE = "Songlines"
-BASE_URL = "https://songlines.co.uk"
-LIST_URL = f"{BASE_URL}/reviews"
+BASE_URL = "https://www.songlines.co.uk"
+LIST_URL = f"{BASE_URL}/reviews-all?getAllReviews=true"
+PAGE_SIZE = 12
+MAX_PAGES = 20
+# 期刊月份 → 日期。允许窗口 ±45 天（月初对齐），与旧实现同语义。
+WINDOW_DAYS = 45
+
+USER_AGENT = ("Mozilla/5.0 (compatible; music-daily-recs/1.0; "
+              "+https://github.com/pty819/music-record)")
+
+MONTHS = {m.lower(): i for i, m in enumerate(
+    ["January", "February", "March", "April", "May", "June", "July",
+     "August", "September", "October", "November", "December"], start=1)}
 
 
 def parse_args():
@@ -29,10 +63,10 @@ def parse_args():
 def fetch(url: str) -> str:
     """Fetch a URL with curl, return HTML text."""
     result = subprocess.run(
-        ["curl", "-sL", url],
+        ["curl", "-sL", "--max-time", "25", "-A", USER_AGENT, url],
         capture_output=True,
         text=True,
-        timeout=30,
+        timeout=35,
     )
     if result.returncode != 0:
         sys.stderr.write(f"curl error {result.returncode} for {url}: {result.stderr[:200]}\n")
@@ -40,227 +74,174 @@ def fetch(url: str) -> str:
     return result.stdout
 
 
-def count_stars(text: str) -> int:
-    """Count ★ characters in a rating string."""
-    if not text:
-        return 0
-    return text.count("★")
-
-
 def parse_issue_date(text: str):
-    """
-    Parse date from 'Reviewed by X in issue: Month/Year' or 'Month/Year'.
-    Returns (datetime.date, str) tuple.
-    """
-    if not text:
-        return None, ""
-    m = re.search(r"in issue:\s*([A-Za-z]+)/(\d{4})", text)
+    """Parse 'October 2026' → (date, iso). Month-level granularity."""
+    text = (text or "").strip()
+    m = re.match(r"([A-Za-z]+)\s+(\d{4})", text)
     if not m:
-        m = re.search(r"([A-Za-z]+)/(\d{4})", text)
-    if m:
-        month_str = m.group(1)
-        year_str = m.group(2)
-        try:
-            dt = datetime.strptime(f"01 {month_str} {year_str}", "%d %B %Y")
-            return dt.date(), dt.date().isoformat()
-        except ValueError:
-            try:
-                dt = datetime.strptime(f"01 {month_str} {year_str}", "%d %b %Y")
-                return dt.date(), dt.date().isoformat()
-            except ValueError:
-                pass
-    return None, ""
+        return None, ""
+    month = MONTHS.get(m.group(1).lower())
+    if not month:
+        return None, ""
+    try:
+        d = datetime(int(m.group(2)), month, 1).date()
+    except ValueError:
+        return None, ""
+    return d, d.isoformat()
 
 
-def is_recent(issue_date, cutoff):
-    """
-    Check if an issue date is within the cutoff window.
-    Month-level granularity: allow ~1.5 months around cutoff.
-    """
+def is_recent(issue_date, cutoff) -> bool:
+    """±WINDOW_DAYS around cutoff, month-level (issue dates are month starts)."""
     if issue_date is None:
         return False
-    allowed_start = cutoff - timedelta(days=45)
-    allowed_end = cutoff + timedelta(days=45)
+    allowed_start = cutoff - timedelta(days=WINDOW_DAYS)
+    allowed_end = cutoff + timedelta(days=WINDOW_DAYS)
     return allowed_start <= issue_date <= allowed_end
 
 
-def fetch_article_body(article_url):
-    """Fetch full review page and extract body text, return (body, excerpt)."""
+def fetch_article_body(article_url: str):
+    """Fetch article page, return (body, excerpt). Body = the long review paragraph."""
     try:
         html = fetch(article_url)
-        if not html:
-            return "", ""
-        soup = BeautifulSoup(html, "lxml")
-        for tag in soup(["script", "style", "nav", "header", "footer", "noscript"]):
-            tag.decompose()
-        # Songlines: try common content areas
-        body_el = (
-            soup.find("div", class_=re.compile(r"review-content|article-content|entry-content|content-body|post-content", re.I))
-            or soup.find("article")
-            or soup.find("main")
-            or soup.find("div", class_=re.compile(r"content|body|post|entry|review", re.I))
-        )
-        if not body_el:
-            body_el = soup
-        text = body_el.get_text(" ", strip=True)
-        body = re.sub(r"\s+", " ", text).strip()
-        excerpt = body[:500]
-        return body, excerpt
     except Exception:
         return "", ""
-
-
-def extract_reviews_from_html(html: str, cutoff) -> list:
-    """Parse review items from a Songlines reviews listing HTML page."""
+    if not html:
+        return "", ""
     soup = BeautifulSoup(html, "lxml")
-    reviews = []
+    for tag in soup(["script", "style", "nav", "header", "footer", "noscript"]):
+        tag.decompose()
+    paras = [p.get_text(" ", strip=True) for p in soup.find_all("p")]
+    long_paras = [p for p in paras if len(p) > 200]
+    body = re.sub(r"\s+", " ", " ".join(long_paras)).strip()
+    excerpt = body[:500]
+    return body, excerpt
 
-    for card in soup.find_all("div", class_="review-item"):
-        # --- Album name ---
-        album_el = card.find("h2")
-        if not album_el:
+
+def parse_cards(page_html: str):
+    """Parse one listing page into a list of card dicts (no body fetch yet)."""
+    soup = BeautifulSoup(page_html, "lxml")
+    cards = soup.find_all("div", attrs={"aria-label": re.compile(r"^Article: ")})
+    out = []
+    for card in cards:
+        title_el = card.find("h4")
+        link = card.find("a", href=re.compile(r"/review/"))
+        if not title_el or not link:
             continue
-        link_el = album_el.find("a", href=True)
-        if not link_el:
-            continue
-        album = link_el.get_text(strip=True)
-        href = str(link_el.get("href", ""))
+        url = link["href"]
+        if url.startswith("/"):
+            url = BASE_URL + url
+        album = title_el.get_text(" ", strip=True)
 
-        if href.startswith("/"):
-            url = f"{BASE_URL}{href}"
-        elif href.startswith("http"):
-            url = href
-        else:
-            url = f"{BASE_URL}/{href}"
-
-        # --- Artist ---
         artist = ""
-        for sibling in album_el.find_next_siblings():
-            if sibling.name == "p":
-                a_tag = sibling.find("a")
-                if a_tag:
-                    artist = a_tag.get_text(strip=True)
-                    break
-            elif sibling.name == "div":
-                break
+        musician_link = card.find("a", href=re.compile(r"/reviews/musicians/"))
+        if musician_link:
+            artist = musician_link.get_text(" ", strip=True)
 
-        # --- Rating ---
-        rating_el = card.find("span", class_="rating")
+        # 站点评分：<span class="... text-lg font-bold ...">9</span> 紧邻 "/ 10"
         score = 0
-        if rating_el:
-            rating_text = rating_el.get_text(" ", strip=True)
-            score = count_stars(rating_text)
+        for span in card.find_all("span"):
+            txt = span.get_text(strip=True)
+            if txt.isdigit() and 0 <= int(txt) <= 10:
+                nxt = span.find_next_sibling("span")
+                if nxt and "/ 10" in nxt.get_text(strip=True):
+                    score = int(txt)
+                    break
 
-        # --- Excerpt from listing ---
-        excerpt_list = ""
-        for p in card.find_all("p", class_="p-reviews"):
-            if p.find_parent("span", class_="rating"):
-                continue
-            excerpt_list = p.get_text(strip=True)
+        excerpt = ""
+        intro = card.find("p", class_=re.compile(r"article__intro"))
+        if intro:
+            excerpt = intro.get_text(" ", strip=True)
+
+        issue_text = ""
+        for p in card.find_all("p", class_=re.compile(r"text-\[9px\]")):
+            issue_text = p.get_text(" ", strip=True)
             break
+        issue_date, pub_date = parse_issue_date(issue_text)
 
-        # --- Date ---
-        date_el = card.find("span", class_=re.compile(r"small\s*pt-2"))
-        date_text = ""
-        if date_el:
-            date_text = date_el.get_text(" ", strip=True)
-        issue_date, pub_date = parse_issue_date(date_text)
-
-        if not is_recent(issue_date, cutoff):
-            continue
-
-        # --- Fetch full article body ---
-        body, excerpt = fetch_article_body(url)
-
-        # Fallback to listing excerpt if body fetch failed (paywall)
-        if not body:
-            excerpt = excerpt_list[:500]
-            body = ""
-
-        reviews.append({
+        out.append({
             "album": album,
             "artist": artist,
             "score": score,
             "url": url,
-            "source": SOURCE,
+            "issue_date": issue_date,
             "pub_date": pub_date,
-            "tags": "world music",
             "excerpt": excerpt[:500],
-            "body": body,
+        })
+    return out
+
+
+def main():
+    args = parse_args()
+    ref_date = (datetime.strptime(args.date, "%Y-%m-%d").date()
+                if args.date else datetime.now(timezone.utc).date())
+    cutoff = ref_date - timedelta(days=args.days)
+
+    sys.stderr.write(f"Songlines scraper — Ref date: {ref_date}, Cutoff: {cutoff}\n")
+
+    candidates = []
+    seen_urls = set()
+    for page in range(1, MAX_PAGES + 1):
+        url = LIST_URL if page == 1 else f"{LIST_URL}&itemsPerPage={PAGE_SIZE}&page={page}"
+        html = fetch(url)
+        if not html.strip():
+            sys.stderr.write(f"  Page {page}: empty response, stop\n")
+            break
+        cards = parse_cards(html)
+        if not cards:
+            sys.stderr.write(f"  Page {page}: 0 cards, stop\n")
+            break
+        in_window = [c for c in cards if is_recent(c["issue_date"], cutoff)]
+        sys.stderr.write(f"  Page {page}: {len(cards)} cards, {len(in_window)} in window\n")
+        for c in in_window:
+            if c["url"] not in seen_urls:
+                seen_urls.add(c["url"])
+                candidates.append(c)
+        # 整页都超出窗口 → 更早的页只会更旧，停
+        if not in_window and all(c["issue_date"] is None or c["issue_date"] < cutoff for c in cards):
+            break
+        time.sleep(0.8)
+
+    sys.stderr.write(f"  Fetching {len(candidates)} article bodies...\n")
+
+    def work(card):
+        body, excerpt = fetch_article_body(card["url"])
+        card["body"] = body
+        if not body and card.get("excerpt"):
+            excerpt = card["excerpt"]
+        card["final_excerpt"] = excerpt[:500]
+        return card
+
+    if candidates:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            list(pool.map(work, candidates))
+
+    items = []
+    for c in candidates:
+        items.append({
+            "album": c["album"],
+            "artist": c.get("artist") or "",
+            "score": c["score"],
+            "url": c["url"],
+            "source": SOURCE,
+            "pub_date": c["pub_date"],
+            "tags": "world music",
+            "excerpt": c.get("final_excerpt") or c.get("excerpt") or "",
+            "body": c.get("body") or "",
             "site_id": SITE_ID,
             "crawl_status": "success",
             "type": "review",
         })
 
-    return reviews
-
-
-def get_total_pages(html: str) -> int:
-    """Determine total number of pages from pagination links."""
-    soup = BeautifulSoup(html, "lxml")
-    pages = []
-    nav = soup.find("nav", attrs={"aria-label": "Page navigation"})
-    if not nav:
-        return 1
-    for a in nav.find_all("a", class_="page-link"):
-        m = re.search(r"page=(\d+)", str(a.get("href", "")))
-        if m:
-            pages.append(int(m.group(1)))
-    return max(pages) if pages else 1
-
-
-def main():
-    args = parse_args()
-    ref_date = datetime.strptime(args.date, "%Y-%m-%d").date() if args.date else datetime.now(timezone.utc).date()
-    cutoff = ref_date - timedelta(days=args.days)
-
-    sys.stderr.write(f"Songlines scraper — Ref date: {ref_date}, Cutoff: {cutoff}\n")
-
-    all_reviews = []
-    seen_urls = set()
-
-    html = fetch(LIST_URL)
-    if not html:
-        sys.stderr.write("ERROR: Failed to fetch listing page\n")
-        print(json.dumps({"meta": {"total": 0, "scraped_at": datetime.now(timezone.utc).isoformat(), "cutoff_date": cutoff.isoformat()}, "items": []}))
-        sys.exit(1)
-
-    total_pages = get_total_pages(html)
-    sys.stderr.write(f"Found {total_pages} page(s)\n")
-
-    for page_num in range(1, total_pages + 1):
-        if page_num == 1:
-            page_url = LIST_URL
-            page_html = html
-        else:
-            page_url = f"{LIST_URL}?page={page_num}&pageSize=10"
-            page_html = fetch(page_url)
-            if not page_html.strip():
-                continue
-
-        reviews = extract_reviews_from_html(page_html, cutoff)
-        for r in reviews:
-            if r["url"] not in seen_urls:
-                seen_urls.add(r["url"])
-                all_reviews.append(r)
-
-        sys.stderr.write(f"  Page {page_num}: {len(reviews)} reviews\n")
-
-        if page_num < total_pages:
-            time.sleep(1)
-
-    # Output as standardized JSON
-    result = json.dumps({
+    result = {
         "meta": {
-            "total": len(all_reviews),
+            "total": len(items),
             "scraped_at": datetime.now(timezone.utc).isoformat(),
             "cutoff_date": cutoff.isoformat(),
         },
-        "items": all_reviews,
-    }, indent=2, ensure_ascii=False)
-
-    print(result)
-    sys.stderr.write(f"Songlines: {len(all_reviews)} items (cutoff={cutoff})\n")
+        "items": items,
+    }
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+    sys.stderr.write(f"Songlines: {len(items)} items (cutoff={cutoff})\n")
 
 
 if __name__ == "__main__":

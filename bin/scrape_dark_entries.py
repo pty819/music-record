@@ -32,9 +32,14 @@ def parse_args():
 
 
 def fetch(url):
+    # ⚠️ UA 必须是「爬虫型」而不是 Chrome 型。
+    # darkentries.be 的 WAF 实测（2026-10-27）只放行非浏览器 UA：
+    #   Chrome/UA（任意版本、带不带完整浏览器头）→ HTTP 403
+    #   curl/8.5.0、Python-urllib、facebookexternalhit、兼容型 UA → HTTP 200
+    # 换浏览器 UA 只会让整个站静默变成 0 条（无报错）。
     req = urllib.request.Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 "
-                       "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (compatible; music-daily-recs/1.0; "
+                       "+https://github.com/pty819/music-record)"
     })
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode("utf-8", errors="replace")
