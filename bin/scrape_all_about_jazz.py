@@ -29,7 +29,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from camofox_client import CamofoxClient, wait_for_content, wait_for_navigation  # noqa: E402
+from camofox_client import CamofoxClient, wait_for_content, wait_for_page  # noqa: E402
 
 _CHROME = CamofoxClient(user_id="scraper_all_about_jazz", session_key="session_aaj", settle=4.0, timeout=150)
 
@@ -193,6 +193,33 @@ EXTRACT_BODY_JS = """
 }
 """
 
+# 2026-10-27: wait_for_page 需要一个「返回字符串」的表达式（它会把结果
+# 和 URL 一起打包）。AAJ_BODY_JS 与上面 EXTRACT_BODY_JS 的取正文逻辑
+# 完全一致，只是只返回 body 字符串。
+AAJ_BODY_JS = """
+(() => {
+    const bodyEl = document.querySelector('div.main-inner') || document.querySelector('div.main-outer') || document.querySelector('article');
+    let body = '';
+    if (bodyEl) {
+        const bottomDivs = bodyEl.querySelectorAll('.bottom-20');
+        let bestLen = 0;
+        let bestText = '';
+        for (const d of bottomDivs) {
+            const t = (d.innerText || '').trim();
+            if (t.length > bestLen) { bestLen = t.length; bestText = t; }
+        }
+        if (bestLen > 200) {
+            body = bestText;
+        } else {
+            body = (bodyEl.innerText || '').trim();
+        }
+    }
+    body = body.replace(/^\\s*Home\\s*».*?Album Review\\s*»\\s*/i, '');
+    body = body.replace(/\\s+/g, ' ').trim();
+    return body;
+})()
+"""
+
 
 def main():
     import argparse
@@ -319,13 +346,15 @@ def main():
                     # 17-36s/篇，navigate_fast 是 ~1.7s/篇 —— CF 挑战在后台
                     # 继续，我们轮询等正文容器就绪即可。
                     _CHROME.navigate_fast(tab_id, url)
-                    # 2026-10-27: 先等 URL 切换完成，避免抓到上一篇的残留正文
-                    wait_for_navigation(_CHROME, tab_id, url, attempts=25, delay=0.4)
-                    detail = wait_for_content(
-                        _CHROME, tab_id, EXTRACT_BODY_JS, attempts=15, delay=0.8,
-                        predicate=lambda d: bool((d or {}).get("body")),
-                    ) or {}
-                    body = (detail.get("body") or "").strip()
+                    # 2026-10-27: 一次 evaluate 同时取 URL + 正文（wait_for_page）。
+                    # 必须等 URL 切换完成，否则抓到上一篇的残留正文；合并成
+                    # 一次 evaluate 比分两步快一倍（导航期间每次 evaluate
+                    # 要等 ~1.6s 才回 409）。
+                    detail, _ok = wait_for_page(
+                        _CHROME, tab_id, url, AAJ_BODY_JS, attempts=25, delay=0.4,
+                        body_min=200,
+                    )
+                    body = (detail or "").strip()
                     if body:
                         item["body"] = body
                         item["excerpt"] = body[:500]

@@ -32,7 +32,7 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from camofox_client import CamofoxClient, wait_for_content, wait_for_navigation  # noqa: E402
+from camofox_client import CamofoxClient, wait_for_content, wait_for_page  # noqa: E402
 
 _CHROME = CamofoxClient(user_id="scraper_mixmag_asia", session_key="session_mix", settle=4.0, timeout=120)
 
@@ -40,7 +40,7 @@ _CHROME = CamofoxClient(user_id="scraper_mixmag_asia", session_key="session_mix"
 # 2026-10-27: 原来优先取 <article>，实测那只有 211 字符（是侧栏/摘要容器），
 # 真正的正文在 <main> 里（4248 字符）。改成按内容长度挑最大的容器。
 GET_BODY_JS = """
-() => {
+(() => {
     const pick = (el) => el && el.innerText ? el.innerText : '';
     const candidates = [
         pick(document.querySelector('main')),
@@ -52,7 +52,7 @@ GET_BODY_JS = """
     ].filter(t => t && t.length > 200);
     if (!candidates.length) return '';
     return candidates.sort((a, b) => b.length - a.length)[0].slice(0, 10000);
-}
+})()
 """
 
 
@@ -148,12 +148,13 @@ def fetch_body(tab_id, url):
         # commit）。Camofox 的 navigate 端点实测在 CF 站要 17-36s/篇，
         # navigate_fast 是 ~1.7s/篇。CF 挑战在后台继续，轮询等正文即可。
         _CHROME.navigate_fast(tab_id, url)
-        # 2026-10-27: 必须先等 URL 切换完成。navigate_fast 是「起飞即返」，
+        # 2026-10-27: 必须等 URL 切换完成。navigate_fast 是「起飞即返」，
         # 此时页面还停留在上一篇，而上一篇正文已经满足「长度 > 200」，
         # 直接轮询会抓到上一篇文章的内容（实测 21 条里 13 条 body 重复）。
-        wait_for_navigation(_CHROME, tab_id, url, attempts=25, delay=0.4)
-        result = wait_for_content(
-            _CHROME, tab_id, GET_BODY_JS, attempts=15, delay=0.8,
+        # wait_for_page 一次 evaluate 同时取 URL + 正文，比分两步快一倍
+        # （导航期间每次 evaluate 要等 ~1.6s 才回 409）。
+        result, _ok = wait_for_page(
+            _CHROME, tab_id, url, GET_BODY_JS, attempts=25, delay=0.4,
         )
         if result is None:
             return ""

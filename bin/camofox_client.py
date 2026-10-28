@@ -280,6 +280,11 @@ def wait_for_navigation(
 
     修法：先等 `location.href` 变成目标 URL（去掉 hash 和尾部斜杠后
     比较），再让调用方去提取正文。
+
+    代价（实测）：单次 evaluate 在导航期间会返回 409 Conflict，服务端
+    要等 ~1.6s 才回。URL 可读前通常要 3-4 轮 → 每篇 ~7s。
+    25 篇 = ~175s，比原来「不检查 URL」的 57.9s 慢 3 倍 —— 但原来抓到
+    的是错误正文。
     """
     import time as _time
 
@@ -288,16 +293,83 @@ def wait_for_navigation(
 
     target = _norm(url)
     for _ in range(max(1, attempts)):
-        resp = client.call(
-            "POST",
-            f"/tabs/{tab_id}/evaluate",
-            {"expression": "window.location.href"},
-        )
+        try:
+            resp = client.call(
+                "POST",
+                f"/tabs/{tab_id}/evaluate",
+                {"expression": "window.location.href"},
+            )
+        except Exception:
+            # 导航期间可能 409/410，等一下再试
+            _time.sleep(delay)
+            continue
         cur = _norm(resp.get("result"))
         if cur and (cur == target or cur.endswith(target) or target.endswith(cur)):
             return True
         _time.sleep(delay)
     return False
+
+
+def wait_for_page(
+    client: "CamofoxClient",
+    tab_id: str,
+    url: str,
+    body_expression: str,
+    *,
+    attempts: int = 20,
+    delay: float = 0.4,
+    body_min: int = 200,
+):
+    """一次 evaluate 同时取「当前 URL + 正文」，直到 URL 是目标且正文够长。
+
+    `body_expression` 必须是**返回字符串的完整 JS 表达式**，例如
+    `"(() => document.querySelector('main').innerText)()"`。
+
+    比 `wait_for_navigation()` + `wait_for_content()` 快一倍：后者要跑
+    两轮 evaluate 序列（先等 URL，再等正文），而导航期间每次 evaluate 要
+    等 ~1.6s（服务端 409 Conflict）。合成一次后每篇省掉一整轮。
+
+    返回 (body, ok)：ok=True 表示 URL 已切换到目标且正文长度够。
+    URL 没在 attempts 内切换时 ok=False（调用方应丢弃该篇，别用旧正文）。
+    """
+    import json as _json
+    import time as _time
+
+    def _norm(u: str) -> str:
+        return (u or "").split("#")[0].rstrip("/").lower()
+
+    expr = (
+        "(() => { try { return JSON.stringify({"
+        '"u": window.location.href, "b": (function(){ try { return ('
+        + body_expression
+        + "); } catch (e) { return ''; } })()"
+        "}); } catch (e) { return JSON.stringify({u:'', b:''}); } })()"
+    )
+
+    target = _norm(url)
+    last_body = ""
+    for _ in range(max(1, attempts)):
+        try:
+            resp = client.call(
+                "POST", f"/tabs/{tab_id}/evaluate", {"expression": expr}
+            )
+            raw = resp.get("result")
+            if raw:
+                try:
+                    data = _json.loads(raw)
+                except Exception:
+                    data = {"u": "", "b": ""}
+                cur = _norm(data.get("u", ""))
+                body = data.get("b") or ""
+                if body:
+                    last_body = body
+                if cur and (cur == target or cur.endswith(target) or target.endswith(cur)):
+                    if body and len(body) > body_min:
+                        return body, True
+        except Exception:
+            pass  # 导航期间 409/410
+        _time.sleep(delay)
+    return last_body, False
 
 
 def wait_for_content(
@@ -319,8 +391,8 @@ def wait_for_content(
     `predicate` 可选，用于判断结果是否"算成功"（默认非空即算）。
     返回最后一次 evaluate 的 result。
 
-    注意：调用方若用了 `navigate_fast()`，**必须先调
-    `wait_for_navigation()`**，否则可能抓到上一页的残留正文。
+    注意：调用方若用了 `navigate_fast()`，**必须先等 URL 切换完成**
+    （用 `wait_for_page()` 最省时间），否则可能抓到上一页的残留正文。
     """
     import time as _time
 
