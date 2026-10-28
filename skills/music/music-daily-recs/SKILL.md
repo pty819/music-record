@@ -127,6 +127,14 @@ the_wire, the_quietus, a_closer_listen, avant_music_news, bandcamp_daily, igloo_
 
 `SCRIPTS` 现有 17 个条目：**14 个纯 HTTP + 3 个 Camofox**（all_about_jazz / mixmag_asia / musique_machine）。本机只有 1.6GB，浏览器层（Camofox = Firefox 内核，常驻约 600MB）扛不住**并发**拉起多个实例 —— 所以 Camofox 站必须串行（见下）。Camofox 是**常驻服务**（一个实例服务所有站），不是每脚本拉一个，这是它比旧 Chromium/CDP 方案更省内存的原因。
 
+**Camofox 站的条目算在 HTML 层里，不是单独一层。** `scrape_html_parallel.py` 把 17 个脚本写进同一个 `html_reviews.json`（`meta.sources = 17`），`merge_scraped.py` 只按文件名分 RSS 和 HTML 两类。所以汇报抓取量时：
+
+- 「HTML 层 N 条」**已经包含** Camofox 站的条目
+- 条目级别**没有**「走没走浏览器」的标记（字段只有 `source` 站名），要区分只能靠站名白名单
+- 典型构成：RSS 120 + HTML 85（其中 Camofox 站 ~28）= 合并去重后 200
+
+被问「Camoufox 算在 HTML 里面了吗」时直接答「是，在 HTML 层里」，并把 Camofox 那几站单独点出来。
+
 曾经有 4 个条目走浏览器（all_about_jazz / downbeat / mixmag_asia / musique_machine），其中 **downbeat 实际是 HTTP 优先、浏览器只做 curl 失败后的 fallback**，所以留着无害；另 3 个曾从 `SCRIPTS` 移除。**2026-10-27 已恢复**——移除它们的老理由（「单个 Chromium 站会拉起 ~74 个子进程、RSS 冲到 935MB、OOM killer 静默杀 chrome」）在 Camofox 下不成立了：Camofox 是常驻服务，一个 Firefox 实例服务所有站，不再每站拉浏览器。
 
 恢复时的三个关键约束（都实测过，**以「出货路径的浏览器约束」一节为准**）：
@@ -279,7 +287,11 @@ Camofox 站的四个硬约束（都实测过，改代码前先看这里）：
 1. **Camofox 站之间必须串行** —— 并发开 3 个 tab **全部建失败**（fork Firefox 进程时内存不足，available 掉到 387MB）。`scrape_html_parallel.py` 拆成两批：纯 HTTP 站全并发，Camofox 站在其后串行。
 2. **Camofox 站要单独给 timeout** —— 纯 HTTP 站 180s 够，Camofox 站按 `navigate_fast()` 后的实测值给（见下表）。`SCRIPTS` 元组第 4 个元素是 per-site timeout 覆盖值。
 3. **等页面就绪要轮询，不要固定 sleep** —— 固定 `time.sleep(1.2/2/3)` 是给 Chromium/CDP 定的节奏，Camofox 走真实 Firefox 网络栈，CF 站更慢，固定等待会提前提取 → 正文为空。统一用 `camofox_client.wait_for_content()` 轮询。
-4. **导航用 `navigate_fast()`，不要用 Camofox 的 `/navigate` 端点** —— 这是**最大的性能杠杆**。Camofox 的 `POST /tabs/:id/navigate` 内部是 `page.goto(url, {waitUntil:'commit'})` + `waitForLoadState('domcontentloaded')`，在 CF 站上实测 **17-36 秒一篇**（要等 CF 挑战走完才 commit）。改成在页面里执行 `window.location.href = url`（`CamofoxClient.navigate_fast()`），evaluate 立刻返回 ~0.4s，CF 挑战在后台继续，轮询等正文即可 —— 实测 **~1.7 秒一篇，快 10-20 倍**。
+4. **导航用 `navigate_fast()` + `wait_for_page()`，不要用 Camofox 的 `/navigate` 端点** —— 这是**最大的性能杠杆**。Camofox 的 `POST /tabs/:id/navigate` 内部是 `page.goto(url, {waitUntil:'commit'})` + `waitForLoadState('domcontentloaded')`，在 CF 站上实测 **17-36 秒一篇**（要等 CF 挑战走完才 commit）。改成在页面里执行 `window.location.href = url`（`CamofoxClient.navigate_fast()`），evaluate 立刻返回 ~0.4s，CF 挑战在后台继续。
+
+   ⚠️ **但必须同时验证 URL 切换了。** `navigate_fast` 是「起飞即返」，evaluate 返回时浏览器还在飞、页面仍停在上一篇；此时按「body 长度 > 200」轮询正文会抓到**上一篇的正文**。症状隐蔽：URL 和 excerpt 各不相同、条数正常、报告看着正常，只有 body 是错的（实测 mixmag 21 条里 13 条 body 完全相同）。用 `camofox_client.wait_for_page()`——一次 evaluate 同时取 `{url, body}`，URL 匹配且正文够长才算成功。
+
+   ⚠️ **必须一次 evaluate 取两者，不能分两轮。** 导航期间 evaluate 要等 ~1.6s 才回 `409 Conflict`；「先等 URL 再等正文」两轮序列会把 mixmag 从 104.4s 推到 217.6s，**超过 180s 的 per-site timeout，明晚生产会被砍**。
 
    实测三站（`--days 1.5`，改前 → 改后）：
 
@@ -290,18 +302,6 @@ Camofox 站的四个硬约束（都实测过，改代码前先看这里）：
    | musique_machine | 33.7s | **11.0s** | 0-1 | 120s |
 
    这直接让 Camofox 站能塞进管道的 180s per-site timeout，不再需要特殊放宽。
-
-   ⚠️ **必须配 `wait_for_page()`，不能只等正文长度**。`navigate_fast()`
-   是「起飞即返」，浏览器还在飞，此时按「body 长度 > 200」轮询会抓到
-   **上一篇的正文** —— 实测 mixmag 21 条里 13 条 body 完全相同（内容是
-   别的文章的正文，URL 和 excerpt 却各不相同），报告里看着正常其实内容
-   是错的。`wait_for_page()` 一次 evaluate 同时取 `{url, body}`，URL
-   匹配且正文够长才算成功。
-
-   代价与优化：导航期间 Camofox 的 evaluate 要等 ~1.6s 才回 409
-   Conflict，所以「等 URL」+「等正文」分两轮做会让 mixmag 从 57.9s
-   涨到 217.6s（超过 180s 的 per-site timeout，会被砍）。合成一次
-   evaluate 后回到 104.4s。
 
    ⚠️ **「改前」的耗时数字是 `navigate_fast()` 之前的值**（`/navigate` 端点每篇 17-36s）。换回 `/navigate` 时这些数字才成立。
 
@@ -317,7 +317,7 @@ sed -n '/^SCRIPTS = \[/,/^\]/p' bin/scrape_html_parallel.py | grep -c 'chromium_
 
 免浏览器路子的优先级：真 RSS > 服务端渲染 HTML > 浏览器。绝大多数“需要浏览器”的站其实只是没人找过 feed。
 
-Chromium/CDP 客户端 `bin/chromium_browser.py` 已于 2026-10-27 删除（生产零依赖，系统无 Chromium）。CDP 本身的坑（握手 403、per-target 域、函数表达式、`atexit` 清理、navigate 复用 target、OOM 与内存上限、后台任务轮询）看 `headless-browser-scraping` skill。CDP 本身的坑（握手 403、per-target 域、函数表达式、`atexit` 清理、navigate 复用 target、OOM 与内存上限、后台任务轮询）看 `headless-browser-scraping` skill。
+Chromium/CDP 客户端 `bin/chromium_browser.py` 已于 2026-10-27 删除（生产零依赖，系统无 Chromium）。CDP 本身的坑（握手 403、per-target 域、函数表达式、`atexit` 清理、navigate 复用 target、OOM 与内存上限、后台任务轮询）看 `headless-browser-scraping` skill。
 
 ## 浏览器层的两层，别再当成「已迁移/未迁移」
 
@@ -423,7 +423,8 @@ git check-ignore -v recommend/YYYY/MM/YYYY-MM-DD.md                          # �
 2. `python3 bin/camofox_client.py --url https://example.com` — 证明浏览器层能独立跑。
 3. 单站实跑，看**条数**而不只是 exit=0 — 条数 0 或全量都是导航标签（`/music/reviews` 这种栏目名）都是坏信号，不是好结果。
 4. 抓 25 篇这种长任务，**完成后统计正文非空的条数**。`0 bytes` 输出 + stderr 无报错 = 被 OOM 静默杀了，`dmesg -T | grep "Killed process"` 是唯一现场。
-5. 后台跑时用 `pgrep -f 'scrape_<name>'` 判存活，**不要轮询 `nohup ... &` 打印的 pid**——那是 shell wrapper，退了不代表任务完，轮询它会反复误报“已结束”。
+5. **统计正文重复度** —— 「条数对」不等于「内容对」。跨文章的重复 body 靠肉眼看不出来（URL 和 excerpt 都不同），必须统计：重复组应为 0，空 body 应为 0，长度分布应连续。成片重复（2276×6、2972×4）= 抓到残留正文；分布连续（1499、1864、2024…）= 正常。**错 body 的失败形态是「exit 0、条数正常、报告正常」，任何靠「跑通了」判断的验收都会放过它。**
+6. 后台跑时用 `pgrep -f 'scrape_<name>'` 判存活，**不要轮询 `nohup ... &` 打印的 pid**——那是 shell wrapper，退了不代表任务完，轮询它会反复误报“已结束”。
 
 反过来，**改文档/注释时必须跟代码同步**：`grep -rn "9377" bin/` 会有命中在 docstring 和迁移说明里，这些是故意保留的“原来是什么”记录，不是漏网。只看命中数量会误判“还没改完”，得看每条命中的上下文。
 

@@ -65,19 +65,67 @@ await page.waitForLoadState('domcontentloaded', { timeout });
 
 ```python
 client.navigate_fast(tab_id, url)   # evaluate 里执行 window.location.href = url
-# 然后轮询等正文出现
-body = wait_for_content(client, tab_id, GET_BODY_JS, attempts=15, delay=0.8)
 ```
 
-`evaluate` 立刻返回（~0.4s），CF 挑战在后台继续，轮询直接拿到已渲染的正文。**实测 ~1.7 秒一篇，快 10-20 倍。**
+`evaluate` 立刻返回（~0.4s），CF 挑战在后台继续。
 
-| 站 | `/navigate` | `navigate_fast()` | 条数 |
+### ⚠️ 但必须同时验证 URL 切换了 —— 否则抓到的是上一篇的正文
+
+`navigate_fast` 是「起飞即返」：**evaluate 返回时浏览器还在飞，页面仍停留在上一篇**。此时按「body 长度 > N」轮询正文，**上一篇的正文已经满足长度条件**，于是抓到了上一篇文章的内容。
+
+实测症状极隐蔽：URL 和 excerpt 各不相同、条数正常、报告看着正常，**只有 body 是错的**（mixmag 21 条里 13 条 body 完全相同，内容是别的文章的正文）。评分靠 excerpt 仍能出分，所以整条管道不会报错。
+
+规则：**`navigate_fast()` 之后必须用 `wait_for_page()` 取正文**，它一次 evaluate 同时取 `{url, body}`，URL 匹配且正文够长才算成功：
+
+```python
+from camofox_client import wait_for_page
+
+body, ok = wait_for_page(
+    client, tab_id, url, BODY_EXPR,   # BODY_EXPR 必须返回字符串的表达式
+    attempts=25, delay=0.4, body_min=200,
+)
+if not ok:
+    ...  # URL 没在 attempts 内切换 → 丢弃本篇，别用旧正文
+```
+
+`BODY_EXPR` 必须是**返回字符串的完整表达式**（`(() => {...})()`），不是裸函数体——`wait_for_page` 要把它内嵌进自己的 JSON 打包表达式里。裸 `() => {...}` 内嵌后语法不成立，且 Camofox 的 evaluate 本来就只认表达式。
+
+### 为什么必须是「一次 evaluate」而不是「先等 URL 再等正文」
+
+导航期间 Camofox 的 evaluate 要等 **~1.6s 才回 `409 Conflict`**。分两轮做（先 `wait_for_navigation()` 轮询 URL，再 `wait_for_content()` 轮询正文）意味着每篇跑两串 evaluate 序列：
+
+| 做法 | mixmag_asia 耗时 | 结果 |
+|---|---|---|
+| 不检查 URL（只等正文长度） | 57.9s | ❌ 快但正文全错 |
+| 分两轮（等 URL + 等正文） | 217.6s | ❌ 正确但超过 180s per-site timeout，会被砍 |
+| **`wait_for_page()` 一次取两者** | **104.4s** | ✅ 正确且在 timeout 内 |
+
+`wait_for_navigation()` 作为底层积木保留在客户端里，但**脚本侧一律用 `wait_for_page()`**——省掉一整串 evaluate 序列。
+
+| 站 | `/navigate` | `navigate_fast()` + `wait_for_page()` | 条数 |
 |---|---|---|---|
-| mixmag_asia | 600s 超时（只到 13/25） | **57.9s** | 25 |
-| all_about_jazz | 187-420s | **53.4s** | 9 |
-| musique_machine | 33.7s | **18.8s** | 1 |
+| mixmag_asia | 600s 超时（只到 13/25） | **104.4s** | 21-25 |
+| all_about_jazz | 187-420s | **89.3s** | 6-9 |
+| musique_machine | 33.7s | **11.0s** | 0-1 |
 
-规则：**Camofox 站一律用 `navigate_fast()`，不用 `/navigate` 端点。** 后者只在需要服务端确认导航结果（HTTP 状态、最终 URL）时才值得。
+规则：**Camofox 站一律用 `navigate_fast()` + `wait_for_page()`，不用 `/navigate` 端点，也不用「只等正文长度」的裸轮询。** `/navigate` 端点只在需要服务端确认导航结果（HTTP 状态、最终 URL）时才值得。
+
+### 验证正文真来自这一篇：统计 body 唯一性，不要只看条数
+
+抓完一批之后，**「条数对」不等于「内容对」**。跨文章重复的 body 靠肉眼看条目列表发现不了（URL 和 excerpt 都不同），必须统计正文本身的重复度。
+
+```python
+import collections
+bodies = [i.get("body") or "" for i in items]
+dup = [(len(b), n) for b, n in collections.Counter(bodies).items() if n > 1]
+print("重复组:", len(dup), "空 body:", sum(1 for b in bodies if not b.strip()))
+```
+
+判据：**重复组应为 0**。长度分布成片重复（2276×6、2972×4）= 抓到的是残留正文；分布连续（1499、1864、2024、2063…）= 正常。
+
+配套检查「URL 与正文是否对应」——两条 URL 不同、body 完全相同，且那段 body 的开头是**另一篇文章的标题**，即可确诊。
+
+这条检查要进常规验收步骤，不只是调试时用：错 body 的失败形态是「exit 0、条数正常、报告正常」，任何靠「跑通了」判断的验收都会放过它。
 
 ### `wait_for_content()`：不要用固定 sleep 等渲染
 
@@ -109,6 +157,22 @@ arts = m.extract_articles(tab["tabId"])
 ```
 
 这个坑的表现是「同一个页面，手动 evaluate 明明有 21 篇，脚本就是 0 篇」——**会让你误判成选择器坏了或后端坏了，转而去改不相关的东西**。先确认探针和被测代码用同一个 client，再怀疑别的。
+
+### 服务端日志：`409` 不是错误，是「导航中，evaluate 请稍后」
+
+服务端在导航期间对 evaluate 回 **`409 Conflict`**（耗时 ~1.6s），而不是快速失败。客户端必须把它当成「还没到」继续轮询，**不能当成异常抛出去**——否则每次导航都会抛错。
+
+日志里判断某站是否真的用了浏览器，看 `msg=req` 的 `userId` 分布：
+
+```bash
+journalctl -u camofox --no-pager | grep '"msg":"req"' | grep -oE '"userId":"[^"]*"' | sort | uniq -c
+```
+
+`userId` 就是站点标识（`scraper_mixmag_asia` 等），按它归类能直接回答「今天到底哪些站走了浏览器」。⚠️ `journalctl --since 'today HH:MM'` 在这台机上会返回空，改用 `journalctl -u camofox` 拉全量再 grep。
+
+⚠️ **`pkill -f '<pattern>'` 的 pattern 会匹配到调用它的那条命令本身**——pkill 扫描整个进程表，而你的 shell 的 argv 里就含着这个 pattern。实测 `pkill -f 'timeout 900 python3 bin/daily_pipeline.py'` 把自己所在的进程组一起杀了，正在跑的评分层被误杀。
+
+规则：**要停某个后台任务，用 `process_manage`（按 session id）或先 `ps` 拿到确切 PID 再 `kill <pid>`**，不要用 `pkill -f`。确实要用 pkill 时，pattern 写成不可能匹配自己命令行的形式（如用字符类 `[p]ython3`）。
 
 ### 选择器要按「最长容器」选，不要按标签名选
 
