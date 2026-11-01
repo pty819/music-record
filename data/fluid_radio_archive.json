@@ -3559,7 +3559,7 @@
       "site_id": "fluid_radio",
       "crawl_status": "archive",
       "type": "review",
-      "_last_picked_date": null
+      "_last_picked_date": "2026-11-01"
     },
     {
       "album": "Rêveries",
@@ -5914,7 +5914,7 @@
       "site_id": "fluid_radio",
       "crawl_status": "archive",
       "type": "review",
-      "_last_picked_date": "2026-10-01"
+      "_last_picked_date": "2026-11-01"
     },
     {
       "album": "Emergence",
@@ -11674,7 +11674,7 @@
       "site_id": "fluid_radio",
       "crawl_status": "archive",
       "type": "review",
-      "_last_picked_date": "2026-09-06"
+      "_last_picked_date": "2026-11-01"
     },
     {
       "album": "Buck + Wolfarth",
