@@ -21,6 +21,14 @@ MONTHS = {
 }
 NON_MUSIC_RE = re.compile(r"\(BLU-RAY\)|\(UHD\)|\(VOD\)|\(DVD\)", re.IGNORECASE)
 
+# Cloudflare Turnstile on boomkat.com clears in ~5-15s, but a single check at a
+# fixed delay can land mid-challenge and yield a false "cf_blocked". Poll the
+# SAME tab until the title is real and products are rendered; hard deadline.
+CF_WAIT_MAX = 60
+CF_POLL_INTERVAL = 5
+
+CF_CHECK_JS = "document.title + '|' + document.querySelectorAll('.listing2__product').length"
+
 def api(method, path, body=None):
     url = f"{CAMOFOX_BASE}{path}"
     if body is None:
@@ -158,6 +166,29 @@ GET_PRODUCT_BODY_JS = """
 })()
 """
 
+def wait_for_cf_clear(tab_id, max_wait=CF_WAIT_MAX):
+    """Poll the given tab until the Cloudflare challenge clears.
+
+    Returns (state_string, ok). ok=True means the page title is real and at
+    least one .listing2__product is rendered. Never opens a new tab and never
+    re-navigates: it only re-reads the current page.
+    """
+    deadline = time.time() + max_wait
+    state = ""
+    while True:
+        try:
+            resp = api("POST", f"/tabs/{tab_id}/evaluate", {"expression": CF_CHECK_JS})
+            raw = resp.get("result")
+            state = raw if isinstance(raw, str) else str(raw or "")
+        except Exception as e:
+            state = f"error: {e}"
+        if "Just a moment" not in state and not state.endswith("|0"):
+            return state, True
+        if time.time() >= deadline:
+            return state, False
+        time.sleep(CF_POLL_INTERVAL)
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser()
@@ -194,31 +225,29 @@ def main():
 
     all_items = []
     try:
-        # CF challenge fast-exit: wait 15s, then check title + product count.
-        # If still on "Just a moment" or 0 products, bail out early — no retry.
-        sys.stderr.write("Waiting 15s for CF challenge to clear...\n")
-        time.sleep(15)
-        cf_check_js = "document.title + '|' + document.querySelectorAll('.listing2__product').length"
-        try:
-            cf_resp = api("POST", f"/tabs/{tab_id}/evaluate", {"expression": cf_check_js})
-            cf_state = str(cf_resp.get("result", ""))
-            sys.stderr.write(f"CF check: {cf_state}\n")
-            if "Just a moment" in cf_state or cf_state.endswith("|0"):
-                sys.stderr.write("CF challenge still active — fast-exit, 0 items\n")
-                result = {
-                    "meta": {
-                        "total": 0,
-                        "scraped_at": today.isoformat(),
-                        "cutoff_date": cutoff_date.isoformat(),
-                        "cf_blocked": True,
-                        "site": SITE_ID,
-                    },
-                    "items": [],
-                }
-                print(json.dumps(result, indent=2, ensure_ascii=False))
-                return
-        except Exception as e:
-            sys.stderr.write(f"CF check error (continuing): {e}\n")
+        # CF challenge fast-exit: wait for the Turnstile on the SAME tab to clear,
+        # then check title + product count. A single check at a fixed 15s can
+        # catch the challenge mid-flight (it clears in ~5-15s) and produce a
+        # false "cf_blocked" — poll the same tab for up to CF_WAIT_MAX seconds
+        # instead. No new tabs, no retry loop: if it has not cleared by the
+        # deadline we exit immediately with 0 items.
+        sys.stderr.write("Waiting for CF challenge to clear (same tab)...\n")
+        cf_state, cf_ok = wait_for_cf_clear(tab_id, CF_WAIT_MAX)
+        sys.stderr.write(f"CF check: {cf_state}\n")
+        if not cf_ok:
+            sys.stderr.write("CF challenge still active — fast-exit, 0 items\n")
+            result = {
+                "meta": {
+                    "total": 0,
+                    "scraped_at": today.isoformat(),
+                    "cutoff_date": cutoff_date.isoformat(),
+                    "cf_blocked": True,
+                    "site": SITE_ID,
+                },
+                "items": [],
+            }
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+            return
 
         # Step 2: Extract products
         all_products_raw = []
