@@ -1,4 +1,5 @@
 __pycache__/
+.venv/
 .config/music-recs/minimax_key
 
 # raw 抓取中间产物：可再生，按 retention 只保留 3 天。
