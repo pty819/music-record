@@ -35,6 +35,39 @@ Gateway process exits unexpectedly (crash), but server stays up.
 - No `Cron ticker stopped` in `gateway.log` — crash-exit bypasses shutdown handler
 - APScheduler logs show multiple `Scheduler started` in rapid succession
 
+## Mode C: Profile Reservation Conflict Crash Loop (multi-unit gateway)
+
+The gateway reserves the profiles it serves. A **second** systemd user unit for
+one of those profiles (e.g. `hermes-gateway-<profile>.service` started by an
+ad-hoc script) makes both processes fight over the same reservation; the loser
+exits at startup with:
+
+```
+ERROR gateway.run: Cannot reserve gateway profiles: Gateway runtime already owns profile ...
+```
+
+With `Restart=always` + `RestartSec=5` this becomes an endless exit-1 loop —
+the gateway restarts every ~20s and never stays up, so the cron trigger that
+falls inside the window never runs:
+
+```
+GatewayUnavailableError: Gateway starting: deadline
+```
+
+**Tells:** systemd restart counter in the thousands over a few hours; journal
+shows `⚠ This gateway is STANDALONE: it serves only its own profile` for the
+offending unit; `/root/.hermes/profiles/<name>/gateway.lock` names the other
+PID as owner.
+
+**Fix:** one gateway unit per host. Stop/disable the per-profile unit, keep the
+host unit (it already multiplexes all profiles when
+`gateway.multiplex_profiles: true`), delete the ad-hoc switch scripts, and
+ensure the host unit is enabled *and* linked into
+`/root/.config/systemd/user/default.target.wants/` (a `disabled` unit missing
+that symlink never comes back after a reboot — cron then silently stops for
+good). Full read-only diagnosis: the `hermes-gateway-operations` skill's
+`references/gateway-unit-conflicts.md`.
+
 ## Diagnostic Commands
 
 ```bash
@@ -54,8 +87,14 @@ grep "Scheduler started\|apscheduler shut down" ~/.hermes/logs/agent.log | tail 
 # 5. Cron ticker state
 grep "Cron ticker" ~/.hermes/logs/gateway.log | tail -5
 
-# 6. Cron job status
-hermes cronjob list | grep ec5ea562d589
+# 6. Cron job status (verified command path)
+hermes cron doctor
+# or query the ledger directly (the CLI spelling has changed across versions):
+python3 -c "
+import sqlite3
+db=sqlite3.connect('file:/root/.hermes/cron/executions.db?mode=ro',uri=True); db.row_factory=sqlite3.Row
+for r in db.execute('SELECT job_id,status,started_at,finished_at,error FROM executions ORDER BY started_at DESC LIMIT 5'):
+    print(dict(r))"
 
 # 7. Gateway exit records (SystemExit 75 = crash exit)
 cat ~/.hermes/logs/gateway-exit-diag.log | python3 -c "

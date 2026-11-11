@@ -5,10 +5,10 @@ category: music
 cron_job: music-daily-recs / a889d709f680（北京时间 04:00 = UTC `0 20 * * *`，agent 任务）
 cron_watchdog: 07:00 增量补货在本机尚未重建，需要时手动跑 `bin/daily_pipeline.py --if-needed`
 author: hermes-agent
-version: 11.5
+version: 11.6
 license: MIT
 created: 2026-05-07
-updated: 2026-10-27
+updated: 2026-11-11
 trigger_condition: cron 每天北京时间 04:00 自动；手动 `python3 bin/daily_pipeline.py`
 metadata:
   hermes:
@@ -544,6 +544,45 @@ git -C /home/liyifan/music-record log origin/main --oneline -5
 
 报告路径：`recommend/YYYY/MM/YYYY-MM-DD.md`  
 GitHub：https://github.com/pty819/music-record
+
+## 「昨天的推送做了没」/「消息呢？」= 推送链路断了，分两层查
+
+用户说「消息呢？」「昨天的推送做了没」「日报没来」= **推送链路断了**，不是在问进度。链路上有两段独立环节，**都查完再回答**：
+
+| 段 | 查哪 | 判据 |
+|---|---|---|
+| **执行段**（管道跑没跑） | `~/.hermes/cron/executions.db` 的 `executions` 表 + `~/.hermes/cron/output/a889d709f680/<时间戳>.md` | status=failed → 看 error；产物 md 只有几十字节且正文是 `GatewayUnavailableError` → 触发那一刻网关就没在跑 |
+| **投递段**（发出去没） | `~/.hermes/cron/deliveries.db` 的 `deliveries` 表（注意路径是 `cron/deliveries.db`；`~/.hermes/deliveries.db` 里没有表） | status=failed → 看 error；`for_failure=1` 的行是**失败通知本身**也没送出去 |
+
+**执行成功 ≠ 用户收到。** 报告生成 + git push 成功 + cron status=completed，用户仍可能什么都没收到——投递是另一条通道（adapter → 平台 API）。只报「跑完了」会漏掉用户真正遇到的故障。
+
+⚠️ **微信（iLink）有平台侧前置条件：用户必须先给 bot 发过消息，bot 才能主动推送。** 长时间无人发言时投递段会失败，error 形如 `live adapter send failed: iLink sendmessage session not ready: ret=-2 ... the user must send the bot a message first`。适配器已经自动做过一次「去掉 context_token 重发」降级仍被拒 → **平台限制，不是 Hermes bug，没有任何配置能绕过**，只能等用户再次发言把窗口打开。遇到这条错误要直接告诉用户「你太久没给 bot 发消息了，微信侧不让我主动推」，不要去改适配器配置或刷重试。
+
+## 补跑漏掉的一天
+
+漏了一天（触发时网关在崩溃循环 / 机器重启）时，**报告文件不存在 ≠ 补不上**：原始数据只留 3 天，但重抓一次就能补。
+
+```bash
+cd /home/liyifan/music-record
+PATH="$PWD/.venv/bin:$PATH" .venv/bin/python3 bin/daily_pipeline.py \
+  --date YYYY-MM-DD --days 1.5 --skip-swarm
+```
+
+- `--skip-swarm` 只关探索层，出货层照跑。
+- ⚠️ **别在一天内反复全量补跑**：每次全量都对全部条目真调主 provider，持续性 429 会让当晚 cron 只能从 GLM 兜底起。补一次就够；评分阶段 300+ 条约 45-55 分钟（~15-20s/条 ÷ 2 并发），期间看 `ls recommend/YYYY/MM/` 有没有出现新报告，**不要重复启动第二个实例**。
+- ⚠️ **RSS 窗口基准日要自己确认**：`grep -n 'fast-rss-scrape' bin/daily_pipeline.py` 看它有没有把 `--date` 透传给 `fast-rss-scrape.py`。**没透传的话窗口以「今天 UTC」为基准**，补跑旧日期会多含补跑当天到现在的条目——内容与「那天真跑了」的版本不完全一致，先知道这点再决定要不要采信。
+
+补完必做的三项验证（缺一项都不算补完）：
+
+```bash
+ls -l recommend/YYYY/MM/YYYY-MM-DD.md                                        # 报告生成
+git ls-tree -r --name-only origin/main -- recommend/YYYY/MM/YYYY-MM-DD.md    # 进了 origin/main 的 tree
+git checkout data/fluid_radio_archive.json                                    # RSS 层轮转还原
+```
+
+⚠️ **补跑是后台长任务，必须盯到结束并把报告推给用户**——把「已启动」当成交付是本类任务最常见的失败形态。至少要在跑完后自问一遍：报告落地了吗？进了 origin/main 吗？用户收到了吗？三问任一没答上就不能说「补上了」。确实无法盯完时，明说「还在跑，报告还没生成」，**绝不能在报告落地前说「已补好」**。
+
+**盯长任务要用后台进程管理，不要用 sleep 轮询。** 启动时用 `terminal(background=True, notify=True)`，随后用 `process_manage` 的 wait/poll 拿退出码；不要写 `while ...; do sleep 60; done` 的前台循环——它既占住一次工具调用到超时，又拿不到退出码。**收尾前先估算本轮还剩多少次工具调用**：评分阶段 300+ 条要 45-55 分钟，如果剩余预算不够盯到结束，就在还剩几次调用时启动一次长等待（而不是反复短轮询），并且在回复里把「已启动 + 未完成 + 预计完成时间 + 报告路径」一次说清，让用户能自己接着查。
 
 ## 「报告只有 0 条 / 只有百来字节」先查 cron 还在不在跑
 
