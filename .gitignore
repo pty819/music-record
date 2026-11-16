@@ -24,3 +24,8 @@ __pycache__/
 # 0 处代码引用，是 debug 时代的遗留，不该进版本库。
 /scraped_raw.json
 /screenshot.png
+
+# build_archive_db.py 的产物：从 recommend/ 全量重建的可再生 SQLite，
+# 32MB 二进制且每天变化，跟踪它会让 git 每天存一份全量 blob。
+# 重建方式：python3 bin/build_archive_db.py
+/data/music_archive.db
