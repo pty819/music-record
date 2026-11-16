@@ -14,6 +14,7 @@ import argparse
 import fcntl
 import json
 import os
+import sqlite3
 import subprocess
 import sys
 from datetime import date, datetime
@@ -202,10 +203,29 @@ def score(date_dir: Path) -> int:
         write_empty_processed(date_dir, "no scraped_raw.json")
         return 0
     data = json.loads(raw_path.read_text(encoding="utf-8"))
-    n = len(data.get("items") or [])
+    items = data.get("items") or []
+    n = len(items)
     if n == 0:
         write_empty_processed(date_dir, "scraped_raw empty")
         return 0
+    # 跨天历史去重：已推送过的 URL 不再评分、不再入账。
+    # 写回 raw 文件，保证报告条目数 == processed.json items 数的核对口径成立。
+    hist = history_keys()
+    if hist:
+        if str(BIN) not in sys.path:
+            sys.path.insert(0, str(BIN))
+        from url_norm import item_key  # noqa: E402
+        fresh = [i for i in items if item_key(i) not in hist]
+        dropped = n - len(fresh)
+        if dropped:
+            _log(f"历史去重: 挡下 {dropped}/{n} 条已推送条目，不评分不入账。")
+        if not fresh:
+            write_empty_processed(date_dir, "all raw items already in history")
+            return 0
+        if dropped:
+            data["items"] = fresh
+            raw_path.write_text(json.dumps(data, indent=2, ensure_ascii=False),
+                                encoding="utf-8")
     r = run(
         [
             sys.executable,
@@ -336,14 +356,21 @@ def incremental_update(d: date, date_dir: Path, skip_push: bool = False) -> str:
 
     merge(date_dir)
     raw_items = (_load_json(raw_path).get("items") or [])
+    hist = history_keys()
     seen: set[str] = set()
+    n_hist_dropped = 0
     new_items = []
     for it in raw_items:
         k = item_key(it)
         if k in known or k in seen:
             continue
+        if k in hist:  # 已推送过的旧乐评，不算新条目
+            n_hist_dropped += 1
+            continue
         seen.add(k)
         new_items.append(it)
+    if n_hist_dropped:
+        _log(f"增量 {d.isoformat()}: 历史去重挡下 {n_hist_dropped} 条已推送条目。")
 
     if not new_items:
         restore_raw()
@@ -400,10 +427,11 @@ def incremental_update(d: date, date_dir: Path, skip_push: bool = False) -> str:
                          encoding="utf-8")
     write_report(d, date_dir, items)
     if not skip_push:
-        git_push_daily(
+        if git_push_daily(
             d, date_dir,
             msg=f"music-recs: {d.isoformat()} incremental +{len(new_kept)} (scored {len(new_scored)})",
-        )
+        ):
+            rebuild_archive_db()
     _log(f"增量 {d.isoformat()}: scored={len(new_scored)} kept_new={len(new_kept)} total_kept={len(items)}")
     return "updated"
 
@@ -467,6 +495,48 @@ def sweep_music_kanban() -> dict[str, int]:
             except Exception:
                 counts["failed"] += 1
     return counts
+
+
+def history_keys() -> set[str]:
+    """已推送条目的身份键集合（跨天历史账本，来自 data/music_archive.db）。
+
+    HTML 层站点（RootsWorld / Songlines / Point of Departure 等）的"最新乐评"
+    列表页会停留数周，同一篇乐评 URL 被反复抓到。此前增量只对照当天
+    processed.json，没有跨天账本，导致同一批旧乐评每天以"新条目"身份
+    重新入账（2026-11-16 排查：全仓 27,124 条里 15,848 条重复，55 个标题
+    各重复 >=30 次，全部来自 HTML 层）。
+    DB 缺失/读失败时返回空集——管道退化为原行为，账本问题不得断粮。
+    """
+    db = ROOT / "data" / "music_archive.db"
+    if not db.exists():
+        return set()
+    try:
+        con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+        try:
+            urls = [r[0] for r in con.execute(
+                "SELECT url FROM appearances WHERE url IS NOT NULL AND url != ''")]
+        finally:
+            con.close()
+    except sqlite3.Error as e:
+        _log(f"history_keys: 读取账本失败({e})，本次跳过历史去重。")
+        return set()
+    if str(BIN) not in sys.path:
+        sys.path.insert(0, str(BIN))
+    from url_norm import normalize_url  # noqa: E402
+    return {normalize_url(u) for u in urls}
+
+
+def rebuild_archive_db() -> None:
+    """push 成功后重建历史账本，让今天的报告进入明天的去重集合。
+
+    失败只记日志不挡出货：账本缺一天，明天 build_archive_db.py 全量重建时自愈。
+    """
+    r = run([sys.executable, str(BIN / "build_archive_db.py")],
+            check=False, timeout=300, capture=True)
+    if r.returncode != 0:
+        _log(f"build_archive_db 失败 rc={r.returncode}，历史账本待下次重建。")
+    else:
+        _log("历史账本已重建 (data/music_archive.db)。")
 
 
 def report_on_origin(d: date) -> bool:
@@ -581,6 +651,8 @@ def main() -> int:
             pushed = False
             if not args.skip_push:
                 pushed = git_push_daily(d, date_dir)
+                if pushed:
+                    rebuild_archive_db()
 
             if not args.skip_swarm:
                 spawn_swarm()
