@@ -545,18 +545,27 @@ git -C /home/liyifan/music-record log origin/main --oneline -5
 报告路径：`recommend/YYYY/MM/YYYY-MM-DD.md`  
 GitHub：https://github.com/pty819/music-record
 
-## 「昨天的推送做了没」/「消息呢？」= 推送链路断了，分两层查
+## 「推送呢 / 日报出了没」= 只验 GitHub push 链路
 
-用户说「消息呢？」「昨天的推送做了没」「日报没来」= **推送链路断了**，不是在问进度。链路上有两段独立环节，**都查完再回答**：
+用户问「今天的音乐推送呢」「推送了没」「日报出了没」= **验收 GitHub push 这条链路**，别的一概不查。**用户明确说过：不关心你有没有主动联系他，只关心有没有 push 到 GitHub。**
 
-| 段 | 查哪 | 判据 |
-|---|---|---|
-| **执行段**（管道跑没跑） | `~/.hermes/cron/executions.db` 的 `executions` 表 + `~/.hermes/cron/output/a889d709f680/<时间戳>.md` | status=failed → 看 error；产物 md 只有几十字节且正文是 `GatewayUnavailableError` → 触发那一刻网关就没在跑 |
-| **投递段**（发出去没） | `~/.hermes/cron/deliveries.db` 的 `deliveries` 表（注意路径是 `cron/deliveries.db`；`~/.hermes/deliveries.db` 里没有表） | status=failed → 看 error；`for_failure=1` 的行是**失败通知本身**也没送出去 |
+四路独立核验（缺一不可，因为 `.gitignore` 目录规则能让 push 成功而日报根本没进 tree）：
 
-**执行成功 ≠ 用户收到。** 报告生成 + git push 成功 + cron status=completed，用户仍可能什么都没收到——投递是另一条通道（adapter → 平台 API）。只报「跑完了」会漏掉用户真正遇到的故障。
+```bash
+cd /home/liyifan/music-record
+git ls-remote origin refs/heads/main                       # 远端 sha
+git rev-parse HEAD                                          # 本地 sha，两者必须相等
+curl -s -o /dev/null -w '%{http_code}\n' "https://raw.githubusercontent.com/pty819/music-record/main/recommend/YYYY/MM/YYYY-MM-DD.md"   # 期望 200
+curl -s "https://api.github.com/repos/pty819/music-record/commits?path=recommend/YYYY/MM/YYYY-MM-DD.md&per_page=3" | grep -E '"sha"|"date"|"message"'   # 该文件的 commit 历史
+```
 
-⚠️ **微信（iLink）有平台侧前置条件：用户必须先给 bot 发过消息，bot 才能主动推送。** 长时间无人发言时投递段会失败，error 形如 `live adapter send failed: iLink sendmessage session not ready: ret=-2 ... the user must send the bot a message first`。适配器已经自动做过一次「去掉 context_token 重发」降级仍被拒 → **平台限制，不是 Hermes bug，没有任何配置能绕过**，只能等用户再次发言把窗口打开。遇到这条错误要直接告诉用户「你太久没给 bot 发消息了，微信侧不让我主动推」，不要去改适配器配置或刷重试。
+答复形态：一张四行核验表 + 报告链接 + 条数。**不要在表之外加无关段落。**
+
+⚠️ **别把投递段（微信主动推）混进这个答复。** 那不是验收项；提它等于把用户的简单问题答复杂了。**也不要以「要不要我改投递时段 / 换通道 / 加个 fallback」结尾反问**——这是运维决策，按本 skill「少问、多做」自己拍板并一句话汇报。
+
+执行段仍是根因层：报告没生成或 push 没发生时查 `~/.hermes/cron/executions.db` 的 `executions` 表（status=failed → 看 error；产物 md 只有几十字节且正文是 `GatewayUnavailableError` → 触发那一刻网关就没在跑）。
+
+（投递段 iLink 的平台前置条件与排障细节留在 `references/push-delivery-chain.md`；仅在用户主动问「消息怎么没收到」时才查。）
 
 ## 补跑漏掉的一天
 
@@ -650,6 +659,27 @@ ls -t ~/.hermes/cron/output/a889d709f680/*.md | head -3
 「就这点推荐内容？」这类提问出现在报告条目数远低于预期时。正确顺序：**先把站数分层报出来**（总站 / RSS 层 / HTML 层 / 本次实际出货条数），再说原因。不要先解释架构——用户问的是数量，架构回答不了「今天为什么只有 N 条」。
 
 全天没 push：直接 `python3 bin/daily_pipeline.py --skip-scrape --skip-swarm`（RSS/HTML 已在就跳过抓取）。不要去 complete Verifier。
+
+# 用户要「推荐 N 张专辑」= 从当天报告里挑，不要重抓
+
+「帮我推荐10个专辑」这类请求的原料就是当天那份报告——**报告里已经有中文简评、风格标签、来源链接，不要重新联网抓站点**。
+
+**挑选口径**（写出来给用户看，别让他追问公平性）：
+1. 先看评分分档，只在最高档（杰出 9-10）里挑；档内条目数远多于 N 时再往下看。
+2. 同一档内**按风格互不重叠取样**——10 张全是自由爵士等于只推荐了 1 张。先统计各条目 `**风格**` 的首个标签，按标签去重后再补。
+3. 风格覆盖不足时宁可换条目，也不要重复同一路子的作者/编制。
+
+**输出格式**（每条 3-5 行，微信可读）：
+```
+**1. 艺人 — 专辑** ｜风格标签
+2-4 句中文简评（从报告的 `> ` 引言改写，保留最有信息量的细节：乐器编制、主题、编曲手法）
+https://来源链接
+```
+末尾可加「如果想换口味」备选 2-3 张（换维度而非同风格复选），并说明换的是哪个维度。
+
+⚠️ **报告里的 `### ` 标题不一定是「艺人 — 专辑」**：新闻稿式长标题、直接用曲名的、把主创写进标题的都有。挑选时以 `### ` 标题 + `**来源**` 链接共同确认真实条目，必要时从引言里回捞艺人名，不要把长标题当专辑名原样丢给用户。
+
+⚠️ **别用文件读工具的前 N 行当全量。** 杰出档通常有 30+ 条，单次读几百行会被截断——先定位档位标题再按段读，或用脚本切出整个档位（配方见 `references/curating-album-picks.md`）。
 
 # 仓库里的 skill 副本 ≠ 安装的 skill
 
