@@ -5,10 +5,10 @@ category: music
 cron_job: music-daily-recs / a889d709f680（北京时间 04:00 = UTC `0 20 * * *`，agent 任务）
 cron_watchdog: 07:00 增量补货在本机尚未重建，需要时手动跑 `bin/daily_pipeline.py --if-needed`
 author: hermes-agent
-version: 11.6
+version: 11.7
 license: MIT
 created: 2026-05-07
-updated: 2026-11-11
+updated: 2026-11-17
 trigger_condition: cron 每天北京时间 04:00 自动；手动 `python3 bin/daily_pipeline.py`
 metadata:
   hermes:
@@ -665,9 +665,11 @@ ls -t ~/.hermes/cron/output/a889d709f680/*.md | head -3
 「帮我推荐10个专辑」这类请求的原料就是当天那份报告——**报告里已经有中文简评、风格标签、来源链接，不要重新联网抓站点**。
 
 **挑选口径**（写出来给用户看，别让他追问公平性）：
-1. 先看评分分档，只在最高档（杰出 9-10）里挑；档内条目数远多于 N 时再往下看。
+1. 先看评分分档：**最高档（杰出 9-10）条数 ≥ N 就全在最高档里挑；不足 N 才逐档往下补**（跨档之间同样保持风格错开，不要在第二档里堆同路子）。
 2. 同一档内**按风格互不重叠取样**——10 张全是自由爵士等于只推荐了 1 张。先统计各条目 `**风格**` 的首个标签，按标签去重后再补。
 3. 风格覆盖不足时宁可换条目，也不要重复同一路子的作者/编制。
+4. **当天条目数骤减通常是跨天历史去重在起作用，不是站点掉链子**：报告只收账本里没有的 URL。判据看 cron 输出 `## Response` 段的四段数（抓取总数 / 账本挡下 / 实际送评 / 评分保留）——挡下数大而保留数小就是去重生效，答复里要主动说清，否则用户看到条数腰斩会以为管道坏了。
+5. **要结构化字段（评分 / 风格 / 来源 / 中文简评）直接查 `data/music_archive.db` 的 `appearances` 表**，比在 markdown 里正则稳；逐字对齐仍以报告文件为准。解析与查询配方见 `references/curating-album-picks.md`。
 
 **输出格式**（每条 3-5 行，微信可读）：
 ```
