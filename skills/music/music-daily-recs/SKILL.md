@@ -658,6 +658,8 @@ ls -t ~/.hermes/cron/output/a889d709f680/*.md | head -3
 
 「就这点推荐内容？」这类提问出现在报告条目数远低于预期时。正确顺序：**先把站数分层报出来**（总站 / RSS 层 / HTML 层 / 本次实际出货条数），再说原因。不要先解释架构——用户问的是数量，架构回答不了「今天为什么只有 N 条」。
 
+⚠️ **报「多少张专辑」时同理：先说清去重键。** 归档条目数、唯一标题数、DB `albums` 表行数、「专辑 — 艺人」格式条目数是四个不同量级的数，差一个数量级很正常。报数字时带上键 + 一条查询语句，否则用户追问口径时你只能靠印象答。配方见 `references/archive-dedup-and-counting.md`。
+
 全天没 push：直接 `python3 bin/daily_pipeline.py --skip-scrape --skip-swarm`（RSS/HTML 已在就跳过抓取）。不要去 complete Verifier。
 
 # 用户要「推荐 N 张专辑」= 从当天报告里挑，不要重抓
@@ -670,6 +672,7 @@ ls -t ~/.hermes/cron/output/a889d709f680/*.md | head -3
 3. 风格覆盖不足时宁可换条目，也不要重复同一路子的作者/编制。
 4. **当天条目数骤减通常是跨天历史去重在起作用，不是站点掉链子**：报告只收账本里没有的 URL。判据看 cron 输出 `## Response` 段的四段数（抓取总数 / 账本挡下 / 实际送评 / 评分保留）——挡下数大而保留数小就是去重生效，答复里要主动说清，否则用户看到条数腰斩会以为管道坏了。
 5. **要结构化字段（评分 / 风格 / 来源 / 中文简评）直接查 `data/music_archive.db` 的 `appearances` 表**，比在 markdown 里正则稳；逐字对齐仍以报告文件为准。解析与查询配方见 `references/curating-album-picks.md`。
+6. **问「仓里一共多少张专辑」时必须同时报去重键**（归档条目数 / 唯一标题 / DB `albums` 表 / 「专辑 — 艺人」格式条目是四个不同量级的数），并附一条查询语句。口径、量化配方与历史重复的根因见 `references/archive-dedup-and-counting.md`。
 
 **输出格式**（每条 3-5 行，微信可读）：
 ```
@@ -765,4 +768,6 @@ done
 | 数据清理 | `bin/prune_raw_data.py` |
 
 pitfalls、failover、VPN、站点诊断留 `references/`。不要把本文件再写成运行手册。
+
+跨天去重根因（HTML 层无跨天去重）、重复量化配方、「仓里多少张专辑」的三种口径见 `references/archive-dedup-and-counting.md`；报告条目数骤减 = 账本在挡，配方见 `references/curating-album-picks.md`。
 
