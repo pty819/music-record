@@ -29,3 +29,4 @@ __pycache__/
 # 32MB 二进制且每天变化，跟踪它会让 git 每天存一份全量 blob。
 # 重建方式：python3 bin/build_archive_db.py
 /data/music_archive.db
+/data/music_archive.db-*
