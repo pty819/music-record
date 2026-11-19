@@ -5,10 +5,10 @@ category: music
 cron_job: music-daily-recs / a889d709f680（北京时间 04:00 = UTC `0 20 * * *`，agent 任务）
 cron_watchdog: 07:00 增量补货在本机尚未重建，需要时手动跑 `bin/daily_pipeline.py --if-needed`
 author: hermes-agent
-version: 11.7
+version: 11.8
 license: MIT
 created: 2026-05-07
-updated: 2026-11-17
+updated: 2026-11-19
 trigger_condition: cron 每天北京时间 04:00 自动；手动 `python3 bin/daily_pipeline.py`
 metadata:
   hermes:
@@ -390,6 +390,7 @@ GitHub 上能看到的东西只有两类：**成品**和**能重建它的代码*
 | `recommend/YYYY/MM/YYYY-MM-DD.md` | ✅ 永远 | 成品日报，唯一不可再生的东西 |
 | `bin/` `skills/` `tests/` | ✅ 永远 | 代码与文档 |
 | `data/sites.json` | ✅ 永远 | 83 站配置 |
+| `data/music_archive.db` | ❌ 不进 | 跨天去重账本：32MB 二进制、每天变；可由 `python3 bin/build_archive_db.py` 从 `recommend/` 全量重建 |
 | `data/fluid_radio_archive.json` | ✅ 永远 | fluid_radio 的 RSS 被博彩 SEO 污染，800 条存档是唯一补货源（已抽 169 条） |
 | `2026/**/…_reviews.json` `rss_merged.json` `scraped_raw.json` `processed.json` | ❌ 不进 | 可再生中间态；报告已完整覆盖每一条（报告 `###` 条目数 == `processed.json` items 数，逐日核对一致） |
 | 根目录散落文件（`scraped_raw.json`、`screenshot.png`） | ❌ 不进 | debug 遗留，0 处代码引用 |
@@ -414,6 +415,10 @@ git check-ignore -v recommend/YYYY/MM/YYYY-MM-DD.md                          # �
 ⚠️ **排除目录前先把里面每个文件分类一遍。** raw 目录里可能混着「看起来像中间产物、其实是成品」的文件（那份历史日报就是）。按类型排除而不是按目录排除，也是为了这类文件不被连带。
 
 **新增文件前先问一句**：它是成品，还是能被下一次运行重新生成出来的东西？后者就别提交。
+
+⚠️ **`.gitignore` 里写 SQLite 文件名时必须连 WAL 附属文件一起写。** `journal_mode=WAL` 的库会在同目录留下 `-wal` / `-shm` 两个附属文件；只忽略库本体，它们就会每天以未跟踪文件出现在 `git status` 里污染工作区状态。规则写成 `/data/music_archive.db*`（或本体一行 + `/data/music_archive.db-*` 一行）。
+
+⚠️ **附属文件在磁盘上必须留着，别为了「清理」删掉。** 账本以 `file:...?mode=ro` 打开时依赖 `-shm` 能被创建/写入；目录只读或 `-shm` 缺失会导致打开失败（`sqlite3.Error`），管道随即退化为「不做历史过滤」——表现是重复条目重新大量出现，而不是报错。别把这当成「站点问题」去查。
 
 # 改代码后怎么验真
 
@@ -685,6 +690,8 @@ https://来源链接
 ⚠️ **报告里的 `### ` 标题不一定是「艺人 — 专辑」**：新闻稿式长标题、直接用曲名的、把主创写进标题的都有。挑选时以 `### ` 标题 + `**来源**` 链接共同确认真实条目，必要时从引言里回捞艺人名，不要把长标题当专辑名原样丢给用户。
 
 ⚠️ **别用文件读工具的前 N 行当全量。** 杰出档通常有 30+ 条，单次读几百行会被截断——先定位档位标题再按段读，或用脚本切出整个档位（配方见 `references/curating-album-picks.md`）。
+
+⚠️ **交付前逐条实测链接可达（HTTP 200），不可达的条目直接换掉。** 报告里的链接是抓取当日记下的，站方后来挂上 WAF/Cloudflare 挑战就会把昨天的 200 变成今天的 403。批量用 `curl -L -o /dev/null -w '%{http_code}'`（带 Chrome UA）测一遍，非 200 的条目**换成同档其它站的条目**。不要靠加请求头硬闯挑战页：实测 progarchives.com 的 Review 页对普通 UA 和全套浏览器头一律返回 403 挑战页，浏览器渲染也停在挑战页——交付这种链接等于给用户一个点不开的入口。
 
 # 仓库里的 skill 副本 ≠ 安装的 skill
 

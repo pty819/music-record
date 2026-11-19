@@ -98,6 +98,24 @@ for r in con.execute(q2, ('2026-11-16', 8)): print(r)
 
 cron 输出路径：`/root/.hermes/cron/output/a889d709f680/<YYYY-MM-DD>_<HH-MM-SS>.md` 的 `## Response` 段（永久保留，不受原始数据 3 天清理影响）。
 
+## 链接可达性实测（交付前必做）
+
+报告里的链接是**抓取当日**记下的 URL，站方事后挂上 WAF/Cloudflare 挑战就会让昨天的 200 变成今天的 403。挑选完必须逐条实测，**不可达的条目直接换成同档其它站的条目**，不要交付点不开的链接。
+
+```bash
+# 逐条测；Chrome UA 避免被裸 curl 拒
+for u in "$URL1" "$URL2"; do
+  code=$(curl -sS -L -o /dev/null -w '%{http_code}' --max-time 40 \
+    -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' "$u")
+  echo "$code $u"
+done
+```
+
+- 挑战页的识别：状态码 403/503，或 200 但响应体是 `Just a moment...` / `Performing security verification` / `Checking your browser`。
+- **不要靠加请求头硬闯。** 实测 progarchives.com 的 Review 页（`http://www.progarchives.com/Review.asp?id=…`）对普通 UA、全套浏览器头、换 https、换浏览器渲染一律停在 Cloudflare 挑战页——它是常驻反爬源，**选品时优先选其它站的同档条目**，别在这里耗时间。
+- 一次实测 92 条通常有 10-12 条非 200（403/超时/404），属常态；备选池里挑同档替代即可，不必因此降低评分口径。
+- 替换后要把「被换掉的那几条」记下来在内部留档，避免下次又挑中同一条死链。
+
 ## 交付格式要点
 
 - 每条：`**N. 艺人 — 专辑** ｜风格标签` + 2-4 句中文简评 + 裸链接。
