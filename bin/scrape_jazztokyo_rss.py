@@ -89,7 +89,21 @@ def html_to_text(s):
 
 
 def split_title(raw_title):
-    """Return (artist, album) — same rules as the Camoufox scraper."""
+    """Return (artist, album) for a JazzTokyo title.
+
+    JazzTokyo titles are column headers, so most of them have no artist at
+    all.  The rules below are ordered most-specific first; anything that does
+    not match cleanly keeps the whole title as the album with an empty artist
+    (a wrong split is worse than no split — the report prints
+    "### {album} — {artist}").
+
+    - Book:            "X 著『Y』"                       → artist=X, album=Y
+    - CD/DVD:          "『ARTIST／Album』"                → artist, album
+    - Quoted album:    "… ARTIST『Album』"                → artist=ARTIST, album=Album
+    - Bare quoted:     "#151『Album』"                    → album=Album
+    - Event:           "DATE NAME at PLACE"               → album=title
+    - Featured with:   "ARTIST with/feat/x …"             → artist, rest
+    """
     if not raw_title:
         return "", ""
     t = TITLE_NUM_RE.sub("", raw_title).strip()
@@ -102,12 +116,30 @@ def split_title(raw_title):
     m = re.search(r"『([^』]+?)／([^』]+?)』", t)
     if m:
         return m.group(1).strip(), m.group(2).strip()
+    # Quoted album with a leading artist token: "… Kris Davis Trio『Lost in Geneva』".
+    # The artist is the trailing Latin-script run before the opening 『 (the
+    # Japanese part before it is the column header, not the artist).
+    m = re.search(r"([^『]{2,80})『([^』]+)』", t)
+    if m:
+        prefix = m.group(1).rstrip()
+        art = re.search(r"([A-Za-z][A-Za-z0-9 .&'’\-]{2,60})$", prefix)
+        if art:
+            return art.group(1).strip(), m.group(2).strip()
+        return "", m.group(2).strip()
+    # Bare quoted title: "#151『Album』" → album only, no artist.
+    m = re.search(r"『([^』]+)』", t)
+    if m:
+        return "", m.group(1).strip()
+    # NOTE: single 「」 is deliberately NOT treated as an album marker — on
+    # JazzTokyo it wraps photo captions ("「Club IKSPIARI」"), not releases.
     # Event: "DATE NAME at PLACE"
     if re.match(r"^[\d/]+\s*[～~\-]", t) or " at " in t:
         return "", t
-    # "ARTIST with/feat/x/〜"
+    # Featured with: "ARTIST with/feat/x …".
+    # "〜" / "~" alone is NOT a separator here: JazzTokyo uses it for series
+    # ranges ("#571~#576") and column names ("どこかで〜中村八大というひと").
     m = re.match(
-        r"^(?P<artist>[^『』「」]+?)(?:\s+(?:with|feat|×|x)\s+|\s*[〜~]\s*)(?P<rest>.+)", t
+        r"^(?P<artist>[^『』「」]+?)\s+(?:with|feat|×|x)\s+(?P<rest>.+)", t
     )
     if m and len(m.group("artist")) < 60:
         return m.group("artist").strip(), m.group("rest").strip()
